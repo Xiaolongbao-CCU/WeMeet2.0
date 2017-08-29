@@ -16,8 +16,8 @@ class MainScreen extends React.Component {
   }
 
   render() {
-    <div className='main-screen'>
 
+    <div className='main-screen'>
     </div>
   }
 

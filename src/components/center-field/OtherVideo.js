@@ -17,33 +17,35 @@ class OtherVideo extends React.Component {
 
   render() {
     <div className='other-video'>
-      <div className='video user1'>
+      /* user1-user5 need to be statusful */
+      <div className='video' id='user1'>
         <div className='other-audio-off'></div>
-        <div className='user-infro king'>
+        <div className='user-infro' id='king'>
+          /* this img need to change to video tag */
           <img className='user-image' src='./img/user-image.png' />
-          <label className='user-name'>威君</label>
+          <label className='user-name'>名字</label>
         </div>
       </div>
-      <div className='video user2'>
-        <div className='user-infro member'>
+      <div className='video' id='user2'>
+        <div className='user-infro' id='member'>
           <img className='user-image' src='./img/user-image.png' />
           <label className='user-name'>詩婷</label>
         </div>
       </div>
-      <div className='video user3'>
-        <div className='user-infro member'>
+      <div className='video' id='user3'>
+        <div className='user-infro' id='member'>
           <img className='user-image' src='./img/user-image.png' />
           <label className='user-name'>成財</label>
         </div>
       </div>
-      <div className='video user4'>
-        <div className='user-infro member'>
+      <div className='video' id='user4'>
+        <div className='user-infro' id='member'>
           <img className='user-image' src='./img/user-image.png' />
           <label className='user-name'>又嘉</label>
         </div>
       </div>
-      <div className='video user5'>
-        <div className='user-infro member'>
+      <div className='video' id='user5'>
+        <div className='user-infro' id='member'>
           <img className='user-image' src='./img/user-image.png' />
           <label className='user-name'>宣妮</label>
         </div>

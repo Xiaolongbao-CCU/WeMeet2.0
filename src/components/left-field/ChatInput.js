@@ -17,7 +17,9 @@ class ChatInput extends React.Component {
     <div className='left-input'>
       <div className='input-filed'>
         <input className='input-text' type='text' />
-        <div className='upload'></div>
+        <button className='upload'>
+        /* 先暫時拿來當提交建，目前還沒完成 */
+        </button>
       </div>
       <div className='mailbox'></div>
     </div>
