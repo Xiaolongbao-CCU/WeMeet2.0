@@ -1,26 +1,19 @@
-"use strict"
+"use strict";
 
-import React from 'react'
+import React from "react";
 
 class MainScreen extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  componentWillMount() {
+    componentWillMount() {}
 
-  }
+    componentDidMount() {}
 
-  componentDidMount() {
-
-  }
-
-  render() {
-
-    <div className='main-screen'>
-    </div>
-  }
-
+    render() {
+        return <div className="main-screen" />;
+    }
 }
 
-export default connect(mapStateToProps)(MainScreen)
+export default MainScreen;

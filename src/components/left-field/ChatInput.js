@@ -1,30 +1,29 @@
-"use strict"
+"use strict";
 
-import React from 'react'
+import React from "react";
 
 class ChatInput extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  componentWillMount() {
-  }
+    componentWillMount() {}
 
-  componentDidMount() {
-  }
+    componentDidMount() {}
 
-  render() {
-    <div className='left-input'>
-      <div className='input-filed'>
-        <input className='input-text' type='text' />
-        <button className='upload'>
-        /* 先暫時拿來當提交建，目前還沒完成 */
-        </button>
-      </div>
-      <div className='mailbox'></div>
-    </div>
-  }
-
+    render() {
+        return(
+            <div className="left-input">
+                <div className="input-filed">
+                    <input className="input-text" type="text" />
+                    <button className="upload">
+                        /* 先暫時拿來當提交建，目前還沒完成 */
+                    </button>
+                </div>
+                <div className="mailbox" />
+            </div>
+        );
+    }
 }
 
-export default connect(mapStateToProps)(ChatInput)
+export default ChatInput;

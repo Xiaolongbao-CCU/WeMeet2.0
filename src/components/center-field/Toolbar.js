@@ -1,71 +1,55 @@
-"use strict"
+"use strict";
 
-import React from 'react'
+import React from "react";
 
 class Toolbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  componentWillMount() {
+    componentWillMount() {}
 
-  }
+    componentDidMount() {}
 
-  componentDidMount() {
+    //OnClick Events
+    onClick_ToggleBrainstorming() {}
 
-  }
+    onClick_ToggleInvitePage() {}
 
-  //OnClick Events
-  onClick_ToggleBrainstorming() {
-  }
+    onClick_ToggleVotePage() {}
 
-  onClick_ToggleInvitePage() {
-  }
+    render() {
+        return (
+            <div className="toolbar">
 
-  onClick_ToggleVotePage() {
-  }
+                /* MoreInfro */
+                <button className="toolbar-button" id="moreinfro" onClick="" />
 
-  render() {
-    <div className='toolbar'>
+                /* Brainstorming */
+                <button
+                    className="toolbar-button"
 
-      /* MoreInfro */
-      <button
-        className='toolbar-button'
-        id='moreinfro'
-        onClick=''
-      />
+                />
 
-      /* Brainstorming */
-      <button
-        className='toolbar-button'
-        id={this.state.isBrainstormingOpen ? 'brainstorming-off' : 'brainstorming-on'}
-        onClick={this.onClick_ToggleBrainstorming.bind(this)}
-      />
+                /* AddUser */
+                <button
+                    className="toolbar-button"
+                    id="adduser"
 
-      /* AddUser */
-      <button
-        className='toolbar-button'
-        id='adduser'
-        onClick={this.onClick_ToggleInvitePage.bind(this)}
-      />
+                />
 
-      /* Recognition */
-      <button
-        className='toolbar-button'
-        id='recognition'
-        onClick={this.Recognizer.toggleButtonOnclick}
-      />
+                /* Recognition */
+                <button className="toolbar-button" id="recognition" />
 
-      /* vote */
-      <button
-        className='toolbar-button'
-        id='vote'
-        onClick={this.onClick_ToggleVotePage.bind(this)}
-      />
+                /* vote */
+                <button
+                    className="toolbar-button"
+                    id="vote"
+                />
 
-      </div>
-  }
-
+            </div>
+        );
+    }
 }
 
-export default connect(mapStateToProps)(Toolbar)
+export default Toolbar;
