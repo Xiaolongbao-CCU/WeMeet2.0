@@ -24,7 +24,7 @@ import Background from './special-field/Background'
 import Black from './special-field/Black'
 
 
-class Meeting extends React.Component {
+class Meeting_new extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -66,4 +66,4 @@ class Meeting extends React.Component {
 
 }
 
-export default connect(mapStateToProps)(VoiceStatus)
+export default connect(mapStateToProps)(Meeting_new)
