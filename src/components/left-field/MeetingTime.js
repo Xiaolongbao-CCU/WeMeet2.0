@@ -7,13 +7,13 @@ class MeetingTime extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
+        /* Andy: put meeting time record here */
         return (
-            /* Andy: put meeting time record here */
             (
                 <div className="left-meetingtime">
                     會議進行時間： 3分59秒

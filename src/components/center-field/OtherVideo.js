@@ -7,18 +7,20 @@ class OtherVideo extends React.Component {
     super(props);
   }
 
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
+  /* user1-user5 need to be statusful */
+  /* img tag need to change to video tag */
   render() {
     return (
       <div className="other-video">
-        /* user1-user5 need to be statusful */
+
         <div className="video" id="user1">
           <div className="other-audio-off" />
           <div className="user-infro" id="king">
-            /* this img need to change to video tag */
+
             <img className="user-image" src="./img/user-image.png" />
             <label className="user-name">名字</label>
           </div>

@@ -7,16 +7,16 @@ class AVcontrol extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     //Button Events
-    toggleAudioControl() {}
+    toggleAudioControl() { }
 
-    toggleVideoControl() {}
+    toggleVideoControl() { }
 
-    toggleExit() {}
+    toggleExit() { }
 
     render() {
         return (
@@ -24,6 +24,7 @@ class AVcontrol extends React.Component {
 
                 <button
                     className="av-button"
+                    id='audio-on'
                     onClick={this.toggleAudioControl}
                 />
 
@@ -35,6 +36,7 @@ class AVcontrol extends React.Component {
 
                 <button
                     className="av-button"
+                    id='video-on'
                     onClick={this.toggleVideoControl}
                 />
 

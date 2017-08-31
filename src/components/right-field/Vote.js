@@ -8,36 +8,36 @@ class Vote extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
-        return(
-             <div class="vote-block">
-            <div class="votedetail">
-                <div class="add">佳怡 建立了投票</div>
-                <div class="issue">問題：世大運世大運世大運辦得成功嗎？</div>
-                <div class="choice">
-                    <div class="cotent">
-                        <span class="status">最多輸入八字元喔</span>
-                        <span class="bar"> </span>
-                        <span class="people">10</span>
+        return (
+            <div className="vote-block">
+                <div className="votedetail">
+                    <div className="add">佳怡 建立了投票</div>
+                    <div className="issue">問題：世大運世大運世大運辦得成功嗎？</div>
+                    <div className="choice">
+                        <div className="cotent">
+                            <span className="status">最多輸入八字元喔</span>
+                            <span className="bar"> </span>
+                            <span className="people">10</span>
+                        </div>
+                        <div className="cotent">
+                            <span className="status seclted">最多輸入八字元喔</span>
+                            <span className="bar"> </span>
+                            <span className="people">10</span>
+                        </div>
                     </div>
-                    <div class="cotent">
-                        <span class="status seclted">最多輸入八字元喔</span>
-                        <span class="bar"> </span>
-                        <span class="people">10</span>
-                    </div>
+                    <div className="go">投票！</div>
                 </div>
-                <div class="go">投票！</div>
+                <div className="votebox one" />
+                <div className="votebox two" />
+                <div className="votebox three" />
             </div>
-            <div class="votebox one" />
-            <div class="votebox two" />
-            <div class="votebox three" />
-        </div>
-            )
-       
+        )
+
     }
 }
 

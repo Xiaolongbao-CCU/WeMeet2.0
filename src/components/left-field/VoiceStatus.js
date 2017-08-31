@@ -8,13 +8,12 @@ class VoiceStatus extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
-        return(
-                /* 目前打算只會變動圖片和文字 */
+        return (
             <div className="left-voice">
                 <div className="voice-content">
                     <img className="voice-img" src="img/recognizing.png" />
@@ -22,7 +21,7 @@ class VoiceStatus extends React.Component {
                 </div>
             </div>
         )
-        
+
     }
 }
 

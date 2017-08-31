@@ -164,9 +164,12 @@ body{
   width: 8%;
   height: 100%;
   //background-set
+  background-color: transparent;
   background-image: url('../img/upload.png'); //for test
   background-repeat: no-repeat; //for test
   background-size: 100%; //for test
+  outline: none;
+  border-style: none;
 }
 
 .myself-message{
@@ -494,7 +497,7 @@ body{
 .eagle {
   position: absolute;
   z-index: -48;
-  top:1.5%;
+  top:1%;
   left:30%;
   width:45%;
   //animation: eagle 5s infinite;
@@ -509,7 +512,7 @@ body{
 
 .flag{
   width:60%;
-  height:30%;
+  height:28%;
   position: absolute;
   z-index: -49;
   left:20%;
@@ -793,23 +796,23 @@ body{
 }
 
 
-.user1{
+.video#user1{
   background-image: url('../img/user1.jpg');
 }
 
-.user2{
+.video#user2{
   background-image: url('../img/user2.jpg');
 }
 
-.user3{
+.video#user3{
   background-image: url('../img/user3.jpg');
 }
 
-.user4{
+.video#user4{
   background-image: url('../img/user4.jpg');
 }
 
-.user5{
+.video#user5{
   background-image: url('../img/user5.jpg');
 }
 
@@ -826,11 +829,12 @@ body{
   width: 20%; 
 }
 
-.member{
+
+#member{ 
   background: linear-gradient(to right, rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,0));
 }
 
-.king{
+#king{
   background: linear-gradient(to right, rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,0));
 }
 
@@ -851,21 +855,34 @@ body{
   background-color: transparent;
 }
 
-
-
-
-
-
-@media only screen and (min-height: 615px) {
-  bodu{
-    width: 100%;
-    height: 100%;
+ 
+@media screen and (max-height: 614px) {
+  html, body,{
+    height: 615px;
+  }
+  .container{
+    height: 615px;
+  }
+  .left-field, .center-field, .right-field, .background {
+    height: 615px;
   }
 }
 
-@media only screen and (max-height: 614px) {
-  body{
+@media screen and (max-width: 1356px) {
+  html, body,{
+    width: 1356px;
+    overflow-x: scroll;
+  }
+
+  .container, .background{
     width: 100%;
-    height: 614px;
+  }
+
+  .left-field,.right-field, {
+    width: 300px;
+  }
+  .center-field{
+    width: 1056px;
   }
 }
+

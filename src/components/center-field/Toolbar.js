@@ -7,41 +7,41 @@ class Toolbar extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     //OnClick Events
-    onClick_ToggleBrainstorming() {}
+    onClick_ToggleBrainstorming() { }
 
-    onClick_ToggleInvitePage() {}
+    onClick_ToggleInvitePage() { }
 
-    onClick_ToggleVotePage() {}
+    onClick_ToggleVotePage() { }
 
     render() {
         return (
             <div className="toolbar">
 
-                /* MoreInfro */
-                <button className="toolbar-button" id="moreinfro" onClick="" />
 
-                /* Brainstorming */
                 <button
                     className="toolbar-button"
-
+                    id="moreinfro"
+                    onClick=""
                 />
 
-                /* AddUser */
+                <button
+                    className="toolbar-button"
+                    id='brainstorming'
+                />
+
                 <button
                     className="toolbar-button"
                     id="adduser"
 
                 />
 
-                /* Recognition */
                 <button className="toolbar-button" id="recognition" />
 
-                /* vote */
                 <button
                     className="toolbar-button"
                     id="vote"

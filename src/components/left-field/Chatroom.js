@@ -7,23 +7,25 @@ class Chatroom extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
+
 
     render() {
+        /* if message is from myself, className wiil be 'myself-message' */
+        /* if message is from others, className wiil be 'others-message' */
         return (
             <div className="left-chatbox">
 
-                /* if message is from myself, className wiil be 'myself-message' */
+
                 <div className="myself-message">
                     <img className="image" src="./img/test0.jpg" />
                     <div className="name">名字</div>
                     <div className="dialogbox">對話內容</div>
-                    <div className="time">對話時間</div>
+                    <div className="time">12:00</div>
                 </div>
 
-                /* if message is from others, className wiil be 'others-message' */
                 <div className="others-message">
                     <img className="image" src="./img/test1.jpg" />
                     <div className="name">又嘉</div>
