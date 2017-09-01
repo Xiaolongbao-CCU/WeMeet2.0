@@ -29,38 +29,38 @@ class Meeting_new extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
-        return(
+        return (
             <div className="container" id="in">
 
-            <div className="left-field">
-                <VoiceStatus />
-                <MeetingTime />
-                <Chatroom />
-                <ChatInput />
+                <div className="left-field">
+                    <VoiceStatus />
+                    <MeetingTime />
+                    <Chatroom />
+                    <ChatInput />
+                </div>
+
+                <div className="center-field">
+                    <Toolbar />
+                    <MainScreen />
+                    <OtherVideo />
+                    <AVcontrol />
+                </div>
+
+                <div className="right-field">
+                    <Agenda />
+                    <Vote />
+                </div>
+
+                <Background />
+
             </div>
-
-            <div className="center-field">
-                <Toolbar />
-                <MainScreen />
-                <OtherVideo />
-                <AVcontrol />
-            </div>
-
-            <div className="right-field">
-                <Agenda />
-                <Vote />
-            </div>
-
-            <Background />
-
-        </div>
         )
-        
+
     }
 }
 

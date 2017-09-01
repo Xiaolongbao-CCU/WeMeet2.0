@@ -1,11 +1,17 @@
 "use strict";
 
 import React from "react";
+import Votebox from "./Votebox";
 
 class Toolbar extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isVoteToggle: true
+        };
+        this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
     }
+
 
     componentWillMount() { }
 
@@ -16,7 +22,11 @@ class Toolbar extends React.Component {
 
     onClick_ToggleInvitePage() { }
 
-    onClick_ToggleVotePage() { }
+    onClick_ToggleVotePage() {
+        this.setState({
+            isVoteToggle: !this.state.isVoteToggle
+        });
+    }
 
     render() {
         return (
@@ -45,7 +55,14 @@ class Toolbar extends React.Component {
                 <button
                     className="toolbar-button"
                     id="vote"
+                    onClick={this.onClick_ToggleVotePage}
                 />
+
+                {
+                    this.state.isVoteToggle
+                        ? <Votebox />
+                        : null
+                }
 
             </div>
         );

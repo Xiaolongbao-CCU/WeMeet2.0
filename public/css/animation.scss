@@ -144,3 +144,55 @@ body {
     margin-left: 80%;
   }
 }
+
+@-webkit-keyframes fadeIn {
+0% {
+opacity: 0; 
+}
+
+100% {
+opacity: 1;
+}
+
+}
+
+@-webkit-keyframes fadeOut {
+0% {
+opacity: 1; 
+}
+
+100% {
+opacity: 0;
+}
+
+}
+
+@-webkit-keyframes ChangeCross {
+0% {
+    transform: rotate(0deg);
+}
+
+100% {
+    transform: rotate(90deg);
+}
+
+}
+
+
+#Fadein{      
+    animation: fadeIn;
+    animation-duration: 0.7s;
+    -webkit-animation:fadeIn 0.7s;
+}
+
+#Fadeout{      
+    animation: fadeOut;
+    animation-duration: 0.7s;
+    -webkit-animation:fadeOut 0.7s;
+}
+
+#delete{
+    animation: ChangeCross;
+    animation-duration: 0.5s;
+    -webkit-animation:ChangeCross 0.5s;
+}
