@@ -1,13 +1,13 @@
 "use strict";
 
 import React from "react";
-import Votebox from "./Votebox";
+import VoteDetail from "./VoteDetail";
 
 class Toolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isVoteToggle: true
+            isVoteToggle: false
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
     }
@@ -60,7 +60,7 @@ class Toolbar extends React.Component {
 
                 {
                     this.state.isVoteToggle
-                        ? <Votebox />
+                        ? <VoteDetail />
                         : null
                 }
 

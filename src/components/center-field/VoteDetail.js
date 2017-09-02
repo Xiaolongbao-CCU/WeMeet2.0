@@ -2,7 +2,7 @@
 
 import React from "react";
 
-class Votebox extends React.Component {
+class VoteDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,7 +92,7 @@ class Votebox extends React.Component {
         <div className='voteconent'>
           <div className='question'>
             <div className={this.state.isQuestionAdd ? 'delete' : 'add'} onClick={this.onClick_AddVoteQuestion}></div>
-            <input className='text' type='text' value='這是測試文字'></input>
+            <input className='text' type='text' value=''></input>
           </div>
 
         </div>
@@ -105,7 +105,7 @@ class Votebox extends React.Component {
             name='check-3'
             onClick={this.onClick_ToggleMultivote}
           />
-          <div className='multivote-number' id={this.state.isMultivoteOpen ? 'open' : 'closed'}>
+          <div className='multivote-number' id={this.state.isMultivoteOpen ? 'visible' : 'hidden'}>
             <button className='subtraction' onClick={this.onClick_Subtractuon}>-</button>
             <input className='number' type='text' value={this.state.MultivoteNumber}></input>
             <button className='addition' onClick={this.onClick_Addition}>+</button>
@@ -122,4 +122,4 @@ class Votebox extends React.Component {
   }
 }
 
-export default Votebox;
+export default VoteDetail;

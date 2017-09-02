@@ -1,0 +1,375 @@
+/*****************************
+2. Center-field Set
+*****************************/
+
+.toolbar{
+  //basic-set
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //size-set
+  width: 100%;
+  height: $toolbar-height;
+  //margin-set
+  margin-bottom: 0.5%; 
+}
+
+.main-screen{
+  //basic-set
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //size-set
+  width: 100%;
+  height: $mainscreen-height;
+  //special-set
+  border-radius: 5px;
+  background-image: url('../img/666.jpg'); //for test
+  background-repeat: no-repeat; //for test
+  background-size: 100%; //for test
+}
+
+.av-control{
+  //basic-set
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //size-set
+  width: 100%;
+  height: 13%;
+  //position-set
+  position: absolute;
+  bottom: 2%;
+}
+
+.voting{
+  line-height: 150%;
+  position: absolute;
+  z-index: 500;
+  top:$toolbar-height+1%;
+  left: 35%;
+  width:40%;
+  height: 33%;
+  background-color: $vote-color;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #d7d2ab;
+  &:after{
+    position: absolute;
+    left: 79%;
+    top: -8.5%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: $vote-color;
+    border-width: 10px;
+  }
+}
+
+.votetypeselect{
+  //basic-set
+  font-family: Microsoft JhengHei;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.votetypeselect .registered{
+  box-sizing: border-box;
+  width:36%;
+  height:60%;
+  text-align: right;
+  font-size: 1.2em;
+  padding: 1%;
+  padding-right: 5%;
+  background: transparent url('../img/people.png') no-repeat 12% center;
+  background-size: 18%;
+  border-radius: 5px 0px 0px 5px;
+  outline: none;
+  border-style: none;
+}
+.votetypeselect .anonymous{
+  box-sizing: border-box;
+  width:36%;
+  height:60%;
+  font-size: 1.2em;
+  text-align: right;
+  padding: 1%;
+  padding-right: 5%;
+  border-radius: 0px 5px 5px 0px;
+  background: transparent url('../img/cross.png') no-repeat 12% center;
+  background-size: 15%;
+  outline: none;
+  border-style: none;
+}
+
+.votetypeselect #notselected{
+  color: black;
+  background-color: #e4e4e4;
+  box-shadow: 1px 1px 0px #a3a3a3;
+  &:hover{
+    background-color: #cacaca;
+    color: black;
+    cursor: pointer;
+  }
+}
+
+.votetypeselect #selected{
+  color: white;
+  background-color: #dd4359;
+  box-shadow: 1px 1px 0px #c33c4f;
+}
+
+.votequestion{
+   //basic-set
+  position: absolute;
+  top:20%; 
+  width:100%;
+  height:15%;
+}
+
+.votequestion.input{
+  position: absolute;
+  left:8%;
+  font-size: 1.2em;
+  width: 80%;
+  height: 90%;
+  outline:none;
+  border-style: none;
+  background-color: #d7d2ab;
+  border-bottom-color: black;
+}
+
+.voteconent{
+  position: absolute;
+  top:35%; 
+  width:100%;
+  height:48%;
+  overflow-y: scroll;
+}
+
+.votebottom{
+  position: absolute;
+  top:83%; 
+  width:100%;
+  height:17%;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.multi-vote{
+  position: absolute;
+  left:4.5%;
+  line-height: 170%;
+  font-size: 1.1em;
+}
+
+.votesubmit{
+  font-family: Microsoft JhengHei;
+  box-sizing: border-box;
+  padding: 0.5%;
+  font-size: 1.2em;
+  text-align: center;
+  position: absolute;
+  right: 8%;
+  width: 28%;
+  height: 85%;
+  margin-bottom: 1%;
+  border-radius: 20em;
+  outline: none;
+  border-style: none;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.votesubmit#close{
+  background-color: #e4e4e4;
+  box-shadow: 1px 1px 0px #a3a3a3;
+}
+
+.votesubmit#open{
+  background-color: $button-color;
+  box-shadow: 1px 1px 0px $shadow-color;
+}
+
+.multivote-number{
+  position: absolute;
+  left:32%;
+  width:20%;
+  height:100%;
+
+}
+.multivote-number .subtraction{
+  box-sizing: border-box;
+  padding: 0;
+  position: absolute;
+  left:1%;
+  top:15%;
+  color: white;
+  width:15px;
+  height: 15px;
+  background-color: $button-color;
+  border-radius: 99em;
+  outline:none;
+  border-style: none;
+  &:hover{
+  background-color: lighten($button-color,7%);
+  cursor: pointer;
+  }
+}
+
+.multivote-number .addition{
+  box-sizing: border-box;
+  padding: 0;
+  color: white;
+  position: absolute;
+  right:1%;
+  top:15%;
+  width:15px;
+  height: 15px;
+  background-color: $button-color;
+  border-radius: 99em;
+  outline:none;
+  border-style: none;
+  &:hover{
+  background-color: lighten($button-color,7%);
+  cursor: pointer;
+  }
+}
+
+.multivote-number .number{
+  position: absolute;
+  text-align: center;
+  top:7%;
+  left:30%;
+  width:35%;
+  height:50%;
+  background-color: transparent;
+  outline: none;
+  border-style: none;
+}
+
+.voteconent .question{
+  box-sizing: border-box;
+  margin:1%;
+  width:97%;
+  height:30%;
+}
+
+.voteconent .text{
+  color:black;
+  font-size: 1em;
+  position: absolute;
+  left:18%;
+  width: 70%;
+  height: 28%;
+  background-color: #e4e4e4;
+}
+
+.question .add {
+  position: absolute;
+  top:10%;
+  left:8%;
+  width: 20px;
+  height: 20px;
+
+  &:hover{
+  cursor: pointer;
+  opacity: 0.8;
+  }
+
+  &:before,&:after{
+  position: absolute;
+  top:1.5%;
+  left: 48%;
+  content: ' ';
+  height: 13px;
+  width: 1.5px;
+  background-color: $button-color;
+  }
+
+  &:before{
+    transform: rotate(90deg);
+  }
+  &:after{
+  transform: rotate(-180deg);
+  }
+}
+
+.question .delete {
+  position: absolute;
+  top:10%;
+  left:8%;
+  width: 20px;
+  height: 20px;
+
+  &:hover{
+  cursor: pointer;
+  opacity: 0.8;
+  }
+
+  &:before,&:after{
+  position: absolute;
+  top:1.5%;
+  left: 48%;
+  content: ' ';
+  height: 13px;
+  width: 1.5px;
+  background-color: $button-color;
+  }
+
+  &:before{
+    transform: rotate(45deg);
+  }
+  &:after{
+  transform: rotate(-45deg);
+  }
+}
+
+
+/*Toggle Specific styles*/
+input[type='checkbox']{
+ &.toggle{
+    outline: none;
+    display:inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    width:35px;
+    height:20px;
+    background-color:#e4e4e4;
+    position: absolute;
+    left:15%;
+    border-radius:30px;
+    box-shadow:none;
+    transition:all .2s ease-in-out;
+    &:hover:after{
+     background-color: darken($whiteLight, 20%);
+    }
+    &:after{      
+      content:'';
+      display:inline-block;
+      position:absolute;
+      width:16px;
+      height:16px;
+      background-color:darken($whiteLight, 30%);
+      top:2px;
+      left:2px;
+      border-radius:50%;
+      transition:all .2s ease-in-out;
+    }
+  }
+  &:checked.toggle{
+    box-shadow:inset 0 0 0 15px $base;
+    &:after{
+      left:16px;
+      background-color:#fff;
+    }
+  }
+}

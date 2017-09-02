@@ -1,0 +1,350 @@
+/*****************************
+3. Right-field Set
+*****************************/
+.agenda-block{
+  //size-set
+  width: 100%;
+  height: 50%;
+}
+
+.eagle {
+  position: absolute;
+  z-index: -48;
+  top:1%;
+  left:30%;
+  width:45%;
+  //animation: eagle 5s infinite;
+}
+
+.branch{
+  position: absolute;
+  z-index: -50;
+  right:0%;
+  width:90%;
+}
+
+.flag{
+  width:60%;
+  height:28%;
+  position: absolute;
+  z-index: -49;
+  left:20%;
+  top:14%;
+  background-color: $agenda-color;
+  box-shadow: 2px 2px 0px $agenda-shadow;
+  //animation: eagle 5s infinite;
+}
+
+.flag .bar{
+  margin-left:-1.5%;
+  width:102.5%;
+  height:7%;
+  background-color: #e27100;
+  box-shadow: 2px 2px 0px #c66300;
+  border-radius: 3px;
+}
+
+.flag .left{
+  position: relative;
+  top:93%;
+  left: 0%;
+  width:50%;
+  height: 20%;
+  background: linear-gradient(to right bottom, $agenda-color 50%, transparent 50%);
+}
+
+.flag .right{
+  position: relative;
+  top:73%;
+  left: 50%;
+  width:50%;
+  height: 20%;
+  background: linear-gradient(to left bottom, $agenda-color 50%, transparent 50%);
+  box-shadow: 2px 0px 0px $agenda-shadow;
+}
+
+.agenda-title{
+  width:100%;
+  text-align: center;
+  font-size: 18px;
+  position: absolute;
+  top: 9%;
+  letter-spacing: 5px;
+  margin-bottom: 2%;
+}
+
+.agenda-content{
+  position: absolute;
+  top: 21%;
+  width:100%;
+  height: 63%;
+  overflow-y: scroll;
+}
+
+.agenda-content li{
+  font-size:15px;
+  margin-bottom: 3%;
+  width: 90%;
+  &:hover{
+    background-color: $agenda-shadow;
+  }
+}
+
+.agenda-add{
+  position: absolute;
+  top: 88%;
+  width: 100%;
+  height: 12%;
+}
+
+.vote-block{
+  position: absolute;
+  bottom:6%;
+  width: 100%;
+  height: 45%;
+}
+
+.votebox{
+  position: absolute;
+  bottom: 0%;
+  z-index: 10;
+  width: 25%;
+  height: 28%;
+  background-repeat: no-repeat; //for test
+  background-size: 100%; //for test  
+  &:hover{
+    bottom:1%;
+  }
+}
+
+.votebox#one{
+  left:8%;
+  background-image: url('../img/votebox.png'); //for test
+}
+
+.votebox#two{
+  left:38%;
+  background-image: url('../img/votebox1.png'); //for test
+}
+
+.votebox#three{
+  left:68%;
+  background-image: url('../img/votebox2.png'); //for test
+}
+
+.votedetail{
+  box-sizing: border-box;
+  padding: 2%;
+  position: absolute;
+  top:1%;
+  left: 8%;
+  width:85%;
+  height:65%;
+  border-radius: 10px;
+  &:after{
+    position: absolute;
+    left: 10%;
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: #ffffcc;
+    border-width: 10px;
+  }
+}
+
+.votedetail#one{
+  background-color: #ffffcc;
+  box-shadow: 2px 2px 0px #e3d86b;
+}
+
+.votedetail#two{
+  background-color: #a5dbe8;
+  box-shadow: 2px 2px 0px #2c9fba;
+  &:after{
+    left: 45%;
+    top: 100%;
+    border-top-color: #a5dbe8;
+  }
+}
+
+.votedetail#three{
+  background-color: #fbc6c6;
+  box-shadow: 2px 2px 0px #ae5959;
+  &:after{
+    left: 80%;
+    top: 100%;
+    border-top-color: #fbc6c6;
+  }
+}
+
+.add{
+  text-align: right;
+  margin-right: 3%;
+  margin-bottom: 5%;
+  color: #3c3c3c;
+  font-style: italic;
+}
+
+.issue{
+  width:100%;
+  height: 24%;
+  font-weight:bold;
+  font-size: 1.4em;
+  text-align: left;
+}
+
+.choice{
+  width:100%;
+  height: 45%;
+  overflow-y: scroll;
+  font-size: 1.1em;
+}
+
+.choice .status{
+  display: inline-block;
+  padding: 1%;
+  width: 62%;
+  height: 100%;
+  text-indent: 10%;
+  background: transparent url('../img/blub.png') no-repeat 5% 50%;
+  background-size:7%;
+
+  &:hover{
+  background: transparent url('../img/blub-selected.png') no-repeat 5% 50%;
+  background-size:7%;
+  cursor: pointer;
+  color:#797979;
+  }
+}
+
+.status#selected{
+  background: transparent url('../img/blub-selected.png') no-repeat 5% 50%;
+  background-size:7%;
+}
+
+.maxVoteNumber{
+  position: absolute;
+  bottom:8%;
+  left:4%;
+}
+
+.choice .cotent{
+  padding: 1.5%;
+  width:100%;
+}
+
+.choice .people{
+  font-size: 0.9em;
+}
+
+.votego{
+  box-sizing: border-box;
+  padding: 1%;
+  margin-top:1%;
+  position: absolute;
+  right:5%;
+  font-size: 1.2em;
+  text-align: center;
+  width: 25%;
+  height: 13%;
+
+  border-radius: 50px;
+
+  &:hover{
+    cursor: pointer;
+    background-color: #fdf371;
+  }
+}
+
+.votego#open{
+  background-color: #f9ed55;
+  box-shadow:1px 2px 0px  #e3d86b;
+}
+
+.votego#closed{
+  background-color: #e4e4e4;
+  box-shadow: 1px 2px 0px #a3a3a3;
+}
+
+.choice .bar{
+  display: inline-block;
+  box-sizing: border-box;
+  width:25%;
+  height:100%;
+  background: -moz-linear-gradient(left, rgb(249,237,85) 0%, rgb(249,237,85) 50%, rgb(209,209,209) 51%, rgb(209,209,209) 100%);
+  background: -webkit-linear-gradient(left, rgb(249,237,85) 0%,rgb(249,237,85) 50%,rgb(209,209,209) 51%,rgb(209,209,209) 100%);
+  background: linear-gradient(to right, rgb(249,237,85) 0%,rgb(249,237,85) 50%,rgb(209,209,209) 51%,rgb(209,209,209) 100%);
+}
+
+.black{
+  position: absolute;
+  left:0%;
+  top:0%;
+  z-index: 999;
+  width:100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.black .text{
+  font-size: 5em;
+  color: white;
+}
+
+.text.one{
+  position: absolute;
+  top:30%;
+  left:40%;
+}
+
+.text.two{
+  position: absolute;
+  top:45%;
+  left:38%;
+}
+
+.animal{
+  position: absolute;
+  top: 10%;
+  left:30%;
+  width: 40%;
+}
+
+.wintext{
+  text-align: center;
+  font-size: 4em;
+  color: white;
+  position: absolute;
+  top:30%;
+  left:43%;
+  width:18%;
+  height:25%;
+  line-height: 110%;
+}
+
+.vote-block .visible{
+  visibility: visible;
+}
+
+.vote-block .hidden{
+  visibility: hidden;
+}
+
+.voteEnd{
+  position: relative;
+  top: 6%;
+  left:35%;
+  width: 30%;
+}
+
+.voteEndtext{
+  position: absolute;
+  bottom: -30%;
+  left:5%;
+  width:103%;
+  color: white;
+}
