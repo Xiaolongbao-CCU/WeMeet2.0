@@ -9,10 +9,14 @@ class MainScreen extends React.Component {
 
     componentWillMount() {}
 
-    componentDidMount() {}
+    componentDidMount() {
+    	this.timer = setInterval(this.getSystemTime, 1000);
+    }
 
     render() {
-        return <div className="main-screen" />;
+        return (
+        	<div className="main-screen" />
+        );
     }
 }
 
