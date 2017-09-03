@@ -1,5 +1,5 @@
 /*****************************
-2. Center-field Set
+      Center-field Set
 *****************************/
 
 .toolbar{
@@ -8,26 +8,16 @@
   justify-content: center;
   align-items: center;
   //size-set
-  width: 100%;
-  height: $toolbar-height;
-  //margin-set
-  margin-bottom: 0.5%; 
+  width: 100%; 
+  height: 10%;
 }
 
 .main-screen{
-  //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
   //size-set
   width: 100%;
-  height: $mainscreen-height;
-  //special-set
-  border-radius: 5px;
-  background-image: url('../img/666.jpg'); //for test
-  background-repeat: no-repeat; //for test
-  background-size: 100%; //for test
+  height: 78%;
 }
+
 
 .av-control{
   //basic-set
@@ -35,9 +25,90 @@
   justify-content: center;
   align-items: center;
   //size-set
+  width: 99%;
+  height: 12%;
+}
+
+/*****************************
+          Video Detail
+*****************************/
+.main-video{
+  //basic-set
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //size-set
+  width: 99%;
+  height: 74%;
+  //special-set
+  border-radius: 5px;
+  background-image: url('../img/666.jpg'); //for test
+  background-repeat: no-repeat; //for test
+  background-size: 100%; //for test
+}
+
+.other-video{
+  //basic-set
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  z-index: 1000;
   width: 100%;
-  height: 13%;
-  //position-set
-  position: absolute;
-  bottom: 2%;
+  height:26%;
+  overflow: hidden;
+  &:hover{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  }
+
+}
+
+.otheruser{
+  float: left;
+  width: 160px; 
+  height:100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  &:hover{
+    margin-top:-0.3%;
+    cursor: pointer;
+  }
+  &:active{
+    margin-top:0%;
+  }
+}
+
+.video{
+  position: inherit;
+  width:160px;
+}
+
+.user-infro{
+  position: inherit;
+  margin-top:-1%;
+  top: 76%;
+  width: 55%;
+  height: 17%;
+}
+
+.user-image{
+  margin: 3;
+  float: left;
+  padding: 3%;
+  height: 75%; 
+}
+
+.user-name{
+  float: left;
+  line-height: 180%;
+  text-align: left;
+}
+
+
+#member{ 
+  background: linear-gradient(to right, rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,0));
+}
+
+#king{
+  background: linear-gradient(to right, rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,0));
 }

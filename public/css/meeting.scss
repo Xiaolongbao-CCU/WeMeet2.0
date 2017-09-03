@@ -7,7 +7,6 @@
 @import 'center-field';
 @import 'right-field';
 @import 'vote-block';
-@import 'video-detail';
 @import '_variable';
 
 .container{
@@ -47,8 +46,13 @@
 *****************************/
 
 ::-webkit-scrollbar {
-  background-color: transparent;
+  width: 9px;
+  height: 9px;
 } 
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
 ::-webkit-scrollbar-button:vertical:decrement {
   opacity: 100%;
@@ -59,7 +63,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 5px;
 }
 
 
@@ -74,28 +79,27 @@
   .container{
     height: 615px;
   }
+  
   .left-field, .center-field, .right-field, .background {
     height: 615px;
   }
 }
 
-@media screen and (max-width: 1356px) {
-  html, body,{
-    width: 1356px;
-    overflow-x: scroll;
-  }
+// @media screen and (max-width: 1356px) {
+//   html, body,{
+//     overflow-x: scroll;
+//   }
 
-  .container, .background{
-    width: 100%;
-  }
+//   .container, .background{
+//     width: 100%;
+//   }
 
-  .left-field,.right-field, {
-    width: 300px;
-  }
-  .center-field{
-    width: 1056px;
-  }
-}
+//   .left-field,.right-field, {
+//   }
+//   .center-field{
+//     width: 1056px;
+//   }
+// }
 
 
 .visible,#visible{

@@ -5,18 +5,56 @@ import React from "react";
 class MeetingTime extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            //會議時間，等到結束會議，要把這個資料送到會議紀錄
+            Meetingtime: {
+                hour: 0,
+                min: 0,
+                sec: 0
+            }
+        }
+        this.StartMeetingTime = this.StartMeetingTime.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {
 
-    componentDidMount() { }
+    }
+
+    componentDidMount() {
+        this.recorder = setInterval(this.StartMeetingTime, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.recorder);
+    }
+
+    StartMeetingTime() {
+        let meetingTime = this.state.Meetingtime;
+        if (meetingTime.sec == 59) {
+            meetingTime.sec = 1;
+            meetingTime.min++;
+        } else {
+            meetingTime.sec++;
+        }
+
+        if (meetingTime.min == 59) {
+            meetingTime.min = 1;
+            meetingTime.hour++;
+        }
+        this.setState({
+            Meetingtime: meetingTime
+        });
+    }
 
     render() {
         /* Andy: put meeting time record here */
         return (
             (
                 <div className="left-meetingtime">
-                    會議進行時間： 3分59秒
+                    會議進行時間：
+                     {this.state.Meetingtime.hour}&nbsp;時&nbsp;
+                     {this.state.Meetingtime.min}&nbsp;分&nbsp;
+                     {this.state.Meetingtime.sec}&nbsp;秒&nbsp;
                 </div>
             )
         );

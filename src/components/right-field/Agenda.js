@@ -7,13 +7,15 @@ class Agenda extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         return (
             <div className="agenda-block">
+                <img className="branch" src="img/branch.gif" />
+                <img className="eagle" src="img/eagle.png" />
                 <div className="flag">
                     <div className="bar" />
                     <div className="left" />
@@ -31,7 +33,6 @@ class Agenda extends React.Component {
                     </div>
                     <div className="agenda-add" />
                 </div>
-                <img className="eagle" src="img/eagle.png" />
             </div>
         );
     }

@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import chat from "../lib/chat";
 
 //component
 
@@ -13,7 +14,6 @@ import ChatInput from "./left-field/Chatinput";
 //center-field, total 4 components
 import Toolbar from "./center-field/Toolbar";
 import MainScreen from "./center-field/MainScreen";
-import OtherVideo from "./center-field/OtherVideo";
 import AVcontrol from "./center-field/AVcontrol";
 
 //center-field, total 2 components
@@ -27,6 +27,7 @@ import VoteResult from "./special-field/VoteResult";
 class Meeting_new extends React.Component {
     constructor(props) {
         super(props);
+        this.Chat = chat.createNew(this);
         this.state = {
             isVoteResultOpen: false
         }
@@ -50,7 +51,6 @@ class Meeting_new extends React.Component {
                 <div className="center-field">
                     <Toolbar />
                     <MainScreen />
-                    <OtherVideo />
                     <AVcontrol />
                 </div>
 

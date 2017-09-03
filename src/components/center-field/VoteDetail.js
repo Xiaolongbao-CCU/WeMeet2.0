@@ -62,7 +62,6 @@ class VoteDetail extends React.Component {
   }
 
 
-
   render() {
     return (
       <div className='voting' id='Fadein'>

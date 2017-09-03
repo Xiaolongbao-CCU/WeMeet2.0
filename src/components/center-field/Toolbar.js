@@ -7,9 +7,14 @@ class Toolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isVoteToggle: false
+            //Toggle Status
+            isVoteToggle: false,
+            isRecognitionToggle: false,
+            //Open Status
+            isRecognitionOpen: true
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
+        this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
     }
 
 
@@ -28,6 +33,13 @@ class Toolbar extends React.Component {
         });
     }
 
+    onClick_ToggleRecognitionControl() {
+        this.setState({
+            isRecognitionOpen: !this.state.isRecognitionOpen
+        })
+
+    }
+
     render() {
         return (
             <div className="toolbar">
@@ -41,13 +53,19 @@ class Toolbar extends React.Component {
 
                 <button
                     className="toolbar-button"
-                    id='brainstorming'
+                    id={this.state.isRecognitionOpen ? 'recognition-on' : 'recognition-off'}
+                    onClick={this.onClick_ToggleRecognitionControl}
                 />
+
+                {
+                    this.state.isRecognitionToggle
+                        ? <VoteDetail />
+                        : null
+                }
 
                 <button
                     className="toolbar-button"
                     id="adduser"
-
                 />
 
                 <button className="toolbar-button" id="recognition" />

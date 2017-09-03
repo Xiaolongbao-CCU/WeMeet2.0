@@ -3,6 +3,9 @@
 *****************************/
 .agenda-block{
   //size-set
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 50%;
 }
@@ -10,8 +13,7 @@
 .eagle {
   position: absolute;
   z-index: -48;
-  top:1%;
-  left:30%;
+  top:0.5%;
   width:45%;
   //animation: eagle 5s infinite;
 }
@@ -19,25 +21,25 @@
 .branch{
   position: absolute;
   z-index: -50;
+  top: -0.7%;
   right:0%;
   width:90%;
 }
 
 .flag{
-  width:60%;
-  height:28%;
+  width:75%;
+  height:32%;
   position: absolute;
+  top:13%;
   z-index: -49;
-  left:20%;
-  top:14%;
   background-color: $agenda-color;
   box-shadow: 2px 2px 0px $agenda-shadow;
   //animation: eagle 5s infinite;
 }
 
 .flag .bar{
-  margin-left:-1.5%;
-  width:102.5%;
+  margin-left:-4%;
+  width:107%;
   height:7%;
   background-color: #e27100;
   box-shadow: 2px 2px 0px #c66300;
@@ -99,9 +101,8 @@
 
 .vote-block{
   position: absolute;
-  bottom:6%;
   width: 100%;
-  height: 45%;
+  height: 50%;
 }
 
 .votebox{
@@ -109,7 +110,7 @@
   bottom: 0%;
   z-index: 10;
   width: 25%;
-  height: 28%;
+  height: 30%;
   background-repeat: no-repeat; //for test
   background-size: 100%; //for test  
   &:hover{
@@ -201,6 +202,7 @@
   width:100%;
   height: 45%;
   overflow-y: scroll;
+  overflow-x: hidden;
   font-size: 1.1em;
 }
 
@@ -343,8 +345,8 @@
 
 .voteEndtext{
   position: absolute;
-  bottom: -30%;
-  left:5%;
+  bottom: -8%;
+  text-align: center;
   width:103%;
   color: white;
 }
