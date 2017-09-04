@@ -24,6 +24,7 @@ import Vote from "./right-field/Vote";
 import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
 
+
 class Meeting_new extends React.Component {
     constructor(props) {
         super(props);

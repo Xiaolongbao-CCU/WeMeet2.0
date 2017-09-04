@@ -2,6 +2,7 @@
 
 import React from "react";
 import VoteDetail from "./VoteDetail";
+import AddUser from "./AddUser";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -10,8 +11,9 @@ class Toolbar extends React.Component {
             //Toggle Status
             isVoteToggle: false,
             isRecognitionToggle: false,
+            isAddUserToggle: true,
             //Open Status
-            isRecognitionOpen: true
+            isRecognitionOpen: false
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
@@ -67,6 +69,12 @@ class Toolbar extends React.Component {
                     className="toolbar-button"
                     id="adduser"
                 />
+
+                {
+                    this.state.isAddUserToggle
+                        ? <AddUser />
+                        : null
+                }
 
                 <button className="toolbar-button" id="recognition" />
 

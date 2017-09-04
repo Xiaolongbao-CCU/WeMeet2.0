@@ -112,3 +112,35 @@
 #king{
   background: linear-gradient(to right, rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,0));
 }
+
+/*****************************
+          Others Detail
+*****************************/
+
+.adduser{
+  //basic-set
+  position: absolute;
+  top:$toolbar-height+1%;
+  left: 20%;
+  z-index: 500;
+  //size-set
+  width:40%;
+  height: 33%;
+  //special-set
+  background-color: $vote-color;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #d7d2ab;
+  &:after{
+    position: absolute;
+    left: 79%;
+    top: -8.5%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: $vote-color;
+    border-width: 10px;
+  }
+}
