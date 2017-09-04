@@ -7,3 +7,4 @@ public/bundle.js
 public/certificate/certrequest.csr
 *.csr
 public/certificate/certrequest.csr
+.vscode/launch.json

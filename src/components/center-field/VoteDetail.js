@@ -1,5 +1,10 @@
 "use strict";
-
+// {   投票資料格式
+//     secretOrNot:1, 0:記名 1:匿名
+//     question:"sssssss",
+//     option:["ssss","xxxxx","pppppp"],
+//     multiOrNot:[1(0:一票 1:多票),3(多票是幾票)],
+// }
 import React from "react";
 
 class VoteDetail extends React.Component {
@@ -11,6 +16,8 @@ class VoteDetail extends React.Component {
             isVoteFinish: false,
             MultivoteNumber: 2,
             voting: {
+                secretOrNot: 0,
+                multiOrNot: [0],
                 question: "",
                 option: {
                     option0: ""
@@ -23,18 +30,20 @@ class VoteDetail extends React.Component {
         this.onClick_AddVoteQuestion = this.onClick_AddVoteQuestion.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {
-        
-    }
+    componentDidMount() { }
 
     onClick_Registered() {
         if (this.state.isRegisteredSelect) {
             return;
         } else {
             this.setState({
-                isRegisteredSelect: !this.state.isRegisteredSelect
+                isRegisteredSelect: !this.state.isRegisteredSelect,
+                voting: {
+                    ...this.state.voting,
+                    secretOrNot: 0
+                }
             });
         }
     }
@@ -44,15 +53,13 @@ class VoteDetail extends React.Component {
             return;
         } else {
             this.setState({
-                isRegisteredSelect: !this.state.isRegisteredSelect
+                isRegisteredSelect: !this.state.isRegisteredSelect,
+                voting: {
+                    ...this.state.voting,
+                    secretOrNot: 1
+                }
             });
         }
-    }
-
-    onClick_ToggleMultivote() {
-        this.setState({
-            isMultivoteOpen: !this.state.isMultivoteOpen
-        });
     }
 
     onEnterQuestion(e) {
@@ -91,7 +98,7 @@ class VoteDetail extends React.Component {
                 if (
                     e.target.id ==
                     "option" +
-                        (Object.keys(this.state.voting.option).length - 1)
+                    (Object.keys(this.state.voting.option).length - 1)
                 ) {
                     //如果是最後一個選項，就在他後面新增一個，然後加一個空格
                     this.setState({
@@ -101,8 +108,8 @@ class VoteDetail extends React.Component {
                                 ...this.state.voting.option,
                                 [e.target.id]: e.target.value,
                                 ["option" +
-                                    Object.keys(this.state.voting.option)
-                                        .length]: ""
+                                Object.keys(this.state.voting.option)
+                                    .length]: ""
                             }
                         }
                     });
@@ -127,8 +134,8 @@ class VoteDetail extends React.Component {
                             ...this.state.voting.option,
                             [e.target.id]: e.target.value,
                             ["option" +
-                                Object.keys(this.state.voting.option)
-                                    .length]: ""
+                            Object.keys(this.state.voting.option)
+                                .length]: ""
                         }
                     }
                 });
@@ -146,7 +153,7 @@ class VoteDetail extends React.Component {
                 if (
                     e.target.id ==
                     "option" +
-                        (Object.keys(this.state.voting.option).length - 1)
+                    (Object.keys(this.state.voting.option).length - 1)
                 ) {
                     //如果是最後一個選項，就在他後面新增一個，然後加一個空格
                     this.setState({
@@ -156,8 +163,8 @@ class VoteDetail extends React.Component {
                                 ...this.state.voting.option,
                                 [e.target.id]: e.target.value,
                                 ["option" +
-                                    Object.keys(this.state.voting.option)
-                                        .length]: ""
+                                Object.keys(this.state.voting.option)
+                                    .length]: ""
                             }
                         }
                     });
@@ -182,8 +189,8 @@ class VoteDetail extends React.Component {
                             ...this.state.voting.option,
                             [e.target.id]: e.target.value,
                             ["option" +
-                                Object.keys(this.state.voting.option)
-                                    .length]: ""
+                            Object.keys(this.state.voting.option)
+                                .length]: ""
                         }
                     }
                 });
@@ -191,10 +198,35 @@ class VoteDetail extends React.Component {
         }
     }
 
+    onClick_ToggleMultivote() {
+        //如果原本是多票>改成單票
+        if (this.state.isMultivoteOpen) {
+            this.setState({
+                isMultivoteOpen: !this.state.isMultivoteOpen,
+                voting: {
+                    ...this.state.voting,
+                    multiOrNot: [0]
+                }
+            });
+        } else {
+            this.setState({
+                isMultivoteOpen: !this.state.isMultivoteOpen,
+                voting: {
+                    ...this.state.voting,
+                    multiOrNot: [1, this.state.MultivoteNumber]
+                }
+            });
+        }
+    }
+
     onClick_Subtractuon() {
         if (this.state.MultivoteNumber > 2) {
             this.setState({
-                MultivoteNumber: this.state.MultivoteNumber - 1
+                MultivoteNumber: this.state.MultivoteNumber - 1,
+                voting: {
+                    ...this.state.voting,
+                    multiOrNot: [1, this.state.MultivoteNumber - 1]
+                }
             });
         }
     }
@@ -202,7 +234,11 @@ class VoteDetail extends React.Component {
     onClick_Addition() {
         if (this.state.MultivoteNumber < 10) {
             this.setState({
-                MultivoteNumber: this.state.MultivoteNumber + 1
+                MultivoteNumber: this.state.MultivoteNumber + 1,
+                voting: {
+                    ...this.state.voting,
+                    multiOrNot: [1, this.state.MultivoteNumber + 1]
+                }
             });
         }
     }
@@ -225,8 +261,7 @@ class VoteDetail extends React.Component {
                         onClick={this.onClick_AddVoteQuestion}
                         id={key}
                         ref={key}
-                    >
-                    </div>
+                    />
                     <input
                         className="text"
                         type="text"
