@@ -26,11 +26,11 @@ import Meeting2 from "./Meeting2.json"
 
 let configuration = {
     iceServers: [{
-            url: "stun:stun.l.google.com:1302"
-        },
-        {
-            url: "stun:stun.services.mozilla.com"
-        }
+        url: "stun:stun.l.google.com:1302"
+    },
+    {
+        url: "stun:stun.services.mozilla.com"
+    }
     ]
 };
 
@@ -64,7 +64,7 @@ class Meeting extends React.Component {
         };
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
     componentDidMount() {
         console.log("打你媽媽殺你全家")
@@ -203,7 +203,7 @@ class Meeting extends React.Component {
         });
 
         socket.on("participantDisconnected", (participantID) => {
-            
+
             this.setState(
                 Object.assign({}, this.state, {
                     connections: Object.keys(
@@ -220,7 +220,7 @@ class Meeting extends React.Component {
             this.props.dispatch(delRemoteStreamURL(participantID));
         })
 
-        
+
 
         //0516 更新腦力激盪
         // socket.on("OpenBrainForAll", function(agenda) {
@@ -229,13 +229,13 @@ class Meeting extends React.Component {
         // });
 
         //0516 更新消失的議程
-        socket.on("addAgendaForAll", function(agenda) {
+        socket.on("addAgendaForAll", function (agenda) {
             this.setState({
                 agendaList: agenda
             });
         });
 
-        socket.on("deleteAgendaForAll", function(agenda) {
+        socket.on("deleteAgendaForAll", function (agenda) {
             this.setState({
                 agendaList: agenda
             });
@@ -277,12 +277,12 @@ class Meeting extends React.Component {
             this.Chat.toggleAudio();
         }
         socket.off("gotSocketID")
-        .off("joinRoom")
-        .off("newParticipantB")
-        .off("answer")
-        .off("offer")
-        .off("onIceCandidateB")
-        .off("participantDisconnected")
+            .off("joinRoom")
+            .off("newParticipantB")
+            .off("answer")
+            .off("offer")
+            .off("onIceCandidateB")
+            .off("participantDisconnected")
     }
 
     getRoom() {
@@ -435,8 +435,8 @@ class Meeting extends React.Component {
                                 width="220"
                                 key={id}
                                 src={this.props.remoteStreamURL[id]
-                                            ? this.props.remoteStreamURL[id]
-                                            : "沒加到啦幹"}
+                                    ? this.props.remoteStreamURL[id]
+                                    : "沒加到啦幹"}
                                 autoPlay={true}
                             >
                             </video>
@@ -574,7 +574,7 @@ class Meeting extends React.Component {
                                         ? "video-off"
                                         : "video-on"
                                 }
-                                onClick={()=>{this.Chat.toggleUserMedia()}}
+                                onClick={() => { this.Chat.toggleUserMedia() }}
                             >
                                 {this.state.isStreaming ? "停止視訊" : "開起視訊"}
                             </button>
@@ -738,8 +738,8 @@ class Meeting extends React.Component {
                                 <img
                                     src={
                                         "../img/" +
-                                            this.state.hatColor[0] +
-                                            ".png"
+                                        this.state.hatColor[0] +
+                                        ".png"
                                     }
                                 />
                             </div>

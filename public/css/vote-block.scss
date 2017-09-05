@@ -1,54 +1,10 @@
-/*****************************
-2. Center-field Set
-*****************************/
-
-.toolbar{
-  //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //size-set
-  width: 100%;
-  height: $toolbar-height;
-  //margin-set
-  margin-bottom: 0.5%; 
-}
-
-.main-screen{
-  //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //size-set
-  width: 100%;
-  height: $mainscreen-height;
-  //special-set
-  border-radius: 5px;
-  background-image: url('../img/666.jpg'); //for test
-  background-repeat: no-repeat; //for test
-  background-size: 100%; //for test
-}
-
-.av-control{
-  //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //size-set
-  width: 100%;
-  height: 13%;
-  //position-set
-  position: absolute;
-  bottom: 2%;
-}
-
 .voting{
   line-height: 150%;
   position: absolute;
-  z-index: 500;
+  z-index: 200;
   top:$toolbar-height+1%;
   left: 35%;
-  width:40%;
+  width:40%; 
   height: 33%;
   background-color: $vote-color;
   border-radius: 10px;
@@ -152,6 +108,7 @@
   width:100%;
   height:48%;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .votebottom{

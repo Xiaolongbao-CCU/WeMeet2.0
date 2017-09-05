@@ -2,20 +2,33 @@
 
 import React from "react";
 import VoteDetail from "./VoteDetail";
+import AddUser from "./AddUser";
 
 class Toolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isVoteToggle: false
+            //Toggle Status
+            isVoteToggle: false,
+            isAddUserToggle: false,
+            //Open Status
+            isRecognitionOpen: false,
+            //Special Status
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
+        this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
+        this.onClick_ToggleAddUserControl = this.onClick_ToggleAddUserControl.bind(this);
+        this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
     }
 
 
     componentWillMount() { }
 
-    componentDidMount() { }
+    componentDidMount() {
+    }
+
+    //Others Events
+
 
     //OnClick Events
     onClick_ToggleBrainstorming() { }
@@ -28,10 +41,30 @@ class Toolbar extends React.Component {
         });
     }
 
+    onClick_ToggleRecognitionControl() {
+        this.setState({
+            isRecognitionOpen: !this.state.isRecognitionOpen
+        })
+    }
+
+    onClick_ToggleAddUserControl() {
+        if (this.state.isAddUserToggle == false) {
+            this.setState({
+                isAddUserToggle: true
+            })
+            setTimeout(this.ClearAddUserBlock, 4000);
+        }
+    }
+
+    ClearAddUserBlock() {
+        this.setState({
+            isAddUserToggle: false
+        })
+    }
+
     render() {
         return (
             <div className="toolbar">
-
 
                 <button
                     className="toolbar-button"
@@ -39,18 +72,31 @@ class Toolbar extends React.Component {
                     onClick=""
                 />
 
+
+
                 <button
                     className="toolbar-button"
-                    id='brainstorming'
+                    id={this.state.isRecognitionOpen ? 'recognition-on' : 'recognition-off'}
+                    onClick={this.onClick_ToggleRecognitionControl}
                 />
+
+
 
                 <button
                     className="toolbar-button"
                     id="adduser"
-
+                    onClick={this.onClick_ToggleAddUserControl}
                 />
 
-                <button className="toolbar-button" id="recognition" />
+                {
+                    this.state.isAddUserToggle
+                        ? <AddUser />
+                        : null
+                }
+
+
+
+                <button className="toolbar-button" id="brainstorming" />
 
                 <button
                     className="toolbar-button"

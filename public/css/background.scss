@@ -170,28 +170,54 @@ $forest-position: $ground-height;
   width: 7%;
   left: 50%;
   top:40%;
-  animation: animatedcloud 70s infinite;
+  animation: animatedcloud 100s infinite;
 }
 
 .cloud.site5{
   width: 9%;
   left: 70%;
-  top:11%;
-  animation: animatedcloud 60s infinite;
+  top:14%;
+  animation: animatedcloud 70s infinite;
 }
 
 .cloud.site6{
   width: 9%;
   left: 85%; 
-  top:25%;
-  animation: animatedcloud 55s infinite;
+  top:30%;
+  animation: animatedcloud 75s;
 }
 
 .cloud.site7{
-  width: 7%;
-  left: 80%; 
+  width: 4%;
+  left: 60%; 
   top:1%;
-  animation: animatedcloud 75s infinite;
+  animation: animatedcloud 100s infinite;
+}
+
+//Second
+
+.cloud.site8{
+  width: 7%;
+  left: -10%; 
+  top:10%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 20s;
+}
+
+.cloud.site9{
+  width: 3%;
+  left: -5%; 
+  top:25%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 30s;
+}
+
+.cloud.site10{
+  width: 5%;
+  left: -5%; 
+  top:35%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 40s;
 }
 
 /*****************************

@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import chat from "../lib/chat";
 
 //component
 
@@ -13,7 +14,6 @@ import ChatInput from "./left-field/Chatinput";
 //center-field, total 4 components
 import Toolbar from "./center-field/Toolbar";
 import MainScreen from "./center-field/MainScreen";
-import OtherVideo from "./center-field/OtherVideo";
 import AVcontrol from "./center-field/AVcontrol";
 
 //center-field, total 2 components
@@ -24,17 +24,38 @@ import Vote from "./right-field/Vote";
 import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
 
+
 class Meeting_new extends React.Component {
     constructor(props) {
         super(props);
+        this.Chat = chat.createNew(this);
         this.state = {
-            isVoteResultOpen: false
+            isVoteResultOpen: false,
+            roomURL: ''
         }
+        this.getRoomURL = this.getRoomURL.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {
+        this.getRoomURL();
+    }
 
     componentDidMount() { }
+
+    getRoomURL() {
+        if (window.location.hash) {
+            this.setState({
+                roomURL: window.location.href
+            });
+        } else {
+            window.location.hash = Math.floor((1 + Math.random()) * 1e16)
+                .toString(16)
+                .substring(8);
+            this.setState({
+                roomURL: window.location.href
+            });
+        }
+    }
 
     render() {
         return (
@@ -50,7 +71,6 @@ class Meeting_new extends React.Component {
                 <div className="center-field">
                     <Toolbar />
                     <MainScreen />
-                    <OtherVideo />
                     <AVcontrol />
                 </div>
 

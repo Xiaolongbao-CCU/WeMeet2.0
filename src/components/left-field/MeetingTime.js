@@ -5,47 +5,55 @@ import React from "react";
 class MeetingTime extends React.Component {
     constructor(props) {
         super(props);
-        this.getSystemTime = this.getSystemTime.bind(this);
-        this.state={
-            time: ""
+        this.state = {
+            //會議時間，等到結束會議，要把這個資料送到會議紀錄
+            Meetingtime: {
+                hour: 0,
+                min: 0,
+                sec: 0
+            }
         }
+        this.StartMeetingTime = this.StartMeetingTime.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {
+    }
 
     componentDidMount() {
-        this.timer = setInterval(this.getSystemTime, 1000);
-    }
-
-    getSystemTime() {
-        let d = new Date();
-        d =
-            d.getFullYear() +
-            "-" +
-            ("0" + (d.getMonth() + 1)).slice(-2) +
-            "-" +
-            ("0" + d.getDate()).slice(-2) +
-            " " +
-            ("0" + d.getHours()).slice(-2) +
-            ":" +
-            ("0" + d.getMinutes()).slice(-2) +
-            ":" +
-            ("0" + d.getSeconds()).slice(-2);
-        this.setState({
-            time: d
-        });
+        this.recorder = setInterval(this.StartMeetingTime, 1000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        clearInterval(this.recorder);
+    }
+
+    StartMeetingTime() {
+        let meetingTime = this.state.Meetingtime;
+        if (meetingTime.sec == 59) {
+            meetingTime.sec = 1;
+            meetingTime.min++;
+        } else {
+            meetingTime.sec++;
+        }
+
+        if (meetingTime.min == 59) {
+            meetingTime.min = 1;
+            meetingTime.hour++;
+        }
+        this.setState({
+            Meetingtime: meetingTime
+        });
     }
 
     render() {
         /* Andy: put meeting time record here */
         return (
-            
-                <div className="left-meetingtime">
-                    會議進行時間： {this.state.time}
+
+            <div className="left-meetingtime">
+                會議進行時間：
+                     {this.state.Meetingtime.hour}&nbsp;時&nbsp;
+                     {this.state.Meetingtime.min}&nbsp;分&nbsp;
+                     {this.state.Meetingtime.sec}&nbsp;秒&nbsp;
                 </div>
         );
     }
