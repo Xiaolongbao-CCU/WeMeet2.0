@@ -61,8 +61,13 @@ $otherscreen-top: 78%;
   background-size: 70%;
 }
 
-.toolbar-button#recognition{
+.toolbar-button#recognition-on{
   background-image: url('../img/recognition.png');
+  background-size: 70%;
+}
+
+.toolbar-button#recognition-off{
+  background-image: url('../img/recognize-off.png');
   background-size: 70%;
 }
 

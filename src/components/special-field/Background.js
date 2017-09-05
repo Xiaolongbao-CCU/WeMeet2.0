@@ -22,6 +22,10 @@ class Background extends React.Component {
                     <img className="cloud site5" src="./img/main-cloud1.png" />
                     <img className="cloud site6" src="./img/main-cloud.png" />
                     <img className="cloud site7" src="./img/main-cloud1.png" />
+                    <img className="cloud site8" src="./img/main-cloud.png" />
+                    <img className="cloud site9" src="./img/main-cloud1.png" />
+                    <img className="cloud site10" src="./img/main-cloud.png" />
+
                 </div>
 
                 <div className="forest">

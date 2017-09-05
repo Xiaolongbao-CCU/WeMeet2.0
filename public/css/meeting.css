@@ -58,19 +58,19 @@ body {
 
 @-webkit-keyframes bang {
   to {
-    box-shadow: -174px -112.6666666667px #00ffee, -244px -152.6666666667px #77ff00, 249px -302.6666666667px #6600ff, 43px -49.6666666667px #ff00ae, -238px -8.6666666667px #ff0400, -131px 12.3333333333px #bf00ff, -174px 9.3333333333px #2bff00, 211px -125.6666666667px #ff0022, 210px -314.6666666667px #3c00ff, -229px -41.6666666667px #00e6ff, 221px 2.3333333333px #ffee00, 194px 79.3333333333px #8c00ff, -161px 60.3333333333px #00ff37, 28px -261.6666666667px #7bff00, -136px -256.6666666667px #0048ff, 76px -23.6666666667px #ffa200, -218px -42.6666666667px #ff1e00, -169px -36.6666666667px #4800ff, -156px -166.6666666667px deepskyblue, -13px -364.6666666667px #001aff, -67px -287.6666666667px #ff00f2, 177px 40.3333333333px darkorange, -181px 60.3333333333px #7700ff, -60px -205.6666666667px #95ff00, 45px -158.6666666667px #ff2f00, -57px 23.3333333333px #ff0044, -144px -46.6666666667px #ff002f, -167px -256.6666666667px #ff005e, 127px -66.6666666667px #ff6200, 198px -126.6666666667px #0037ff, -237px -294.6666666667px #ffaa00, 226px -194.6666666667px #5100ff, -200px -197.6666666667px #ff0091, -30px -150.6666666667px #ffe100, 168px -399.6666666667px #2bff00, -25px -334.6666666667px #0066ff, -166px -113.6666666667px #ea00ff, -21px -192.6666666667px #0051ff, -241px 59.3333333333px #00ff5e, -28px -286.6666666667px magenta, 94px -356.6666666667px #00d0ff, 98px -249.6666666667px #ff007b, 70px -372.6666666667px #00ff37, 238px -70.6666666667px #0048ff, 22px -289.6666666667px #ff0095, 132px 82.3333333333px #ff005e, -11px -116.6666666667px #ff008c, 2px -34.6666666667px #ff00c8, -117px -143.6666666667px #2200ff, 192px -221.6666666667px #00b7ff, -241px -78.6666666667px #ff00bf; } }
+    box-shadow: 8px -169.6666666667px #00ff88, 211px -239.6666666667px #37ff00, 169px 19.3333333333px #37ff00, 226px -369.6666666667px #00ffc8, 166px -213.6666666667px #8cff00, 216px -246.6666666667px #fb00ff, -89px -199.6666666667px #e600ff, -132px -121.6666666667px #73ff00, -19px 53.3333333333px #00ff99, -130px -303.6666666667px #44ff00, -247px 64.3333333333px #00ff2b, 136px -54.6666666667px #ffc800, -113px -244.6666666667px #ff006f, -162px -216.6666666667px #00ffc8, 5px -98.6666666667px #1aff00, -126px -60.6666666667px #48ff00, -82px -94.6666666667px #ff002b, 242px -213.6666666667px #00ffae, 52px -209.6666666667px #ff0084, 61px -370.6666666667px #0099ff, 26px -331.6666666667px #0015ff, -164px -78.6666666667px #ff2600, -46px -139.6666666667px #ff0033, -169px -341.6666666667px #00ff37, -43px 78.3333333333px #ff00fb, -182px -413.6666666667px #00d0ff, 134px -103.6666666667px #001eff, 89px 56.3333333333px #00ff15, -51px -76.6666666667px #fff200, -115px 7.3333333333px #4800ff, -184px -273.6666666667px #bb00ff, 232px -225.6666666667px #00ffd0, -136px -74.6666666667px #00ff99, -157px -245.6666666667px #ff4000, -143px -275.6666666667px #91ff00, -7px 20.3333333333px #00fff2, 206px -352.6666666667px #ffd900, -232px -239.6666666667px #ff0026, 27px -150.6666666667px #00ffd5, -65px -138.6666666667px #6200ff, 45px 12.3333333333px #00c4ff, 171px -84.6666666667px #00c8ff, -73px -71.6666666667px #e6ff00, 227px -134.6666666667px #6aff00, -87px -386.6666666667px #00ff2b, -2px -359.6666666667px #00ff22, 233px 16.3333333333px #a2ff00, 241px 25.3333333333px #00d9ff, -13px -267.6666666667px #c4ff00, 172px -187.6666666667px #4dff00, -94px 80.3333333333px #ff8400; } }
 @-moz-keyframes bang {
   to {
-    box-shadow: -174px -112.6666666667px #00ffee, -244px -152.6666666667px #77ff00, 249px -302.6666666667px #6600ff, 43px -49.6666666667px #ff00ae, -238px -8.6666666667px #ff0400, -131px 12.3333333333px #bf00ff, -174px 9.3333333333px #2bff00, 211px -125.6666666667px #ff0022, 210px -314.6666666667px #3c00ff, -229px -41.6666666667px #00e6ff, 221px 2.3333333333px #ffee00, 194px 79.3333333333px #8c00ff, -161px 60.3333333333px #00ff37, 28px -261.6666666667px #7bff00, -136px -256.6666666667px #0048ff, 76px -23.6666666667px #ffa200, -218px -42.6666666667px #ff1e00, -169px -36.6666666667px #4800ff, -156px -166.6666666667px deepskyblue, -13px -364.6666666667px #001aff, -67px -287.6666666667px #ff00f2, 177px 40.3333333333px darkorange, -181px 60.3333333333px #7700ff, -60px -205.6666666667px #95ff00, 45px -158.6666666667px #ff2f00, -57px 23.3333333333px #ff0044, -144px -46.6666666667px #ff002f, -167px -256.6666666667px #ff005e, 127px -66.6666666667px #ff6200, 198px -126.6666666667px #0037ff, -237px -294.6666666667px #ffaa00, 226px -194.6666666667px #5100ff, -200px -197.6666666667px #ff0091, -30px -150.6666666667px #ffe100, 168px -399.6666666667px #2bff00, -25px -334.6666666667px #0066ff, -166px -113.6666666667px #ea00ff, -21px -192.6666666667px #0051ff, -241px 59.3333333333px #00ff5e, -28px -286.6666666667px magenta, 94px -356.6666666667px #00d0ff, 98px -249.6666666667px #ff007b, 70px -372.6666666667px #00ff37, 238px -70.6666666667px #0048ff, 22px -289.6666666667px #ff0095, 132px 82.3333333333px #ff005e, -11px -116.6666666667px #ff008c, 2px -34.6666666667px #ff00c8, -117px -143.6666666667px #2200ff, 192px -221.6666666667px #00b7ff, -241px -78.6666666667px #ff00bf; } }
+    box-shadow: 8px -169.6666666667px #00ff88, 211px -239.6666666667px #37ff00, 169px 19.3333333333px #37ff00, 226px -369.6666666667px #00ffc8, 166px -213.6666666667px #8cff00, 216px -246.6666666667px #fb00ff, -89px -199.6666666667px #e600ff, -132px -121.6666666667px #73ff00, -19px 53.3333333333px #00ff99, -130px -303.6666666667px #44ff00, -247px 64.3333333333px #00ff2b, 136px -54.6666666667px #ffc800, -113px -244.6666666667px #ff006f, -162px -216.6666666667px #00ffc8, 5px -98.6666666667px #1aff00, -126px -60.6666666667px #48ff00, -82px -94.6666666667px #ff002b, 242px -213.6666666667px #00ffae, 52px -209.6666666667px #ff0084, 61px -370.6666666667px #0099ff, 26px -331.6666666667px #0015ff, -164px -78.6666666667px #ff2600, -46px -139.6666666667px #ff0033, -169px -341.6666666667px #00ff37, -43px 78.3333333333px #ff00fb, -182px -413.6666666667px #00d0ff, 134px -103.6666666667px #001eff, 89px 56.3333333333px #00ff15, -51px -76.6666666667px #fff200, -115px 7.3333333333px #4800ff, -184px -273.6666666667px #bb00ff, 232px -225.6666666667px #00ffd0, -136px -74.6666666667px #00ff99, -157px -245.6666666667px #ff4000, -143px -275.6666666667px #91ff00, -7px 20.3333333333px #00fff2, 206px -352.6666666667px #ffd900, -232px -239.6666666667px #ff0026, 27px -150.6666666667px #00ffd5, -65px -138.6666666667px #6200ff, 45px 12.3333333333px #00c4ff, 171px -84.6666666667px #00c8ff, -73px -71.6666666667px #e6ff00, 227px -134.6666666667px #6aff00, -87px -386.6666666667px #00ff2b, -2px -359.6666666667px #00ff22, 233px 16.3333333333px #a2ff00, 241px 25.3333333333px #00d9ff, -13px -267.6666666667px #c4ff00, 172px -187.6666666667px #4dff00, -94px 80.3333333333px #ff8400; } }
 @-o-keyframes bang {
   to {
-    box-shadow: -174px -112.6666666667px #00ffee, -244px -152.6666666667px #77ff00, 249px -302.6666666667px #6600ff, 43px -49.6666666667px #ff00ae, -238px -8.6666666667px #ff0400, -131px 12.3333333333px #bf00ff, -174px 9.3333333333px #2bff00, 211px -125.6666666667px #ff0022, 210px -314.6666666667px #3c00ff, -229px -41.6666666667px #00e6ff, 221px 2.3333333333px #ffee00, 194px 79.3333333333px #8c00ff, -161px 60.3333333333px #00ff37, 28px -261.6666666667px #7bff00, -136px -256.6666666667px #0048ff, 76px -23.6666666667px #ffa200, -218px -42.6666666667px #ff1e00, -169px -36.6666666667px #4800ff, -156px -166.6666666667px deepskyblue, -13px -364.6666666667px #001aff, -67px -287.6666666667px #ff00f2, 177px 40.3333333333px darkorange, -181px 60.3333333333px #7700ff, -60px -205.6666666667px #95ff00, 45px -158.6666666667px #ff2f00, -57px 23.3333333333px #ff0044, -144px -46.6666666667px #ff002f, -167px -256.6666666667px #ff005e, 127px -66.6666666667px #ff6200, 198px -126.6666666667px #0037ff, -237px -294.6666666667px #ffaa00, 226px -194.6666666667px #5100ff, -200px -197.6666666667px #ff0091, -30px -150.6666666667px #ffe100, 168px -399.6666666667px #2bff00, -25px -334.6666666667px #0066ff, -166px -113.6666666667px #ea00ff, -21px -192.6666666667px #0051ff, -241px 59.3333333333px #00ff5e, -28px -286.6666666667px magenta, 94px -356.6666666667px #00d0ff, 98px -249.6666666667px #ff007b, 70px -372.6666666667px #00ff37, 238px -70.6666666667px #0048ff, 22px -289.6666666667px #ff0095, 132px 82.3333333333px #ff005e, -11px -116.6666666667px #ff008c, 2px -34.6666666667px #ff00c8, -117px -143.6666666667px #2200ff, 192px -221.6666666667px #00b7ff, -241px -78.6666666667px #ff00bf; } }
+    box-shadow: 8px -169.6666666667px #00ff88, 211px -239.6666666667px #37ff00, 169px 19.3333333333px #37ff00, 226px -369.6666666667px #00ffc8, 166px -213.6666666667px #8cff00, 216px -246.6666666667px #fb00ff, -89px -199.6666666667px #e600ff, -132px -121.6666666667px #73ff00, -19px 53.3333333333px #00ff99, -130px -303.6666666667px #44ff00, -247px 64.3333333333px #00ff2b, 136px -54.6666666667px #ffc800, -113px -244.6666666667px #ff006f, -162px -216.6666666667px #00ffc8, 5px -98.6666666667px #1aff00, -126px -60.6666666667px #48ff00, -82px -94.6666666667px #ff002b, 242px -213.6666666667px #00ffae, 52px -209.6666666667px #ff0084, 61px -370.6666666667px #0099ff, 26px -331.6666666667px #0015ff, -164px -78.6666666667px #ff2600, -46px -139.6666666667px #ff0033, -169px -341.6666666667px #00ff37, -43px 78.3333333333px #ff00fb, -182px -413.6666666667px #00d0ff, 134px -103.6666666667px #001eff, 89px 56.3333333333px #00ff15, -51px -76.6666666667px #fff200, -115px 7.3333333333px #4800ff, -184px -273.6666666667px #bb00ff, 232px -225.6666666667px #00ffd0, -136px -74.6666666667px #00ff99, -157px -245.6666666667px #ff4000, -143px -275.6666666667px #91ff00, -7px 20.3333333333px #00fff2, 206px -352.6666666667px #ffd900, -232px -239.6666666667px #ff0026, 27px -150.6666666667px #00ffd5, -65px -138.6666666667px #6200ff, 45px 12.3333333333px #00c4ff, 171px -84.6666666667px #00c8ff, -73px -71.6666666667px #e6ff00, 227px -134.6666666667px #6aff00, -87px -386.6666666667px #00ff2b, -2px -359.6666666667px #00ff22, 233px 16.3333333333px #a2ff00, 241px 25.3333333333px #00d9ff, -13px -267.6666666667px #c4ff00, 172px -187.6666666667px #4dff00, -94px 80.3333333333px #ff8400; } }
 @-ms-keyframes bang {
   to {
-    box-shadow: -174px -112.6666666667px #00ffee, -244px -152.6666666667px #77ff00, 249px -302.6666666667px #6600ff, 43px -49.6666666667px #ff00ae, -238px -8.6666666667px #ff0400, -131px 12.3333333333px #bf00ff, -174px 9.3333333333px #2bff00, 211px -125.6666666667px #ff0022, 210px -314.6666666667px #3c00ff, -229px -41.6666666667px #00e6ff, 221px 2.3333333333px #ffee00, 194px 79.3333333333px #8c00ff, -161px 60.3333333333px #00ff37, 28px -261.6666666667px #7bff00, -136px -256.6666666667px #0048ff, 76px -23.6666666667px #ffa200, -218px -42.6666666667px #ff1e00, -169px -36.6666666667px #4800ff, -156px -166.6666666667px deepskyblue, -13px -364.6666666667px #001aff, -67px -287.6666666667px #ff00f2, 177px 40.3333333333px darkorange, -181px 60.3333333333px #7700ff, -60px -205.6666666667px #95ff00, 45px -158.6666666667px #ff2f00, -57px 23.3333333333px #ff0044, -144px -46.6666666667px #ff002f, -167px -256.6666666667px #ff005e, 127px -66.6666666667px #ff6200, 198px -126.6666666667px #0037ff, -237px -294.6666666667px #ffaa00, 226px -194.6666666667px #5100ff, -200px -197.6666666667px #ff0091, -30px -150.6666666667px #ffe100, 168px -399.6666666667px #2bff00, -25px -334.6666666667px #0066ff, -166px -113.6666666667px #ea00ff, -21px -192.6666666667px #0051ff, -241px 59.3333333333px #00ff5e, -28px -286.6666666667px magenta, 94px -356.6666666667px #00d0ff, 98px -249.6666666667px #ff007b, 70px -372.6666666667px #00ff37, 238px -70.6666666667px #0048ff, 22px -289.6666666667px #ff0095, 132px 82.3333333333px #ff005e, -11px -116.6666666667px #ff008c, 2px -34.6666666667px #ff00c8, -117px -143.6666666667px #2200ff, 192px -221.6666666667px #00b7ff, -241px -78.6666666667px #ff00bf; } }
+    box-shadow: 8px -169.6666666667px #00ff88, 211px -239.6666666667px #37ff00, 169px 19.3333333333px #37ff00, 226px -369.6666666667px #00ffc8, 166px -213.6666666667px #8cff00, 216px -246.6666666667px #fb00ff, -89px -199.6666666667px #e600ff, -132px -121.6666666667px #73ff00, -19px 53.3333333333px #00ff99, -130px -303.6666666667px #44ff00, -247px 64.3333333333px #00ff2b, 136px -54.6666666667px #ffc800, -113px -244.6666666667px #ff006f, -162px -216.6666666667px #00ffc8, 5px -98.6666666667px #1aff00, -126px -60.6666666667px #48ff00, -82px -94.6666666667px #ff002b, 242px -213.6666666667px #00ffae, 52px -209.6666666667px #ff0084, 61px -370.6666666667px #0099ff, 26px -331.6666666667px #0015ff, -164px -78.6666666667px #ff2600, -46px -139.6666666667px #ff0033, -169px -341.6666666667px #00ff37, -43px 78.3333333333px #ff00fb, -182px -413.6666666667px #00d0ff, 134px -103.6666666667px #001eff, 89px 56.3333333333px #00ff15, -51px -76.6666666667px #fff200, -115px 7.3333333333px #4800ff, -184px -273.6666666667px #bb00ff, 232px -225.6666666667px #00ffd0, -136px -74.6666666667px #00ff99, -157px -245.6666666667px #ff4000, -143px -275.6666666667px #91ff00, -7px 20.3333333333px #00fff2, 206px -352.6666666667px #ffd900, -232px -239.6666666667px #ff0026, 27px -150.6666666667px #00ffd5, -65px -138.6666666667px #6200ff, 45px 12.3333333333px #00c4ff, 171px -84.6666666667px #00c8ff, -73px -71.6666666667px #e6ff00, 227px -134.6666666667px #6aff00, -87px -386.6666666667px #00ff2b, -2px -359.6666666667px #00ff22, 233px 16.3333333333px #a2ff00, 241px 25.3333333333px #00d9ff, -13px -267.6666666667px #c4ff00, 172px -187.6666666667px #4dff00, -94px 80.3333333333px #ff8400; } }
 @keyframes bang {
   to {
-    box-shadow: -174px -112.6666666667px #00ffee, -244px -152.6666666667px #77ff00, 249px -302.6666666667px #6600ff, 43px -49.6666666667px #ff00ae, -238px -8.6666666667px #ff0400, -131px 12.3333333333px #bf00ff, -174px 9.3333333333px #2bff00, 211px -125.6666666667px #ff0022, 210px -314.6666666667px #3c00ff, -229px -41.6666666667px #00e6ff, 221px 2.3333333333px #ffee00, 194px 79.3333333333px #8c00ff, -161px 60.3333333333px #00ff37, 28px -261.6666666667px #7bff00, -136px -256.6666666667px #0048ff, 76px -23.6666666667px #ffa200, -218px -42.6666666667px #ff1e00, -169px -36.6666666667px #4800ff, -156px -166.6666666667px deepskyblue, -13px -364.6666666667px #001aff, -67px -287.6666666667px #ff00f2, 177px 40.3333333333px darkorange, -181px 60.3333333333px #7700ff, -60px -205.6666666667px #95ff00, 45px -158.6666666667px #ff2f00, -57px 23.3333333333px #ff0044, -144px -46.6666666667px #ff002f, -167px -256.6666666667px #ff005e, 127px -66.6666666667px #ff6200, 198px -126.6666666667px #0037ff, -237px -294.6666666667px #ffaa00, 226px -194.6666666667px #5100ff, -200px -197.6666666667px #ff0091, -30px -150.6666666667px #ffe100, 168px -399.6666666667px #2bff00, -25px -334.6666666667px #0066ff, -166px -113.6666666667px #ea00ff, -21px -192.6666666667px #0051ff, -241px 59.3333333333px #00ff5e, -28px -286.6666666667px magenta, 94px -356.6666666667px #00d0ff, 98px -249.6666666667px #ff007b, 70px -372.6666666667px #00ff37, 238px -70.6666666667px #0048ff, 22px -289.6666666667px #ff0095, 132px 82.3333333333px #ff005e, -11px -116.6666666667px #ff008c, 2px -34.6666666667px #ff00c8, -117px -143.6666666667px #2200ff, 192px -221.6666666667px #00b7ff, -241px -78.6666666667px #ff00bf; } }
+    box-shadow: 8px -169.6666666667px #00ff88, 211px -239.6666666667px #37ff00, 169px 19.3333333333px #37ff00, 226px -369.6666666667px #00ffc8, 166px -213.6666666667px #8cff00, 216px -246.6666666667px #fb00ff, -89px -199.6666666667px #e600ff, -132px -121.6666666667px #73ff00, -19px 53.3333333333px #00ff99, -130px -303.6666666667px #44ff00, -247px 64.3333333333px #00ff2b, 136px -54.6666666667px #ffc800, -113px -244.6666666667px #ff006f, -162px -216.6666666667px #00ffc8, 5px -98.6666666667px #1aff00, -126px -60.6666666667px #48ff00, -82px -94.6666666667px #ff002b, 242px -213.6666666667px #00ffae, 52px -209.6666666667px #ff0084, 61px -370.6666666667px #0099ff, 26px -331.6666666667px #0015ff, -164px -78.6666666667px #ff2600, -46px -139.6666666667px #ff0033, -169px -341.6666666667px #00ff37, -43px 78.3333333333px #ff00fb, -182px -413.6666666667px #00d0ff, 134px -103.6666666667px #001eff, 89px 56.3333333333px #00ff15, -51px -76.6666666667px #fff200, -115px 7.3333333333px #4800ff, -184px -273.6666666667px #bb00ff, 232px -225.6666666667px #00ffd0, -136px -74.6666666667px #00ff99, -157px -245.6666666667px #ff4000, -143px -275.6666666667px #91ff00, -7px 20.3333333333px #00fff2, 206px -352.6666666667px #ffd900, -232px -239.6666666667px #ff0026, 27px -150.6666666667px #00ffd5, -65px -138.6666666667px #6200ff, 45px 12.3333333333px #00c4ff, 171px -84.6666666667px #00c8ff, -73px -71.6666666667px #e6ff00, 227px -134.6666666667px #6aff00, -87px -386.6666666667px #00ff2b, -2px -359.6666666667px #00ff22, 233px 16.3333333333px #a2ff00, 241px 25.3333333333px #00d9ff, -13px -267.6666666667px #c4ff00, 172px -187.6666666667px #4dff00, -94px 80.3333333333px #ff8400; } }
 @-webkit-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -346,25 +346,46 @@ body {
   width: 7%;
   left: 50%;
   top: 40%;
-  animation: animatedcloud 70s infinite; }
+  animation: animatedcloud 100s infinite; }
 
 .cloud.site5 {
   width: 9%;
   left: 70%;
-  top: 11%;
-  animation: animatedcloud 60s infinite; }
+  top: 14%;
+  animation: animatedcloud 70s infinite; }
 
 .cloud.site6 {
   width: 9%;
   left: 85%;
-  top: 25%;
-  animation: animatedcloud 55s infinite; }
+  top: 30%;
+  animation: animatedcloud 75s; }
 
 .cloud.site7 {
-  width: 7%;
-  left: 80%;
+  width: 4%;
+  left: 60%;
   top: 1%;
-  animation: animatedcloud 75s infinite; }
+  animation: animatedcloud 100s infinite; }
+
+.cloud.site8 {
+  width: 7%;
+  left: -10%;
+  top: 10%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 20s; }
+
+.cloud.site9 {
+  width: 3%;
+  left: -5%;
+  top: 25%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 30s; }
+
+.cloud.site10 {
+  width: 5%;
+  left: -5%;
+  top: 35%;
+  animation: animatedcloud 180s infinite;
+  animation-delay: 40s; }
 
 /*****************************
 2-3 Set-detail:Others
@@ -422,8 +443,12 @@ body {
   background-image: url("../img/addperson.png");
   background-size: 70%; }
 
-.toolbar-button#recognition {
+.toolbar-button#recognition-on {
   background-image: url("../img/recognition.png");
+  background-size: 70%; }
+
+.toolbar-button#recognition-off {
+  background-image: url("../img/recognize-off.png");
   background-size: 70%; }
 
 .toolbar-button#vote {
@@ -494,7 +519,7 @@ body {
   background-size: 60%; }
 
 /*****************************
-1. Left-field Set
+        Left-field Set
 *****************************/
 .left-voice {
   display: flex;
@@ -519,16 +544,104 @@ body {
   width: 100%; }
 
 .left-chatbox {
-  margin-top: 1%;
   position: absolute;
-  z-index: -10;
-  box-sizing: border-box;
-  padding: 5%;
   top: 8%;
+  z-index: -10;
+  margin-top: 1%;
   width: 100%;
   height: 78%;
-  overflow-x: hidden;
-  overflow-y: scroll; }
+  box-sizing: border-box;
+  padding: 5%;
+  overflow: hidden; }
+  .left-chatbox:hover {
+    overflow-x: hidden;
+    overflow-y: scroll; }
+
+.myself-message, .others-message {
+  position: relative;
+  left: 0;
+  width: 97%;
+  height: auto;
+  margin-bottom: 6%; }
+
+.myself-message .image, .others-message .image {
+  width: 35x;
+  height: 35px;
+  border-radius: 99em;
+  background-color: white;
+  box-shadow: 1px 1px 1px #797979; }
+
+.myself-message .name, .others-message .name {
+  margin-top: 1%;
+  position: relative;
+  text-align: center;
+  width: 40px;
+  font-size: 0.9em; }
+
+.myself-message .dialogbox, .others-message .dialogbox {
+  width: 85%;
+  margin-top: 1%;
+  box-sizing: border-box;
+  box-shadow: 1px 0.8px 1px #797979;
+  padding: 2% 5% 2% 5%;
+  background: #fff;
+  word-break: break-all;
+  border-radius: 6px;
+  line-height: 200%; }
+  .myself-message .dialogbox:after, .others-message .dialogbox:after {
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border: solid transparent;
+    border-color: rgba(255, 255, 255, 0);
+    border-width: 5px;
+    margin-top: -5px; }
+
+.myself-message .image {
+  position: relative;
+  left: 0%; }
+
+.myself-message .name {
+  left: 0%; }
+
+.myself-message .time {
+  position: absolute;
+  top: 80%;
+  left: 90%; }
+
+.myself-message .dialogbox {
+  position: absolute;
+  left: 20%;
+  top: 0%; }
+  .myself-message .dialogbox:after {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    border-right-color: #fff; }
+
+.others-message .image {
+  position: relative;
+  left: 90%; }
+
+.others-message .name {
+  top: 70%;
+  left: 90%; }
+
+.others-message .time {
+  position: absolute;
+  top: 80%;
+  left: 0%; }
+
+.others-message .dialogbox {
+  position: absolute;
+  left: 0%;
+  top: 0%; }
+  .others-message .dialogbox:after {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    border-left-color: #fff; }
 
 .left-input {
   position: absolute;
@@ -579,116 +692,6 @@ body {
   outline: none;
   border-style: none; }
 
-.myself-message {
-  position: relative;
-  left: 0;
-  width: 100%;
-  height: auto;
-  margin-bottom: 7%; }
-
-.myself-message .image {
-  float: left;
-  width: 40px;
-  height: 40px;
-  border-radius: 99em;
-  background-color: white;
-  box-shadow: 1px 1px 1px #797979; }
-
-.myself-message .name {
-  margin-top: 1%;
-  position: relative;
-  left: 0%;
-  text-align: center;
-  width: 40px;
-  font-size: 0.9em; }
-
-.myself-message .time {
-  position: absolute;
-  top: 70%;
-  left: 90%; }
-
-.myself-message .dialogbox {
-  margin-top: 1%;
-  box-sizing: border-box;
-  padding: 2% 5% 2% 5%;
-  width: 85%;
-  position: absolute;
-  left: 20%;
-  top: 0%;
-  background: #fff;
-  word-break: break-all;
-  border-radius: 6px;
-  line-height: 200%;
-  box-shadow: 1px 0.8px 1px #797979; }
-  .myself-message .dialogbox:after {
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0);
-    border-right-color: #fff;
-    border-width: 5px;
-    margin-top: -5px; }
-
-.others-message {
-  position: relative;
-  left: 0;
-  width: 100%;
-  height: auto;
-  margin-bottom: 7%; }
-
-.others-message .image {
-  position: relative;
-  left: 90%;
-  width: 40px;
-  height: 40px;
-  border-radius: 99em;
-  box-shadow: 1px 1px 1px #797979; }
-
-.others-message .name {
-  position: relative;
-  top: 70%;
-  left: 90%;
-  text-align: center;
-  width: 40px;
-  font-size: 0.9em; }
-
-.others-message .dialogbox {
-  margin-top: 1%;
-  box-sizing: border-box;
-  padding: 2% 5% 2% 5%;
-  width: 85%;
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  background: #fff;
-  word-break: break-all;
-  border-radius: 6px;
-  line-height: 200%;
-  box-shadow: 1px 0.8px 1px #797979; }
-  .others-message .dialogbox:after {
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0);
-    border-left-color: #fff;
-    border-width: 5px;
-    margin-top: -5px; }
-
-.others-message .time {
-  position: absolute;
-  top: 70%;
-  left: 0%; }
-
 .upload-image {
   display: flex;
   justify-content: center;
@@ -696,69 +699,167 @@ body {
   width: 20%; }
 
 /*****************************
-2. Center-field Set
+      Center-field Set
 *****************************/
 .toolbar {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 10%;
-  margin-bottom: 0.5%; }
+  height: 10%; }
 
 .main-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 60%;
-  border-radius: 5px;
-  background-image: url("../img/666.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%; }
+  height: 78%; }
 
 .av-control {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 99%;
+  height: 12%; }
+
+/*****************************
+          Video Detail
+*****************************/
+.main-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 99%;
+  height: 74%;
+  border-radius: 5px;
+  background-image: url("../img/666.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%; }
+
+.other-video {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  z-index: 1000;
   width: 100%;
-  height: 13%;
+  height: 26%;
+  overflow: hidden; }
+  .other-video:hover {
+    overflow-x: scroll;
+    overflow-y: hidden; }
+
+.otheruser {
+  float: left;
+  width: 160px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%; }
+  .otheruser:hover {
+    margin-top: -0.3%;
+    cursor: pointer; }
+  .otheruser:active {
+    margin-top: 0%; }
+
+.video {
+  position: inherit;
+  width: 160px; }
+
+.user-infro {
+  float: left;
+  margin-top: -1%;
+  top: 76%;
+  width: 55%;
+  height: 17%; }
+
+.user-image {
+  margin: 3;
+  float: left;
+  padding: 3%;
+  height: 75%; }
+
+.user-name {
+  float: left;
+  line-height: 180%;
+  text-align: left; }
+
+.user-audio, .user-video {
+  float: right;
+  width: 10%;
+  margin-right: 1.5%; }
+
+#member {
+  background: linear-gradient(to right, #ffee45, #ffee45, #ffee45, rgba(255, 238, 69, 0)); }
+
+#king {
+  background: linear-gradient(to right, #87d3ca, #87d3ca, #87d3ca, rgba(135, 211, 202, 0)); }
+
+/*****************************
+          Others Detail
+*****************************/
+.adduser {
+  box-sizing: border-box;
+  padding: 0.3%;
   position: absolute;
-  bottom: 2%; }
+  top: 11%;
+  left: 38%;
+  z-index: 500;
+  width: 20%;
+  height: 6%;
+  color: #2c2c2c;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: rgba(253, 251, 236, 0.98);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px #d7d2ab; }
+  .adduser:after {
+    position: absolute;
+    left: 45%;
+    top: -52%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(253, 251, 236, 0.98);
+    border-width: 10px; }
+
+#roomURL {
+  width: 0.1px;
+  height: 0.1px; }
 
 /*****************************
 3. Right-field Set
 *****************************/
 .agenda-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 50%; }
 
 .eagle {
   position: absolute;
-  z-index: -48;
-  top: 1%;
-  left: 30%;
+  z-index: 2;
+  top: 0.5%;
   width: 45%; }
 
 .branch {
   position: absolute;
   z-index: -50;
+  top: -0.7%;
   right: 0%;
   width: 90%; }
 
 .flag {
-  width: 60%;
-  height: 28%;
+  width: 75%;
+  height: 32%;
   position: absolute;
-  z-index: -49;
-  left: 20%;
-  top: 14%;
+  top: 13%;
+  z-index: 1;
   background-color: #f9ed55;
   box-shadow: 2px 2px 0px #d7cd4b; }
 
 .flag .bar {
-  margin-left: -1.5%;
-  width: 102.5%;
+  margin-left: -4%;
+  width: 107%;
   height: 7%;
   background-color: #e27100;
   box-shadow: 2px 2px 0px #c66300;
@@ -791,37 +892,114 @@ body {
   margin-bottom: 2%; }
 
 .agenda-content {
+  font-size: 1.3em;
   position: absolute;
   top: 21%;
   width: 100%;
   height: 63%;
+  overflow-x: hidden;
   overflow-y: scroll; }
 
-.agenda-content li {
-  font-size: 15px;
-  margin-bottom: 3%;
-  width: 90%; }
-  .agenda-content li:hover {
-    background-color: #d7cd4b; }
+.agenda-content .detail {
+  float: left;
+  box-sizing: border-box;
+  padding: 1%;
+  width: 100%; }
+  .agenda-content .detail:hover {
+    opacity: 0.7;
+    cursor: pointer; }
+
+.agenda-content .checkbox {
+  float: left;
+  margin: 3%;
+  box-sizing: border-box;
+  border: 2px solid #f2b31c;
+  border-radius: 2.5px;
+  width: 17px;
+  height: 17px;
+  background-color: rgba(255, 255, 255, 0.3); }
+  .agenda-content .checkbox:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer; }
+
+.checkbox .checked {
+  position: relative;
+  top: -10%;
+  width: 140%; }
+
+.text#line {
+  text-decoration: line-through; }
+
+.agenda-content .text {
+  box-sizing: border-box;
+  float: left;
+  width: 70%;
+  margin: 3% 0% 3% 0%; }
+  .agenda-content .text:hover {
+    cursor: pointer; }
+
+.agenda-content .delete {
+  box-sizing: border-box;
+  opacity: 0.1;
+  float: right;
+  width: 17px;
+  height: 17px;
+  margin: 3% 0% 3% 1%;
+  background: transparent url("../img/delete.ico") no-repeat center center;
+  background-size: 80%; }
+  .agenda-content .delete:hover {
+    opacity: 1;
+    cursor: pointer; }
 
 .agenda-add {
   position: absolute;
   top: 88%;
   width: 100%;
   height: 12%; }
+  .agenda-add:hover {
+    opacity: 0.7;
+    cursor: pointer; }
+
+.agenda-add .cross {
+  position: absolute;
+  top: 7%;
+  left: 25%;
+  width: 20px;
+  height: 20px; }
+  .agenda-add .cross:hover {
+    cursor: pointer;
+    opacity: 0.8; }
+  .agenda-add .cross:before, .agenda-add .cross:after {
+    position: absolute;
+    top: 1.5%;
+    left: 48%;
+    content: ' ';
+    height: 12px;
+    width: 1.5px;
+    background-color: #c66300; }
+  .agenda-add .cross:before {
+    transform: rotate(90deg); }
+  .agenda-add .cross:after {
+    transform: rotate(-180deg); }
+
+.agenda-add .text {
+  width: 70%;
+  text-align: center;
+  font-size: 1.2em;
+  position: absolute;
+  left: 15%; }
 
 .vote-block {
   position: absolute;
-  bottom: 6%;
   width: 100%;
-  height: 45%; }
+  height: 50%; }
 
 .votebox {
   position: absolute;
   bottom: 0%;
   z-index: 10;
   width: 25%;
-  height: 28%;
+  height: 30%;
   background-repeat: no-repeat;
   background-size: 100%; }
   .votebox:hover {
@@ -881,7 +1059,7 @@ body {
     top: 100%;
     border-top-color: #fbc6c6; }
 
-.add {
+.votedetail .add {
   text-align: right;
   margin-right: 3%;
   margin-bottom: 5%;
@@ -899,6 +1077,7 @@ body {
   width: 100%;
   height: 45%;
   overflow-y: scroll;
+  overflow-x: hidden;
   font-size: 1.1em; }
 
 .choice .status {
@@ -1017,46 +1196,15 @@ body {
 
 .voteEndtext {
   position: absolute;
-  bottom: -30%;
-  left: 5%;
-  width: 103%;
+  bottom: 6%;
+  text-align: center;
+  width: 110%;
   color: white; }
-
-/*****************************
-2. Center-field Set
-*****************************/
-.toolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 10%;
-  margin-bottom: 0.5%; }
-
-.main-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 60%;
-  border-radius: 5px;
-  background-image: url("../img/666.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%; }
-
-.av-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 13%;
-  position: absolute;
-  bottom: 2%; }
 
 .voting {
   line-height: 150%;
   position: absolute;
-  z-index: 500;
+  z-index: 200;
   top: 11%;
   left: 35%;
   width: 40%;
@@ -1135,7 +1283,7 @@ body {
   width: 100%;
   height: 15%; }
 
-.votequestion .input {
+.votequestion.input {
   position: absolute;
   left: 8%;
   font-size: 1.2em;
@@ -1151,7 +1299,8 @@ body {
   top: 35%;
   width: 100%;
   height: 48%;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  overflow-x: hidden; }
 
 .votebottom {
   position: absolute;
@@ -1258,18 +1407,19 @@ body {
   background-color: #e4e4e4; }
 
 .question .add {
-  position: absolute;
+  position: relative;
   top: 10%;
   left: 8%;
   width: 20px;
-  height: 20px; }
+  height: 20px;
+  margin-bottom: -8%; }
   .question .add:hover {
     cursor: pointer;
     opacity: 0.8; }
   .question .add:before, .question .add:after {
     position: absolute;
     top: 1.5%;
-    left: 48%;
+    left: 5%;
     content: ' ';
     height: 13px;
     width: 1.5px;
@@ -1335,62 +1485,6 @@ input[type='checkbox']:checked.toggle {
     left: 16px;
     background-color: #fff; }
 
-/*****************************
-4. Video Detail
-*****************************/
-.other-video {
-  float: left;
-  bottom: 0%;
-  z-index: 1000;
-  top: 78%;
-  width: 100%;
-  height: 15%; }
-
-.video {
-  float: left;
-  width: 20%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: 100%; }
-  .video:hover {
-    margin-top: -0.3%;
-    cursor: pointer; }
-  .video:active {
-    margin-top: 0%;
-    background-color: black; }
-
-.video#user1 {
-  background-image: url("../img/user1.jpg"); }
-
-.video#user2 {
-  background-image: url("../img/user2.jpg"); }
-
-.video#user3 {
-  background-image: url("../img/user3.jpg"); }
-
-.video#user4 {
-  background-image: url("../img/user4.jpg"); }
-
-.video#user5 {
-  background-image: url("../img/user5.jpg"); }
-
-.user-infro {
-  position: relative;
-  top: 76%;
-  width: 43%;
-  height: 20%; }
-
-.user-image {
-  margin: 3;
-  float: left;
-  width: 20%; }
-
-#member {
-  background: linear-gradient(to right, #ffee45, #ffee45, #ffee45, rgba(255, 238, 69, 0)); }
-
-#king {
-  background: linear-gradient(to right, #87d3ca, #87d3ca, #87d3ca, rgba(135, 211, 202, 0)); }
-
 .container {
   width: 100%;
   height: 100%;
@@ -1403,25 +1497,29 @@ input[type='checkbox']:checked.toggle {
   position: absolute;
   z-index: -100;
   left: 0%;
-  width: 22%;
+  width: 20.5%;
   height: 100%; }
 
 .center-field {
   position: absolute;
-  left: 22%;
-  width: 56%;
+  left: 20.5%;
+  width: 59%;
   height: 100%; }
 
 .right-field {
   position: absolute;
   right: 0;
-  width: 22%;
+  width: 20.5%;
   height: 100%; }
 
 /*****************************
 1. Special Set
 *****************************/
 ::-webkit-scrollbar {
+  width: 9px;
+  height: 9px; }
+
+::-webkit-scrollbar-track {
   background-color: transparent; }
 
 ::-webkit-scrollbar-button:vertical:decrement {
@@ -1431,7 +1529,8 @@ input[type='checkbox']:checked.toggle {
   opacity: 100%; }
 
 ::-webkit-scrollbar-thumb {
-  background-color: transparent; }
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px; }
 
 /*****************************
 2. Media Query
@@ -1445,19 +1544,6 @@ input[type='checkbox']:checked.toggle {
 
   .left-field, .center-field, .right-field, .background {
     height: 615px; } }
-@media screen and (max-width: 1356px) {
-  html, body {
-    width: 1356px;
-    overflow-x: scroll; }
-
-  .container, .background {
-    width: 100%; }
-
-  .left-field, .right-field {
-    width: 300px; }
-
-  .center-field {
-    width: 1056px; } }
 .visible, #visible {
   visibility: visible; }
 

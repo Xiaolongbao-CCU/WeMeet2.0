@@ -96,9 +96,9 @@ class VoteDetail extends React.Component {
     onEnterOption(e) {
         if (e.target.value) {
             let finishFlag = true;
-            for(let key in this.state.voting.option){
-                if(!this.state.voting.option[key]){
-                    finishFlag = false
+            for (let key in this.state.voting.option) {
+                if (!this.state.voting.option[key]) {
+                    finishFlag = false;
                 }
             }
             this.setState({
@@ -122,9 +122,9 @@ class VoteDetail extends React.Component {
     onBlurOption(e) {
         if (e.target.value) {
             let finishFlag = true;
-            for(let key in this.state.voting.option){
-                if(!this.state.voting.option[key]){
-                    finishFlag = false
+            for (let key in this.state.voting.option) {
+                if (!this.state.voting.option[key]) {
+                    finishFlag = false;
                 }
             }
             this.setState({
