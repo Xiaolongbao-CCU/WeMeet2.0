@@ -12,3 +12,6 @@ public/certificate/certrequest.csr
 *.scssc
 public/css/.sass-cache/ad23e645d5ab5ac0676faddae64cfedbdb3e4b6d/animation.scssc
 .vscode/launch.json
+public/css/.sass-cache/ad23e645d5ab5ac0676faddae64cfedbdb3e4b6d/animation.scssc
+*.scssc
+public/css/.sass-cache/ad23e645d5ab5ac0676faddae64cfedbdb3e4b6d/animation.scssc

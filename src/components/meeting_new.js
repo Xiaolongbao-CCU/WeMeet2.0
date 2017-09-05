@@ -30,13 +30,32 @@ class Meeting_new extends React.Component {
         super(props);
         this.Chat = chat.createNew(this);
         this.state = {
-            isVoteResultOpen: false
+            isVoteResultOpen: false,
+            roomURL: ''
         }
+        this.getRoomURL = this.getRoomURL.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {
+        this.getRoomURL();
+    }
 
     componentDidMount() { }
+
+    getRoomURL() {
+        if (window.location.hash) {
+            this.setState({
+                roomURL: window.location.href
+            });
+        } else {
+            window.location.hash = Math.floor((1 + Math.random()) * 1e16)
+                .toString(16)
+                .substring(8);
+            this.setState({
+                roomURL: window.location.href
+            });
+        }
+    }
 
     render() {
         return (

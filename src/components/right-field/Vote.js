@@ -17,7 +17,7 @@ class Vote extends React.Component {
             }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
             isMyselfVoteCanSumbit: false, //我自己的投票是否完成? 若完成要觸發投票鍵開啟
             isMyselefVoteFinished: false,
-            isOthersVoteFinished: false, //其他人的投票是否完成? 若完成要觸發投票完成的動作
+            isOthersVoteFinished: true, //其他人的投票是否完成? 若完成要觸發投票完成的動作
             MaxVoteNumber: 6, //投票上限
 
 

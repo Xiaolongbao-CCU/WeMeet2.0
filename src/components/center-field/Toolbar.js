@@ -10,19 +10,25 @@ class Toolbar extends React.Component {
         this.state = {
             //Toggle Status
             isVoteToggle: false,
-            isRecognitionToggle: false,
-            isAddUserToggle: true,
+            isAddUserToggle: false,
             //Open Status
-            isRecognitionOpen: false
+            isRecognitionOpen: false,
+            //Special Status
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
+        this.onClick_ToggleAddUserControl = this.onClick_ToggleAddUserControl.bind(this);
+        this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
     }
 
 
     componentWillMount() { }
 
-    componentDidMount() { }
+    componentDidMount() {
+    }
+
+    //Others Events
+
 
     //OnClick Events
     onClick_ToggleBrainstorming() { }
@@ -39,13 +45,26 @@ class Toolbar extends React.Component {
         this.setState({
             isRecognitionOpen: !this.state.isRecognitionOpen
         })
+    }
 
+    onClick_ToggleAddUserControl() {
+        if (this.state.isAddUserToggle == false) {
+            this.setState({
+                isAddUserToggle: true
+            })
+            setTimeout(this.ClearAddUserBlock, 4000);
+        }
+    }
+
+    ClearAddUserBlock() {
+        this.setState({
+            isAddUserToggle: false
+        })
     }
 
     render() {
         return (
             <div className="toolbar">
-
 
                 <button
                     className="toolbar-button"
@@ -53,21 +72,20 @@ class Toolbar extends React.Component {
                     onClick=""
                 />
 
+
+
                 <button
                     className="toolbar-button"
                     id={this.state.isRecognitionOpen ? 'recognition-on' : 'recognition-off'}
                     onClick={this.onClick_ToggleRecognitionControl}
                 />
 
-                {
-                    this.state.isRecognitionToggle
-                        ? <VoteDetail />
-                        : null
-                }
+
 
                 <button
                     className="toolbar-button"
                     id="adduser"
+                    onClick={this.onClick_ToggleAddUserControl}
                 />
 
                 {
@@ -75,6 +93,8 @@ class Toolbar extends React.Component {
                         ? <AddUser />
                         : null
                 }
+
+
 
                 <button className="toolbar-button" id="recognition" />
 

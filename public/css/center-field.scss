@@ -119,28 +119,38 @@
 
 .adduser{
   //basic-set
+  box-sizing: border-box;
+  padding: 0.3%;
   position: absolute;
   top:$toolbar-height+1%;
-  left: 20%;
+  left: 38%;
   z-index: 500;
   //size-set
-  width:40%;
-  height: 33%;
+  width:20%;
+  height: 6%;
   //special-set
-  background-color: $vote-color;
-  border-radius: 10px;
+  color: #2c2c2c;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: rgba(253,251,236,0.98);
+  border-radius: 5px;
   box-shadow: 1px 1px 1px #d7d2ab;
   &:after{
     position: absolute;
-    left: 79%;
-    top: -8.5%;
+    left: 45%;
+    top: -52%;
     border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: $vote-color;
+    border-bottom-color: rgba(253,251,236,0.98);
     border-width: 10px;
   }
+}
+
+#roomURL{
+  width:0.1px;
+  height: 0.1px;
 }
