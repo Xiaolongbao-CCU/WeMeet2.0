@@ -6,6 +6,7 @@
 //     multiOrNot:[1(0:一票 1:多票),3(多票是幾票)],
 // }
 import React from "react";
+import socket from "../../socket";
 
 class VoteDetail extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class VoteDetail extends React.Component {
         this.state = {
             isRegisteredSelect: true,
             isMultivoteOpen: false,
-            isVoteFinish: false,
+            isVoteReady: false,
             MultivoteNumber: 2,
             voting: {
                 secretOrNot: 0,
@@ -63,138 +64,84 @@ class VoteDetail extends React.Component {
     }
 
     onEnterQuestion(e) {
-        //如果按enter，而且有輸入東西
-        if (e.which == 13 && e.target.value) {
+        this.setState({
+            voting: {
+                ...this.state.voting,
+                question: e.target.value
+            }
+        });
+        if (!e.target.value) {
+            console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                voting: {
-                    ...this.state.voting,
-                    question: e.target.value
-                }
+                isVoteFinish: false
             });
-        } else if (e.which == 13 && !e.target.value) {
-            alert("沒輸入東西 要改紅框");
         }
     }
 
     onBlurQuestion(e) {
+        this.setState({
+            voting: {
+                ...this.state.voting,
+                question: e.target.value
+            }
+        });
         if (!e.target.value) {
-            alert("沒輸入問題，要給提醒/改紅框");
-        } else {
+            console.log("沒輸入問題，要給提醒/改紅框");
             this.setState({
-                voting: {
-                    ...this.state.voting,
-                    question: e.target.value
-                }
+                isVoteReady: false
             });
         }
     }
 
     onEnterOption(e) {
-        //案enter而且有輸入值得情況下
-        if (e.which == 13 && e.target.value) {
-            //檢查是否為第一個值
-            if (this.state.voting.option) {
-                //不是第一個的話，檢查是修改舊的還是新增一個選項
-                if (
-                    e.target.id ==
-                    "option" +
-                        (Object.keys(this.state.voting.option).length - 1)
-                ) {
-                    //如果是最後一個選項，就在他後面新增一個，然後加一個空格
-                    this.setState({
-                        voting: {
-                            ...this.state.voting,
-                            option: {
-                                ...this.state.voting.option,
-                                [e.target.id]: e.target.value,
-                                ["option" +
-                                    Object.keys(this.state.voting.option)
-                                        .length]: ""
-                            }
-                        }
-                    });
-                } else {
-                    //如果已經有這個選項了，就是修改舊的，不用加格子
-                    this.setState({
-                        voting: {
-                            ...this.state.voting,
-                            option: {
-                                ...this.state.voting.option,
-                                [e.target.id]: e.target.value
-                            }
-                        }
-                    });
+        if (e.target.value) {
+            let finishFlag = true;
+            for(let key in this.state.voting.option){
+                if(!this.state.voting.option[key]){
+                    finishFlag = false
                 }
-            } else {
-                //如果沒有的話，就新增那個值，然後做一個新的空格
-                this.setState({
-                    voting: {
-                        ...this.state.voting,
-                        option: {
-                            ...this.state.voting.option,
-                            [e.target.id]: e.target.value,
-                            ["option" +
-                                Object.keys(this.state.voting.option)
-                                    .length]: ""
-                        }
-                    }
-                });
             }
+            this.setState({
+                isVoteReady: finishFlag,
+                voting: {
+                    ...this.state.voting,
+                    option: {
+                        ...this.state.voting.option,
+                        [e.target.id]: e.target.value
+                    }
+                }
+            });
+        } else {
+            console.log("沒值阿!給個紅框");
+            this.setState({
+                isVoteReady: false
+            });
         }
     }
 
     onBlurOption(e) {
-        if (!e.target.value) {
-            alert("沒輸入問題，要給提醒");
-        } else {
-            //檢查是否為第一個值
-            if (this.state.voting.option) {
-                //不是第一個的話，檢查是修改舊的還是新增一個選項
-                if (
-                    e.target.id ==
-                    "option" +
-                        (Object.keys(this.state.voting.option).length - 1)
-                ) {
-                    //如果是最後一個選項，就在他後面新增一個，然後加一個空格
-                    this.setState({
-                        voting: {
-                            ...this.state.voting,
-                            option: {
-                                ...this.state.voting.option,
-                                [e.target.id]: e.target.value,
-                                ["option" +
-                                    Object.keys(this.state.voting.option)
-                                        .length]: ""
-                            }
-                        }
-                    });
-                } else {
-                    //如果已經有這個選項了，就是修改舊的，不用加格子
-                    this.setState({
-                        voting: {
-                            ...this.state.voting,
-                            option: {
-                                ...this.state.voting.option,
-                                [e.target.id]: e.target.value
-                            }
-                        }
-                    });
+        if (e.target.value) {
+            let finishFlag = true;
+            for(let key in this.state.voting.option){
+                if(!this.state.voting.option[key]){
+                    finishFlag = false
                 }
-            } else {
-                //如果沒有的話，就新增那個值，然後做一個新的空格
-                this.setState({
-                    voting: {
-                        ...this.state.voting,
-                        option: {
-                            ...this.state.voting.option,
-                            [e.target.id]: e.target.value,
-                            ["option" +
-                                Object.keys(this.state.voting.option)
-                                    .length]: ""
-                        }
-                    }
-                });
             }
+            this.setState({
+                isVoteReady: finishFlag,
+                voting: {
+                    ...this.state.voting,
+                    option: {
+                        ...this.state.voting.option,
+                        [e.target.id]: e.target.value
+                    }
+                }
+            });
+        } else {
+            console.log("給個紅框");
+            this.setState({
+                isVoteReady: false
+            });
         }
     }
 
@@ -251,6 +198,24 @@ class VoteDetail extends React.Component {
         }
     }
 
+    onClick_newOption(e) {
+        this.setState({
+            voting: {
+                ...this.state.voting,
+                option: {
+                    ...this.state.voting.option,
+                    ["option" +
+                        (Object.keys(this.state.voting.option).length + 1)]: ""
+                }
+            }
+        });
+    }
+
+    onClick_startVoing() {
+        console.log("發送投票資訊到伺服器>全部人同步");
+        socket.emit("createVote", this.state.voting);
+    }
+
     render() {
         let option = [];
         for (let key in this.state.voting.option) {
@@ -267,8 +232,8 @@ class VoteDetail extends React.Component {
                         type="text"
                         id={key}
                         ref={key}
-                        placeholder="請輸入投票選項"
-                        onKeyPress={e => {
+                        placeholder="點此新增投票選項"
+                        onKeyUp={e => {
                             this.onEnterOption(e);
                         }}
                         onBlur={e => {
@@ -318,7 +283,7 @@ class VoteDetail extends React.Component {
                         ref="votequestion"
                         type="text"
                         placeholder="請輸入投票問題"
-                        onKeyPress={e => {
+                        onKeyUp={e => {
                             this.onEnterQuestion(e);
                         }}
                         onBlur={e => {
@@ -329,6 +294,13 @@ class VoteDetail extends React.Component {
 
                 <div className="voteconent">
                     {option}
+                    <div
+                        onClick={e => {
+                            this.onClick_newOption(e);
+                        }}
+                    >
+                        按此新增選項
+                    </div>
                 </div>
 
                 <div className="votebottom">
@@ -363,7 +335,10 @@ class VoteDetail extends React.Component {
                     </div>
                     <button
                         className="votesubmit"
-                        id={this.state.isVoteFinish ? "open" : "close"}
+                        id={this.state.isVoteReady ? "open" : "close"}
+                        onClick={e => {
+                            this.onClick_startVoing(e);
+                        }}
                     >
                         開始投票
                     </button>
