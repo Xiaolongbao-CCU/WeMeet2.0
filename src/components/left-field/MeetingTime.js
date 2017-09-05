@@ -17,7 +17,6 @@ class MeetingTime extends React.Component {
     }
 
     componentWillMount() {
-
     }
 
     componentDidMount() {
@@ -49,14 +48,13 @@ class MeetingTime extends React.Component {
     render() {
         /* Andy: put meeting time record here */
         return (
-            (
-                <div className="left-meetingtime">
-                    會議進行時間：
+
+            <div className="left-meetingtime">
+                會議進行時間：
                      {this.state.Meetingtime.hour}&nbsp;時&nbsp;
                      {this.state.Meetingtime.min}&nbsp;分&nbsp;
                      {this.state.Meetingtime.sec}&nbsp;秒&nbsp;
                 </div>
-            )
         );
     }
 }

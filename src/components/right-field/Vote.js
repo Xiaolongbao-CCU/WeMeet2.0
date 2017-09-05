@@ -1,5 +1,10 @@
 "use strict";
-
+// {   投票資料格式
+//     secretOrNot:1,
+//     title:"sssssss",
+//     option:["ssss","xxxxx","pppppp"],
+//     multiOrNot:[1,3]
+// }
 import React from "react";
 
 class Vote extends React.Component {
@@ -19,7 +24,6 @@ class Vote extends React.Component {
             isMyselefVoteFinished: false,
             isOthersVoteFinished: false, //其他人的投票是否完成? 若完成要觸發投票完成的動作
             MaxVoteNumber: 6, //投票上限
-
 
             /* About VoteBox Detail */
             VoteFounder: '佳怡', //投票建立者
@@ -70,7 +74,6 @@ class Vote extends React.Component {
                 <div className="votebox" id={this.state.VoteBoxOrder} onClick={this.onClick_ToggleVoteDetail}>
                     {this.state.isOthersVoteFinished ? <img className='voteEnd' src='../img/vote-ended.png' /> : null}
                     {this.state.isOthersVoteFinished ? <div className='voteEndtext'>投票出爐囉！</div> : null}
-
                 </div>
                 <div className={this.state.isVoteBoxOpen ? 'visible' : 'hidden'}>
                     <div className="votedetail" id={this.state.VoteBoxOrder}>
@@ -94,7 +97,7 @@ class Vote extends React.Component {
                         <div className="votego" id={this.state.isMyselfVoteCanSumbit ? 'open' : 'closed'}>投票！</div>
                     </div>
                 </div>
-            </div >
+            </div>
         )
 
     }

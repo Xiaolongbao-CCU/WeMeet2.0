@@ -128,7 +128,6 @@ class MainScreen extends React.Component {
                 </div>
             </div>
         )
-
     }
 }
 
