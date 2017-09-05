@@ -96,7 +96,7 @@ class Toolbar extends React.Component {
 
 
 
-                <button className="toolbar-button" id="recognition" />
+                <button className="toolbar-button" id="brainstorming" />
 
                 <button
                     className="toolbar-button"

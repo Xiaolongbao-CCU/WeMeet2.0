@@ -12,7 +12,7 @@
 
 .eagle {
   position: absolute;
-  z-index: -48;
+  z-index: 2;
   top:0.5%;
   width:45%;
   //animation: eagle 5s infinite;
@@ -31,7 +31,7 @@
   height:32%;
   position: absolute;
   top:13%;
-  z-index: -49;
+  z-index: 1;
   background-color: $agenda-color;
   box-shadow: 2px 2px 0px $agenda-shadow;
   //animation: eagle 5s infinite;
@@ -76,19 +76,73 @@
 }
 
 .agenda-content{
+  font-size: 1.3em;
   position: absolute;
   top: 21%;
   width:100%;
   height: 63%;
-  overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
-.agenda-content li{
-  font-size:15px;
-  margin-bottom: 3%;
-  width: 90%;
+.agenda-content .detail{
+  float: left;
+  box-sizing: border-box;
+  padding: 1%;
+  width:100%;
   &:hover{
-    background-color: $agenda-shadow;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+
+.agenda-content .checkbox{
+  float: left;
+  margin: 3%;
+  box-sizing: border-box;
+  border: 2px solid #f2b31c;
+  border-radius: 2.5px;
+  width:17px;
+  height: 17px;
+  background-color: rgba(255,255,255,0.3);
+  &:hover{
+    background-color: rgba(255,255,255,0.6);
+    cursor: pointer;
+  }
+}
+
+.checkbox .checked{
+  position: relative;
+  top: -10%;
+  width: 140%;
+}
+
+.text#line{
+  text-decoration: line-through;
+}
+
+.agenda-content .text{
+  box-sizing: border-box;
+  float: left;
+  width: 70%;
+  margin: 3% 0% 3% 0%;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.agenda-content .delete{
+  box-sizing: border-box;
+  opacity: 0.1;
+  float: right;
+  width: 17px;
+  height: 17px;
+  margin: 3% 0% 3% 1%;
+  background: transparent url('../img/delete.ico') no-repeat center center;
+  background-size: 80%;
+  &:hover{
+    opacity: 1;
+    cursor: pointer;
   }
 }
 
@@ -97,6 +151,48 @@
   top: 88%;
   width: 100%;
   height: 12%;
+  &:hover{
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+
+.agenda-add .cross{
+  position: absolute;
+  top:7%;
+  left:25%;
+  width: 20px;
+  height: 20px;
+
+  &:hover{
+  cursor: pointer;
+  opacity: 0.8;
+  }
+
+  &:before,&:after{
+  position: absolute;
+  top:1.5%;
+  left: 48%;
+  content: ' ';
+  height: 12px;
+  width: 1.5px;
+  background-color: #c66300;
+  }
+
+  &:before{
+    transform: rotate(90deg);
+  }
+  &:after{
+  transform: rotate(-180deg);
+  }
+}
+
+.agenda-add .text{
+  width: 70%;
+  text-align: center;
+  font-size: 1.2em;
+  position: absolute;
+  left: 15%;
 }
 
 .vote-block{
