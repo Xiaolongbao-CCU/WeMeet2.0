@@ -21,6 +21,7 @@ class Agenda extends React.Component {
         }
         this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(this);
         this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
+        this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
     componentWillMount() { }
@@ -44,6 +45,12 @@ class Agenda extends React.Component {
             });
             socket.emit("addAgenda", this.state.agendaList);
             this.refs.agenda_input.value = "";
+        }
+    }
+
+    handleAgendaInputPressEnter() {
+        if (key.charCode == 13) {
+            //按下enter後
         }
     }
 
@@ -93,6 +100,14 @@ class Agenda extends React.Component {
                             <label className="text" id={this.state.agendaList.second.isAgendaFinished ? "line" : ""}>
                                 {this.state.agendaList.second.content}
                             </label>
+                            <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
+                        </div>
+
+                        <div className="detail">
+                            <div className="checkbox">
+                                <img className="checked" src={this.state.agendaList.second.isAgendaFinished ? "./img/tick.png" : ""} />
+                            </div>
+                            <input className="input" type="text" ref="agendaInputText" onKeyPress={key => { this.handleAgendaInputPressEnter(key); }/>
                             <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
                         </div>
 
