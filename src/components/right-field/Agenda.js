@@ -10,7 +10,7 @@ class Agenda extends React.Component {
                 first: {
                     number: 1, //議程順序
                     content: '我是議程一', //單個議程內容
-                    isAgendaFinished: false, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+                    isAgendaFinished: true, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
                 },
                 second: {
                     number: 2,
@@ -107,7 +107,7 @@ class Agenda extends React.Component {
                             <div className="checkbox">
                                 <img className="checked" src={this.state.agendaList.second.isAgendaFinished ? "./img/tick.png" : ""} />
                             </div>
-                            <input className="input" type="text" ref="agendaInputText" onKeyPress={key => { this.handleAgendaInputPressEnter(key); }/>
+                            <input className="input" type="text" ref="agendaInputText" onKeyPress={key => { this.handleAgendaInputPressEnter(key); }} />
                             <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
                         </div>
 
