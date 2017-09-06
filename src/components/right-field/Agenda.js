@@ -6,34 +6,37 @@ class Agenda extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            agendaList: {
-                first: {
-                    number: 1, //議程順序
-                    content: '我是議程一', //單個議程內容
-                    isAgendaFinished: false, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+            agendaList: [
+                {
+                    content: "我是議程一", //單個議程內容
+                    isAgendaFinished: false //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
                 },
-                second: {
-                    number: 2,
-                    content: '我是議程二',
-                    isAgendaFinished: false,
+                {
+                    content: "我是議程二",
+                    isAgendaFinished: false
                 }
-            }
-        }
-        this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(this);
+            ]
+        };
+        this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(
+            this
+        );
         this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
-    onClick_ToggleDeleteAgenda() {
+    onClick_ToggleDeleteAgenda(e) {
+        let key = e.target.id;
         this.setState({
-            agendaList: this.state.agendaList.filter(item => {
-                return item !== key;
-            })
+            ...this.state,
+            agendaList: [
+                ...this.state.agendaList.slice(0, key),
+                ...this.state.agendaList.slice(key + 1)
+            ]
         });
-        socket.emit("deleteAgenda", this.state.agendaList);
+        //socket.emit("deleteAgenda", this.state.agendaList);
     }
 
     onClick_ToggleAddAgenda() {
@@ -47,19 +50,57 @@ class Agenda extends React.Component {
         }
     }
 
+    onClick_toggleAgendaFinish(e){
+        let key = e.target.id
+        console.log(key)
+        this.setState({
+            ...this.state,
+            agendaList:[
+                ...this.state.agendaList.slice(0,key),
+                {
+                    ...this.state.agendaList[key],
+                    isAgendaFinished: !this.state.agendaList[key].isAgendaFinished
+                },
+                ...this.state.agendaList.slice(key+1)
+            ]
+        })
+    }
     render() {
         let agendaDetail;
         if (this.state.agendaList.length > 0) {
-            agenda = this.state.agendaList.map(item => {
+            agendaDetail = this.state.agendaList.map(item => {
+                let key = this.state.agendaList.indexOf(item);
                 return (
                     <div className="detail">
                         <div className="checkbox">
-                            <img className="checked" src={this.state.agendaList.first.isAgendaFinished ? "./img/tick.png" : ""} />
+                            <img
+                                className="checked"
+                                id={key} 
+                                onClick={(e)=>{this.onClick_toggleAgendaFinish(e)}}
+                                src={
+                                    this.state.agendaList[key].isAgendaFinished
+                                        ? "./img/tick.png"
+                                        : "./img/null.png"
+                                }
+                            />
                         </div>
-                        <label className="text" id={this.state.agendaList.first.isAgendaFinished ? "line" : ""}>
-                            {this.state.agendaList.first.content}
+                        <label
+                            className="text"
+                            id={
+                                this.state.agendaList[key].isAgendaFinished
+                                    ? "line"
+                                    : ""
+                            }
+                        >
+                            {this.state.agendaList[key].content}
                         </label>
-                        <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
+                        <div
+                            className="delete"
+                            id={key}
+                            onClick={e => {
+                                this.onClick_ToggleDeleteAgenda(e);
+                            }}
+                        />
                     </div>
                 );
             });
@@ -75,32 +116,14 @@ class Agenda extends React.Component {
                     <div className="right" />
                     <div className="agenda-title">議程</div>
                     <div className="agenda-content">
-
-                        <div className="detail">
-                            <div className="checkbox">
-                                <img className="checked" src={this.state.agendaList.first.isAgendaFinished ? "./img/tick.png" : ""} />
-                            </div>
-                            <label className="text" id={this.state.agendaList.first.isAgendaFinished ? "line" : ""}>
-                                {this.state.agendaList.first.content}
-                            </label>
-                            <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
-                        </div>
-
-                        <div className="detail">
-                            <div className="checkbox">
-                                <img className="checked" src={this.state.agendaList.second.isAgendaFinished ? "./img/tick.png" : ""} />
-                            </div>
-                            <label className="text" id={this.state.agendaList.second.isAgendaFinished ? "line" : ""}>
-                                {this.state.agendaList.second.content}
-                            </label>
-                            <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
-                        </div>
-
-
+                        {agendaDetail}
                     </div>
-                    <div className="agenda-add" onClick={this.onClick_ToggleAddAgenda}>
-                        <div className='cross' />
-                        <div className='text'>增加議程</div>
+                    <div
+                        className="agenda-add"
+                        onClick={this.onClick_ToggleAddAgenda}
+                    >
+                        <div className="cross" />
+                        <div className="text">增加議程</div>
                     </div>
                 </div>
             </div>

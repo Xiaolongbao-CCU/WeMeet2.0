@@ -339,6 +339,7 @@ class VoteDetail extends React.Component {
                         onClick={e => {
                             this.onClick_startVoing(e);
                         }}
+                        disabled={this.state.isVoteReady? false:true}
                     >
                         開始投票
                     </button>
