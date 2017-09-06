@@ -2,10 +2,15 @@
 Description
 
 ## Getting Started
+```
+yarn start
+or
+npm start
+```
 
 ## Installing
 ```
-npm start
+npm install
 ```
 
 ## Build With
