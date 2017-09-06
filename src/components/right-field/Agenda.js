@@ -68,13 +68,6 @@ class Agenda extends React.Component {
         })
     }
 
-    handleAgendaInputPressEnter() {
-        if (key.charCode == 13) {
-            //按下enter後
-        }
-    }
-
-
     render() {
         let agendaDetail;
         if (this.state.agendaList.length > 0) {
@@ -127,13 +120,18 @@ class Agenda extends React.Component {
                     <div className="agenda-title">議程</div>
                     <div className="agenda-content">
                         {agendaDetail}
+
                     </div>
+
                     <div
                         className="agenda-add"
                         onClick={this.onClick_ToggleAddAgenda}
                     >
                         <div className="cross" />
-                        <div className="text">增加議程</div>
+                        <div className="text"
+                        onClick={e => {
+                            this.onClick_newAgenda(e);
+                        }}>增加議程</div>
                     </div>
                 </div>
             </div>
