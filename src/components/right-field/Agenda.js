@@ -21,6 +21,7 @@ class Agenda extends React.Component {
             this
         );
         this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
+        this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
     componentWillMount() {}
@@ -50,6 +51,7 @@ class Agenda extends React.Component {
         }
     }
 
+
     onClick_toggleAgendaFinish(e){
         let key = e.target.id
         console.log(key)
@@ -65,6 +67,14 @@ class Agenda extends React.Component {
             ]
         })
     }
+
+    handleAgendaInputPressEnter() {
+        if (key.charCode == 13) {
+            //按下enter後
+        }
+    }
+
+
     render() {
         let agendaDetail;
         if (this.state.agendaList.length > 0) {

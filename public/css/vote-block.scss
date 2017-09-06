@@ -261,12 +261,12 @@
 }
 
 .question .delete {
-  position: absolute;
+  position: relative;
   top:10%;
   left:8%;
   width: 20px;
   height: 20px;
-
+  margin-bottom: -8%;
   &:hover{
   cursor: pointer;
   opacity: 0.8;
