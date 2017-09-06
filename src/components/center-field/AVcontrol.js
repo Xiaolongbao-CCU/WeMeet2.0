@@ -42,7 +42,7 @@ class AVcontrol extends React.Component {
                 <button
                     className="av-button"
                     id={this.state.isMyselfAudioOn ? 'audio-on' : 'audio-off'}
-                    onClick={this.onClick_toggleAudioControl}
+     ㄨ               onClick={this.onClick_toggleAudioControl}
                 />
 
                 <button
