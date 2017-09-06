@@ -1,31 +1,11 @@
 "use strict";
 
-// 'getSystemTimeSuccess',
-//       'changeAudioState',
-//       'changeRecognizeState',
-//       'changeVideoState',
-//       'changeInviteState',
-//       'Updatetext',
-//       'changeVideoReadyState',
-//       'updateResult',
-//       'addAgenda',
-//       'deleteAgenda',
-//       'listenAgenda',
-//       'userLeft',
-//       'addRemoteStreamURL',
-//       'queueCandidate',
-//       'changeAgendaState',
-//       'receiveMsg',
-//       'changeBrainstormingState',
-//       'RandomBrain'
-
 export function setParticipantList(participantList) {
 	return {
 		type: "setParticipantList",
 		data: participantList
 	};
 }
-
 
 export function addParticipantList(participantID) {
 	return {
@@ -62,39 +42,50 @@ export function delRoom(room) {
 	};
 }
 
-
-
 export function gotLocalVideo(url) {
 	return {
 		type: "gotLocalVideo",
 		data: url
-	}
+	};
 }
 
-export function addParticipantConnection(participantObj){
+export function addParticipantConnection(participantObj) {
 	return {
-		type:"addParticipantConnection",
+		type: "addParticipantConnection",
 		data: participantObj
-	}
+	};
 }
 
-export function delParticipantConnection(participantObj){
+export function delParticipantConnection(participantObj) {
 	return {
-		type:"delParticipantConnection",
+		type: "delParticipantConnection",
 		data: participantObj
-	}
+	};
 }
 
-export function addRemoteStreamURL(streamObj){
+export function addRemoteStreamURL(streamObj) {
 	return {
-		type:"addRemoteStreamURL",
+		type: "addRemoteStreamURL",
 		data: streamObj
-	}
+	};
 }
 
-export function delRemoteStreamURL(id){
+export function delRemoteStreamURL(id) {
 	return {
-		type:"delRemoteStreamURL",
-		data:id
-	}
+		type: "delRemoteStreamURL",
+		data: id
+	};
+}
+
+export function setVotingDetail(votingDetail) {
+	return {
+		type: "setVotingDetail",
+		data: votingDetail
+	};
+}
+
+export function setVotingStart() {
+	return {
+		type: "setVotingStart"
+	};
 }

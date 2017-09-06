@@ -6,10 +6,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch } from "react-router";
 import { Provider } from "react-redux";
 import Index from "./components/Index";
-import Meeting from "./components/Meeting"
-import Meeting_new from "./components/Meeting_new"
-import store from "./store"
-
+import Meeting from "./components/Meeting";
+import Meeting_new from "./components/Meeting_new";
+import store from "./store";
 
 ReactDOM.render(
 	<Provider store={store}>
