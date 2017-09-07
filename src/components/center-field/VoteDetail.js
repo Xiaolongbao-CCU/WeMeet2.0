@@ -220,6 +220,8 @@ class VoteDetail extends React.Component {
     }
 
     onClick_newOption(e) {
+        let key = "option" +
+                        (Object.keys(this.state.voting.option).length + 1);
         this.setState({
             isVoteReady:false,
             voting: {
@@ -230,7 +232,9 @@ class VoteDetail extends React.Component {
                         (Object.keys(this.state.voting.option).length + 1)]: ""
                 }
             }
-        });
+        },
+            ()=>{this.refs[key].focus()}
+        );
     }
 
 
@@ -251,7 +255,7 @@ class VoteDetail extends React.Component {
                         ref={key}
                     />
                     <input
-                        value={this.state.voting.option[key]}
+                        textInput={this.state.voting.option[key]}
                         className="text"
                         type="text"
                         id={key}
@@ -304,16 +308,18 @@ class VoteDetail extends React.Component {
 
                 <div className="votequestion">
                     <input
+                        textInput={this.state.voting.question}
                         className="input"
                         ref="votequestion"
                         type="text"
                         placeholder="請輸入投票問題"
-                        onKeyUp={e => {
-                            this.onEnterQuestion(e);
-                        }}
                         onBlur={e => {
                             this.onBlurQuestion(e);
                         }}
+                        onChange={e=>{
+                            this.onEnterQuestion(e);
+                        }}
+                        autoFocus
                     />
                 </div>
 
