@@ -21,14 +21,13 @@ class VoteDetail extends React.Component {
                 multiOrNot: [0],
                 question: "",
                 option: {
-                    option0: ""
+                    "option1": ""
                 }
             }
         };
         this.onClick_ToggleMultivote = this.onClick_ToggleMultivote.bind(this);
         this.onClick_Subtractuon = this.onClick_Subtractuon.bind(this);
         this.onClick_Addition = this.onClick_Addition.bind(this);
-        this.onClick_AddVoteQuestion = this.onClick_AddVoteQuestion.bind(this);
     }
 
     componentWillMount() {}
@@ -73,7 +72,7 @@ class VoteDetail extends React.Component {
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                isVoteFinish: false
+                isVoteReady: false
             });
         }
     }
@@ -190,16 +189,41 @@ class VoteDetail extends React.Component {
         }
     }
 
-    onClick_AddVoteQuestion() {
-        if (this.state.MultivoteNumber < 10) {
-            this.setState({
-                isQuestionAdd: !this.state.isQuestionAdd
-            });
-        }
+    onClick_deleteOption(e) {
+        //刪除那個選項
+        let delOption = Object.keys(this.state.voting.option).reduce((newOption, key) => {
+                if (key !== e.target.id) {
+                    newOption[key] = this.state.voting.option[key];
+                }
+                return newOption;
+                }, {})
+ 
+        let newOptionOrder = {}
+
+        Object.keys(delOption).map((optionKey,index)=>{
+            newOptionOrder["option" + (index+1)] = delOption[optionKey]
+        })
+
+        console.log(newOptionOrder)
+        this.setState({
+            voting:{
+                ...this.state.voting,
+                option:{}
+            }
+        })
+        this.setState({
+            voting:{
+                ...this.state.voting,
+                option:newOptionOrder
+            }
+        })
     }
 
     onClick_newOption(e) {
+        let key = "option" +
+                        (Object.keys(this.state.voting.option).length + 1);
         this.setState({
+            isVoteReady:false,
             voting: {
                 ...this.state.voting,
                 option: {
@@ -208,8 +232,11 @@ class VoteDetail extends React.Component {
                         (Object.keys(this.state.voting.option).length + 1)]: ""
                 }
             }
-        });
+        },
+            ()=>{this.refs[key].focus()}
+        );
     }
+
 
     onClick_startVoing() {
         console.log("發送投票資訊到伺服器>全部人同步");
@@ -222,22 +249,24 @@ class VoteDetail extends React.Component {
             option.push(
                 <div className="question">
                     <div
-                        className={this.state.isQuestionAdd ? "delete" : "add"}
-                        onClick={this.onClick_AddVoteQuestion}
+                        className="delete"                        
+                        onClick={e=>{this.onClick_deleteOption(e)}}
                         id={key}
                         ref={key}
                     />
                     <input
+                        textInput={this.state.voting.option[key]}
                         className="text"
                         type="text"
                         id={key}
                         ref={key}
                         placeholder="點此新增投票選項"
-                        onKeyUp={e => {
-                            this.onEnterOption(e);
-                        }}
+                        
                         onBlur={e => {
                             this.onBlurOption(e);
+                        }}
+                        onChange={e=>{
+                             this.onEnterOption(e);
                         }}
                     />
                 </div>
@@ -279,16 +308,18 @@ class VoteDetail extends React.Component {
 
                 <div className="votequestion">
                     <input
+                        textInput={this.state.voting.question}
                         className="input"
                         ref="votequestion"
                         type="text"
                         placeholder="請輸入投票問題"
-                        onKeyUp={e => {
-                            this.onEnterQuestion(e);
-                        }}
                         onBlur={e => {
                             this.onBlurQuestion(e);
                         }}
+                        onChange={e=>{
+                            this.onEnterQuestion(e);
+                        }}
+                        autoFocus
                     />
                 </div>
 
@@ -339,6 +370,7 @@ class VoteDetail extends React.Component {
                         onClick={e => {
                             this.onClick_startVoing(e);
                         }}
+                        disabled={this.state.isVoteReady? false:true}
                     >
                         開始投票
                     </button>

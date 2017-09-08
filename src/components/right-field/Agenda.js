@@ -6,6 +6,7 @@ class Agenda extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+<<<<<<< HEAD
             agendaList: {
                 first: {
                     number: 1, //議程順序
@@ -16,57 +17,133 @@ class Agenda extends React.Component {
                     number: 2,
                     content: '我是議程二',
                     isAgendaFinished: false,
+=======
+            agendaList: [
+                {   
+                    content: "", //單個議程內容
+                    isAgendaFinished: false //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+>>>>>>> refs/remotes/origin/master
                 }
-            }
-        }
-        this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(this);
-        this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
-        this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
+            ]
+        };
+        this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(
+            this
+        );
+        //this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
+        //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
-    onClick_ToggleDeleteAgenda() {
+    onClick_ToggleDeleteAgenda(e) {
+        let key = parseInt(e.target.id, 10)
         this.setState({
-            agendaList: this.state.agendaList.filter(item => {
-                return item !== key;
-            })
+            ...this.state,
+            agendaList: [
+                ...this.state.agendaList.slice(0, key),
+                ...this.state.agendaList.slice(key + 1)
+            ]
         });
-        socket.emit("deleteAgenda", this.state.agendaList);
+        //socket.emit("deleteAgenda", this.state.agendaList);
     }
 
-    onClick_ToggleAddAgenda() {
-        if (this.refs.agenda_input.value) {
-            let newText = this.refs.agenda_input.value;
-            this.setState({
-                agendaList: this.state.agendaList.concat([newText])
-            });
-            socket.emit("addAgenda", this.state.agendaList);
-            this.refs.agenda_input.value = "";
-        }
+    onClick_newAgenda(e){
+        let key = "agenda_input"+this.state.agendaList.length
+        this.setState({
+            agendaList: [
+                ...this.state.agendaList,
+                {
+                    content:"",
+                    isAgendaFinished:false
+                }
+            ]
+        },
+            ()=>{this.refs[key].focus()}
+        )
     }
 
-    handleAgendaInputPressEnter() {
-        if (key.charCode == 13) {
-            //按下enter後
-        }
+    onChangeInput(e){
+        let key = parseInt(e.target.id, 10)
+        this.setState({
+            ...this.state,
+            agendaList:[
+                ...this.state.agendaList.slice(0,key),
+                {
+                    ...this.state.agendaList[key],
+                    content:e.target.value
+                },
+                ...this.state.agendaList.slice(key+1)
+            ]
+        })
+    }
+
+    onClick_toggleAgendaFinish(e){
+        let key = parseInt(e.target.id, 10)
+        console.log([
+                ...this.state.agendaList.slice(0,key),
+                {
+                    ...this.state.agendaList[key],
+                    isAgendaFinished: !this.state.agendaList[key].isAgendaFinished
+                },
+                ...this.state.agendaList.slice(key+1)
+            ])
+        this.setState({
+            ...this.state,
+            agendaList:[
+                ...this.state.agendaList.slice(0,key),
+                {
+                    ...this.state.agendaList[key],
+                    isAgendaFinished: !this.state.agendaList[key].isAgendaFinished
+                },
+                ...this.state.agendaList.slice(key+1)
+            ]
+        })
     }
 
     render() {
         let agendaDetail;
         if (this.state.agendaList.length > 0) {
-            agenda = this.state.agendaList.map(item => {
+            agendaDetail = this.state.agendaList.map(item => {
+                let key = this.state.agendaList.indexOf(item);
                 return (
                     <div className="detail">
                         <div className="checkbox">
-                            <img className="checked" src={this.state.agendaList.first.isAgendaFinished ? "./img/tick.png" : ""} />
+                            <img
+                                className="checked"
+                                id={key} 
+                                onClick={(e)=>{this.onClick_toggleAgendaFinish(e)}}
+                                src={
+                                    this.state.agendaList[key].isAgendaFinished
+                                        ? "./img/tick.png"
+                                        : "./img/null.png"
+                                }
+                            />
                         </div>
-                        <label className="text" id={this.state.agendaList.first.isAgendaFinished ? "line" : ""}>
-                            {this.state.agendaList.first.content}
+                        <label
+                            className="text"
+                            id={
+                                this.state.agendaList[key].isAgendaFinished
+                                    ? "line"
+                                    : ""
+                            }
+                        >
+                        <input 
+                            ref={"agenda_input" + key}
+                            id={key}
+                            value= {this.state.agendaList[key].content}
+                            onChange={e=>this.onChangeInput(e)}
+                        />
+                 
                         </label>
-                        <div className="delete" onClick={this.onClick_ToggleDeleteAgenda}></div>
+                        <div
+                            className="delete"
+                            id={key}
+                            onClick={e => {
+                                this.onClick_ToggleDeleteAgenda(e);
+                            }}
+                        />
                     </div>
                 );
             });
@@ -82,6 +159,7 @@ class Agenda extends React.Component {
                     <div className="right" />
                     <div className="agenda-title">議程</div>
                     <div className="agenda-content">
+<<<<<<< HEAD
 
                         <div className="detail">
                             <div className="checkbox">
@@ -112,10 +190,20 @@ class Agenda extends React.Component {
                         </div>
 
 
+=======
+                        {agendaDetail}
+>>>>>>> refs/remotes/origin/master
                     </div>
-                    <div className="agenda-add" onClick={this.onClick_ToggleAddAgenda}>
-                        <div className='cross' />
-                        <div className='text'>增加議程</div>
+
+                    <div
+                        className="agenda-add"
+                        onClick={e => {
+                            this.onClick_newAgenda(e);
+                        }}
+                    >
+                        <div className="cross" />
+                        <div className="text"
+                        >增加議程</div>
                     </div>
                 </div>
             </div>
