@@ -9,7 +9,7 @@ class Toolbar extends React.Component {
         super(props);
         this.state = {
             //Toggle Status
-            isVoteToggle: false,
+            isVoteToggle: true,
             isAddUserToggle: false,
             //Open Status
             isRecognitionOpen: false,
