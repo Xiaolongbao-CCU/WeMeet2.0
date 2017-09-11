@@ -9,6 +9,7 @@
   background-color: $vote-color;
   border-radius: 10px;
   box-shadow: 1px 1px 1px #d7d2ab;
+  animation: fadeIn 0.5s;
   &:after{
     position: absolute;
     left: 79%;

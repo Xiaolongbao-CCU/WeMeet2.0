@@ -9,7 +9,7 @@ class Toolbar extends React.Component {
         super(props);
         this.state = {
             //Toggle Status
-            isVoteToggle: true,
+            isVoteToggle: false,
             isAddUserToggle: false,
             //Open Status
             isRecognitionOpen: false,
@@ -48,12 +48,10 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleAddUserControl() {
-        if (this.state.isAddUserToggle == false) {
-            this.setState({
-                isAddUserToggle: true
-            })
-            setTimeout(this.ClearAddUserBlock, 4000);
-        }
+        this.setState({
+            isAddUserToggle: !this.state.isAddUserToggle
+        })
+        setTimeout(this.ClearAddUserBlock, 3000);
     }
 
     ClearAddUserBlock() {

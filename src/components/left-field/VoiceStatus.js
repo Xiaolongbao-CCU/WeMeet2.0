@@ -16,7 +16,13 @@ class VoiceStatus extends React.Component {
         return (
             <div className="left-voice">
                 <div className="voice-content">
-                    <img className="voice-img" src="img/recognizing.png" />
+                    <div className="voice-ai">
+                        <div className="rect1"></div>
+                        <div className="rect2"></div>
+                        <div className="rect3"></div>
+                        <div className="rect4"></div>
+                        <div className="rect5"></div>
+                    </div>
                     <label className="voice-text">語音辨識中...</label>
                 </div>
             </div>

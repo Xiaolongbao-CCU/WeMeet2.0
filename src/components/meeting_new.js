@@ -30,17 +30,22 @@ class Meeting_new extends React.Component {
         super(props);
         this.Chat = chat.createNew(this);
         this.state = {
+            loading: true,
             isVoteResultOpen: false,
             roomURL: ''
         }
+
         this.getRoomURL = this.getRoomURL.bind(this);
     }
 
     componentWillMount() {
         this.getRoomURL();
+
     }
 
-    componentDidMount() { }
+    componentDidMount() {
+        setTimeout(() => this.setState({ loading: false }), 2000);
+    }
 
     getRoomURL() {
         if (window.location.hash) {
@@ -58,6 +63,22 @@ class Meeting_new extends React.Component {
     }
 
     render() {
+        const { loading } = this.state;
+
+        if (loading) {
+            return (
+                <div className="loader" >
+                    <div className="sk-folding-cube">
+                        <div className="sk-cube1 sk-cube"></div>
+                        <div className="sk-cube2 sk-cube"></div>
+                        <div className="sk-cube4 sk-cube"></div>
+                        <div className="sk-cube3 sk-cube"></div>
+                    </div>
+                    <Background />
+                </div>
+            )
+        }
+
         return (
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}

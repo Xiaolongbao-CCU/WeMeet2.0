@@ -141,6 +141,7 @@
   background-color: rgba(253,251,236,0.98);
   border-radius: 5px;
   box-shadow: 1px 1px 1px #d7d2ab;
+  animation: fadeIn 0.5s;
   &:after{
     position: absolute;
     left: 45%;
