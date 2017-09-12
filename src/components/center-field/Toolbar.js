@@ -3,6 +3,7 @@
 import React from "react";
 import VoteDetail from "./VoteDetail";
 import AddUser from "./AddUser";
+import { connect } from "react-redux";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -24,8 +25,7 @@ class Toolbar extends React.Component {
 
     componentWillMount() { }
 
-    componentDidMount() {
-    }
+    componentDidMount() { }
 
     //Others Events
 
@@ -36,9 +36,9 @@ class Toolbar extends React.Component {
     onClick_ToggleInvitePage() { }
 
     onClick_ToggleVotePage() {
-        this.setState({
-            isVoteToggle: !this.state.isVoteToggle
-        });
+        console.log(this.refs.VoteDetail.style.display)
+        this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none":"block")
+        
     }
 
     onClick_ToggleRecognitionControl() {
@@ -104,15 +104,21 @@ class Toolbar extends React.Component {
                     onClick={this.onClick_ToggleVotePage}
                 />
 
-                {
-                    this.state.isVoteToggle
-                        ? <VoteDetail />
-                        : null
-                }
+                <div ref="VoteDetail"
+                    style={{display:(this.props.votingDetail.isVotingReady? "none":"display")}}
+                >
+                    <VoteDetail />
+                </div>
 
             </div>
         );
     }
 }
 
-export default Toolbar;
+const mapStateToProps = state => {
+    return {
+        votingDetail: state.vote
+    };
+};
+
+export default connect(mapStateToProps)(Toolbar);

@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import socket from '../../socket';
 
 class Agenda extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Agenda extends React.Component {
                 ...this.state.agendaList.slice(key + 1)
             ]
         });
-        //socket.emit("deleteAgenda", this.state.agendaList);
+        socket.emit("updateAgenda", this.state.agendaList);
     }
 
     onClick_newAgenda(e){
@@ -64,18 +65,11 @@ class Agenda extends React.Component {
                 ...this.state.agendaList.slice(key+1)
             ]
         })
+        socket.emit("updateAgenda", this.state.agendaList);
     }
 
     onClick_toggleAgendaFinish(e){
         let key = parseInt(e.target.id, 10)
-        console.log([
-                ...this.state.agendaList.slice(0,key),
-                {
-                    ...this.state.agendaList[key],
-                    isAgendaFinished: !this.state.agendaList[key].isAgendaFinished
-                },
-                ...this.state.agendaList.slice(key+1)
-            ])
         this.setState({
             ...this.state,
             agendaList:[
@@ -87,6 +81,7 @@ class Agenda extends React.Component {
                 ...this.state.agendaList.slice(key+1)
             ]
         })
+        socket.emit("updateAgenda", this.state.agendaList);
     }
 
     render() {
@@ -100,7 +95,11 @@ class Agenda extends React.Component {
                             <img
                                 className="checked"
                                 id={key} 
-                                onClick={(e)=>{this.onClick_toggleAgendaFinish(e)}}
+                                onClick={(e)=>{
+                                    if(this.state.agendaList[key].content){
+                                        this.onClick_toggleAgendaFinish(e)
+                                    }
+                                }}
                                 src={
                                     this.state.agendaList[key].isAgendaFinished
                                         ? "./img/tick.png"
@@ -110,13 +109,11 @@ class Agenda extends React.Component {
                         </div>
                         <label
                             className="text"
-                            id={
-                                this.state.agendaList[key].isAgendaFinished
-                                    ? "line"
-                                    : ""
-                            }
                         >
                         <input 
+                            style={
+                                this.state.agendaList[key].isAgendaFinished? {textDecoration:"line-through"}:{}
+                            }
                             ref={"agenda_input" + key}
                             id={key}
                             value= {this.state.agendaList[key].content}

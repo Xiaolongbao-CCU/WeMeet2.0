@@ -13,7 +13,7 @@ class Vote extends React.Component {
         super(props);
         this.state = {
             /* Basic Set */
-            isVoteBoxOpen: false, //投票視窗是否被點選而打開了
+            isVoteBoxOpen: true, //投票視窗是否被點選而打開了
             isSeclected: {
                 first: false,
                 second: false,
@@ -71,9 +71,9 @@ class Vote extends React.Component {
     }
 
     render() {
-        let votebox;
+        let voteBox;
         if (this.props.votingDetail.isVotingReady) {
-            votebox = (
+            voteBox = (
                 <div
                     className="votebox"
                     id="one"
@@ -116,10 +116,9 @@ class Vote extends React.Component {
             );
         });
 
-        return (
-            <div className="vote-block">
-                {votebox}
-                <div
+        let voteDetail;
+        if(this.props.votingDetail.isVotingReady) {
+            voteDetail=(<div
                     className={this.state.isVoteBoxOpen ? "visible" : "hidden"}
                 >
                     <div className="votedetail" id="one">
@@ -153,7 +152,15 @@ class Vote extends React.Component {
                             投票！
                         </div>
                     </div>
-                </div>
+                </div>)
+        }
+            
+            
+        return (
+            <div className="vote-block">
+                {voteBox}
+                {voteDetail}
+                
             </div>
         );
     }
