@@ -5,9 +5,7 @@ import chat from "../lib/chat";
 
 //component
 
-//left-field,total 4 components
-import VoiceStatus from "./left-field/VoiceStatus";
-import MeetingTime from "./left-field/MeetingTime";
+//left-field,total 2 components
 import Chatroom from "./left-field/Chatroom";
 import ChatInput from "./left-field/Chatinput";
 
@@ -83,8 +81,6 @@ class Meeting_new extends React.Component {
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
-                    <VoiceStatus />
-                    <MeetingTime />
                     <Chatroom />
                     <ChatInput />
                 </div>

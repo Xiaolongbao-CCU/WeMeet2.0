@@ -7,26 +7,33 @@
 //----Voice Status----//
 .left-voice{
   //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 1% auto;
-  width: 100%;
-  height: $lf-top-height;
+  width: 30%;
+  height: 50%;
 }
 
 .voice-content{
-  width: $lf-voice-width;
-  height: 90%;
-
+  width: 20%;
+  height: 45%;
+  margin-left: -8%;
+  margin-right:5%;
   background-color: $second-color;
   border-radius: 15px;
   box-shadow: 1px 2px 0 #153648;
 }
 
+
+.voice-text{
+  float: left;
+  margin: 3%;
+  font-size: 1.2em;
+  line-height: 120%;
+  color: white;
+}
+
 .voice-ai {
   float: left;
-  margin: 3% 6% 3% 15%;
+  margin: 3% 3% 3% 7%;
   width: 35px;
   height: 20px;
   text-align: center;
@@ -79,22 +86,14 @@
   }
 }
 
-.voice-text{
-  float: left;
-  margin: 3%;
-  font-size: 1.2em;
-  line-height: 120%;
-  color: white;
-}
-
 //----Meeting Time----//
 .left-meetingtime{
   //basic-set
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  width:15%;
+  text-align: center;
+  line-height: 120%;
   margin: 1%;
+  font-size: 1.1em;
 }
 
 //----Chat Box(includes myself&others)----//

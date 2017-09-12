@@ -204,4 +204,29 @@ opacity: 0;
   bottom: 0%;
   }
   
+}
+
+@-webkit-keyframes GridAppear {
+  0% {
+    margin-top: -168%;
+    opacity: 0;
+  }
+  
+  100%{
+    margin-top: 0%;
+    opacity: 1;
+  }   
+}
+
+@-webkit-keyframes OtherAppear {
+  0% {
+    margin-top: -145%;
+    opacity: 0;
+  }
+  
+  100%{
+    margin-top: 0%;
+    opacity: 1;
+  }
+  
   }

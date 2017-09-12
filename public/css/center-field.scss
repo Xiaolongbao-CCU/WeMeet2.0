@@ -157,6 +157,19 @@
   }
 }
 
+.brainstorming{
+  //basic-set
+  box-sizing: border-box;
+  padding: 1%;
+  position: absolute;
+  top:10%;
+  left: 34.7%;
+  z-index: 500;
+  //size-set
+  width:6.5%;
+  height: 30%;
+}
+
 #roomURL{
   width:0.1px;
   height: 0.1px;

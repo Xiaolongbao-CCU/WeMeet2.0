@@ -1,8 +1,14 @@
 "use strict";
 
 import React from "react";
+
+//Button Detail
 import VoteDetail from "./VoteDetail";
 import AddUser from "./AddUser";
+import Brainstorming from "./Brainstorming";
+// Other 
+import MeetingTime from "./MeetingTime";
+import VoiceStatus from "./VoiceStatus";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -11,6 +17,7 @@ class Toolbar extends React.Component {
             //Toggle Status
             isVoteToggle: false,
             isAddUserToggle: false,
+            isBrainstormingToggle: false,
             //Open Status
             isRecognitionOpen: false,
             //Special Status
@@ -18,6 +25,7 @@ class Toolbar extends React.Component {
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
         this.onClick_ToggleAddUserControl = this.onClick_ToggleAddUserControl.bind(this);
+        this.onClick_ToggleBrainstorming = this.onClick_ToggleBrainstorming.bind(this);
         this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
     }
 
@@ -27,18 +35,18 @@ class Toolbar extends React.Component {
     componentDidMount() {
     }
 
-    //Others Events
-
-
     //OnClick Events
-    onClick_ToggleBrainstorming() { }
-
-    onClick_ToggleInvitePage() { }
 
     onClick_ToggleVotePage() {
         this.setState({
             isVoteToggle: !this.state.isVoteToggle
         });
+    }
+
+    onClick_ToggleBrainstorming() {
+        this.setState({
+            isBrainstormingToggle: !this.state.isBrainstormingToggle
+        })
     }
 
     onClick_ToggleRecognitionControl() {
@@ -54,6 +62,8 @@ class Toolbar extends React.Component {
         setTimeout(this.ClearAddUserBlock, 3000);
     }
 
+    //Others Events
+
     ClearAddUserBlock() {
         this.setState({
             isAddUserToggle: false
@@ -64,21 +74,19 @@ class Toolbar extends React.Component {
         return (
             <div className="toolbar">
 
-                <button
-                    className="toolbar-button"
-                    id="moreinfro"
-                    onClick=""
-                />
-
-
+                <VoiceStatus />
 
                 <button
                     className="toolbar-button"
-                    id={this.state.isRecognitionOpen ? 'recognition-on' : 'recognition-off'}
-                    onClick={this.onClick_ToggleRecognitionControl}
+                    id="brainstorming"
+                    onClick={this.onClick_ToggleBrainstorming}
                 />
 
-
+                {
+                    this.state.isBrainstormingToggle
+                        ? <Brainstorming />
+                        : null
+                }
 
                 <button
                     className="toolbar-button"
@@ -93,9 +101,6 @@ class Toolbar extends React.Component {
                 }
 
 
-
-                <button className="toolbar-button" id="brainstorming" />
-
                 <button
                     className="toolbar-button"
                     id="vote"
@@ -107,6 +112,8 @@ class Toolbar extends React.Component {
                         ? <VoteDetail />
                         : null
                 }
+
+                <MeetingTime />
 
             </div>
         );
