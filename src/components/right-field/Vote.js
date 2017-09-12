@@ -42,9 +42,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleVoteSelected(e) {
         if (this.state.optionSelected[e.target.parentNode.id]) {
@@ -81,9 +81,9 @@ class Vote extends React.Component {
                 >
                     {this.state.isOthersVoteFinished
                         ? <img
-                              className="voteEnd"
-                              src="../img/vote-ended.png"
-                          />
+                            className="voteEnd"
+                            src="../img/vote-ended.png"
+                        />
                         : null}
                     {this.state.isOthersVoteFinished
                         ? <div className="voteEndtext">投票出爐囉！</div>

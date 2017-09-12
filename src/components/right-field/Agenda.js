@@ -8,7 +8,7 @@ class Agenda extends React.Component {
         super(props);
         this.state = {
             agendaList: [
-                {   
+                {
                     content: "", //單個議程內容
                     isAgendaFinished: false //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
                 }
@@ -21,9 +21,9 @@ class Agenda extends React.Component {
         //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleDeleteAgenda(e) {
         let key = parseInt(e.target.id, 10)
@@ -37,48 +37,48 @@ class Agenda extends React.Component {
         socket.emit("updateAgenda", this.state.agendaList);
     }
 
-    onClick_newAgenda(e){
-        let key = "agenda_input"+this.state.agendaList.length
+    onClick_newAgenda(e) {
+        let key = "agenda_input" + this.state.agendaList.length
         this.setState({
             agendaList: [
                 ...this.state.agendaList,
                 {
-                    content:"",
-                    isAgendaFinished:false
+                    content: "",
+                    isAgendaFinished: false
                 }
             ]
         },
-            ()=>{this.refs[key].focus()}
+            () => { this.refs[key].focus() }
         )
     }
 
-    onChangeInput(e){
+    onChangeInput(e) {
         let key = parseInt(e.target.id, 10)
         this.setState({
             ...this.state,
-            agendaList:[
-                ...this.state.agendaList.slice(0,key),
+            agendaList: [
+                ...this.state.agendaList.slice(0, key),
                 {
                     ...this.state.agendaList[key],
-                    content:e.target.value
+                    content: e.target.value
                 },
-                ...this.state.agendaList.slice(key+1)
+                ...this.state.agendaList.slice(key + 1)
             ]
         })
         socket.emit("updateAgenda", this.state.agendaList);
     }
 
-    onClick_toggleAgendaFinish(e){
+    onClick_toggleAgendaFinish(e) {
         let key = parseInt(e.target.id, 10)
         this.setState({
             ...this.state,
-            agendaList:[
-                ...this.state.agendaList.slice(0,key),
+            agendaList: [
+                ...this.state.agendaList.slice(0, key),
                 {
                     ...this.state.agendaList[key],
                     isAgendaFinished: !this.state.agendaList[key].isAgendaFinished
                 },
-                ...this.state.agendaList.slice(key+1)
+                ...this.state.agendaList.slice(key + 1)
             ]
         })
         socket.emit("updateAgenda", this.state.agendaList);
@@ -107,9 +107,6 @@ class Agenda extends React.Component {
                                 }
                             />
                         </div>
-                        <label
-                            className="text"
-                        >
                         <input 
                             style={
                                 this.state.agendaList[key].isAgendaFinished? {textDecoration:"line-through"}:{}
@@ -119,8 +116,6 @@ class Agenda extends React.Component {
                             value= {this.state.agendaList[key].content}
                             onChange={e=>this.onChangeInput(e)}
                         />
-                 
-                        </label>
                         <div
                             className="delete"
                             id={key}

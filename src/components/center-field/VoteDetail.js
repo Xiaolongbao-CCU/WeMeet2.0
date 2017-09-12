@@ -23,16 +23,16 @@ class VoteDetail extends React.Component {
                 option: {
                     "option1": ""
                 }
-            }
+            },
         };
         this.onClick_ToggleMultivote = this.onClick_ToggleMultivote.bind(this);
         this.onClick_Subtractuon = this.onClick_Subtractuon.bind(this);
         this.onClick_Addition = this.onClick_Addition.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_Registered() {
         if (this.state.isRegisteredSelect) {
@@ -192,48 +192,48 @@ class VoteDetail extends React.Component {
     onClick_deleteOption(e) {
         //刪除那個選項
         let delOption = Object.keys(this.state.voting.option).reduce((newOption, key) => {
-                if (key !== e.target.id) {
-                    newOption[key] = this.state.voting.option[key];
-                }
-                return newOption;
-                }, {})
- 
+            if (key !== e.target.id) {
+                newOption[key] = this.state.voting.option[key];
+            }
+            return newOption;
+        }, {})
+
         let newOptionOrder = {}
 
-        Object.keys(delOption).map((optionKey,index)=>{
-            newOptionOrder["option" + (index+1)] = delOption[optionKey]
+        Object.keys(delOption).map((optionKey, index) => {
+            newOptionOrder["option" + (index + 1)] = delOption[optionKey]
         })
 
         console.log(newOptionOrder)
         this.setState({
-            voting:{
+            voting: {
                 ...this.state.voting,
-                option:{}
+                option: {}
             }
         })
         this.setState({
-            voting:{
+            voting: {
                 ...this.state.voting,
-                option:newOptionOrder
+                option: newOptionOrder
             }
         })
     }
 
     onClick_newOption(e) {
         let key = "option" +
-                        (Object.keys(this.state.voting.option).length + 1);
+            (Object.keys(this.state.voting.option).length + 1);
         this.setState({
-            isVoteReady:false,
+            isVoteReady: false,
             voting: {
                 ...this.state.voting,
                 option: {
                     ...this.state.voting.option,
                     ["option" +
-                        (Object.keys(this.state.voting.option).length + 1)]: ""
+                    (Object.keys(this.state.voting.option).length + 1)]: ""
                 }
             }
         },
-            ()=>{this.refs[key].focus()}
+            () => { this.refs[key].focus() }
         );
     }
 
@@ -249,8 +249,8 @@ class VoteDetail extends React.Component {
             option.push(
                 <div className="question">
                     <div
-                        className="delete"                        
-                        onClick={e=>{this.onClick_deleteOption(e)}}
+                        className="delete"
+                        onClick={e => { this.onClick_deleteOption(e) }}
                         id={key}
                         ref={key}
                     />
@@ -261,21 +261,22 @@ class VoteDetail extends React.Component {
                         id={key}
                         ref={key}
                         placeholder="點此新增投票選項"
-                        
+
                         onBlur={e => {
                             this.onBlurOption(e);
                         }}
-                        onChange={e=>{
-                             this.onEnterOption(e);
+                        onChange={e => {
+                            this.onEnterOption(e);
                         }}
                     />
+                    <span className="focus-bg"></span>
                 </div>
             );
             this.refs.key = this.state.voting.option[key];
         }
 
         return (
-            <div className="voting" id="Fadein">
+            <div className="voting">
                 <div className="votetypeselect">
                     <button
                         className="registered"
@@ -310,29 +311,29 @@ class VoteDetail extends React.Component {
                     <input
                         textInput={this.state.voting.question}
                         className="input"
+                        id=""
                         ref="votequestion"
                         type="text"
                         placeholder="請輸入投票問題"
                         onBlur={e => {
                             this.onBlurQuestion(e);
                         }}
-                        onChange={e=>{
+                        onChange={e => {
                             this.onEnterQuestion(e);
                         }}
                         autoFocus
                     />
+                    <span className="focus-border"></span>
                 </div>
 
                 <div className="voteconent">
                     {option}
-                    <div
-                        onClick={e => {
-                            this.onClick_newOption(e);
-                        }}
-                    >
-                        按此新增選項
+                    <div className="question" onClick={e => { this.onClick_newOption(e); }}>
+                        <div className="add" />
+                        <div className="text">按此新增選項</div>
                     </div>
                 </div>
+
 
                 <div className="votebottom">
                     <div className="multi-vote">複選</div>
@@ -370,7 +371,7 @@ class VoteDetail extends React.Component {
                         onClick={e => {
                             this.onClick_startVoing(e);
                         }}
-                        disabled={this.state.isVoteReady? false:true}
+                        disabled={this.state.isVoteReady ? false : true}
                     >
                         開始投票
                     </button>

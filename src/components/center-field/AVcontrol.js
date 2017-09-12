@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import ConfirmExit from "../special-field/ConfirmExit";
 
 class AVcontrol extends React.Component {
     constructor(props) {
@@ -8,10 +9,11 @@ class AVcontrol extends React.Component {
         this.state = {
             isMyselfAudioOn: true, //自己的聲音是否開啟
             isMyselfVideoOn: true, //自己的影像是否開啟
+            isShowExitConfirm: false //是否顯示離開房間的警示框
         }
         this.onClick_toggleAudioControl = this.onClick_toggleAudioControl.bind(this);
         this.onClick_toggleVideoControl = this.onClick_toggleVideoControl.bind(this);
-        this.onClick_toggleExitRoom = this.onClick_toggleExitRoom.bind(this);
+        this.onClick_ShowConfirm = this.onClick_ShowConfirm.bind(this);
     }
 
     componentWillMount() { }
@@ -31,9 +33,13 @@ class AVcontrol extends React.Component {
         });
     }
 
-    onClick_toggleExitRoom() {
-        //觸發離開房間，回到首頁，之後會後在加上確認離開的介面
+    onClick_ShowConfirm() {
+        this.setState({
+            isShowExitConfirm: !this.state.isShowExitConfirm
+        })
     }
+
+
 
     render() {
         return (
@@ -42,13 +48,13 @@ class AVcontrol extends React.Component {
                 <button
                     className="av-button"
                     id={this.state.isMyselfAudioOn ? 'audio-on' : 'audio-off'}
-     ㄨ               onClick={this.onClick_toggleAudioControl}
+                    onClick={this.onClick_toggleAudioControl}
                 />
 
                 <button
                     className="av-button"
                     id="exit"
-                    onClick={this.onClick_toggleExitRoom}
+                    onClick={this.onClick_ShowConfirm}
                 />
 
                 <button
@@ -56,6 +62,9 @@ class AVcontrol extends React.Component {
                     id={this.state.isMyselfVideoOn ? 'video-on' : 'video-off'}
                     onClick={this.onClick_toggleVideoControl}
                 />
+
+                {this.state.isShowExitConfirm ? <ConfirmExit /> : null}
+
 
             </div>
         );

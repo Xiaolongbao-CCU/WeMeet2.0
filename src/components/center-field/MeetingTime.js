@@ -50,10 +50,10 @@ class MeetingTime extends React.Component {
         return (
 
             <div className="left-meetingtime">
-                會議進行時間：
-                     {this.state.Meetingtime.hour}&nbsp;時&nbsp;
-                     {this.state.Meetingtime.min}&nbsp;分&nbsp;
-                     {this.state.Meetingtime.sec}&nbsp;秒&nbsp;
+                會議進行時間<br />
+                {this.state.Meetingtime.hour}&nbsp;時&nbsp;
+                {this.state.Meetingtime.min}&nbsp;分&nbsp;
+                {this.state.Meetingtime.sec}&nbsp;秒&nbsp;
                 </div>
         );
     }
