@@ -71,8 +71,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.first.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.first.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.first.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.first.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.first.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                     <div className="otheruser">
@@ -81,8 +81,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.second.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.second.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.second.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.second.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.second.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                     <div className="otheruser">
@@ -91,8 +91,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.third.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.third.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.third.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.third.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.third.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                     <div className="otheruser">
@@ -101,8 +101,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.forth.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.forth.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.forth.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.forth.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.forth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                     <div className="otheruser">
@@ -111,8 +111,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.fifth.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.fifth.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.fifth.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.fifth.isAudioOpen ? "./img/nu.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.fifth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                     <div className="otheruser">
@@ -121,8 +121,8 @@ class MainScreen extends React.Component {
                             <img className="user-image" src="./img/user-image.png" />
                             <label className="user-name">{this.state.UserInfro.sixth.userName}</label>
                         </div>
-                        <img className="user-audio" src={this.state.UserInfro.sixth.isAudioOpen ? "./img/other_audio-on.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.sixth.isVideoOpen ? "./img/other_video-on.png" : "./img/other_video-off.png"} />
+                        <img className="user-audio" src={this.state.UserInfro.sixth.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
+                        <img className="user-video" src={this.state.UserInfro.sixth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
                     </div>
 
                 </div>

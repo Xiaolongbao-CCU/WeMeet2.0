@@ -76,6 +76,31 @@ $otherscreen-top: 78%;
   background-size: 60%;
 }
 
+.toolbar-button#grid{
+  background-image: url('../img/grid.png');
+  background-size: 60%;
+  margin-bottom: 25%;
+  animation: GridAppear 0.8s linear ;
+}
+
+.toolbar-button#sixhat{
+  background-image: url('../img/sixhat.png');
+  background-size: 60%;
+  margin-bottom: 25%;
+  animation: OtherAppear 0.8s linear 0.3s;
+  animation-fill-mode: both;
+}
+
+.toolbar-button#KJ{
+  background-image: url('../img/kj.png');
+  background-size: 60%;
+  margin-bottom: 25%;
+  animation: wait 1.2s;
+  animation: OtherAppear 0.8s linear 0.6s;
+  animation-fill-mode: both;
+  }
+  
+
 /*****************************
 2. Audio/Video-Control button (at the bottom)
 *****************************/

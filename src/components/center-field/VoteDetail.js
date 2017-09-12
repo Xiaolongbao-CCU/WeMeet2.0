@@ -276,7 +276,7 @@ class VoteDetail extends React.Component {
         }
 
         return (
-            <div className="voting" id="Fadein">
+            <div className="voting">
                 <div className="votetypeselect">
                     <button
                         className="registered"

@@ -14,10 +14,11 @@ class ConfirmExit extends React.Component {
   componentDidMount() { }
 
   onClick_ToggleExitRoom() {
-    //觸發離開發顯
+    //觸發離開房間
   }
 
   onClick_ToggleBack() {
+    
   }
 
   render() {
