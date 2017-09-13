@@ -118,8 +118,9 @@ io.on("connection", function(socket) {
         socket.broadcast.emit("addAgendaForAll", list);
     });
 
-    socket.on("deleteAgenda", function(list) {
-        socket.broadcast.emit("deleteAgendaForAll", list);
+    socket.on("updateAgenda", function(list) {
+        //console.log(list)
+        //socket.broadcast.emit("deleteAgendaForAll", list);
     });
 
     socket.on("join", function(room) {

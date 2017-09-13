@@ -5,6 +5,7 @@ import React from "react";
 //Button Detail
 import VoteDetail from "./VoteDetail";
 import AddUser from "./AddUser";
+import { connect } from "react-redux";
 import Brainstorming from "./Brainstorming";
 // Other 
 import MeetingTime from "./MeetingTime";
@@ -32,15 +33,14 @@ class Toolbar extends React.Component {
 
     componentWillMount() { }
 
-    componentDidMount() {
-    }
+    componentDidMount() { }
 
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        this.setState({
-            isVoteToggle: !this.state.isVoteToggle
-        });
+        console.log(this.refs.VoteDetail.style.display)
+        this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none":"block")
+        
     }
 
     onClick_ToggleBrainstorming() {
@@ -107,11 +107,11 @@ class Toolbar extends React.Component {
                     onClick={this.onClick_ToggleVotePage}
                 />
 
-                {
-                    this.state.isVoteToggle
-                        ? <VoteDetail />
-                        : null
-                }
+                <div ref="VoteDetail"
+                    style={{display:(this.props.votingDetail.isVotingReady? "none":"display")}}
+                >
+                    <VoteDetail />
+                </div>
 
                 <MeetingTime />
 
@@ -120,4 +120,10 @@ class Toolbar extends React.Component {
     }
 }
 
-export default Toolbar;
+const mapStateToProps = state => {
+    return {
+        votingDetail: state.vote
+    };
+};
+
+export default connect(mapStateToProps)(Toolbar);
