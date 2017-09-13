@@ -229,6 +229,7 @@
   background-size: 100%; //for test  
   &:hover{
     bottom:1%;
+    cursor: pointer;
   }
   animation: VoteBoxAppear 1s;
 }
