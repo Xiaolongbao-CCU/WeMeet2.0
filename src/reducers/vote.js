@@ -1,5 +1,5 @@
 const initialVoteDetail = {
-    isVotingReady: false,
+    isVotingStart: false,
     voting: {
         secretOrNot: 0,
         multiOrNot: [0],
@@ -14,7 +14,7 @@ export default function vote(state = initialVoteDetail, action) {
             return Object.assign({}, state, { voting: action.data });
 
         case "setVotingStart":
-            return Object.assign({}, state, { isVotingReady: true });
+            return Object.assign({}, state, { isVotingStart: true });
         default:
             return state;
     }
