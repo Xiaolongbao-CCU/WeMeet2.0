@@ -246,7 +246,7 @@ class Meeting_new extends React.Component {
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
                     <Chatroom />
-                    <ChatInput />
+                    <ChatInput Chat={this.Chat}/>
                 </div>
 
                 <div className="center-field">

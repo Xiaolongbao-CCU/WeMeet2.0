@@ -102,3 +102,11 @@ export function setVotingStart() {
 		type: "setVotingStart"
 	};
 }
+
+
+export function addChatRecord(recordObj) {
+	return {
+		type: "addChatRecord",
+		data: recordObj
+	};
+}

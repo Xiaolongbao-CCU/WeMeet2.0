@@ -5,7 +5,8 @@ import {
     delRemoteStreamURL,
     addParticipantConnection,
     toggleAudio,
-    toggleUserMedia
+    toggleUserMedia,
+    addChatRecord
 } from "../actions/Actions";
 
 let Chat = {
@@ -186,9 +187,8 @@ let Chat = {
                     //把每個ArrayBuffer都存在同一個陣列裡
                     receiveBuffer.push(event.data); //把資料push進陣列
                 } else if (channel.label == "messages") {
-                    Meeting.setState({
-                        textRecord: [...Meeting.state.textRecord, event.data]
-                    });
+                    let record = JSON.parse(event.data)
+                    Meeting.props.dispatch(addChatRecord(record))
                 }
             };
         };
@@ -211,12 +211,13 @@ let Chat = {
                 sendTime: formattedTime,
                 text: value
             };
+            //傳給別人的
             for (let id in msgChannels) {
                 msgChannels[id].send(JSON.stringify(record));
             }
-            Meeting.setState({
-                textRecord: [...Meeting.state.textRecord, record]
-            });
+            //加到自己畫面上的
+            Meeting.props.dispatch(addChatRecord(record));
+
         };
 
         // Chat.sendFileToUser = (files) => {

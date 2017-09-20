@@ -5,7 +5,8 @@ const initialState = {
     isSounding:false,
     connections: {}, //存放連線中的人的socket.id
     remoteStreamURL: {}, //存放連線中的人的stream
-    candidateQueue: {}
+    candidateQueue: {},
+    chatRecord:[]
 };
 
 export default function connection(state = initialState, action) {
