@@ -204,13 +204,6 @@ class VoteDetail extends React.Component {
             newOptionOrder["option" + (index + 1)] = delOption[optionKey]
         })
 
-        console.log(newOptionOrder)
-        this.setState({
-            voting: {
-                ...this.state.voting,
-                option: {}
-            }
-        })
         this.setState({
             voting: {
                 ...this.state.voting,

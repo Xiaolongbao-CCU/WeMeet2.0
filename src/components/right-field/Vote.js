@@ -71,26 +71,9 @@ class Vote extends React.Component {
     }
 
     render() {
-        let voteBox;
-        if (this.props.votingDetail.isVotingStart) {
-            voteBox = (
-                <div
-                    className="votebox"
-                    id="one"
-                    onClick={this.onClick_ToggleVoteDetail}
-                >
-                    {this.state.isOthersVoteFinished ? (
-                        <img className="voteEnd" src="../img/vote-ended.png" />
-                    ) : null}
-                    {this.state.isOthersVoteFinished ? (
-                        <div className="voteEndtext">投票出爐囉！</div>
-                    ) : null}
-                </div>
-            );
-        }
-
         let option = [];
-        Object.keys(this.props.votingDetail.voting.option).map(key => {
+        if(this.props.votingDetail.voting.option){
+            Object.keys(this.props.votingDetail.voting.option).map(key => {
             option.push(
                 <div
                     className="cotent"
@@ -112,6 +95,8 @@ class Vote extends React.Component {
                 </div>
             );
         });
+        }
+        
 
         let voteDetail;
         if (this.props.votingDetail.isVotingStart) {
@@ -154,12 +139,25 @@ class Vote extends React.Component {
 
         return (
             <div className="vote-block">
-                {voteBox}
+                <div
+                    className="votebox"
+                    id="one"
+                    onClick={this.onClick_ToggleVoteDetail}
+                    style={{display:(this.props.votingDetail.isVotingStart? "block":"none")}}
+                >
+                    {this.state.isOthersVoteFinished ? (
+                        <img className="voteEnd" src="../img/vote-ended.png" />
+                    ) : null}
+                    {this.state.isOthersVoteFinished ? (
+                        <div className="voteEndtext">投票出爐囉！</div>
+                    ) : null}
+                </div>
                 {voteDetail}
             </div>
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
         votingDetail: state.vote

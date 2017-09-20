@@ -100,13 +100,11 @@ io.on("connection", function(socket) {
     socket.emit("setRoomList", roomList);
 
     socket.on("createVote", votingDetail => {
-        console.log(votingDetail);
-        //let room = Object.keys(socket.rooms)[1];
+        let room = Object.keys(socket.rooms)[1];
         //發給房內所有人，包含發起投票的人
-        // io.in(room).emit("gotCreacteVote",{
-        //     votingDetail
-        // })
-        socket.emit("gotCreateVote", votingDetail);
+        console.log(votingDetail)
+        io.in(room).emit("gotCreateVote",votingDetail)
+        // socket.emit("gotCreateVote", votingDetail);
     });
 
     socket.on("OpenBrain", function(list) {

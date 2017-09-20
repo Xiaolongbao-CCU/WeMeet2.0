@@ -90,10 +90,24 @@ export function delRemoteStreamURL(id) {
 	};
 }
 
+export function addCandidateQueue(candidateObj){
+	return {
+		type:"addCandidateQueue",
+		data: candidateObj
+	}
+}
+
 export function setVotingDetail(votingDetail) {
 	return {
 		type: "setVotingDetail",
 		data: votingDetail
+	};
+}
+
+export function setSecretOrNot(YesOrNo) {
+	return {
+		type: "setSecretOrNot",
+		data: YesOrNo
 	};
 }
 
