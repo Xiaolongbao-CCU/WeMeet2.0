@@ -5,26 +5,37 @@ import React from "react";
 class ChatInput extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            chatInputValue: ""
+        };
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
-    handleInputPressEnter(key) {
-        if (key.charCode == 13) {
+    handleInputPressEnter(e) {
+        if (e.which == 13) {
             //按下enter後
-            key.preventDefault();
+            e.preventDefault();
             this.handleInputPressClick();
         }
     }
 
     handleInputPressClick() {
-        let inputText = this.refs.input_text.value;
+        let inputText = this.state.chatInputValue;
         /********** important!! **************/
         //the inputText need to send to chat.js, but still not work -by Andy */
-        this.Chat.sendText(inputText);
-        this.refs.input_text.value = "";
+        this.props.Chat.sendText(inputText);
+        this.setState({
+            chatInputValue: ""
+        })
+    }
+
+    handleInputOnChange(e) {
+        this.setState({
+            chatInputValue: e.target.value
+        });
     }
 
     render() {
@@ -35,12 +46,15 @@ class ChatInput extends React.Component {
                         className="input-text"
                         ref="input_text"
                         type="text"
-                        onKeyPress={key => {
-                            this.handleInputPressEnter(key);
+                        onKeyPress={e => {
+                            this.handleInputPressEnter(e);
                         }}
+                        onChange={e => {
+                            this.handleInputOnChange(e);
+                        }}
+                        value={this.state.chatInputValue}
                     />
-                    <button className="upload">
-                    </button>
+                    <button className="upload" />
                 </div>
                 <div className="mailbox" />
             </div>

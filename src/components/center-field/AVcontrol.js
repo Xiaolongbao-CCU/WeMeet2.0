@@ -1,14 +1,18 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux"
+import {
+    toggleAudio,
+    toggleUserMedia
+} from "../../actions/Actions"
 import ConfirmExit from "../special-field/ConfirmExit";
+
 
 class AVcontrol extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isMyselfAudioOn: true, //自己的聲音是否開啟
-            isMyselfVideoOn: true, //自己的影像是否開啟
             isShowExitConfirm: false //是否顯示離開房間的警示框
         }
         this.onClick_toggleAudioControl = this.onClick_toggleAudioControl.bind(this);
@@ -22,15 +26,17 @@ class AVcontrol extends React.Component {
 
     //Button Events
     onClick_toggleAudioControl() {
-        this.setState({
-            isMyselfAudioOn: !this.state.isMyselfAudioOn
-        });
+        this.props.Chat.toggleAudio();
+        this.props.dispatch(
+            toggleAudio()
+        );
     }
 
     onClick_toggleVideoControl() {
-        this.setState({
-            isMyselfVideoOn: !this.state.isMyselfVideoOn
-        });
+        this.props.Chat.toggleUserMedia();
+        this.props.dispatch(
+            toggleUserMedia()
+        )
     }
 
     onClick_ShowConfirm() {
@@ -47,7 +53,7 @@ class AVcontrol extends React.Component {
 
                 <button
                     className="av-button"
-                    id={this.state.isMyselfAudioOn ? 'audio-on' : 'audio-off'}
+                    id={this.props.isSounding ? 'audio-on' : 'audio-off'}
                     onClick={this.onClick_toggleAudioControl}
                 />
 
@@ -59,7 +65,7 @@ class AVcontrol extends React.Component {
 
                 <button
                     className="av-button"
-                    id={this.state.isMyselfVideoOn ? 'video-on' : 'video-off'}
+                    id={this.props.isStreaming ? 'video-on' : 'video-off'}
                     onClick={this.onClick_toggleVideoControl}
                 />
 
@@ -71,4 +77,11 @@ class AVcontrol extends React.Component {
     }
 }
 
-export default AVcontrol;
+const mapStateToProps = state => {
+    return {
+        isStreaming: state.connection.isStreaming,
+        isSounding: state.connection.isSounding
+    };
+};
+
+export default connect(mapStateToProps)(AVcontrol);

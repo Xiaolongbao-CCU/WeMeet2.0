@@ -8,7 +8,12 @@ import {
     addParticipantList,
     delParticipantList,
     setVotingDetail,
-    setVotingStart
+    setVotingStart,
+    setAgenda,
+    newAgenda,
+    deleteAgenda,
+    updateAgenda,
+    doneAgenda
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -43,4 +48,20 @@ socket.on("gotCreateVote", votingDetail => {
     store.dispatch(setVotingStart());
 });
 
+socket
+    .on("setAgenda", function(list) {
+        store.dispatch(setAgenda(list));
+    })
+    .on("newAgenda", () => {
+        store.dispatch(newAgenda());
+    })
+    .on("deleteAgenda", key => {
+        store.dispatch(deleteAgenda(key));
+    })
+    .on("updateAgenda", obj => {
+        store.dispatch(updateAgenda(obj));
+    })
+    .on("doneAgenda", key => {
+        store.dispatch(doneAgenda(key));
+    });
 export default socket;

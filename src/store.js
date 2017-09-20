@@ -1,11 +1,20 @@
 import { createStore, combineReducers } from "redux";
-import { roomList, participantList, connection, vote } from "./reducers/index";
+import {
+	roomList,
+	participantList,
+	connection,
+	vote,
+	chat,
+	agenda
+} from "./reducers/index";
 
 let reducers = combineReducers({
 	roomList,
 	participantList,
 	connection,
-	vote
+	vote,
+	chat,
+	agenda
 });
 
 const store = createStore(

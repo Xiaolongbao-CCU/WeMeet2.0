@@ -49,6 +49,19 @@ export function gotLocalVideo(url) {
 	};
 }
 
+export function toggleAudio() {
+	return {
+		type: "toggleAudio"
+	};
+}
+
+export function toggleUserMedia() {
+	return {
+		type: "toggleUserMedia"
+	};
+}
+
+
 export function addParticipantConnection(participantObj) {
 	return {
 		type: "addParticipantConnection",
@@ -77,6 +90,13 @@ export function delRemoteStreamURL(id) {
 	};
 }
 
+export function addCandidateQueue(candidateObj){
+	return {
+		type:"addCandidateQueue",
+		data: candidateObj
+	}
+}
+
 export function setVotingDetail(votingDetail) {
 	return {
 		type: "setVotingDetail",
@@ -84,8 +104,57 @@ export function setVotingDetail(votingDetail) {
 	};
 }
 
+export function setSecretOrNot(YesOrNo) {
+	return {
+		type: "setSecretOrNot",
+		data: YesOrNo
+	};
+}
+
 export function setVotingStart() {
 	return {
 		type: "setVotingStart"
+	};
+}
+
+
+export function setAgenda(agenda) {
+	return {
+		type: "setAgenda",
+		data: agenda
+	};
+}
+
+export function newAgenda() {
+	return {
+		type: "newAgenda"
+	};
+}
+
+export function deleteAgenda(key) {
+	return {
+		type: "deleteAgenda",
+		data: key
+	};
+}
+
+export function doneAgenda(key) {
+	return {
+		type: "doneAgenda",
+		data: key
+	};
+}
+
+export function updateAgenda(obj) {
+	return {
+		type: "updateAgenda",
+		data: obj
+	};
+}
+
+export function addChatRecord(recordObj) {
+	return {
+		type: "addChatRecord",
+		data: recordObj
 	};
 }

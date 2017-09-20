@@ -33,14 +33,14 @@ class Toolbar extends React.Component {
 
     componentWillMount() { }
 
-    componentDidMount() { }
+    componentDidMount() { 
+        this.refs.VoteDetail.style.display = "none";
+    }
 
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        console.log(this.refs.VoteDetail.style.display)
         this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none":"block")
-        
     }
 
     onClick_ToggleBrainstorming() {
@@ -108,7 +108,7 @@ class Toolbar extends React.Component {
                 />
 
                 <div ref="VoteDetail"
-                    style={{display:(this.props.votingDetail.isVotingReady? "none":"display")}}
+                    style={{display:(this.props.votingDetail.isVotingStart? "none":"display")}}
                 >
                     <VoteDetail />
                 </div>

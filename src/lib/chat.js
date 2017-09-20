@@ -3,7 +3,10 @@ import {
     gotLocalVideo,
     addRemoteStreamURL,
     delRemoteStreamURL,
-    addParticipantConnection
+    addParticipantConnection,
+    toggleAudio,
+    toggleUserMedia,
+    addChatRecord
 } from "../actions/Actions";
 
 let Chat = {
@@ -27,20 +30,16 @@ let Chat = {
                         localStream = stream;
                         socket.emit("newParticipantA", id, room);
                         if (stream.getVideoTracks().length > 0) {
-                            Meeting.setState({
-                                isStreaming: true,
-                                videoIsReady: true,
-                                localVideoURL: videoURL
-                            });
+                            Meeting.props.dispatch(
+                                toggleUserMedia()
+                            );
                         }
                         if (stream.getAudioTracks().length > 0) {
-                            Meeting.setState({
-                                isStreaming: true,
-                                isSounding: true,
-                                videoIsReady: true,
-                                localVideoURL: videoURL
-                            });
+                             Meeting.props.dispatch(
+                                toggleAudio()
+                            );
                         }
+                        Meeting.props.dispatch(gotLocalVideo(videoURL));
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");
                         window.history.back();
@@ -56,13 +55,11 @@ let Chat = {
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
                 .enabled;
-            Meeting.setState({ isStreaming: !Meeting.state.isStreaming });
         };
 
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
                 .enabled;
-            Meeting.setState({ isSounding: !Meeting.state.isSounding });
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗
@@ -190,9 +187,8 @@ let Chat = {
                     //把每個ArrayBuffer都存在同一個陣列裡
                     receiveBuffer.push(event.data); //把資料push進陣列
                 } else if (channel.label == "messages") {
-                    Meeting.setState({
-                        textRecord: [...Meeting.state.textRecord, event.data]
-                    });
+                    let record = JSON.parse(event.data)
+                    Meeting.props.dispatch(addChatRecord(record))
                 }
             };
         };
@@ -215,12 +211,13 @@ let Chat = {
                 sendTime: formattedTime,
                 text: value
             };
+            //傳給別人的
             for (let id in msgChannels) {
                 msgChannels[id].send(JSON.stringify(record));
             }
-            Meeting.setState({
-                textRecord: [...Meeting.state.textRecord, record]
-            });
+            //加到自己畫面上的
+            Meeting.props.dispatch(addChatRecord(record));
+
         };
 
         // Chat.sendFileToUser = (files) => {
