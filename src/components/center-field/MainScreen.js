@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import { connect } from "react-redux";
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -10,125 +11,119 @@ class MainScreen extends React.Component {
             UserInfro: {
                 //第一個使用者
                 first: {
-                    userName: '李佳怡', //使用者名稱
-                    userIdentity: 'king', //使用者身分，要馬是king(會議建立者)，要馬是member(會議成員)
-                    userVideoURL: './img/user1.jpg', //使用者影像URL
-                    isAudioOpen: true,
-                    isVideoOpen: true
-                },
-                second: {
-                    userName: '劉威君',
-                    userIdentity: 'member',
-                    userVideoURL: './img/user2.jpg',
-                    isAudioOpen: true,
-                    isVideoOpen: true
-                },
-                third: {
-                    userName: '鄭又嘉',
-                    userIdentity: 'member',
-                    userVideoURL: './img/user3.jpg',
-                    isAudioOpen: true,
-                    isVideoOpen: true
-                },
-                forth: {
-                    userName: '宣妮',
-                    userIdentity: 'member',
-                    userVideoURL: './img/user4.jpg',
-                    isAudioOpen: true,
-                    isVideoOpen: true
-                },
-                fifth: {
-                    userName: '朱詩婷',
-                    userIdentity: 'member',
-                    userVideoURL: './img/user5.jpg',
-                    isAudioOpen: true,
-                    isVideoOpen: true
-                },
-                sixth: {
-                    userName: '林成財',
-                    userIdentity: 'member',
-                    userVideoURL: './img/user1.jpg',
-                    isAudioOpen: true,
-                    isVideoOpen: true
+                    userName: "李佳怡", //使用者名稱
+                    userIdentity: "king" //使用者身分，要馬是king(會議建立者)，要馬是member(會議成員)
                 }
             }
-        }
+        };
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     render() {
+        let video = [];
+        if (this.props.localVideoURL) {
+            video.push(
+                <div className="otheruser">
+                    <video
+                        className="video"
+                        src={this.props.localVideoURL}
+                        autoPlay={true}
+                        muted={true}
+                    />
+                    <div
+                        className="user-infro"
+                        id={this.state.UserInfro.first.userIdentity}
+                    >
+                        <img
+                            className="user-image"
+                            src="./img/user-image.png"
+                        />
+                        <label className="user-name">
+                            {this.state.UserInfro.first.userName}
+                        </label>
+                    </div>
+                    <img
+                        className="user-audio"
+                        src={
+                            this.state.UserInfro.first.isAudioOpen
+                                ? "./img/null.png"
+                                : "./img/other_audio-off.png"
+                        }
+                    />
+                    <img
+                        className="user-video"
+                        src={
+                            this.state.UserInfro.first.isVideoOpen
+                                ? "./img/null.png"
+                                : "./img/other_video-off.png"
+                        }
+                    />
+                </div>
+            );
+        }
+        if (this.props.remoteStreamURL) {
+            Object.keys(this.props.remoteStreamURL).map((userID) => {
+                video.push(
+                    <div className="otheruser">
+                        <video
+                            className="video"
+                            src={this.props.remoteStreamURL[userID]}
+                            autoPlay={true}
+                            muted={true}
+                        />
+                        <div
+                            className="user-infro"
+                            id={this.state.UserInfro.first.userIdentity}
+                        >
+                            <img
+                                className="user-image"
+                                src="./img/user-image.png"
+                            />
+                            <label className="user-name">
+                                {userID}
+                            </label>
+                        </div>
+                        <img
+                            className="user-audio"
+                            src={
+                                this.state.UserInfro.first.isAudioOpen
+                                    ? "./img/null.png"
+                                    : "./img/other_audio-off.png"
+                            }
+                        />
+                        <img
+                            className="user-video"
+                            src={
+                                this.state.UserInfro.first.isVideoOpen
+                                    ? "./img/null.png"
+                                    : "./img/other_video-off.png"
+                            }
+                        />
+                    </div>
+                );
+            });
+        }
         return (
             <div className="main-screen">
-                <div className="main-video" />
-                <div className="other-video">
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.first.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.first.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.first.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.first.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.first.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.second.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.second.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.second.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.second.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.second.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.third.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.third.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.third.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.third.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.third.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.forth.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.forth.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.forth.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.forth.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.forth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.fifth.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.fifth.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.fifth.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.fifth.isAudioOpen ? "./img/nu.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.fifth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                    <div className="otheruser">
-                        <img className="video" src={this.state.UserInfro.sixth.userVideoURL} />
-                        <div className="user-infro" id={this.state.UserInfro.sixth.userIdentity}>
-                            <img className="user-image" src="./img/user-image.png" />
-                            <label className="user-name">{this.state.UserInfro.sixth.userName}</label>
-                        </div>
-                        <img className="user-audio" src={this.state.UserInfro.sixth.isAudioOpen ? "./img/null.png" : "./img/other_audio-off.png"} />
-                        <img className="user-video" src={this.state.UserInfro.sixth.isVideoOpen ? "./img/null.png" : "./img/other_video-off.png"} />
-                    </div>
-
-                </div>
+                <video
+                    className="main-video"
+                    src={this.props.localVideoURL}
+                    autoPlay={true}
+                />
+                <div className="other-video">{video}</div>
             </div>
-        )
+        );
     }
 }
 
-export default MainScreen;
+const mapStateToProps = state => {
+    return {
+        localVideoURL: state.connection.localVideoURL,
+        remoteStreamURL: state.connection.remoteStreamURL
+    };
+};
+
+export default connect(mapStateToProps)(MainScreen);

@@ -3,7 +3,9 @@ import {
     gotLocalVideo,
     addRemoteStreamURL,
     delRemoteStreamURL,
-    addParticipantConnection
+    addParticipantConnection,
+    toggleAudio,
+    toggleUserMedia
 } from "../actions/Actions";
 
 let Chat = {
@@ -27,20 +29,16 @@ let Chat = {
                         localStream = stream;
                         socket.emit("newParticipantA", id, room);
                         if (stream.getVideoTracks().length > 0) {
-                            Meeting.setState({
-                                isStreaming: true,
-                                videoIsReady: true,
-                                localVideoURL: videoURL
-                            });
+                            Meeting.props.dispatch(
+                                toggleUserMedia()
+                            );
                         }
                         if (stream.getAudioTracks().length > 0) {
-                            Meeting.setState({
-                                isStreaming: true,
-                                isSounding: true,
-                                videoIsReady: true,
-                                localVideoURL: videoURL
-                            });
+                             Meeting.props.dispatch(
+                                toggleAudio()
+                            );
                         }
+                        Meeting.props.dispatch(gotLocalVideo(videoURL));
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");
                         window.history.back();
@@ -56,13 +54,11 @@ let Chat = {
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
                 .enabled;
-            Meeting.setState({ isStreaming: !Meeting.state.isStreaming });
         };
 
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
                 .enabled;
-            Meeting.setState({ isSounding: !Meeting.state.isSounding });
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗

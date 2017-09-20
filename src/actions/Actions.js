@@ -49,6 +49,19 @@ export function gotLocalVideo(url) {
 	};
 }
 
+export function toggleAudio() {
+	return {
+		type: "toggleAudio"
+	};
+}
+
+export function toggleUserMedia() {
+	return {
+		type: "toggleUserMedia"
+	};
+}
+
+
 export function addParticipantConnection(participantObj) {
 	return {
 		type: "addParticipantConnection",
