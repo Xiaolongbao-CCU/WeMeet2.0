@@ -48,7 +48,7 @@ class MainScreen extends React.Component {
                     <img
                         className="user-audio"
                         src={
-                            this.state.UserInfro.first.isAudioOpen
+                            this.props.isSounding
                                 ? "./img/null.png"
                                 : "./img/other_audio-off.png"
                         }
@@ -56,7 +56,7 @@ class MainScreen extends React.Component {
                     <img
                         className="user-video"
                         src={
-                            this.state.UserInfro.first.isVideoOpen
+                            this.props.isStreaming
                                 ? "./img/null.png"
                                 : "./img/other_video-off.png"
                         }
@@ -111,7 +111,7 @@ class MainScreen extends React.Component {
                     className="main-video"
                     src={this.props.localVideoURL}
                     autoPlay={true}
-                    mute={true}
+                    muted={true}
                 />
                 <div className="other-video">
                     {video}
@@ -123,6 +123,8 @@ class MainScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        isStreaming: state.connection.isStreaming,
+        isSounding:state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
         remoteStreamURL: state.connection.remoteStreamURL
     };

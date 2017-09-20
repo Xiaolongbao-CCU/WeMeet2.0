@@ -126,7 +126,7 @@ io.on("connection", function(socket) {
         .on("updateAgenda", obj => {
             socket.broadcast.emit("updateAgenda", obj);
         })
-        .on("doneAgenda",key=>{
+        .on("doneAgenda", key => {
             socket.broadcast.emit("doneAgenda", key);
         });
 
