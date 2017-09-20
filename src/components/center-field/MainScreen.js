@@ -72,7 +72,6 @@ class MainScreen extends React.Component {
                             className="video"
                             src={this.props.remoteStreamURL[userID]}
                             autoPlay={true}
-                            muted={true}
                         />
                         <div
                             className="user-infro"
@@ -112,8 +111,11 @@ class MainScreen extends React.Component {
                     className="main-video"
                     src={this.props.localVideoURL}
                     autoPlay={true}
+                    mute={true}
                 />
-                <div className="other-video">{video}</div>
+                <div className="other-video">
+                    {video}
+                </div>
             </div>
         );
     }

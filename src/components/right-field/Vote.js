@@ -42,9 +42,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
         if (this.state.optionSelected[e.target.parentNode.id]) {
@@ -72,22 +72,19 @@ class Vote extends React.Component {
 
     render() {
         let voteBox;
-        if (this.props.votingDetail.isVotingReady) {
+        if (this.props.votingDetail.isVotingStart) {
             voteBox = (
                 <div
                     className="votebox"
                     id="one"
                     onClick={this.onClick_ToggleVoteDetail}
                 >
-                    {this.state.isOthersVoteFinished
-                        ? <img
-                            className="voteEnd"
-                            src="../img/vote-ended.png"
-                        />
-                        : null}
-                    {this.state.isOthersVoteFinished
-                        ? <div className="voteEndtext">投票出爐囉！</div>
-                        : null}
+                    {this.state.isOthersVoteFinished ? (
+                        <img className="voteEnd" src="../img/vote-ended.png" />
+                    ) : null}
+                    {this.state.isOthersVoteFinished ? (
+                        <div className="voteEndtext">投票出爐囉！</div>
+                    ) : null}
                 </div>
             );
         }
@@ -117,8 +114,9 @@ class Vote extends React.Component {
         });
 
         let voteDetail;
-        if(this.props.votingDetail.isVotingReady) {
-            voteDetail=(<div
+        if (this.props.votingDetail.isVotingStart) {
+            voteDetail = (
+                <div
                     className={this.state.isVoteBoxOpen ? "visible" : "hidden"}
                 >
                     <div className="votedetail" id="one">
@@ -131,9 +129,7 @@ class Vote extends React.Component {
                         <div className="issue">
                             問題：{this.props.votingDetail.voting.question}
                         </div>
-                        <div className="choice">
-                            {option}
-                        </div>
+                        <div className="choice">{option}</div>
                         <div className="maxVoteNumber">
                             投票上限：
                             {this.props.votingDetail.voting.multiOrNot[0]
@@ -152,15 +148,14 @@ class Vote extends React.Component {
                             投票！
                         </div>
                     </div>
-                </div>)
+                </div>
+            );
         }
-            
-            
+
         return (
             <div className="vote-block">
                 {voteBox}
                 {voteDetail}
-                
             </div>
         );
     }

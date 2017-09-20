@@ -1,12 +1,11 @@
 const initialState = {
     localUserID: "",
     localVideoURL: "",
-    isStreaming:false,
-    isSounding:false,
+    isStreaming: false,
+    isSounding: false,
     connections: {}, //存放連線中的人的socket.id
     remoteStreamURL: {}, //存放連線中的人的stream
-    candidateQueue: {},
-    chatRecord:[]
+    candidateQueue: {}
 };
 
 export default function connection(state = initialState, action) {
@@ -15,11 +14,13 @@ export default function connection(state = initialState, action) {
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
-        
+
         case "toggleAudio":
             return Object.assign({}, state, { isSounding: !state.isSounding });
         case "toggleUserMedia":
-            return Object.assign({}, state, { isStreaming: !state.isStreaming });
+            return Object.assign({}, state, {
+                isStreaming: !state.isStreaming
+            });
 
         case "addParticipantConnection":
             return {
