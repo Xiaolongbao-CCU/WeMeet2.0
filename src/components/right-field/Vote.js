@@ -27,11 +27,10 @@ class Vote extends React.Component {
             VoteFounder: "佳怡", //投票建立者
 
             VoteNumber: {
-                first: "6",
-                second: "7",
-                third: "25"
+                first: "統計還沒做",
+
             }, //投票票數
-            optionSelected: {}
+            optionSelected: []
         };
 
         this.onClick_ToggleVoteSelected = this.onClick_ToggleVoteSelected.bind(
@@ -47,20 +46,60 @@ class Vote extends React.Component {
     componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
-        if (this.state.optionSelected[e.target.parentNode.id]) {
+        let key = e.target.parentNode.id;
+        if (this.props.votingDetail.voting.multiOrNot[0] == 0) {
+            //單選的情況
+            //先清空>再選他選的那個
             this.setState({
-                optionSelected: {
-                    ...this.state.optionSelected,
-                    [e.target.parentNode.id]: false
-                }
+                isMyselfVoteCanSumbit:true,
+                optionSelected: [key]
             });
         } else {
-            this.setState({
-                optionSelected: {
-                    ...this.state.optionSelected,
-                    [e.target.parentNode.id]: true
+            let ticketsYouGot = this.props.votingDetail.voting.multiOrNot[1];
+            if (this.state.optionSelected.includes(key)) {
+                //已經被選的選項又被選>>取消他
+                let k = this.state.optionSelected.indexOf(key)
+                if(this.state.optionSelected.length <=1 ){
+                    this.setState({
+                        isMyselfVoteCanSumbit:false,
+                        optionSelected: [
+                            ...this.state.optionSelected.slice(0, k),
+                            ...this.state.optionSelected.slice(k+1)
+                        ]
+                    });
+                } else {
+                    this.setState({
+                        optionSelected: [
+                            ...this.state.optionSelected.slice(0, k),
+                            ...this.state.optionSelected.slice(k+1)
+                        ]
+                    });
                 }
-            });
+            } else {
+                //如果是沒被選的選項>>要檢查有沒有超過票數
+                if (
+                    Object.keys(this.state.optionSelected).length + 1 ==
+                    ticketsYouGot
+                ) {
+                    //如果投了之後剛好沒票 >> setState >> 把選項都關起來
+                    this.setState({
+                        isMyselfVoteCanSumbit:true,
+                        optionSelected: [...this.state.optionSelected, key]
+                    });
+                    //關閉其他選項
+                } else if (
+                    Object.keys(this.state.optionSelected).length + 1 <
+                    ticketsYouGot
+                ) {
+                    //如果投了之後小於總票數 >> setState
+                    this.setState({
+                        isMyselfVoteCanSumbit:true,
+                        optionSelected: [...this.state.optionSelected, key]
+                    });
+                } else {
+                    return;
+                }
+            }
         }
     }
 
@@ -72,31 +111,35 @@ class Vote extends React.Component {
 
     render() {
         let option = [];
-        if(this.props.votingDetail.voting.option){
+        if (this.props.votingDetail.voting.option) {
             Object.keys(this.props.votingDetail.voting.option).map(key => {
-            option.push(
-                <div
-                    className="cotent"
-                    id={key}
-                    onClick={e => {
-                        this.onClick_ToggleVoteSelected(e);
-                    }}
-                >
-                    <span
-                        className="status"
-                        id={this.state.optionSelected[key] ? "selected" : null}
+                option.push(
+                    <div
+                        className="cotent"
+                        id={key}
+                        
                     >
-                        {this.props.votingDetail.voting.option[key]}
-                    </span>
-                    <span className="bar"> </span>
-                    <span className="people">
-                        {this.state.VoteNumber.first}
-                    </span>
-                </div>
-            );
-        });
+                        <span
+                            className="status"
+                            id={
+                                this.state.optionSelected.indexOf(key) >= 0
+                                    ? "selected"
+                                    : ""
+                            }
+                            onClick={e => {
+                                this.onClick_ToggleVoteSelected(e);
+                            }}
+                        >
+                            {this.props.votingDetail.voting.option[key]}
+                        </span>
+                        <span className="bar"> </span>
+                        <span className="people">
+                            {this.state.VoteNumber.first}
+                        </span>
+                    </div>
+                );
+            });
         }
-        
 
         let voteDetail;
         if (this.props.votingDetail.isVotingStart) {
@@ -143,7 +186,11 @@ class Vote extends React.Component {
                     className="votebox"
                     id="one"
                     onClick={this.onClick_ToggleVoteDetail}
-                    style={{display:(this.props.votingDetail.isVotingStart? "block":"none")}}
+                    style={{
+                        display: this.props.votingDetail.isVotingStart
+                            ? "block"
+                            : "none"
+                    }}
                 >
                     {this.state.isOthersVoteFinished ? (
                         <img className="voteEnd" src="../img/vote-ended.png" />
