@@ -1,5 +1,11 @@
 "use strict";
 
+export function setLocalUserID(id) {
+	return {
+		type: "setLocalUserID",
+		data: id
+	};
+}
 export function setParticipantList(participantList) {
 	return {
 		type: "setParticipantList",
@@ -117,6 +123,12 @@ export function setVotingStart() {
 	};
 }
 
+export function gotVoteFromServer(voteContent) {
+	return {
+		type: "gotVoteFromServer",
+		data: voteContent 
+	};
+}
 
 export function setAgenda(agenda) {
 	return {

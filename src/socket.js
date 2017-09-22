@@ -4,11 +4,15 @@ import {
     setRoomList,
     addRoom,
     delRoom,
+    
     setParticipantList,
     addParticipantList,
     delParticipantList,
+
     setVotingDetail,
     setVotingStart,
+    gotVoteFromServer,
+
     setAgenda,
     newAgenda,
     deleteAgenda,
@@ -43,10 +47,14 @@ socket
         store.dispatch(delParticipantList(participantID));
     });
 
-socket.on("gotCreateVote", votingDetail => {
-    store.dispatch(setVotingDetail(votingDetail));
-    store.dispatch(setVotingStart());
-});
+socket
+    .on("gotCreateVote", votingDetail => {
+        store.dispatch(setVotingDetail(votingDetail));
+        store.dispatch(setVotingStart());
+    })
+    .on("gotVoteFromServer", voteContent => {
+        store.dispatch(gotVoteFromServer(voteContent));
+    });
 
 socket
     .on("setAgenda", function(list) {
