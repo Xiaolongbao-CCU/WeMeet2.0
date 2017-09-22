@@ -55,3 +55,7 @@ button, input{
 	border-style: none;
 	background-color: transparent;
 }
+video{
+	width: 100%;
+	height: 100%;
+}

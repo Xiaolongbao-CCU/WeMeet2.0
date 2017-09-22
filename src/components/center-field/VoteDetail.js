@@ -30,9 +30,9 @@ class VoteDetail extends React.Component {
         this.onClick_Addition = this.onClick_Addition.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_Registered() {
         if (this.state.isRegisteredSelect) {
@@ -65,9 +65,9 @@ class VoteDetail extends React.Component {
     onEnterQuestion(e) {
         let counter = 0
         let flag = true
-        Object.keys(this.state.voting.option).map((key)=>{
-            if(this.state.voting.option[key]){
-                counter ++
+        Object.keys(this.state.voting.option).map((key) => {
+            if (this.state.voting.option[key]) {
+                counter++
             } else {
                 flag = false
             }
@@ -75,13 +75,14 @@ class VoteDetail extends React.Component {
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                isVoteReady: false
+                isVoteReady: false,
+
             });
         } else {
             this.setState({
                 voting: {
                     ...this.state.voting,
-                    isVoteReady:(counter >=2 && flag  ? true:false),
+                    isVoteReady: (counter >= 2 && flag ? true : false),
                     question: e.target.value
                 }
             });
@@ -91,9 +92,9 @@ class VoteDetail extends React.Component {
     onBlurQuestion(e) {
         let counter = 0
         let flag = true
-        Object.keys(this.state.voting.option).map((key)=>{
-            if(this.state.voting.option[key]){
-                counter ++
+        Object.keys(this.state.voting.option).map((key) => {
+            if (this.state.voting.option[key]) {
+                counter++
             } else {
                 flag = false
             }
@@ -101,13 +102,13 @@ class VoteDetail extends React.Component {
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                isVoteReady: false
+                isVoteReady: false,
             });
         } else {
             this.setState({
                 voting: {
                     ...this.state.voting,
-                    isVoteReady:(counter >=2 && flag  ? true:false),
+                    isVoteReady: (counter >= 2 && flag ? true : false),
                     question: e.target.value
                 }
             });
@@ -116,18 +117,19 @@ class VoteDetail extends React.Component {
 
     onEnterOption(e) {
         if (e.target.value) {
-            let counter=0
+            let counter = 0
             let flag = true
-            Object.keys(this.state.voting.option).map((key)=>{
-                if(!this.state.voting.option[key]){
+            Object.keys(this.state.voting.option).map((key) => {
+                if (!this.state.voting.option[key]) {
                     let flag = false
                 } else {
-                    counter += 1 
+                    counter += 1
                 }
+
             })
 
             this.setState({
-                isVoteReady: (counter+1 >= 2 && flag  ? true:false),
+                isVoteReady: (counter + 1 >= 2 && flag ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -153,18 +155,18 @@ class VoteDetail extends React.Component {
 
     onBlurOption(e) {
         if (e.target.value) {
-            let counter=0
+            let counter = 0
             let flag = true
-            Object.keys(this.state.voting.option).map((key)=>{
-                if(!this.state.voting.option[key]){
+            Object.keys(this.state.voting.option).map((key) => {
+                if (!this.state.voting.option[key]) {
                     flag = false
                 } else {
-                    counter += 1 
+                    counter += 1
                 }
             })
 
             this.setState({
-                isVoteReady: (counter >= 2 && flag  ? true:false),
+                isVoteReady: (counter >= 2 && flag ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -250,19 +252,19 @@ class VoteDetail extends React.Component {
             newOptionOrder["option" + (index + 1)] = delOption[optionKey];
         });
 
-        let counter = 0 
+        let counter = 0
         let flag = true
 
-        Object.keys(newOptionOrder).map((key)=>{
-            if(!newOptionOrder[key]){
+        Object.keys(newOptionOrder).map((key) => {
+            if (!newOptionOrder[key]) {
                 flag = false
             } else {
                 counter += 1
             }
         })
-  
+
         this.setState({
-            isVoteReady:(counter >= 2 && flag ? true : false),
+            isVoteReady: (counter >= 2 && flag ? true : false),
             voting: {
                 ...this.state.voting,
                 option: newOptionOrder
@@ -318,6 +320,7 @@ class VoteDetail extends React.Component {
                             this.onEnterOption(e);
                         }}
                     />
+                    <span className="focus-bg"></span>
                 </div>
             );
             this.refs.key = this.state.voting.option[key];
@@ -368,6 +371,7 @@ class VoteDetail extends React.Component {
                             this.onBlurQuestion(e);
                         }}
                     />
+                    <span className="focus-border"></span>
                 </div>
 
                 <div className="voteconent">

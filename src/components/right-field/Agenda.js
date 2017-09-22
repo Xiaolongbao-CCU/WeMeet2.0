@@ -29,9 +29,9 @@ class Agenda extends React.Component {
         //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleDeleteAgenda(e) {
         let key = parseInt(e.target.id, 10);
@@ -118,6 +118,11 @@ class Agenda extends React.Component {
                     <div className="detail">
                         <div className="checkbox">
                             <img
+                                style={
+                                    this.props.agendaList[key].isAgendaFinished
+                                        ? { animation: "fadeIn 0.4s" }
+                                        : {}
+                                }
                                 className="checked"
                                 id={key}
                                 onClick={e => {
@@ -133,15 +138,22 @@ class Agenda extends React.Component {
                             />
                         </div>
                         <input
+                            className="text"
                             style={
                                 this.props.agendaList[key].isAgendaFinished
-                                    ? { textDecoration: "line-through" }
+                                    ? { textDecoration: "line-through", background: "transparent" }
                                     : {}
                             }
                             ref={"agenda_input" + key}
                             id={key}
                             value={this.props.agendaList[key].content}
                             onChange={e => this.onChangeInput(e)}
+                            maxLength="10"
+                            readOnly={
+                                this.props.agendaList[key].isAgendaFinished
+                                    ? "readonly"
+                                    : ""
+                            }
                         />
                         <div
                             className="delete"

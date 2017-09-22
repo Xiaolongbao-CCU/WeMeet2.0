@@ -123,6 +123,7 @@
   width:97%;
   height: auto;
   margin-bottom: 6%;
+  animation: fadeIn 1s;
 }
 
 .myself-message .image,.others-message .image{
@@ -220,6 +221,18 @@
   top: 50%;
   border-left-color: #fff;
   }
+}
+
+.left-chatbox .left{
+  float:left;
+  width:80%;
+  height: auto;
+}
+
+.left-chatbox .right{
+  float:right;
+  width:19%;
+  height: auto;
 }
 
 //----Chat Input----//

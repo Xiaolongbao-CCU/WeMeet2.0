@@ -18,21 +18,22 @@ class MainScreen extends React.Component {
         };
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         let video = [];
         if (this.props.localVideoURL) {
             video.push(
                 <div className="otheruser">
-                    <video
-                        className="video"
-                        src={this.props.localVideoURL}
-                        autoPlay={true}
-                        muted={true}
-                    />
+                    <div className="video">
+                        <video
+                            src={this.props.localVideoURL}
+                            autoPlay={true}
+                            muted={true}
+                        />
+                    </div>
                     <div
                         className="user-infro"
                         id={this.state.UserInfro.first.userIdentity}
@@ -107,12 +108,13 @@ class MainScreen extends React.Component {
         }
         return (
             <div className="main-screen">
-                <video
-                    className="main-video"
-                    src={this.props.localVideoURL}
-                    autoPlay={true}
-                    muted={true}
-                />
+                <div className="main-video">
+                    <video
+                        src={this.props.localVideoURL}
+                        autoPlay={true}
+                        muted={true}
+                    />
+                </div>
                 <div className="other-video">
                     {video}
                 </div>
@@ -124,7 +126,7 @@ class MainScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         isStreaming: state.connection.isStreaming,
-        isSounding:state.connection.isSounding,
+        isSounding: state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
         remoteStreamURL: state.connection.remoteStreamURL
     };

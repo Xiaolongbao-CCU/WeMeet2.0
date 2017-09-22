@@ -48,18 +48,18 @@
 
 .flag .left{
   position: relative;
-  top:93%;
+  top: 93%;
   left: 0%;
-  width:50%;
-  height: 20%;
+  width: 65%;
+  height: 13%;
   background: linear-gradient(to right bottom, $agenda-color 50%, transparent 50%);
 }
 
 .flag .right{
   position: relative;
-  top:73%;
-  left: 50%;
-  width:50%;
+  top: 73%;
+  left: 12%;
+  width: 88%;
   height: 20%;
   background: linear-gradient(to left bottom, $agenda-color 50%, transparent 50%);
   box-shadow: 2px 0px 0px $agenda-shadow;
@@ -92,7 +92,6 @@
   width:100%;
   &:hover{
     color: lighten(black,50%);
-    cursor: pointer;
   }
   animation: fadeIn 0.5s;
 }
@@ -115,7 +114,7 @@
 .checkbox .checked{
   position: relative;
   top: -10%;
-  width: 140%;
+  width: 124%;
 }
 
 .text#line{
@@ -229,6 +228,7 @@
   background-size: 100%; //for test  
   &:hover{
     bottom:1%;
+    cursor: pointer;
   }
   animation: VoteBoxAppear 1s;
 }
@@ -257,7 +257,8 @@
   width:85%;
   height:65%;
   border-radius: 10px;
-  animation: fadeIn 0.5s;
+  animation: fadeIn 1s linear 0.5s;
+  animation-fill-mode: both;
   &:after{
     position: absolute;
     left: 10%;
