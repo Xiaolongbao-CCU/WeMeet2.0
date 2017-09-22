@@ -1,5 +1,3 @@
-@import 'label';
-@import 'img';
 @import 'animation';
 @import 'background';
 @import 'button';
@@ -8,6 +6,7 @@
 @import 'right-field';
 @import 'vote-block';
 @import '_variable';
+@import 'index';
 
 html,body,.container{
   position: absolute;
@@ -41,6 +40,20 @@ html,body,.container{
   right: 0;
   width: $both-width;
   height: 100%; 
+}
+
+.user-name{
+  float: left;
+  font-size: 0.9em;
+} 
+
+.voice-img{
+  float: left;
+  margin-left: 20%;
+  margin-top: 2.5%;
+  margin-right: 4%;
+  width: 15%;
+  height: 65%;
 }
 
 /*****************************

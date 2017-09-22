@@ -13,17 +13,17 @@
 .eagle {
   position: absolute;
   z-index: 2;
-  top:0.5%;
-  width:45%;
+  top:0%;
+  height: 16%;
   //animation: eagle 5s infinite;
 }
 
 .branch{
   position: absolute;
   z-index: -50;
-  top: -0.7%;
-  right:0%;
-  width:90%;
+  top: -1.7%;
+  right: 0%;
+  height: 23%;
 }
 
 .flag{
@@ -93,7 +93,7 @@
   &:hover{
     color: lighten(black,50%);
   }
-  animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s; 
 }
 
 .agenda-content .checkbox{
@@ -377,6 +377,20 @@
     cursor: pointer;
     background-color: #fdf371;
   }
+}
+
+.votewait{
+  box-sizing: border-box;
+  padding: 1%;
+  margin-top: 1%;
+  position: absolute;
+  right: 5%;
+  bottom:7%;
+  font-size: 1em;
+  text-align: center;
+  width: 28%;
+  height: 13%;
+  line-height: 120%;
 }
 
 .votego#open{
