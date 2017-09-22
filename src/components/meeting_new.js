@@ -9,6 +9,7 @@ import socket from "../socket";
 
 // redux-action
 import {
+    setLocalUserID,
     addParticipantList,
     addParticipantConnection,
     delParticipantConnection,
@@ -82,6 +83,7 @@ class Meeting_new extends React.Component {
             .on("gotSocketID", id => {
                 this.localUserID = id;
                 this.Recognizer.id = this.localUserID;
+                this.props.dispatch(setLocalUserID(id))
                 this.Chat.getUserMedia(
                     this.localUserID,
                     window.location.hash,

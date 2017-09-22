@@ -7,6 +7,7 @@
 // }
 import React from "react";
 import { connect } from "react-redux";
+import socket from "../../socket"
 
 class Vote extends React.Component {
     constructor(props) {
@@ -27,8 +28,7 @@ class Vote extends React.Component {
             VoteFounder: "佳怡", //投票建立者
 
             VoteNumber: {
-                first: "統計還沒做",
-
+                first: "統計還沒做"
             }, //投票票數
             optionSelected: []
         };
@@ -51,27 +51,27 @@ class Vote extends React.Component {
             //單選的情況
             //先清空>再選他選的那個
             this.setState({
-                isMyselfVoteCanSumbit:true,
+                isMyselfVoteCanSumbit: true,
                 optionSelected: [key]
             });
         } else {
             let ticketsYouGot = this.props.votingDetail.voting.multiOrNot[1];
             if (this.state.optionSelected.includes(key)) {
                 //已經被選的選項又被選>>取消他
-                let k = this.state.optionSelected.indexOf(key)
-                if(this.state.optionSelected.length <=1 ){
+                let k = this.state.optionSelected.indexOf(key);
+                if (this.state.optionSelected.length <= 1) {
                     this.setState({
-                        isMyselfVoteCanSumbit:false,
+                        isMyselfVoteCanSumbit: false,
                         optionSelected: [
                             ...this.state.optionSelected.slice(0, k),
-                            ...this.state.optionSelected.slice(k+1)
+                            ...this.state.optionSelected.slice(k + 1)
                         ]
                     });
                 } else {
                     this.setState({
                         optionSelected: [
                             ...this.state.optionSelected.slice(0, k),
-                            ...this.state.optionSelected.slice(k+1)
+                            ...this.state.optionSelected.slice(k + 1)
                         ]
                     });
                 }
@@ -83,7 +83,7 @@ class Vote extends React.Component {
                 ) {
                     //如果投了之後剛好沒票 >> setState >> 把選項都關起來
                     this.setState({
-                        isMyselfVoteCanSumbit:true,
+                        isMyselfVoteCanSumbit: true,
                         optionSelected: [...this.state.optionSelected, key]
                     });
                     //關閉其他選項
@@ -93,7 +93,7 @@ class Vote extends React.Component {
                 ) {
                     //如果投了之後小於總票數 >> setState
                     this.setState({
-                        isMyselfVoteCanSumbit:true,
+                        isMyselfVoteCanSumbit: true,
                         optionSelected: [...this.state.optionSelected, key]
                     });
                 } else {
@@ -109,16 +109,30 @@ class Vote extends React.Component {
         });
     }
 
+    onclick_sendVote() {
+        console.log("g4");
+        console.log(this.state.optionSelected);
+        if (this.props.votingDetail.voting.secretOrNot) {
+            //如果是匿名的，就不傳送sender資訊
+            socket.emit("gotVoteFromUser", {
+                sender: 0,
+                content: this.state.optionSelected
+            });
+        } else {
+            //不是匿名的，就傳
+            socket.emit("gotVoteFromUser", {
+                sender: this.props.localUserID,
+                content: this.state.optionSelected
+            });
+        }
+    }
+
     render() {
         let option = [];
         if (this.props.votingDetail.voting.option) {
             Object.keys(this.props.votingDetail.voting.option).map(key => {
                 option.push(
-                    <div
-                        className="cotent"
-                        id={key}
-                        
-                    >
+                    <div className="cotent" id={key}>
                         <span
                             className="status"
                             id={
@@ -172,6 +186,9 @@ class Vote extends React.Component {
                                     ? "open"
                                     : "closed"
                             }
+                            onClick={() => {
+                                this.onclick_sendVote();
+                            }}
                         >
                             投票！
                         </div>
@@ -207,7 +224,8 @@ class Vote extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        votingDetail: state.vote
+        votingDetail: state.vote,
+        localUserID: state.connection.localUserID
     };
 };
 
