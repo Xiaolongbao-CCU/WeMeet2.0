@@ -1,0 +1,71 @@
+.index{
+  width:100%;
+  height: 100%;
+  text-align: center;
+}
+.indexlogo{
+  margin-top: 5%;
+}
+
+.indexName{
+  position: absolute;
+  top: 0%;
+  left: 39%;
+  width: 20%;
+  height: 9%;
+  margin-top: 16%;
+  font-size: 1.5em;
+}
+
+.indexMeeting{
+  position: absolute;
+  top: 12.5%;
+  left: 39%;
+  width: 20%;
+  height: 9%;
+  margin-top: 16%;
+  font-size:1.5em;
+}
+
+.indexinput{
+  width: 100%;
+  margin-top: 3%;
+  height: 46%;
+  font-size: 0.8em;
+  border-bottom-style: solid;
+  border-bottom-color: grey;
+}
+
+.indexinput ~ .focus-border{
+  position: absolute; 
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #cb253e;
+  transition: 0.4s;
+}
+
+.indexinput:focus ~ .focus-border{
+  width: 100%; 
+  transition: 0.4s; 
+  left: 0;
+}
+
+.addRoom{
+  position: absolute;
+  top: 60%;
+  left: 43.5%;
+  width: 11%;
+  height: 6%;
+  border-radius: 29px;
+  background-color: #cb253e;
+  box-shadow: 1px 1px 0px #a31d31;
+  color: white;
+  font-size: 2em;
+  line-height: 150%;
+  &:hover{
+    background-color: lighten(#cb253e,5%);
+    cursor: pointer;
+  }
+}

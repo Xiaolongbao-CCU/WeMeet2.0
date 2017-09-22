@@ -6,15 +6,15 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch } from "react-router";
 import { Provider } from "react-redux";
 import Index from "./components/Index";
-import Meeting_new from "./components/Meeting_new";
-import store from "./store";
+import Meeting from "./components/Meeting";
+import store from "./store"; 
 
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
 			<Switch>
 				<Route exact path="/" component={Index} />
-				<Route path="/meeting_new" component={Meeting_new} />
+				<Route path="/meeting" component={Meeting} />
 			</Switch>
 		</Router>
 	</Provider>,

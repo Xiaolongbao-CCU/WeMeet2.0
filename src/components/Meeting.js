@@ -53,7 +53,7 @@ let configuration = {
     ]
 };
 
-class Meeting_new extends React.Component {
+class Meeting extends React.Component {
     constructor(props) {
         super(props);
         this.Chat = chat.createNew(this);
@@ -248,13 +248,13 @@ class Meeting_new extends React.Component {
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
                     <Chatroom />
-                    <ChatInput Chat={this.Chat}/>
+                    <ChatInput Chat={this.Chat} />
                 </div>
 
                 <div className="center-field">
                     <Toolbar />
                     <MainScreen />
-                    <AVcontrol Chat={this.Chat}/>
+                    <AVcontrol Chat={this.Chat} />
                 </div>
 
                 <div className="right-field">
@@ -276,4 +276,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(Meeting_new);
+export default connect(mapStateToProps)(Meeting);
