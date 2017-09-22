@@ -63,45 +63,71 @@ class VoteDetail extends React.Component {
     }
 
     onEnterQuestion(e) {
-        this.setState({
-            voting: {
-                ...this.state.voting,
-                question: e.target.value
+        let counter = 0
+        let flag = true
+        Object.keys(this.state.voting.option).map((key)=>{
+            if(this.state.voting.option[key]){
+                counter ++
+            } else {
+                flag = false
             }
-        });
+        })
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
                 isVoteReady: false
             });
+        } else {
+            this.setState({
+                voting: {
+                    ...this.state.voting,
+                    isVoteReady:(counter >=2 && flag  ? true:false),
+                    question: e.target.value
+                }
+            });
         }
     }
 
     onBlurQuestion(e) {
-        this.setState({
-            voting: {
-                ...this.state.voting,
-                question: e.target.value
+        let counter = 0
+        let flag = true
+        Object.keys(this.state.voting.option).map((key)=>{
+            if(this.state.voting.option[key]){
+                counter ++
+            } else {
+                flag = false
             }
-        });
+        })
         if (!e.target.value) {
-            console.log("沒輸入問題，要給提醒/改紅框");
+            console.log("沒打東C喔QQ，提醒一波");
             this.setState({
                 isVoteReady: false
+            });
+        } else {
+            this.setState({
+                voting: {
+                    ...this.state.voting,
+                    isVoteReady:(counter >=2 && flag  ? true:false),
+                    question: e.target.value
+                }
             });
         }
     }
 
     onEnterOption(e) {
         if (e.target.value) {
-            let finishFlag = true;
-            for (let key in this.state.voting.option) {
-                if (!this.state.voting.option[key]) {
-                    finishFlag = false;
+            let counter=0
+            let flag = true
+            Object.keys(this.state.voting.option).map((key)=>{
+                if(!this.state.voting.option[key]){
+                    let flag = false
+                } else {
+                    counter += 1 
                 }
-            }
+            })
+
             this.setState({
-                isVoteReady: finishFlag,
+                isVoteReady: (counter+1 >= 2 && flag  ? true:false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -113,21 +139,32 @@ class VoteDetail extends React.Component {
         } else {
             console.log("沒值阿!給個紅框");
             this.setState({
-                isVoteReady: false
+                isVoteReady: false,
+                voting: {
+                    ...this.state.voting,
+                    option: {
+                        ...this.state.voting.option,
+                        [e.target.id]: e.target.value
+                    }
+                }
             });
         }
     }
 
     onBlurOption(e) {
         if (e.target.value) {
-            let finishFlag = true;
-            for (let key in this.state.voting.option) {
-                if (!this.state.voting.option[key]) {
-                    finishFlag = false;
+            let counter=0
+            let flag = true
+            Object.keys(this.state.voting.option).map((key)=>{
+                if(!this.state.voting.option[key]){
+                    flag = false
+                } else {
+                    counter += 1 
                 }
-            }
+            })
+
             this.setState({
-                isVoteReady: finishFlag,
+                isVoteReady: (counter >= 2 && flag  ? true:false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -139,7 +176,14 @@ class VoteDetail extends React.Component {
         } else {
             console.log("給個紅框");
             this.setState({
-                isVoteReady: false
+                isVoteReady: false,
+                voting: {
+                    ...this.state.voting,
+                    option: {
+                        ...this.state.voting.option,
+                        [e.target.id]: e.target.value
+                    }
+                }
             });
         }
     }
@@ -206,14 +250,19 @@ class VoteDetail extends React.Component {
             newOptionOrder["option" + (index + 1)] = delOption[optionKey];
         });
 
-        console.log(newOptionOrder);
-        this.setState({
-            voting: {
-                ...this.state.voting,
-                option: {}
+        let counter = 0 
+        let flag = true
+
+        Object.keys(newOptionOrder).map((key)=>{
+            if(!newOptionOrder[key]){
+                flag = false
+            } else {
+                counter += 1
             }
-        });
+        })
+  
         this.setState({
+            isVoteReady:(counter >= 2 && flag ? true : false),
             voting: {
                 ...this.state.voting,
                 option: newOptionOrder
