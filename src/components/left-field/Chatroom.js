@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -18,14 +18,15 @@ class Chatroom extends React.Component {
 
     render() {
         let chatbox = [];
-        if(this.props.chatRecord){
-            this.props.chatRecord.map((record)=>{
-                if(record.userID == this.props.localUserID){
-                     chatbox.push(
+        if (this.props.chatRecord) {
+            this.props.chatRecord.map((record) => {
+                if (record.userID == this.props.localUserID) {
+                    chatbox.push(
                         <div className="myself-message">
                             <img className="image" src="./img/test0.jpg" />
                             <div className="name">{record.name}</div>
-                            <div className="dialogbox">{record.text}</div>
+                            <div className="dialogbox">{record.text}
+                            </div>
                             <div className="time">{record.sendTime}</div>
                         </div>
                     );
@@ -53,7 +54,7 @@ class Chatroom extends React.Component {
 const mapStateToProps = state => {
     return {
         chatRecord: state.chat,
-        localUserID:state.connection.localUserID
+        localUserID: state.connection.localUserID
     };
 };
 

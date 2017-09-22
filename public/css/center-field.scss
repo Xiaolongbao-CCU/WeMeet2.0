@@ -42,9 +42,9 @@
   height: 74%;
   //special-set
   border-radius: 5px;
-  background-image: url('../img/666.jpg'); //for test
-  background-repeat: no-repeat; //for test
-  background-size: 100%; //for test
+  // background-image: url('../img/666.jpg'); //for test
+  // background-repeat: no-repeat; //for test
+  // background-size: 100%; //for test
 }
 
 .other-video{
@@ -65,12 +65,12 @@
 
 .otheruser{
   float: left;
-  width: 160px; 
+  width: 145px; 
   height:100%;
   background-repeat: no-repeat;
   background-size: 100%;
   &:hover{
-    margin-top:-0.3%;
+    margin-top:-0.8%;
     cursor: pointer;
   }
   &:active{
@@ -80,7 +80,8 @@
 
 .video{
   position: inherit;
-  width:160px;
+  width:145px;
+  height:110px;
 }
 
 .user-infro{
@@ -88,7 +89,7 @@
   margin-top:-1%;
   top: 76%;
   width: 55%;
-  height: 17%;
+  height: 14%;
 }
 
 .user-image{
