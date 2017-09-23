@@ -67,7 +67,7 @@ class VoteDetail extends React.Component {
         let flag = true
         Object.keys(this.state.voting.option).map((key) => {
             if (this.state.voting.option[key]) {
-                counter++
+                counter+=1
             } else {
                 flag = false
             }
@@ -94,7 +94,7 @@ class VoteDetail extends React.Component {
         let flag = true
         Object.keys(this.state.voting.option).map((key) => {
             if (this.state.voting.option[key]) {
-                counter++
+                counter+=1
             } else {
                 flag = false
             }
@@ -117,19 +117,17 @@ class VoteDetail extends React.Component {
 
     onEnterOption(e) {
         if (e.target.value) {
-            let counter = 0
-            let flag = true
+            let plusCounter = 0
+            let minusCounter = 0
             Object.keys(this.state.voting.option).map((key) => {
-                if (!this.state.voting.option[key]) {
-                    let flag = false
+                if (this.state.voting.option[key]) {
+                    plusCounter += 1
                 } else {
-                    counter += 1
+                    minusCounter += 1
                 }
-
             })
-
             this.setState({
-                isVoteReady: (counter + 1 >= 2 && flag ? true : false),
+                isVoteReady: (plusCounter >= 1 && minusCounter <=1 ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -155,18 +153,17 @@ class VoteDetail extends React.Component {
 
     onBlurOption(e) {
         if (e.target.value) {
-            let counter = 0
-            let flag = true
+            let plusCounter = 0
+            let minusCounter = 0
             Object.keys(this.state.voting.option).map((key) => {
-                if (!this.state.voting.option[key]) {
-                    flag = false
+                if (this.state.voting.option[key]) {
+                    plusCounter += 1
                 } else {
-                    counter += 1
+                    minusCounter += 1
                 }
             })
-
             this.setState({
-                isVoteReady: (counter >= 2 && flag ? true : false),
+                isVoteReady: (plusCounter >= 2 && minusCounter ==0 ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -176,7 +173,7 @@ class VoteDetail extends React.Component {
                 }
             });
         } else {
-            console.log("給個紅框");
+            console.log("沒值阿!給個紅框");
             this.setState({
                 isVoteReady: false,
                 voting: {
