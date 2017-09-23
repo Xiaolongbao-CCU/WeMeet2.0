@@ -1,4 +1,5 @@
 const initialState = {
+    userName:"",
     localUserID: "",
     localVideoURL: "",
     isStreaming: false,
@@ -10,6 +11,8 @@ const initialState = {
 
 export default function connection(state = initialState, action) {
     switch (action.type) {
+        case "setUserName":
+            return Object.assign({}, state, { userName: action.data });
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":

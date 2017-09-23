@@ -7,7 +7,7 @@
 // }
 import React from "react";
 import { connect } from "react-redux";
-import socket from "../../socket"
+import socket from "../../socket";
 
 class Vote extends React.Component {
     constructor(props) {
@@ -41,9 +41,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -180,13 +180,11 @@ class Vote extends React.Component {
                             票
                         </div>
                         <div
-                            className=
-                            {
-                                this.state.isMyselefVoteFinished ?
-                                    "votewait" :
-                                    "votego"
+                            className={
+                                this.state.isMyselefVoteFinished
+                                    ? "votewait"
+                                    : "votego"
                             }
-
                             id={
                                 this.state.isMyselfVoteCanSumbit
                                     ? "open"
@@ -196,19 +194,19 @@ class Vote extends React.Component {
                                 this.onclick_sendVote();
                             }}
                         >
-                            {
-                                this.state.isAllVoteFinished //1. 先審核是否所有人投票完，如果投完就不會有任何東西
-                                    ? null
-                                    : this.state.isMyselefVoteSumbited ? "等待他人投票中 " : "投票！"  //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                            {this.state.isAllVoteFinished //1. 先審核是否所有人投票完，如果投完就不會有任何東西
+                                ? null
+                                : this.state.isMyselefVoteSumbited
+                                  ? "等待他人投票中 "
+                                  : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
-                            {
-                                this.state.isAllVoteFinished
-                                    ? null
-                                    : this.state.isMyselefVoteSumbited ? <img src='./img/wait.gif' /> : null
-                            }
+                            {this.state.isAllVoteFinished ? null : this.state
+                                .isMyselefVoteSumbited ? (
+                                <img src="./img/wait.gif" />
+                            ) : null}
                         </div>
                     </div>
-                </div >
+                </div>
             );
         }
 

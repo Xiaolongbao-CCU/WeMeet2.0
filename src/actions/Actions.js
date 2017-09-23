@@ -1,5 +1,12 @@
 "use strict";
 
+export function setUserName(name) {
+	return {
+		type: "setUserName",
+		data: name
+	};
+}
+
 export function setLocalUserID(id) {
 	return {
 		type: "setLocalUserID",
