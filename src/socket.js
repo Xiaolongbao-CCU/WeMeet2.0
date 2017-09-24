@@ -5,15 +5,14 @@ import {
     setRemoteUserName,
     addRoom,
     delRoom,
-    
     setParticipantList,
     addParticipantList,
     delParticipantList,
-
+    setRemoteVideoState,
+    setRemoteAudioState,
     setVotingDetail,
     setVotingStart,
     gotVoteFromServer,
-
     setAgenda,
     newAgenda,
     deleteAgenda,
@@ -30,7 +29,7 @@ socket
             store.dispatch(setRoomList(list));
         }
     })
-    .on("setRemoteUserName" ,idAndName =>{
+    .on("setRemoteUserName", idAndName => {
         store.dispatch(setRemoteUserName(idAndName));
     })
     .on("addRoom", room => {
@@ -49,6 +48,18 @@ socket
     })
     .on("delParticipantList", participantID => {
         store.dispatch(delParticipantList(participantID));
+    });
+
+socket
+    .on("setRemoteVideoState", (state, remotePeer) => {
+        store.dispatch(
+            setRemoteVideoState({ isStreaming: state, remotePeer: remotePeer })
+        );
+    })
+    .on("setRemoteAudioState", (state, remotePeer) => {
+        store.dispatch(
+            setRemoteAudioState({ isSounding: state, remotePeer: remotePeer })
+        );
     });
 
 socket

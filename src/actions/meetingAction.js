@@ -96,10 +96,24 @@ export function delParticipantConnection(participantObj) {
 	};
 }
 
-export function addRemoteStreamURL(streamObj) {
+export function addRemoteStreamURL(stateObj) {
 	return {
 		type: "addRemoteStreamURL",
-		data: streamObj
+		data: stateObj
+	};
+}
+
+export function setRemoteVideoState(stateObj) {
+	return {
+		type: "setRemoteVideoState",
+		data: stateObj
+	};
+}
+
+export function setRemoteAudioState(stateObj) {
+	return {
+		type: "setRemoteAudioState",
+		data: stateObj
 	};
 }
 

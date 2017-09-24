@@ -15,6 +15,8 @@ export {
 	addParticipantConnection,
 	delParticipantConnection,
 	addRemoteStreamURL,
+	setRemoteVideoState,
+	setRemoteAudioState,
 	delRemoteStreamURL,
 	addCandidateQueue
 } from './meetingAction';

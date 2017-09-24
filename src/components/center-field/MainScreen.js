@@ -67,11 +67,12 @@ class MainScreen extends React.Component {
         }
         if (this.props.remoteStreamURL) {
             Object.keys(this.props.remoteStreamURL).map((userID) => {
+
                 video.push(
                     <div className="otheruser">
                         <video
                             className="video"
-                            src={this.props.remoteStreamURL[userID]}
+                            src={this.props.remoteStreamURL[userID].url}
                             autoPlay={true}
                         />
                         <div
@@ -93,7 +94,7 @@ class MainScreen extends React.Component {
                         <img
                             className="user-audio"
                             src={
-                                this.state.UserInfro.first.isAudioOpen
+                                this.props.remoteStreamURL[userID].isSounding
                                     ? "./img/null.png"
                                     : "./img/other_audio-off.png"
                             }
@@ -101,7 +102,7 @@ class MainScreen extends React.Component {
                         <img
                             className="user-video"
                             src={
-                                this.state.UserInfro.first.isVideoOpen
+                                this.props.remoteStreamURL[userID].isStreaming
                                     ? "./img/null.png"
                                     : "./img/other_video-off.png"
                             }

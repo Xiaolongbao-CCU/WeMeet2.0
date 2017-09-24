@@ -120,7 +120,9 @@ class Meeting extends React.Component {
                             offer,
                             this.localUserID,
                             participantID,
-                            this.props.userName
+                            this.props.userName,
+                            this.props.isStreaming,
+                            this.props.isSounding
                         );
                     })
                     .catch(e => {
@@ -273,6 +275,8 @@ const mapStateToProps = state => {
     return {
         userName:state.connection.userName,
         localUserID: state.connection.localUserID,
+        isStreaming: state.connection.isStreaming,
+        isSounding: state.connection.isSounding,
         connections: state.connection.connections,
         remoteStreamURL: state.connection.remoteStreamURL,
         candidateQueue: state.connection.candidateQueue

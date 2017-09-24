@@ -105,7 +105,8 @@ let Chat = {
                 Meeting.props.dispatch(
                     addRemoteStreamURL({
                         id: remotePeer,
-                        url: url
+                        url: url,
+                        stream: event.stream
                     })
                 );
             };
