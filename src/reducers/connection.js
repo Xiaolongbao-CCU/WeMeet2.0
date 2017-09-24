@@ -31,18 +31,10 @@ export default function connection(state = initialState, action) {
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
         case "toggleAudio":
-            socket.emit(
-                "setRemoteAudioState",
-                !state.isSounding,
-                state.localUserID
-            );
-            return Object.assign({}, state, { isSounding: !state.isSounding });
+            return Object.assign({}, state, {
+                isSounding: !state.isSounding
+            });
         case "toggleUserMedia":
-            socket.emit(
-                "setRemoteVideoState",
-                !state.isStreaming,
-                state.localUserID
-            );
             return Object.assign({}, state, {
                 isStreaming: !state.isStreaming
             });

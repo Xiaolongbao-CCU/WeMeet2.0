@@ -215,7 +215,7 @@ let Chat = {
                 (date.getMinutes() < 10 ? "0" : "") +
                 date.getMinutes();
             let record = {
-                name: "Andy", //0903 Andy Add a Temp
+                name: Meeting.props.userName, //0903 Andy Add a Temp
                 userID: Meeting.localUserID,
                 sendTime: formattedTime,
                 text: value
