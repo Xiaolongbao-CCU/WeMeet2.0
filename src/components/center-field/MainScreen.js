@@ -11,16 +11,15 @@ class MainScreen extends React.Component {
             UserInfro: {
                 //第一個使用者
                 first: {
-                    userName: "李佳怡", //使用者名稱
                     userIdentity: "king" //使用者身分，要馬是king(會議建立者)，要馬是member(會議成員)
                 }
             }
         };
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     render() {
         let video = [];
@@ -43,7 +42,8 @@ class MainScreen extends React.Component {
                             src="./img/user-image.png"
                         />
                         <label className="user-name">
-                            {this.state.UserInfro.first.userName}
+                            {this.props.userName ||
+                                "u_" + this.props.localUserID.substring(0, 4)}
                         </label>
                     </div>
                     <img
@@ -66,12 +66,12 @@ class MainScreen extends React.Component {
             );
         }
         if (this.props.remoteStreamURL) {
-            Object.keys(this.props.remoteStreamURL).map((userID) => {
+            Object.keys(this.props.remoteStreamURL).map(userID => {
                 video.push(
                     <div className="otheruser">
                         <video
                             className="video"
-                            src={this.props.remoteStreamURL[userID]}
+                            src={this.props.remoteStreamURL[userID].url}
                             autoPlay={true}
                         />
                         <div
@@ -83,13 +83,16 @@ class MainScreen extends React.Component {
                                 src="./img/user-image.png"
                             />
                             <label className="user-name">
-                                {userID}
+                                {this.props.remoteUserName[userID] &&
+                                this.props.remoteUserName[userID] !== userID
+                                    ? this.props.remoteUserName[userID]
+                                    : "u_" + userID.substring(0, 4)}
                             </label>
                         </div>
                         <img
                             className="user-audio"
                             src={
-                                this.state.UserInfro.first.isAudioOpen
+                                this.props.remoteStreamURL[userID].isSounding
                                     ? "./img/null.png"
                                     : "./img/other_audio-off.png"
                             }
@@ -97,7 +100,7 @@ class MainScreen extends React.Component {
                         <img
                             className="user-video"
                             src={
-                                this.state.UserInfro.first.isVideoOpen
+                                this.props.remoteStreamURL[userID].isStreaming
                                     ? "./img/null.png"
                                     : "./img/other_video-off.png"
                             }
@@ -115,9 +118,7 @@ class MainScreen extends React.Component {
                         muted={true}
                     />
                 </div>
-                <div className="other-video">
-                    {video}
-                </div>
+                <div className="other-video">{video}</div>
             </div>
         );
     }
@@ -125,10 +126,13 @@ class MainScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        userName: state.connection.userName,
+        localUserID: state.connection.localUserID,
         isStreaming: state.connection.isStreaming,
         isSounding: state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
-        remoteStreamURL: state.connection.remoteStreamURL
+        remoteStreamURL: state.connection.remoteStreamURL,
+        remoteUserName: state.connection.remoteUserName
     };
 };
 

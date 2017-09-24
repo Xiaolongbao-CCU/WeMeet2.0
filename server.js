@@ -85,7 +85,7 @@ io.on("connection", function(socket) {
 
     //直接連線到房間內部的話
     socket.on("IAmAt", function(location, room) {
-        if (location == "/meeting_new") {
+        if (location == "/meeting") {
             if (!userInRoom.hasOwnProperty(room)) {
                 socket.emit("joinRoom");
                 console.log("欸沒房啦 先加一波");
@@ -96,46 +96,16 @@ io.on("connection", function(socket) {
         }
     });
 
-    socket.on("createVote", votingDetail => {
-        let room = Object.keys(socket.rooms)[1];
-        //發給房內所有人，包含發起投票的人
-        //console.log(votingDetail)
-        io.in(room).emit("gotCreateVote", votingDetail);
-        // socket.emit("gotCreateVote", votingDetail);
-    });
-
-    socket.on("gotVoteFromUser",(voteContent)=>{
-        let room = Object.keys(socket.rooms)[1];
-        console.log(room)
-        io.in(room).emit("gotVoteFromServer",voteContent)
-    })
-
-    socket.on("OpenBrain", function(list) {
-        socket.broadcast.emit("OpenBrainForAll", list);
-    });
-
-    socket
-        .on("setAgenda", function(list) {
-            socket.broadcast.emit("setAgenda", list);
-        })
-        .on("newAgenda", () => {
-            socket.broadcast.emit("newAgenda");
-        })
-        .on("deleteAgenda", key => {
-            socket.broadcast.emit("deleteAgenda", key);
-        })
-        .on("updateAgenda", obj => {
-            socket.broadcast.emit("updateAgenda", obj);
-        })
-        .on("doneAgenda", key => {
-            socket.broadcast.emit("doneAgenda", key);
-        });
+    // socket.on("OpenBrain", function(list) {
+    //     socket.broadcast.emit("OpenBrainForAll", list);
+    // });
 
     socket
         .on("join", function(room) {
             //將使用者加入房間
             socket.join(room);
             console.log("有人加入房間囉" + socket.id + "加入了" + room);
+
             if (!roomList.includes(room)) {
                 //將房間加入"房間"列表
                 roomList.push(room);
@@ -144,10 +114,13 @@ io.on("connection", function(socket) {
             }
 
             if (!userInRoom.hasOwnProperty(room)) {
-                //房間不存在，而且沒有人要通知，就通知新人
+                //房間不存在，沒有人要通知，就通知新人
                 userInRoom[room] = [socket.id];
                 socket.emit("addParticipantList", socket.id);
-            } else if (!userInRoom[room].includes(socket.id)) {
+            } else if (
+                userInRoom.hasOwnProperty(room) &&
+                !userInRoom[room].includes(socket.id)
+            ) {
                 //房間存在，有人在裡面，但新人不存在房間裡
                 //對新人加在名單最前面>把名單整份發過去
                 userInRoom[room].unshift(socket.id);
@@ -184,17 +157,52 @@ io.on("connection", function(socket) {
         });
 
     socket
-        .on("newParticipantA", function(msgSender, room) {
+        .on("newParticipantA", function(msgSender, room, userName) {
             socket.to(room).emit("newParticipantB", msgSender);
+            socket.to(room).emit("setRemoteUserName", {
+                id: msgSender,
+                name: userName
+            });
         })
-        .on("offerRemotePeer", function(offer, sender, receiver) {
-            socket.to(receiver).emit("offer", offer, sender);
+        .on("offerRemotePeer", function(
+            offer,
+            sender,
+            receiver,
+            senderName,
+            isStreaming,
+            isSounding
+        ) {
+            socket.to(receiver).emit("offer", offer, sender, senderName);
+            socket.to(receiver).emit("setRemoteUserName", {
+                id: sender,
+                name: senderName
+            });
+            socket
+                .to(receiver)
+                .emit("setRemoteVideoState", isStreaming, sender);
+            socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
         })
-        .on("answerRemotePeer", function(answer, sender, receiver) {
+        .on("answerRemotePeer", function(
+            answer,
+            sender,
+            receiver,
+            isStreaming,
+            isSounding
+        ) {
             socket.to(receiver).emit("answer", answer, sender);
+            socket.to(receiver).emit("setRemoteVideoState", isStreaming,sender);
+            socket.to(receiver).emit("setRemoteAudioState", isSounding,sender);
         })
         .on("onIceCandidateA", function(candidate, sender, receiver) {
             socket.to(receiver).emit("onIceCandidateB", candidate, sender);
+        })
+        .on("setRemoteVideoState", (state, remotePeer) => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("setRemoteVideoState", state, remotePeer);
+        })
+        .on("setRemoteAudioState", (state, remotePeer) => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         })
         .on("disconnecting", function() {
             console.log("有人斷線囉~" + socket.id);
@@ -221,6 +229,37 @@ io.on("connection", function(socket) {
                 socket.to(room).emit("delParticipantList", socket.id);
                 socket.to(room).emit("participantDisconnected", socket.id);
             }
+        });
+
+    socket
+        .on("setAgenda", function(list) {
+            socket.broadcast.emit("setAgenda", list);
+        })
+        .on("newAgenda", () => {
+            socket.broadcast.emit("newAgenda");
+        })
+        .on("deleteAgenda", key => {
+            socket.broadcast.emit("deleteAgenda", key);
+        })
+        .on("updateAgenda", obj => {
+            socket.broadcast.emit("updateAgenda", obj);
+        })
+        .on("doneAgenda", key => {
+            socket.broadcast.emit("doneAgenda", key);
+        });
+
+    socket
+        .on("createVote", votingDetail => {
+            let room = Object.keys(socket.rooms)[1];
+            //發給房內所有人，包含發起投票的人
+            //console.log(votingDetail)
+            io.in(room).emit("gotCreateVote", votingDetail);
+            // socket.emit("gotCreateVote", votingDetail);
+        })
+        .on("gotVoteFromUser", voteContent => {
+            let room = Object.keys(socket.rooms)[1];
+            console.log(room);
+            io.in(room).emit("gotVoteFromServer", voteContent);
         });
 
     socket.on("requestVideoFromUser", function(sender) {

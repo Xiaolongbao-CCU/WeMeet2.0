@@ -24,8 +24,6 @@ class ChatInput extends React.Component {
 
     handleInputPressClick() {
         let inputText = this.state.chatInputValue;
-        /********** important!! **************/
-        //the inputText need to send to chat.js, but still not work -by Andy */
         this.props.Chat.sendText(inputText);
         this.setState({
             chatInputValue: ""

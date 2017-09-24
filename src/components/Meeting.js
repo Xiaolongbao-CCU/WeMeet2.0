@@ -10,6 +10,7 @@ import socket from "../socket";
 // redux-action
 import {
     setLocalUserID,
+    setRemoteUserName,
     addParticipantList,
     addParticipantConnection,
     delParticipantConnection,
@@ -78,12 +79,11 @@ class Meeting extends React.Component {
             拿socketid
             連線
         */
-
         socket
             .on("gotSocketID", id => {
                 this.localUserID = id;
                 this.Recognizer.id = this.localUserID;
-                this.props.dispatch(setLocalUserID(id))
+                this.props.dispatch(setLocalUserID(id));
                 this.Chat.getUserMedia(
                     this.localUserID,
                     window.location.hash,
@@ -119,7 +119,10 @@ class Meeting extends React.Component {
                             "offerRemotePeer",
                             offer,
                             this.localUserID,
-                            participantID
+                            participantID,
+                            this.props.userName,
+                            this.props.isStreaming,
+                            this.props.isSounding
                         );
                     })
                     .catch(e => {
@@ -140,7 +143,7 @@ class Meeting extends React.Component {
                 ].setRemoteDescription(new RTCSessionDescription(answer));
                 //console.log(this.state.connections[sender].getRemoteStreams()[0]);
             })
-            .on("offer", (offer, sender) => {
+            .on("offer", (offer, sender, senderName) => {
                 //console.log("888888888888")
                 if (this.props.connections[sender]) {
                     this.props.dispatch(delParticipantConnection(sender));
@@ -166,7 +169,9 @@ class Meeting extends React.Component {
                             "answerRemotePeer",
                             answer,
                             this.localUserID,
-                            sender
+                            sender,
+                            this.props.isStreaming,
+                            this.props.isSounding
                         );
                     })
                     .catch(e => {
@@ -270,6 +275,10 @@ class Meeting extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        userName: state.connection.userName,
+        localUserID: state.connection.localUserID,
+        isStreaming: state.connection.isStreaming,
+        isSounding: state.connection.isSounding,
         connections: state.connection.connections,
         remoteStreamURL: state.connection.remoteStreamURL,
         candidateQueue: state.connection.candidateQueue

@@ -1,22 +1,39 @@
+import socket from "../socket";
+
 const initialState = {
+    userName: "",
     localUserID: "",
     localVideoURL: "",
     isStreaming: false,
     isSounding: false,
     connections: {}, //存放連線中的人的socket.id
     remoteStreamURL: {}, //存放連線中的人的stream
+    remoteUserName: {},
     candidateQueue: {}
 };
 
 export default function connection(state = initialState, action) {
     switch (action.type) {
+        case "setUserName":
+            return Object.assign({}, state, { userName: action.data });
+        case "setRemoteUserName":
+            let userID = action.data.id;
+            let userName = action.data.name;
+            return {
+                ...state,
+                remoteUserName: {
+                    ...state.remoteUserName,
+                    [userID]: userName
+                }
+            };
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
-
         case "toggleAudio":
-            return Object.assign({}, state, { isSounding: !state.isSounding });
+            return Object.assign({}, state, {
+                isSounding: !state.isSounding
+            });
         case "toggleUserMedia":
             return Object.assign({}, state, {
                 isStreaming: !state.isStreaming
@@ -54,7 +71,35 @@ export default function connection(state = initialState, action) {
                 ...state,
                 remoteStreamURL: {
                     ...state.remoteStreamURL,
-                    [action.data.id]: action.data.url
+                    [action.data.id]: {
+                        ...state.remoteStreamURL[action.data.id],
+                        url: action.data.url
+                    }
+                }
+            };
+
+        case "setRemoteVideoState":
+            console.log(action.data.remotePeer);
+            return {
+                ...state,
+                remoteStreamURL: {
+                    ...state.remoteStreamURL,
+                    [action.data.remotePeer]: {
+                        ...state.remoteStreamURL[action.data.remotePeer],
+                        isStreaming: action.data.isStreaming
+                    }
+                }
+            };
+
+        case "setRemoteAudioState":
+            return {
+                ...state,
+                remoteStreamURL: {
+                    ...state.remoteStreamURL,
+                    [action.data.remotePeer]: {
+                        ...state.remoteStreamURL[action.data.remotePeer],
+                        isSounding: action.data.isSounding
+                    }
                 }
             };
 

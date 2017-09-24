@@ -2,17 +2,17 @@ import socketIO from "socket.io-client";
 import store from "./store";
 import {
     setRoomList,
+    setRemoteUserName,
     addRoom,
     delRoom,
-    
     setParticipantList,
     addParticipantList,
     delParticipantList,
-
+    setRemoteVideoState,
+    setRemoteAudioState,
     setVotingDetail,
     setVotingStart,
     gotVoteFromServer,
-
     setAgenda,
     newAgenda,
     deleteAgenda,
@@ -28,6 +28,9 @@ socket
         if (list.length) {
             store.dispatch(setRoomList(list));
         }
+    })
+    .on("setRemoteUserName", idAndName => {
+        store.dispatch(setRemoteUserName(idAndName));
     })
     .on("addRoom", room => {
         store.dispatch(addRoom(room));
@@ -45,6 +48,18 @@ socket
     })
     .on("delParticipantList", participantID => {
         store.dispatch(delParticipantList(participantID));
+    });
+
+socket
+    .on("setRemoteVideoState", (state, remotePeer) => {
+        store.dispatch(
+            setRemoteVideoState({ isStreaming: state, remotePeer: remotePeer })
+        );
+    })
+    .on("setRemoteAudioState", (state, remotePeer) => {
+        store.dispatch(
+            setRemoteAudioState({ isSounding: state, remotePeer: remotePeer })
+        );
     });
 
 socket
