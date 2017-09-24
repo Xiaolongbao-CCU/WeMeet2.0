@@ -32,13 +32,21 @@ let Chat = {
                         let videoURL = window.URL.createObjectURL(stream);
                         localStream = stream;
 
-                        socket.emit("newParticipantA", id, room, (Meeting.props.userName? Meeting.props.userName : Meeting.props.localUserID));
+                        socket.emit(
+                            "newParticipantA",
+                            id,
+                            room,
+                            Meeting.props.userName
+                                ? Meeting.props.userName
+                                : Meeting.props.localUserID
+                        );
                         if (stream.getVideoTracks().length > 0) {
                             Meeting.props.dispatch(toggleUserMedia());
                         }
                         if (stream.getAudioTracks().length > 0) {
                             Meeting.props.dispatch(toggleAudio());
                         }
+
                         Meeting.props.dispatch(gotLocalVideo(videoURL));
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");

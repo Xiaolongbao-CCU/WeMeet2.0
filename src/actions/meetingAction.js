@@ -81,7 +81,6 @@ export function toggleUserMedia() {
 	};
 }
 
-
 export function addParticipantConnection(participantObj) {
 	return {
 		type: "addParticipantConnection",
@@ -124,9 +123,9 @@ export function delRemoteStreamURL(id) {
 	};
 }
 
-export function addCandidateQueue(candidateObj){
+export function addCandidateQueue(candidateObj) {
 	return {
-		type:"addCandidateQueue",
+		type: "addCandidateQueue",
 		data: candidateObj
-	}
+	};
 }

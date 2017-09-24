@@ -164,28 +164,45 @@ io.on("connection", function(socket) {
                 name: userName
             });
         })
-        .on("offerRemotePeer", function(offer, sender, receiver, senderName,isStreaming,isSounding) {
+        .on("offerRemotePeer", function(
+            offer,
+            sender,
+            receiver,
+            senderName,
+            isStreaming,
+            isSounding
+        ) {
             socket.to(receiver).emit("offer", offer, sender, senderName);
-            socket.to(receiver).emit("setRemoteUserName",{
+            socket.to(receiver).emit("setRemoteUserName", {
                 id: sender,
-                name:senderName
-            })
-            socket.to(receiver).emit("setRemoteVideoState", isStreaming,sender )
-            socket.to(receiver).emit("setRemoteAudioState", isSounding,sender )
+                name: senderName
+            });
+            socket
+                .to(receiver)
+                .emit("setRemoteVideoState", isStreaming, sender);
+            socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
         })
-        .on("answerRemotePeer", function(answer, sender, receiver) {
+        .on("answerRemotePeer", function(
+            answer,
+            sender,
+            receiver,
+            isStreaming,
+            isSounding
+        ) {
             socket.to(receiver).emit("answer", answer, sender);
+            socket.to(receiver).emit("setRemoteVideoState", isStreaming,sender);
+            socket.to(receiver).emit("setRemoteAudioState", isSounding,sender);
         })
         .on("onIceCandidateA", function(candidate, sender, receiver) {
             socket.to(receiver).emit("onIceCandidateB", candidate, sender);
         })
-        .on("setRemoteVideoState",(state,remotePeer)=>{
+        .on("setRemoteVideoState", (state, remotePeer) => {
             let room = Object.keys(socket.rooms)[1];
-            socket.to(room).emit("setRemoteVideoState", state,remotePeer);
+            socket.to(room).emit("setRemoteVideoState", state, remotePeer);
         })
-        .on("setRemoteAudioState",(state,remotePeer)=>{
+        .on("setRemoteAudioState", (state, remotePeer) => {
             let room = Object.keys(socket.rooms)[1];
-            socket.to(room).emit("setRemoteAudioState", state,remotePeer);
+            socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         })
         .on("disconnecting", function() {
             console.log("有人斷線囉~" + socket.id);
