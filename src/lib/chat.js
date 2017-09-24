@@ -18,7 +18,10 @@ let Chat = {
         Chat.getUserMedia = (id, room, socket) => {
             navigator.mediaDevices
                 .getUserMedia({
-                    video: true,
+                    video: {
+                        width: { max: 1024 },
+                        height: { max: 776 }
+                    },
                     audio: true
                 })
                 .then(stream => {
@@ -28,16 +31,13 @@ let Chat = {
                     ) {
                         let videoURL = window.URL.createObjectURL(stream);
                         localStream = stream;
-                        socket.emit("newParticipantA", id, room);
+
+                        socket.emit("newParticipantA", id, room, (Meeting.props.userName? Meeting.props.userName : Meeting.props.localUserID));
                         if (stream.getVideoTracks().length > 0) {
-                            Meeting.props.dispatch(
-                                toggleUserMedia()
-                            );
+                            Meeting.props.dispatch(toggleUserMedia());
                         }
                         if (stream.getAudioTracks().length > 0) {
-                             Meeting.props.dispatch(
-                                toggleAudio()
-                            );
+                            Meeting.props.dispatch(toggleAudio());
                         }
                         Meeting.props.dispatch(gotLocalVideo(videoURL));
                     } else {
@@ -187,8 +187,8 @@ let Chat = {
                     //把每個ArrayBuffer都存在同一個陣列裡
                     receiveBuffer.push(event.data); //把資料push進陣列
                 } else if (channel.label == "messages") {
-                    let record = JSON.parse(event.data)
-                    Meeting.props.dispatch(addChatRecord(record))
+                    let record = JSON.parse(event.data);
+                    Meeting.props.dispatch(addChatRecord(record));
                 }
             };
         };
@@ -206,7 +206,7 @@ let Chat = {
                 (date.getMinutes() < 10 ? "0" : "") +
                 date.getMinutes();
             let record = {
-                name: 'Andy', //0903 Andy Add a Temp
+                name: "Andy", //0903 Andy Add a Temp
                 userID: Meeting.localUserID,
                 sendTime: formattedTime,
                 text: value
@@ -217,7 +217,6 @@ let Chat = {
             }
             //加到自己畫面上的
             Meeting.props.dispatch(addChatRecord(record));
-
         };
 
         // Chat.sendFileToUser = (files) => {

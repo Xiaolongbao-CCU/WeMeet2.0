@@ -43,7 +43,7 @@ class MainScreen extends React.Component {
                             src="./img/user-image.png"
                         />
                         <label className="user-name">
-                            {this.state.UserInfro.first.userName}
+                            {this.props.userName || "u_"+this.props.localUserID.substring(0,4)}
                         </label>
                     </div>
                     <img
@@ -83,7 +83,11 @@ class MainScreen extends React.Component {
                                 src="./img/user-image.png"
                             />
                             <label className="user-name">
-                                {userID}
+                                {
+                                    this.props.remoteUserName[userID] && this.props.remoteUserName[userID]!== userID? 
+                                    this.props.remoteUserName[userID]:
+                                    "u_" + userID.substring(0,4)
+                                }
                             </label>
                         </div>
                         <img
@@ -125,10 +129,13 @@ class MainScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        userName: state.connection.userName,
+        localUserID:state.connection.localUserID,
         isStreaming: state.connection.isStreaming,
         isSounding: state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
-        remoteStreamURL: state.connection.remoteStreamURL
+        remoteStreamURL: state.connection.remoteStreamURL,
+        remoteUserName: state.connection.remoteUserName
     };
 };
 

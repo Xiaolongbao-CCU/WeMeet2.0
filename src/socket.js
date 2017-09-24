@@ -2,6 +2,7 @@ import socketIO from "socket.io-client";
 import store from "./store";
 import {
     setRoomList,
+    setRemoteUserName,
     addRoom,
     delRoom,
     
@@ -28,6 +29,9 @@ socket
         if (list.length) {
             store.dispatch(setRoomList(list));
         }
+    })
+    .on("setRemoteUserName" ,idAndName =>{
+        store.dispatch(setRemoteUserName(idAndName));
     })
     .on("addRoom", room => {
         store.dispatch(addRoom(room));

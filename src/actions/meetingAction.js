@@ -7,6 +7,13 @@ export function setUserName(name) {
 	};
 }
 
+export function setRemoteUserName(name) {
+	return {
+		type: "setRemoteUserName",
+		data: name
+	};
+}
+
 export function setLocalUserID(id) {
 	return {
 		type: "setLocalUserID",

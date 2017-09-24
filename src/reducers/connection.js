@@ -6,6 +6,7 @@ const initialState = {
     isSounding: false,
     connections: {}, //存放連線中的人的socket.id
     remoteStreamURL: {}, //存放連線中的人的stream
+    remoteUserName:{},
     candidateQueue: {}
 };
 
@@ -13,11 +14,20 @@ export default function connection(state = initialState, action) {
     switch (action.type) {
         case "setUserName":
             return Object.assign({}, state, { userName: action.data });
+        case "setRemoteUserName":
+            let userID = action.data.id
+            let userName = action.data.name
+            return {
+                ...state,
+                remoteUserName:{
+                    ...state.remoteUserName,
+                    [userID]:userName
+                }
+            }
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
-
         case "toggleAudio":
             return Object.assign({}, state, { isSounding: !state.isSounding });
         case "toggleUserMedia":
