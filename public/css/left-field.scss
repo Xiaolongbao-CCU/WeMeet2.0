@@ -302,3 +302,55 @@
   align-items: center;
   width:20%;
 }
+
+//CVcontrol
+.CVcontrol{
+  //basic-set
+  position: absolute;
+  top:0%;
+  z-index: -10;
+  //size-set
+  width:100%;
+  height: 8%;
+}
+
+.CVcontrol .chatroom{
+  width: 45%;
+  height: 70%;
+  border-radius: 11px 0px 0px 11px;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  box-sizing: border-box;
+  padding: 3%;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+.CVcontrol .voice-recognition{
+  width: 45%;
+  height: 70%;
+  border-radius: 0px 11px 11px 0px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  box-sizing: border-box;
+  padding: 3%;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+.CVcontrol #selected{
+  background-color: #dd4359;
+  box-shadow: 1px 1px 0px #c33c4f;
+  color: white;
+}
+
+.CVcontrol #no-selected{
+  background-color: #fdfbec;
+  box-shadow: 1px 1px 0px #d7d2ab;
+  &:hover{
+    background-color: darken(#fdfbec,5%);
+    cursor: pointer;
+  }
+}

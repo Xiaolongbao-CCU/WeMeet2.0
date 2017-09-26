@@ -21,6 +21,7 @@ import {
 //component
 
 //left-field,total 2 components
+import CVcontrl from './left-field/CVcontrl';
 import Chatroom from "./left-field/Chatroom";
 import ChatInput from "./left-field/Chatinput";
 
@@ -252,6 +253,7 @@ class Meeting extends React.Component {
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
+                    <CVcontrl />
                     <Chatroom />
                     <ChatInput Chat={this.Chat} />
                 </div>
