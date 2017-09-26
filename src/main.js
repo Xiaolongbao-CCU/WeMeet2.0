@@ -7,7 +7,8 @@ import { Switch } from "react-router";
 import { Provider } from "react-redux";
 import Index from "./components/Index";
 import Meeting from "./components/Meeting";
-import store from "./store"; 
+import store from "./store";
+import MeetingRecord from "./components/special-field/MeetingRecord";
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -15,6 +16,7 @@ ReactDOM.render(
 			<Switch>
 				<Route exact path="/" component={Index} />
 				<Route path="/meeting" component={Meeting} />
+				<Route path="/record" component={MeetingRecord} />
 			</Switch>
 		</Router>
 	</Provider>,

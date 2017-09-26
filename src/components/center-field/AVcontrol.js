@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import {
     toggleAudio,
     toggleUserMedia
@@ -13,11 +13,11 @@ class AVcontrol extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowExitConfirm: false //是否顯示離開房間的警示框
+            // isShowExitConfirm: false 是否顯示離開房間的警示框
         }
         this.onClick_toggleAudioControl = this.onClick_toggleAudioControl.bind(this);
         this.onClick_toggleVideoControl = this.onClick_toggleVideoControl.bind(this);
-        this.onClick_ShowConfirm = this.onClick_ShowConfirm.bind(this);
+        // this.onClick_ShowConfirm = this.onClick_ShowConfirm.bind(this);
     }
 
     componentWillMount() { }
@@ -39,11 +39,11 @@ class AVcontrol extends React.Component {
         )
     }
 
-    onClick_ShowConfirm() {
-        this.setState({
-            isShowExitConfirm: !this.state.isShowExitConfirm
-        })
-    }
+    // onClick_ShowConfirm() {
+    //     this.setState({
+    //         isShowExitConfirm: !this.state.isShowExitConfirm
+    //     })
+    // }
 
 
 
@@ -68,9 +68,6 @@ class AVcontrol extends React.Component {
                     id={this.props.isStreaming ? 'video-on' : 'video-off'}
                     onClick={this.onClick_toggleVideoControl}
                 />
-
-                {this.state.isShowExitConfirm ? <ConfirmExit /> : null}
-
 
             </div>
         );
