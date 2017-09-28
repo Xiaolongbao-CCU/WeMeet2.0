@@ -23,6 +23,7 @@ import {
 //left-field,total 2 components
 import CVcontrl from './left-field/CVcontrl';
 import Chatroom from "./left-field/Chatroom";
+import VoiceRecognition from "./left-field/VoiceRecognition"
 import ChatInput from "./left-field/Chatinput";
 
 //center-field, total 4 components
@@ -254,7 +255,7 @@ class Meeting extends React.Component {
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
                     <CVcontrl />
-                    <Chatroom />
+                    {this.props.isInChatNow? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
                     <ChatInput Chat={this.Chat} />
                 </div>
 
@@ -283,7 +284,8 @@ const mapStateToProps = state => {
         isSounding: state.connection.isSounding,
         connections: state.connection.connections,
         remoteStreamURL: state.connection.remoteStreamURL,
-        candidateQueue: state.connection.candidateQueue
+        candidateQueue: state.connection.candidateQueue,
+        isInChatNow: state.chatAndRecognition.isInChatNow
     };
 };
 

@@ -63,6 +63,7 @@ class Index extends React.Component {
         this.setState({ roomName: e.target.value });
     }
     onClick_handleCreateRoom() {
+        document.removeEventListener("keydown",this.onKeyDown);
         //按下建立房間後的事件
         this.props.dispatch(setUserName(this.state.userName));
         //做好名字之後>進到房間裡

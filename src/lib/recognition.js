@@ -1,5 +1,6 @@
 'use strict';
 import socket from "../socket";
+import {addRecognitionRecord} from "../actions/Actions"
 
 let Recognition = {
     //MeetingActions, MeetingStore, socket, room
@@ -11,16 +12,20 @@ let Recognition = {
         let final_transcript = '';
         let ignore_onend;
         let start_timestamp;
+        let ddd = new Date();
+
         recognizer.id = '';
 
         let recognition = new webkitSpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
 
-        recognizer.setLanguage = (dialect) => {
-            console.log(dialect.value);
-            recognition.lang = dialect.value;
-        }
+        // recognizer.setLanguage = (dialect) => {
+        //     console.log(dialect.value);
+        //     recognition.lang = dialect.value;
+        // }
+        //************預設中文
+        recognition.lang = "cmn-Hant-TW";
 
         recognizer.toggleButtonOnclick = () => {
             if (Meeting.state.isRecognizing) {
@@ -38,6 +43,11 @@ let Recognition = {
                 })
             }
         }
+        //************直接開始
+        final_transcript = '';
+        ignore_onend = false;
+        start_timestamp = ddd.getTime()
+        recognition.start();
 
         recognition.onerror = (event) => {
             if (event.error == 'no-speech') {
@@ -56,17 +66,17 @@ let Recognition = {
                 ignore_onend = true;
             }
             recognition.stop();
-            Meeting.setState({
-                isRecognizing:false,
-                recognitionResult:""
-            })
+            // Meeting.setState({
+            //     isRecognizing:false,
+            //     recognitionResult:""
+            // })
         };
 
         recognition.onend = () => {
-            Meeting.setState({
-                isRecognizing:false,
-                recognitionResult:""
-            })
+            // Meeting.setState({
+            //     isRecognizing:false,
+            //     recognitionResult:""
+            // })
         };
 
         recognition.onresult = (event) => {
@@ -82,23 +92,37 @@ let Recognition = {
             }
             let meetingHistory = [];
             let date = new Date();
-            let time = date.getTime();
+            //自定義時間格式:Hour-Minute
+            let time =
+                date.getHours() +
+                ":" +
+                (date.getMinutes() < 10 ? "0" : "") +
+                date.getMinutes();
+
+
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    // socket.emit('history', JSON.stringify({
-                    //     'time': time,
-                    //     'name': recognizer.id,
-                    //     'value': event.results[i][0].transcript
-                    // }), Meeting.state.roomURL.substring(30));
-                    final_transcript = event.results[i][0].transcript;
-                    Meeting.setState({
-                        recognitionResult:final_transcript
+                    Meeting.props.dispatch(addRecognitionRecord(
+                        {
+                        'sendTime': time,
+                        'userID': recognizer.id,
+                        'text': event.results[i][0].transcript
+                    }));
+                    socket.emit('recognitionRecord', {
+                        'sendTime': time,
+                        'userID': recognizer.id,
+                        'text': event.results[i][0].transcript
                     });
+
+                    // final_transcript = event.results[i][0].transcript;
+                    // Meeting.setState({
+                    //     recognitionResult:final_transcript
+                    // });
                 } else {
-                    interim_transcript += event.results[i][0].transcript;
-                    Meeting.setState({
-                        recognitionResult:interim_transcript
-                    });
+                    // interim_transcript += event.results[i][0].transcript;
+                    // Meeting.setState({
+                    //     recognitionResult:interim_transcript
+                    // });
                 }
             }
             

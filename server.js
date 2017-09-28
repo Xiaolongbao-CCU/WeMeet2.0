@@ -266,19 +266,23 @@ io.on("connection", function(socket) {
         console.log("使用者:" + socket.id + "請求了他的錄影BLOB檔");
     });
 
-    socket.on("history", function(_history, room) {
-        console.log(_history);
-        db.History.create(
-            {
-                room: room,
-                history: _history
-            },
-            function(err, data) {
-                if (err) {
-                    console.log(err);
-                }
-            }
-        );
+    socket.on("recognitionRecord", function(_history) {
+        let room = Object.keys(socket.rooms)[1];
+        console.log("有結果!")
+        socket.to(room).emit("remoteUserRecognitionRecord",_history);
+        // console.log(_history);
+        // db.History.create(
+        //     {
+        //         room: room,
+        //         history: _history
+        //     },
+        //     function(err, data) {
+        //         if (err) {
+        //             console.log(err);
+        //         }
+        //     }
+        // );
+        
     });
 
     socket.on("getHistory", room => {

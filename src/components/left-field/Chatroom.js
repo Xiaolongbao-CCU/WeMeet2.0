@@ -21,7 +21,8 @@ class Chatroom extends React.Component {
                         <div className="myself-message">
                             <img className="image" src="./img/test0.jpg" />
                             <div className="name">
-                                {this.props.localUserName || "u_" + record.userID.substring(0,4)}
+                                {this.props.localUserName ||
+                                    "u_" + record.userID.substring(0, 4)}
                             </div>
                             <div className="dialogbox">{record.text}</div>
                             <div className="time">{record.sendTime}</div>
@@ -36,9 +37,10 @@ class Chatroom extends React.Component {
                             <img className="image" src="./img/test1.jpg" />
                             <div className="name">
                                 {this.props.remoteUserName[record.userID] &&
-                                this.props.remoteUserName[record.userID] !== record.userID
+                                this.props.remoteUserName[record.userID] !==
+                                    record.userID
                                     ? this.props.remoteUserName[record.userID]
-                                    : "u_" + record.userID.substring(0, 4)}}
+                                    : "u_" + record.userID.substring(0, 4)}
                             </div>
                             <div className="dialogbox">{record.text}</div>
                             <div className="time">{record.sendTime}</div>

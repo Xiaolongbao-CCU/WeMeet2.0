@@ -17,7 +17,8 @@ import {
     newAgenda,
     deleteAgenda,
     updateAgenda,
-    doneAgenda
+    doneAgenda,
+    addRecognitionRecord
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -87,4 +88,8 @@ socket
     .on("doneAgenda", key => {
         store.dispatch(doneAgenda(key));
     });
+
+socket.on("remoteUserRecognitionRecord",history=>{
+    store.dispatch(addRecognitionRecord(history))
+})
 export default socket;

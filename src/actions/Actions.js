@@ -37,6 +37,12 @@ export {
 	updateAgenda
 } from './agendaAction'
 
+export {
+	changeToAnotherChannel,
+	addRecognitionRecord
+} from './chatAndRecognitionAction'
+
+
 export function addChatRecord(recordObj) {
 	return {
 		type: "addChatRecord",
