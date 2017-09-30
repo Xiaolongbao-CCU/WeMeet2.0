@@ -235,14 +235,9 @@ $forest-position: $ground-height;
 }
 
 .mailbox{
+  width: 35%;
   position: absolute;
   z-index: -2;
-  bottom:0%;
-  left:0.5%; 
-  //image-infro
-  background-image: url('../img/mailbox.png');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  width: 90px;
-  height: 85px;
+  bottom: 0%;
+  left: 0.5%;
 }

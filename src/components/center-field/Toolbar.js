@@ -33,14 +33,14 @@ class Toolbar extends React.Component {
 
     componentWillMount() { }
 
-    componentDidMount() { 
+    componentDidMount() {
         this.refs.VoteDetail.style.display = "none";
     }
 
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none":"block")
+        this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none" : "block")
     }
 
     onClick_ToggleBrainstorming() {
@@ -56,13 +56,24 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleAddUserControl() {
+        var timer;
         this.setState({
             isAddUserToggle: !this.state.isAddUserToggle
         })
-        setTimeout(this.ClearAddUserBlock, 3000);
     }
 
     //Others Events
+
+    // AdduserControl() {
+    //     console.log(this.state.isAddUserToggle);
+    //     if (this.state.isAddUserToggle) {
+    //         var timer = setTimeout(this.ClearAddUserBlock, 3000);
+    //         console.log('引發A');
+    //     } else {
+    //         clearTimeout(timer);
+    //         console.log('引發B');
+    //     }
+    // }
 
     ClearAddUserBlock() {
         this.setState({
@@ -108,7 +119,7 @@ class Toolbar extends React.Component {
                 />
 
                 <div ref="VoteDetail"
-                    style={{display:(this.props.votingDetail.isVotingStart? "none":"display")}}
+                    style={{ display: (this.props.votingDetail.isVotingStart ? "none" : "display") }}
                 >
                     <VoteDetail />
                 </div>

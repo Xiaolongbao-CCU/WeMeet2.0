@@ -67,7 +67,7 @@ class VoteDetail extends React.Component {
         let flag = true
         Object.keys(this.state.voting.option).map((key) => {
             if (this.state.voting.option[key]) {
-                counter+=1
+                counter += 1
             } else {
                 flag = false
             }
@@ -94,7 +94,7 @@ class VoteDetail extends React.Component {
         let flag = true
         Object.keys(this.state.voting.option).map((key) => {
             if (this.state.voting.option[key]) {
-                counter+=1
+                counter += 1
             } else {
                 flag = false
             }
@@ -127,7 +127,7 @@ class VoteDetail extends React.Component {
                 }
             })
             this.setState({
-                isVoteReady: (plusCounter >= 1 && minusCounter <=1 ? true : false),
+                isVoteReady: (plusCounter >= 1 && minusCounter <= 1 ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {
@@ -163,7 +163,7 @@ class VoteDetail extends React.Component {
                 }
             })
             this.setState({
-                isVoteReady: (plusCounter >= 2 && minusCounter ==0 ? true : false),
+                isVoteReady: (plusCounter >= 2 && minusCounter == 0 ? true : false),
                 voting: {
                     ...this.state.voting,
                     option: {

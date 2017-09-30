@@ -8,11 +8,12 @@ class ChatInput extends React.Component {
         this.state = {
             chatInputValue: ""
         };
+        this.handleInputPressClick = this.handleInputPressClick.bind(this); 
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     handleInputPressEnter(e) {
         if (e.which == 13) {
@@ -52,9 +53,9 @@ class ChatInput extends React.Component {
                         }}
                         value={this.state.chatInputValue}
                     />
-                    <button className="upload" />
+                    <button className="upload" onClick={this.handleInputPressClick} />
                 </div>
-                <div className="mailbox" />
+                <img className="mailbox" src="./img/mailbox.png" />
             </div>
         );
     }

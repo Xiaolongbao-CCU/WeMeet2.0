@@ -31,7 +31,13 @@ class Agenda extends React.Component {
 
     componentWillMount() { }
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
 
     onClick_ToggleDeleteAgenda(e) {
         let key = parseInt(e.target.id, 10);
@@ -109,6 +115,11 @@ class Agenda extends React.Component {
         socket.emit("doneAgenda", key);
     }
 
+    scrollToBottom() {
+        const node = this.messagesEnd;
+        node.scrollIntoView({ behavior: "smooth" });
+    }
+
     render() {
         let agendaDetail;
         if (this.props.agendaList.length > 0) {
@@ -176,8 +187,13 @@ class Agenda extends React.Component {
                     <div className="left" />
                     <div className="right" />
                     <div className="agenda-title">議程</div>
-                    <div className="agenda-content">{agendaDetail}</div>
-
+                    <div className="agenda-content">
+                        {agendaDetail}
+                        <div
+                            style={{ float: "left", clear: "both" }}
+                            ref={(el) => { this.messagesEnd = el; }}
+                        />
+                    </div>
                     <div
                         className="agenda-add"
                         onClick={e => {
@@ -185,7 +201,7 @@ class Agenda extends React.Component {
                         }}
                     >
                         <div className="cross" />
-                        <div className="text">增加議程</div>
+                        <div className="text" unselectable="on">增加議程</div>
                     </div>
                 </div>
             </div>
