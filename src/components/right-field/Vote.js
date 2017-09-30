@@ -20,7 +20,7 @@ class Vote extends React.Component {
                 second: false,
                 third: false
             }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
-
+            isMyselfVoteCanSumbit:false,
             isVoteSubmited: false, //我是否提交投票? 完成會換成等待他人投票中
 
             /* About VoteBox Detail */
@@ -191,7 +191,7 @@ class Vote extends React.Component {
                         </div>
                         <div
                             className={
-                                this.state.isMyselefVoteFinished
+                                this.state.isVoteSubmited
                                     ? "votewait"
                                     : "votego"
                             }
