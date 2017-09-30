@@ -25,7 +25,8 @@ export {
 	setVotingDetail,
 	setSecretOrNot,
 	setVotingStart,
-	gotVoteFromServer
+	gotVoteFromServer,
+	setVotingFinish
 } from './voteAction'
 
 
@@ -36,6 +37,12 @@ export {
 	doneAgenda,
 	updateAgenda
 } from './agendaAction'
+
+export {
+	changeToAnotherChannel,
+	addRecognitionRecord
+} from './chatAndRecognitionAction'
+
 
 export function addChatRecord(recordObj) {
 	return {

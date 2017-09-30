@@ -5,7 +5,8 @@ import {
 	connection,
 	vote,
 	chat,
-	agenda
+	agenda,
+	chatAndRecognition
 } from "./reducers/index";
 
 let reducers = combineReducers({
@@ -14,7 +15,8 @@ let reducers = combineReducers({
 	connection,
 	vote,
 	chat,
-	agenda
+	agenda,
+	chatAndRecognition
 });
 
 const store = createStore(

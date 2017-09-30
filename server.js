@@ -27,7 +27,7 @@ const fs = require("fs");
 
 let roomList = [];
 let userInRoom = {};
-// let fakeName = {};
+let votingCounter = {};
 
 //HTTPS參數
 // const option = {
@@ -197,10 +197,12 @@ io.on("connection", function (socket) {
             socket.to(receiver).emit("onIceCandidateB", candidate, sender);
         })
         .on("setRemoteVideoState", (state, remotePeer) => {
+            console.log("有送了")
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteVideoState", state, remotePeer);
         })
         .on("setRemoteAudioState", (state, remotePeer) => {
+            console.log("有送了")
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         })
@@ -251,6 +253,7 @@ io.on("connection", function (socket) {
     socket
         .on("createVote", votingDetail => {
             let room = Object.keys(socket.rooms)[1];
+            votingCounter[room] = io.sockets.adapter.rooms[room].length
             //發給房內所有人，包含發起投票的人
             //console.log(votingDetail)
             io.in(room).emit("gotCreateVote", votingDetail);
@@ -258,27 +261,35 @@ io.on("connection", function (socket) {
         })
         .on("gotVoteFromUser", voteContent => {
             let room = Object.keys(socket.rooms)[1];
-            console.log(room);
-            io.in(room).emit("gotVoteFromServer", voteContent);
+            votingCounter[room] = votingCounter[room] - 1
+            // console.log(room);
+            io.in(room).emit("gotVoteFromServer", voteContent); //把投票內容告訴房內所有人
+            if (votingCounter[room] == 0) {
+                io.in(room).emit("votingIsFinish");
+            }
         });
 
     socket.on("requestVideoFromUser", function (sender) {
         console.log("使用者:" + socket.id + "請求了他的錄影BLOB檔");
     });
 
-    socket.on("history", function (_history, room) {
-        console.log(_history);
-        db.History.create(
-            {
-                room: room,
-                history: _history
-            },
-            function (err, data) {
-                if (err) {
-                    console.log(err);
-                }
-            }
-        );
+    socket.on("recognitionRecord", function (_history) {
+        let room = Object.keys(socket.rooms)[1];
+        console.log("有結果!")
+        socket.to(room).emit("remoteUserRecognitionRecord", _history);
+        // console.log(_history);
+        // db.History.create(
+        //     {
+        //         room: room,
+        //         history: _history
+        //     },
+        //     function(err, data) {
+        //         if (err) {
+        //             console.log(err);
+        //         }
+        //     }
+        // );
+
     });
 
     socket.on("getHistory", room => {

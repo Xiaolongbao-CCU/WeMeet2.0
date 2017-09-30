@@ -1,5 +1,6 @@
 const initialVoteDetail = {
     isVotingStart: false,
+    isVotingFinish: false,
     voting: {
         secretOrNot: false,
         multiOrNot: [0],
@@ -48,7 +49,8 @@ export default function vote(state = initialVoteDetail, action) {
             })
 
             return Object.assign({},state,{result:result})
-
+        case "setVotingFinish":
+            return Object.assign({}, state, { isVotingFinish: true });
         default:
             return state;
     }

@@ -872,7 +872,8 @@
 
 .main-screen {
   width: 100%;
-  height: 78%; }
+  height: 78%; 
+}
 
 .av-control {
   display: flex;

@@ -13,11 +13,13 @@ import {
     setVotingDetail,
     setVotingStart,
     gotVoteFromServer,
+    setVotingFinish,
     setAgenda,
     newAgenda,
     deleteAgenda,
     updateAgenda,
-    doneAgenda
+    doneAgenda,
+    addRecognitionRecord
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -69,7 +71,10 @@ socket
     })
     .on("gotVoteFromServer", voteContent => {
         store.dispatch(gotVoteFromServer(voteContent));
-    });
+    })
+    .on("votingIsFinish", ()=>{
+        store.dispatch(setVotingFinish())
+    })
 
 socket
     .on("setAgenda", function(list) {
@@ -87,4 +92,8 @@ socket
     .on("doneAgenda", key => {
         store.dispatch(doneAgenda(key));
     });
+
+socket.on("remoteUserRecognitionRecord",history=>{
+    store.dispatch(addRecognitionRecord(history))
+})
 export default socket;

@@ -54,6 +54,7 @@ class Chatroom extends React.Component {
                                         ? this.props.remoteUserName[record.userID]
                                         : "u_" + record.userID.substring(0, 4)}}
                                 </div>
+
                             </div>
                             <div className="dialogbox">{record.text}</div>
                             <div className="time">{record.sendTime}</div>
