@@ -67,16 +67,12 @@ let Chat = {
 
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
-                .enabled;
-            
-            //Meeting.props.dispatch(toggleUserMedia())     
+                .enabled;     
         };
 
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
-                .enabled;
-            
-            //Meeting.props.dispatch(toggleAudio())    
+                .enabled;   
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗

@@ -25,3 +25,9 @@ export function gotVoteFromServer(voteContent) {
 		data: voteContent 
 	};
 }
+
+export function setVotingFinish() {
+	return {
+		type: "setVotingFinish" 
+	};
+}

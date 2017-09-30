@@ -71,6 +71,7 @@ class Meeting extends React.Component {
     componentWillMount() {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
+        socket.emit("IAmAt", window.location.pathname, window.location.hash);
     }
 
     componentDidMount() {
@@ -90,7 +91,7 @@ class Meeting extends React.Component {
                     window.location.hash,
                     socket
                 );
-                socket.emit("IAmAt", window.location.pathname, window.location.hash);
+                
             })
             .on("joinRoom", () => {
                 socket.emit("join", window.location.hash);

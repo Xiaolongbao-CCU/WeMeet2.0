@@ -25,7 +25,8 @@ export {
 	setVotingDetail,
 	setSecretOrNot,
 	setVotingStart,
-	gotVoteFromServer
+	gotVoteFromServer,
+	setVotingFinish
 } from './voteAction'
 
 

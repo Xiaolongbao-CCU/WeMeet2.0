@@ -13,6 +13,7 @@ import {
     setVotingDetail,
     setVotingStart,
     gotVoteFromServer,
+    setVotingFinish,
     setAgenda,
     newAgenda,
     deleteAgenda,
@@ -70,7 +71,10 @@ socket
     })
     .on("gotVoteFromServer", voteContent => {
         store.dispatch(gotVoteFromServer(voteContent));
-    });
+    })
+    .on("votingIsFinish", ()=>{
+        store.dispatch(setVotingFinish())
+    })
 
 socket
     .on("setAgenda", function(list) {

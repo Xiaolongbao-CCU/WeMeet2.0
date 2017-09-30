@@ -20,9 +20,8 @@ class Vote extends React.Component {
                 second: false,
                 third: false
             }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
-            isMyselfVoteCanSumbit: false, //我自己的投票是否完成? 若完成要觸發投票鍵開啟
-            isMyselefVoteSumbited: false, //我是否提交投票? 完成會換成等待他人投票中
-            isAllVoteFinished: false, //所有人的投票是否完成? 若完成要觸發投票完成的動作
+
+            isVoteSubmited: false, //我是否提交投票? 完成會換成等待他人投票中
 
             /* About VoteBox Detail */
             VoteFounder: "佳怡", //投票建立者
@@ -110,7 +109,6 @@ class Vote extends React.Component {
     }
 
     onclick_sendVote() {
-        console.log("g4");
         console.log(this.state.optionSelected);
         if (this.props.votingDetail.voting.secretOrNot) {
             //如果是匿名的，就不傳送sender資訊
@@ -125,6 +123,10 @@ class Vote extends React.Component {
                 content: this.state.optionSelected
             });
         }
+        this.setState({
+            ...this.state,
+            isVoteSubmited: true
+        });
     }
 
     render() {
@@ -148,7 +150,15 @@ class Vote extends React.Component {
                         </span>
                         <span className="bar"> </span>
                         <span className="people">
-                            {this.state.VoteNumber.first}
+                            人數:{this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
+                            投票者:{
+                                this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者":
+                                (             
+                                    this.props.votingDetail.result[key]? this.props.votingDetail.result[key].voter.reduce((allName,userName)=>{
+                                    return allName + userName + "、"
+                                    },"") : "" 
+                                )
+                            }
                         </span>
                     </div>
                 );
@@ -194,14 +204,14 @@ class Vote extends React.Component {
                                 this.onclick_sendVote();
                             }}
                         >
-                            {this.state.isAllVoteFinished //1. 先審核是否所有人投票完，如果投完就不會有任何東西
+                            {this.props.isVotingFinish //1. 先審核是否所有人投票完，如果投完就不會有任何東西
                                 ? null
-                                : this.state.isMyselefVoteSumbited
+                                : this.state.isVoteSubmited
                                   ? "等待他人投票中 "
                                   : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
-                            {this.state.isAllVoteFinished ? null : this.state
-                                .isMyselefVoteSumbited ? (
+                            {this.props.isVotingFinish ? null : this.state
+                                .isVoteSubmited ? (
                                 <img src="./img/wait.gif" />
                             ) : null}
                         </div>
@@ -222,10 +232,10 @@ class Vote extends React.Component {
                             : "none"
                     }}
                 >
-                    {this.state.isAllVoteFinished ? (
+                    {this.props.isVotingFinish ? (
                         <img className="voteEnd" src="../img/vote-ended.png" />
                     ) : null}
-                    {this.state.isAllVoteFinished ? (
+                    {this.props.isVotingFinish ? (
                         <div className="voteEndtext">投票出爐囉！</div>
                     ) : null}
                 </div>
@@ -238,7 +248,9 @@ class Vote extends React.Component {
 const mapStateToProps = state => {
     return {
         votingDetail: state.vote,
-        localUserID: state.connection.localUserID
+        isVotingFinish: state.vote.isVotingFinish,
+        localUserID: state.connection.localUserID,
+        connection: state.connection.connections
     };
 };
 
