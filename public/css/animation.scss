@@ -231,3 +231,12 @@ opacity: 0;
   
   }
 
+  @-webkit-keyframes up {
+    0% {
+    }
+    
+    100%{
+      top:-10%;
+    }
+    
+    }

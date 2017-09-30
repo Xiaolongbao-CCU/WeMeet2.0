@@ -43,6 +43,7 @@ class CVcontrol extends React.Component {
           className="chatroom"
           id={this.state.isChatroomstatus ? "selected" : "no-selected"}
           onClick={this.onClick_Chatroom}
+          unselectable="on"
         > 聊天室
          </div>
 
@@ -50,6 +51,7 @@ class CVcontrol extends React.Component {
           className="voice-recognition"
           id={this.state.isChatroomstatus ? "no-selected" : "selected"}
           onClick={this.onClick_VoiceRecognition}
+          unselectable="on"
         > 語音辨識
         </div >
       </div >

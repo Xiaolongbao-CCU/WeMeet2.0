@@ -21,14 +21,14 @@ class Vote extends React.Component {
                 third: false
             }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
             isMyselfVoteCanSumbit: false, //我自己的投票是否完成? 若完成要觸發投票鍵開啟
-            isMyselefVoteSumbited: false, //我是否提交投票? 完成會換成等待他人投票中
+            isMyselefVoteSumbited: true, //我是否提交投票? 完成會換成等待他人投票中
             isAllVoteFinished: false, //所有人的投票是否完成? 若完成要觸發投票完成的動作
 
             /* About VoteBox Detail */
             VoteFounder: "佳怡", //投票建立者
 
             VoteNumber: {
-                first: "統計還沒做"
+                first: ""
             }, //投票票數
             optionSelected: []
         };
@@ -41,9 +41,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -197,13 +197,13 @@ class Vote extends React.Component {
                             {this.state.isAllVoteFinished //1. 先審核是否所有人投票完，如果投完就不會有任何東西
                                 ? null
                                 : this.state.isMyselefVoteSumbited
-                                  ? "等待他人投票中 "
-                                  : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                                    ? "等待他人投票中 "
+                                    : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
                             {this.state.isAllVoteFinished ? null : this.state
                                 .isMyselefVoteSumbited ? (
-                                <img src="./img/wait.gif" />
-                            ) : null}
+                                    <img src="./img/wait.gif" />
+                                ) : null}
                         </div>
                     </div>
                 </div>
