@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import {connect} from "react-redux";
-import {changeToAnotherChannel} from "../../actions/Actions"
+import { connect } from "react-redux";
+import { changeToAnotherChannel } from "../../actions/Actions"
 
 class CVcontrol extends React.Component {
     constructor(props) {
@@ -13,21 +13,21 @@ class CVcontrol extends React.Component {
         );
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_Chatroom() {
-        if(this.props.isInChatNow){
-            return 
+        if (this.props.isInChatNow) {
+            return
         } else {
-            this.props.dispatch(changeToAnotherChannel()) 
+            this.props.dispatch(changeToAnotherChannel())
         }
     }
 
     onClick_VoiceRecognition() {
-        if(this.props.isInChatNow){
-            this.props.dispatch(changeToAnotherChannel())   
+        if (this.props.isInChatNow) {
+            this.props.dispatch(changeToAnotherChannel())
         }
     }
 
@@ -58,11 +58,33 @@ class CVcontrol extends React.Component {
             </div>
         );
     }
+
+    render() {
+        return (
+            <div className="CVcontrol">
+                <div
+                    className="chatroom"
+                    id={this.state.isChatroomstatus ? "selected" : "no-selected"}
+                    onClick={this.onClick_Chatroom}
+                    unselectable="on"
+                > 聊天室
+         </div>
+
+                <div
+                    className="voice-recognition"
+                    id={this.state.isChatroomstatus ? "no-selected" : "selected"}
+                    onClick={this.onClick_VoiceRecognition}
+                    unselectable="on"
+                > 語音辨識
+        </div >
+            </div >
+        );
+    }
 }
 
 const mapStateToProps = state => {
     return {
-        isInChatNow:state.chatAndRecognition.isInChatNow
+        isInChatNow: state.chatAndRecognition.isInChatNow
     };
 };
 export default connect(mapStateToProps)(CVcontrol);

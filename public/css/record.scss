@@ -30,6 +30,8 @@
   min-height: 70%;
   background-color: rgba(253,251,236,1);
   border-radius: 10px;
+  box-sizing: border-box;
+  padding: 1%;
 }
 
 .meetingrecord .circle{
@@ -44,8 +46,17 @@
   line-height: 140%;
 }
 
+.content .title{
+  box-sizing: border-box;
+  padding:0.5% 1%;
+  float: left;
+  width: 100%;
+  font-size: 1.5em;
+}
+
 .meetingrecord .text{
-  padding: 3%;
+  float: left;
+  padding:2% 1%;
   width: 100%;
   box-sizing: border-box;
   font-size: 1.3em;
@@ -53,4 +64,74 @@
 
 .text ul{
   margin-bottom: 1%;
+}
+
+.ballon{
+  position: absolute;
+  top:0%;
+  left: 0%;
+  z-index: -50;
+}
+
+.ballon.type1{
+  width:3%;
+  top:30%;
+  left:5%;
+  animation: up 60s infinite;
+}
+
+.ballon.type2{
+  width:1.5%;
+  top:45%;
+  left:13%;
+  animation: up 80s infinite;
+}
+
+.ballon.type3{
+  width:4%;
+  top:72%;
+  left:35%;
+  animation: up 130s infinite;
+}
+
+
+.ballon.type4{
+  width:1.5%;
+  top:65%;
+  left:60%;
+  animation: up 140s infinite;
+}
+
+
+.ballon.type5{
+  width:2%;
+  top:70%;
+  left:85%;
+  animation: up 130s infinite;
+}
+
+.ballon.type6{
+  width:4%;
+  top:50%;
+  left:92%;
+  animation: up 110s infinite;
+}
+
+.moutain{
+  width: 14%;
+  position: absolute;
+  right: 14%;
+  bottom: 6%;
+}
+
+.backtoindex{
+  float: left;
+  margin-top: 4%;
+  width: 6%;
+  height: 40%;
+  background-color: #cb253e;
+  text-align: center;
+  line-height: 178%;
+  border-radius: 40px;
+  color: white;
 }

@@ -21,10 +21,11 @@ import {
 //component
 
 //left-field,total 2 components
-import CVcontrl from './left-field/CVcontrl';
+import CVcontrol from './left-field/CVcontrol';
 import Chatroom from "./left-field/Chatroom";
 import VoiceRecognition from "./left-field/VoiceRecognition"
 import ChatInput from "./left-field/Chatinput";
+import VoiceResult from "./left-field/VoiceResult";
 
 //center-field, total 4 components
 import Toolbar from "./center-field/Toolbar";
@@ -75,6 +76,7 @@ class Meeting extends React.Component {
     }
 
     componentDidMount() {
+
         setTimeout(() => this.setState({ loading: false }), 1500);
         /*
             取得網址
@@ -91,7 +93,7 @@ class Meeting extends React.Component {
                     window.location.hash,
                     socket
                 );
-                
+
             })
             .on("joinRoom", () => {
                 socket.emit("join", window.location.hash);
@@ -255,8 +257,8 @@ class Meeting extends React.Component {
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 <div className="left-field">
-                    <CVcontrl />
-                    {this.props.isInChatNow? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
+                    <CVcontrol />
+                    {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
                     <ChatInput Chat={this.Chat} />
                 </div>
 

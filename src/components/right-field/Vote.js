@@ -20,14 +20,14 @@ class Vote extends React.Component {
                 second: false,
                 third: false
             }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
-            isMyselfVoteCanSumbit:false,
+            isMyselfVoteCanSumbit: false,
             isVoteSubmited: false, //我是否提交投票? 完成會換成等待他人投票中
 
             /* About VoteBox Detail */
             VoteFounder: "佳怡", //投票建立者
 
             VoteNumber: {
-                first: "統計還沒做"
+                first: ""
             }, //投票票數
             optionSelected: []
         };
@@ -40,9 +40,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -152,12 +152,12 @@ class Vote extends React.Component {
                         <span className="people">
                             人數:{this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
                             投票者:{
-                                this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者":
-                                (             
-                                    this.props.votingDetail.result[key]? this.props.votingDetail.result[key].voter.reduce((allName,userName)=>{
-                                    return allName + userName + "、"
-                                    },"") : "" 
-                                )
+                                this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
+                                    (
+                                        this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.reduce((allName, userName) => {
+                                            return allName + userName + "、"
+                                        }, "") : ""
+                                    )
                             }
                         </span>
                     </div>
@@ -206,14 +206,15 @@ class Vote extends React.Component {
                         >
                             {this.props.isVotingFinish //1. 先審核是否所有人投票完，如果投完就不會有任何東西
                                 ? null
+
                                 : this.state.isVoteSubmited
-                                  ? "等待他人投票中 "
-                                  : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                                    ? "等待他人投票中 "
+                                    : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
                             {this.props.isVotingFinish ? null : this.state
                                 .isVoteSubmited ? (
-                                <img src="./img/wait.gif" />
-                            ) : null}
+                                    <img src="./img/wait.gif" />
+                                ) : null}
                         </div>
                     </div>
                 </div>
