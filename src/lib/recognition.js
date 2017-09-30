@@ -43,6 +43,7 @@ let Recognition = {
                 })
             }
         }
+
         //************直接開始
         final_transcript = '';
         ignore_onend = false;
@@ -50,8 +51,10 @@ let Recognition = {
         recognition.start();
 
         recognition.onerror = (event) => {
+            recognition.stop();
             if (event.error == 'no-speech') {
-                alert('偵測不到麥克風訊號，請調整裝置的設定。');
+                //alert('偵測不到麥克風訊號，請調整裝置的設定。');
+                recognition.start();
             }
             if (event.error == 'audio-capture') {
                 alert('偵測不到麥克風，請正確安裝。');
@@ -65,7 +68,6 @@ let Recognition = {
                 }
                 ignore_onend = true;
             }
-            recognition.stop();
             // Meeting.setState({
             //     isRecognizing:false,
             //     recognitionResult:""
@@ -73,6 +75,7 @@ let Recognition = {
         };
 
         recognition.onend = () => {
+            recognition.start();
             // Meeting.setState({
             //     isRecognizing:false,
             //     recognitionResult:""
@@ -82,14 +85,14 @@ let Recognition = {
         recognition.onresult = (event) => {
             let interim_transcript = '';
             //版本過舊的情況
-            if (typeof(event.results) == 'undefined') {
-                recognition.onend = null;
-                recognition.stop();
-                Meeting.setState({
-                    isRecognizing:false
-                })
-                return;
-            }
+            // if (typeof(event.results) == 'undefined') {
+            //     recognition.onend = null;
+            //     recognition.stop();
+            //     Meeting.setState({
+            //         isRecognizing:false
+            //     })
+            //     return;
+            // }
             let meetingHistory = [];
             let date = new Date();
             //自定義時間格式:Hour-Minute
@@ -98,7 +101,6 @@ let Recognition = {
                 ":" +
                 (date.getMinutes() < 10 ? "0" : "") +
                 date.getMinutes();
-
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
@@ -118,6 +120,7 @@ let Recognition = {
                     // Meeting.setState({
                     //     recognitionResult:final_transcript
                     // });
+                    final_transcript = ''
                 } else {
                     // interim_transcript += event.results[i][0].transcript;
                     // Meeting.setState({

@@ -197,10 +197,12 @@ io.on("connection", function(socket) {
             socket.to(receiver).emit("onIceCandidateB", candidate, sender);
         })
         .on("setRemoteVideoState", (state, remotePeer) => {
+            console.log("有送了")
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteVideoState", state, remotePeer);
         })
         .on("setRemoteAudioState", (state, remotePeer) => {
+            console.log("有送了")
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         })

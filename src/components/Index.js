@@ -25,7 +25,7 @@ class Index extends React.Component {
     componentDidMount() {}
 
     onKeyDown(e) {
-        console.log(document.activeElement);
+        //console.log(document.activeElement);
         switch (e.keyCode) {
             case 13:
                 if (!this.refs.roomName.value) {

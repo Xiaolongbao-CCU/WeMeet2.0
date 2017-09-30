@@ -6,8 +6,12 @@ import {
     addParticipantConnection,
     toggleAudio,
     toggleUserMedia,
+    setRemoteVideoState,
+    setRemoteAudioState,
     addChatRecord
 } from "../actions/Actions";
+import socket from '../socket'
+
 
 let Chat = {
     createNew: Meeting => {
@@ -31,14 +35,15 @@ let Chat = {
                     ) {
                         let videoURL = window.URL.createObjectURL(stream);
                         localStream = stream;
+                        Meeting.props.dispatch(gotLocalVideo(videoURL));
 
                         socket.emit(
                             "newParticipantA",
                             id,
                             room,
-                            Meeting.props.userName
+                            (Meeting.props.userName
                                 ? Meeting.props.userName
-                                : Meeting.props.localUserID
+                                : Meeting.props.localUserID)
                         );
                         if (stream.getVideoTracks().length > 0) {
                             Meeting.props.dispatch(toggleUserMedia());
@@ -47,7 +52,7 @@ let Chat = {
                             Meeting.props.dispatch(toggleAudio());
                         }
 
-                        Meeting.props.dispatch(gotLocalVideo(videoURL));
+                        
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");
                         window.history.back();
@@ -63,11 +68,15 @@ let Chat = {
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
                 .enabled;
+            
+            //Meeting.props.dispatch(toggleUserMedia())     
         };
 
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
                 .enabled;
+            
+            //Meeting.props.dispatch(toggleAudio())    
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗
