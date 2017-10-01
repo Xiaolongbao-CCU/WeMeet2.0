@@ -259,7 +259,8 @@ class Meeting extends React.Component {
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                    <ChatInput Chat={this.Chat} />
+                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult />}
+
                 </div>
 
                 <div className="center-field">
