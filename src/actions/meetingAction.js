@@ -136,3 +136,4 @@ export function addCandidateQueue(candidateObj) {
 		data: candidateObj
 	};
 }
+

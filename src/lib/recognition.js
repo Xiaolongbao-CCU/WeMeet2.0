@@ -1,6 +1,9 @@
 'use strict';
 import socket from "../socket";
-import {addRecognitionRecord} from "../actions/Actions"
+import {
+    setInterimResult,
+    addRecognitionRecord
+} from "../actions/Actions"
 
 let Recognition = {
     //MeetingActions, MeetingStore, socket, room
@@ -28,20 +31,20 @@ let Recognition = {
         recognition.lang = "cmn-Hant-TW";
 
         recognizer.toggleButtonOnclick = () => {
-            if (Meeting.state.isRecognizing) {
-                recognition.stop();
-                Meeting.setState({
-                    isRecognizing : false
-                })
-            } else {
-                final_transcript = '';
-                ignore_onend = false;
-                start_timestamp = event.timeStamp;
-                recognition.start();
-                Meeting.setState({
-                    isRecognizing : true
-                })
-            }
+            // if (Meeting.state.isRecognizing) {
+            //     recognition.stop();
+            //     Meeting.setState({
+            //         isRecognizing : false
+            //     })
+            // } else {
+            //     final_transcript = '';
+            //     ignore_onend = false;
+            //     start_timestamp = event.timeStamp;
+            //     recognition.start();
+            //     Meeting.setState({
+            //         isRecognizing : true
+            //     })
+            // }
         }
 
         //************直接開始
@@ -116,20 +119,22 @@ let Recognition = {
                         'userID': recognizer.id,
                         'text': event.results[i][0].transcript
                     });
-
                     // final_transcript = event.results[i][0].transcript;
                     // Meeting.setState({
                     //     recognitionResult:final_transcript
                     // });
-                    final_transcript = ''
+                    // final_transcript = ''
+                    Meeting.props.dispatch(setInterimResult(""))
                 } else {
+                    interim_transcript += event.results[i][0].transcript
                     // interim_transcript += event.results[i][0].transcript;
+                    Meeting.props.dispatch(setInterimResult(interim_transcript))
                     // Meeting.setState({
                     //     recognitionResult:interim_transcript
                     // });
                 }
             }
-            
+
         }
         return recognizer;
     }

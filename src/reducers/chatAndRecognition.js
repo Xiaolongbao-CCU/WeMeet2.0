@@ -1,4 +1,5 @@
 const chatRoomState = {
+    "interimResult":"",
 	"isInChatNow": true,
 	"recognitionRecord":[]
 };
@@ -11,6 +12,8 @@ export default function chatRoomControl(state = chatRoomState, action) {
         	return Object.assign({},state,{
         		"recognitionRecord": state.recognitionRecord.concat(action.data)
         	})
+        case "setInterimResult":
+            return Object.assign({}, state, { "interimResult": action.data });
         default:
             return state;
     }
