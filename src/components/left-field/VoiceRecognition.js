@@ -8,9 +8,9 @@ class VoiceRecognition extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         let RecognitionRecord = [];
@@ -19,10 +19,12 @@ class VoiceRecognition extends React.Component {
                 if (record.userID == this.props.localUserID) {
                     RecognitionRecord.push(
                         <div className="myself-message">
-                            <img className="image" src="./img/test0.jpg" />
-                            <div className="name">
-                                {this.props.localUserName ||
-                                    "u_" + record.userID.substring(0, 4)}
+                            <div className="myself-infro">
+                                <img className="image" src="./img/animal1.jpg" />
+                                <div className="name">
+                                    {this.props.localUserName ||
+                                        "u_" + record.userID.substring(0, 4)}
+                                </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
                             <div className="time">{record.sendTime}</div>
@@ -34,13 +36,15 @@ class VoiceRecognition extends React.Component {
                 ) {
                     RecognitionRecord.push(
                         <div className="others-message">
-                            <img className="image" src="./img/test1.jpg" />
-                            <div className="name">
-                                {this.props.remoteUserName[record.userID] &&
-                                this.props.remoteUserName[record.userID] !==
-                                    record.userID
-                                    ? this.props.remoteUserName[record.userID]
-                                    : "u_" + record.userID.substring(0, 4)}
+                            <div className="others-infro">
+                                <img className="image" src="./img/animal2.jpg" />
+                                <div className="name">
+                                    {this.props.remoteUserName[record.userID] &&
+                                        this.props.remoteUserName[record.userID] !==
+                                        record.userID
+                                        ? this.props.remoteUserName[record.userID]
+                                        : "u_" + record.userID.substring(0, 4)}
+                                </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
                             <div className="time">{record.sendTime}</div>
@@ -50,7 +54,11 @@ class VoiceRecognition extends React.Component {
             });
         }
 
-        return <div className="left-chatbox">{RecognitionRecord}</div>;
+        return (
+            <div className="leftchatbox">
+                {RecognitionRecord}
+            </div>
+        )
     }
 }
 

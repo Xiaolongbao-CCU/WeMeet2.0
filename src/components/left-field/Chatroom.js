@@ -46,7 +46,7 @@ class Chatroom extends React.Component {
                 ) {
                     chatbox.push(
                         <div className="others-message">
-                            <div className="myself-infro">
+                            <div className="others-infro">
                                 <img className="image" src="./img/animal2.jpg" />
                                 <div className="name">
                                     {this.props.remoteUserName[record.userID] &&

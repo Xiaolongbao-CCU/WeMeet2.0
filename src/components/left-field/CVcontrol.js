@@ -8,9 +8,7 @@ class CVcontrol extends React.Component {
     constructor(props) {
         super(props);
         this.onClick_Chatroom = this.onClick_Chatroom.bind(this);
-        this.onClick_VoiceRecognition = this.onClick_VoiceRecognition.bind(
-            this
-        );
+        this.onClick_VoiceRecognition = this.onClick_VoiceRecognition.bind(this);
     }
 
     componentWillMount() { }
@@ -56,28 +54,6 @@ class CVcontrol extends React.Component {
                     語音辨識
                 </div>
             </div>
-        );
-    }
-
-    render() {
-        return (
-            <div className="CVcontrol">
-                <div
-                    className="chatroom"
-                    id={this.state.isChatroomstatus ? "selected" : "no-selected"}
-                    onClick={this.onClick_Chatroom}
-                    unselectable="on"
-                > 聊天室
-         </div>
-
-                <div
-                    className="voice-recognition"
-                    id={this.state.isChatroomstatus ? "no-selected" : "selected"}
-                    onClick={this.onClick_VoiceRecognition}
-                    unselectable="on"
-                > 語音辨識
-        </div >
-            </div >
         );
     }
 }
