@@ -10,6 +10,7 @@ import socket from "../socket";
 // redux-action
 import {
     setLocalUserID,
+    setRoomName,
     setRemoteUserName,
     addParticipantList,
     addParticipantConnection,
@@ -226,6 +227,7 @@ class Meeting extends React.Component {
             this.setState({
                 roomURL: window.location.href
             });
+            this.props.dispatch(setRoomName(window.location.href))
         } else {
             window.location.hash = Math.floor((1 + Math.random()) * 1e16)
                 .toString(16)
@@ -233,6 +235,7 @@ class Meeting extends React.Component {
             this.setState({
                 roomURL: window.location.href
             });
+            this.props.dispatch(setRoomName(window.location.href))
         }
     }
 

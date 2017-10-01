@@ -2,6 +2,7 @@ import socket from "../socket";
 
 const initialState = {
     userName: "",
+    roomName:"",
     localUserID: "",
     localVideoURL: "",
     isStreaming: false,
@@ -16,6 +17,8 @@ export default function connection(state = initialState, action) {
     switch (action.type) {
         case "setUserName":
             return Object.assign({}, state, { userName: action.data });
+        case "setRoomName":
+            return Object.assign({}, state, { roomName: action.data });
         case "setRemoteUserName":
             let userID = action.data.id;
             let userName = action.data.name;

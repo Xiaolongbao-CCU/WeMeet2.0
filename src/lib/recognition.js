@@ -51,13 +51,14 @@ let Recognition = {
         recognition.start();
 
         recognition.onerror = (event) => {
-            recognition.stop();
             if (event.error == 'no-speech') {
                 //alert('偵測不到麥克風訊號，請調整裝置的設定。');
+                recognition.stop();
                 recognition.start();
             }
             if (event.error == 'audio-capture') {
                 alert('偵測不到麥克風，請正確安裝。');
+                recognition.stop();
                 ignore_onend = true;
             }
             if (event.error == 'not-allowed') {
@@ -66,6 +67,7 @@ let Recognition = {
                 } else {
                     alert('存取麥克風被拒。');
                 }
+                recognition.stop();
                 ignore_onend = true;
             }
             // Meeting.setState({
@@ -93,7 +95,6 @@ let Recognition = {
             //     })
             //     return;
             // }
-            let meetingHistory = [];
             let date = new Date();
             //自定義時間格式:Hour-Minute
             let time =

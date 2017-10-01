@@ -7,6 +7,13 @@ export function setUserName(name) {
 	};
 }
 
+export function setRoomName(name) {
+	return {
+		type: "setRoomName",
+		data: name
+	};
+}
+
 export function setRemoteUserName(name) {
 	return {
 		type: "setRemoteUserName",

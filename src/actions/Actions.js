@@ -1,6 +1,7 @@
 "use strict";
 export {
 	setUserName,
+	setRoomName,
 	setRemoteUserName,
 	setLocalUserID,
 	setParticipantList,

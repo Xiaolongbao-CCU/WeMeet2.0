@@ -2,6 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { toggleAudio, toggleUserMedia } from "../../actions/Actions";
 import socket from  "../../socket"
 import ConfirmExit from "../special-field/ConfirmExit";
@@ -46,11 +47,9 @@ class AVcontrol extends React.Component {
         this.props.dispatch(toggleUserMedia());
     }
 
-    // onClick_ShowConfirm() {
-    //     this.setState({
-    //         isShowExitConfirm: !this.state.isShowExitConfirm
-    //     })
-    // }
+    onClick_showRecord() {
+        this.props.history.push("/record#" + this.props.roomName)
+    }
 
     render() {
         return (
@@ -64,7 +63,7 @@ class AVcontrol extends React.Component {
                 <button
                     className="av-button"
                     id="exit"
-                    onClick={this.onClick_ShowConfirm}
+                    onClick={()=>{this.onClick_showRecord()}}
                 />
 
                 <button
@@ -80,9 +79,10 @@ class AVcontrol extends React.Component {
 const mapStateToProps = state => {
     return {
         localUserID:state.connection.localUserID,
+        roomName:state.connection.roomName,
         isStreaming: state.connection.isStreaming,
         isSounding: state.connection.isSounding
     };
 };
 
-export default connect(mapStateToProps)(AVcontrol);
+export default withRouter(connect(mapStateToProps)(AVcontrol));
