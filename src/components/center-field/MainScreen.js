@@ -22,6 +22,7 @@ class MainScreen extends React.Component {
     componentDidMount() {}
 
     render() {
+        console.log(this.props.participantList)
         let video = [];
         if (this.props.localVideoURL) {
             video.push(
@@ -43,7 +44,7 @@ class MainScreen extends React.Component {
                         />
                         <label className="user-name">
                             {this.props.userName ||
-                                "u_" + this.props.localUserID.substring(0, 4)}
+                                "使用者" + this.props.localUserID.substring(0, 4)}
                         </label>
                     </div>
                     <img
@@ -86,7 +87,7 @@ class MainScreen extends React.Component {
                                 {this.props.remoteUserName[userID] &&
                                 this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
-                                    : "u_" + userID.substring(0, 4)}
+                                    : "使用者" + this.props.localUserID.substring(0, 4)}
                             </label>
                         </div>
                         <img
@@ -126,6 +127,7 @@ class MainScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        participantList: state.participantList,
         userName: state.connection.userName,
         localUserID: state.connection.localUserID,
         isStreaming: state.connection.isStreaming,

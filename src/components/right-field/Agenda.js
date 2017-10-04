@@ -29,7 +29,7 @@ class Agenda extends React.Component {
         //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
     componentDidMount() {
         this.scrollToBottom();
@@ -97,6 +97,12 @@ class Agenda extends React.Component {
         });
     }
 
+    onClick_Enter(e) {
+        if (e.keyCode == 13) {
+            e.target.blur()
+        }
+    }
+
     onClick_toggleAgendaFinish(e) {
         let key = parseInt(e.target.id, 10);
         // this.setState({
@@ -111,7 +117,7 @@ class Agenda extends React.Component {
         //         ...this.state.agendaList.slice(key + 1)
         //     ]
         // });
-        this.props.dispatch(doneAgenda(key))
+        this.props.dispatch(doneAgenda(key));
         socket.emit("doneAgenda", key);
     }
 
@@ -152,13 +158,21 @@ class Agenda extends React.Component {
                             className="text"
                             style={
                                 this.props.agendaList[key].isAgendaFinished
-                                    ? { textDecoration: "line-through", background: "transparent" }
+                                    ? {
+                                          textDecoration: "line-through",
+                                          background: "transparent"
+                                      }
                                     : {}
                             }
                             ref={"agenda_input" + key}
                             id={key}
                             value={this.props.agendaList[key].content}
-                            onChange={e => this.onChangeInput(e)}
+                            onChange={e => {
+                                this.onChangeInput(e);
+                            }}
+                            onKeyUp={e => {
+                                this.onClick_Enter(e);
+                            }}
                             maxLength="10"
                             readOnly={
                                 this.props.agendaList[key].isAgendaFinished
@@ -191,7 +205,9 @@ class Agenda extends React.Component {
                         {agendaDetail}
                         <div
                             style={{ float: "left", clear: "both" }}
-                            ref={(el) => { this.messagesEnd = el; }}
+                            ref={el => {
+                                this.messagesEnd = el;
+                            }}
                         />
                     </div>
                     <div
@@ -201,7 +217,9 @@ class Agenda extends React.Component {
                         }}
                     >
                         <div className="cross" />
-                        <div className="text" unselectable="on">增加議程</div>
+                        <div className="text" unselectable="on">
+                            增加議程
+                        </div>
                     </div>
                 </div>
             </div>

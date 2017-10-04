@@ -1,7 +1,7 @@
 import socket from "../socket";
 
 const initialState = {
-    userName: "",
+    userName:"",
     roomName:"",
     localUserID: "",
     localVideoURL: "",

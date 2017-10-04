@@ -68,6 +68,7 @@ class Meeting extends React.Component {
             isVoteResultOpen: false,
             roomURL: ""
         };
+        this.localStreamURL = "";
     }
 
     componentWillMount() {
@@ -166,6 +167,9 @@ class Meeting extends React.Component {
                 peerConn
                     .setRemoteDescription(new RTCSessionDescription(offer))
                     .then(() => {
+                        if(!isInitiator && this.Chat.localStream){
+                            peerConn.addStream 
+                        }
                         return peerConn.createAnswer();
                     })
                     .then(answer => {

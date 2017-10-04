@@ -173,13 +173,13 @@ class Vote extends React.Component {
                 >
                     <div className="votedetail" id="one">
                         <div className="add">
-                            佳怡建立了
+                            {this.props.votingDetail.voting.creator} 發起了
                             {this.props.votingDetail.voting.secretOrNot
                                 ? "匿名投票"
                                 : "記名投票"}
                         </div>
                         <div className="issue">
-                            問題：{this.props.votingDetail.voting.question}
+                            投票問題：{this.props.votingDetail.voting.question}
                         </div>
                         <div className="choice">{option}</div>
                         <div className="maxVoteNumber">

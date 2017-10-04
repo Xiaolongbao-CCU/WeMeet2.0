@@ -2,6 +2,7 @@ const initialVoteDetail = {
     isVotingStart: false,
     isVotingFinish: false,
     voting: {
+        creator:"",
         secretOrNot: false,
         multiOrNot: [0],
         question: "",
