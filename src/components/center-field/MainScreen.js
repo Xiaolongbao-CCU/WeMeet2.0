@@ -22,7 +22,6 @@ class MainScreen extends React.Component {
     componentDidMount() {}
 
     render() {
-        console.log(this.props.participantList)
         let video = [];
         if (this.props.localVideoURL) {
             video.push(
@@ -44,7 +43,11 @@ class MainScreen extends React.Component {
                         />
                         <label className="user-name">
                             {this.props.userName ||
-                                "使用者" + this.props.localUserID.substring(0, 4)}
+                                this.props.participantList.reduce((sum,value)=>{
+                                        if(value.id == this.props.localUserID){
+                                            return sum = value.animal
+                                        }
+                                    },"")}
                         </label>
                     </div>
                     <img
@@ -87,7 +90,11 @@ class MainScreen extends React.Component {
                                 {this.props.remoteUserName[userID] &&
                                 this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
-                                    : "使用者" + this.props.localUserID.substring(0, 4)}
+                                    : this.props.participantList.reduce((sum,value)=>{
+                                        if(value.id == userID){
+                                            return sum = value.animal
+                                        }
+                                    },"")}
                             </label>
                         </div>
                         <img

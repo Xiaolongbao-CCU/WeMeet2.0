@@ -83,7 +83,7 @@ let Chat = {
             socket
         ) => {
             let peerConn = new RTCPeerConnection(config);
-            if (localStream && isInitiator) {
+            if (localStream) {
                 peerConn.addStream(localStream);
             }
 

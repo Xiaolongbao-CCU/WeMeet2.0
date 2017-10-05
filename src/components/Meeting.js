@@ -75,6 +75,9 @@ class Meeting extends React.Component {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
+        if(this.props.userName){
+            
+        }
     }
 
     componentDidMount() {

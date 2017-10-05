@@ -28,12 +28,20 @@ class Chatroom extends React.Component {
         if (this.props.chatRecord) {
             this.props.chatRecord.map(record => {
                 if (record.userID == this.props.localUserID) {
+                    let localAnimalNum = 0;
+                    let localAnimal = "";
+                    this.props.participantList.map((obj)=>{
+                        if(obj.id == this.props.localUserID){
+                            localAnimalNum = obj.num +1
+                            localAnimal = obj.animal
+                        }
+                    })
                     chatbox.push(
                         <div className="myself-message">
                             <div className="myself-infro">
-                                <img className="image" src="./img/animal1.jpg" />
+                                <img className="image" src={"./img/animal"+localAnimalNum+".jpg"} />
                                 <div className="name">
-                                    {this.props.localUserName || "u_" + record.userID.substring(0, 4)}
+                                    {this.props.localUserName || localAnimal}
                                 </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
@@ -44,15 +52,26 @@ class Chatroom extends React.Component {
                     record.userID &&
                     record.userID !== this.props.localUserID
                 ) {
+                    let remoteAnimalNum = 0;
+                    let remoteAnimal = "";
+                    this.props.participantList.map((obj)=>{
+                        if(record.userID == obj.id){
+                            remoteAnimalNum = obj.num +1
+                            remoteAnimal = obj.animal
+                        }
+                    })
                     chatbox.push(
                         <div className="others-message">
                             <div className="others-infro">
-                                <img className="image" src="./img/animal2.jpg" />
+                                <img className="image" src={"./img/animal"+remoteAnimalNum+".jpg"} />
                                 <div className="name">
                                     {this.props.remoteUserName[record.userID] &&
                                         this.props.remoteUserName[record.userID] !== record.userID
-                                        ? this.props.remoteUserName[record.userID]
-                                        : "u_" + record.userID.substring(0, 4)}}
+                                        ? 
+                                        this.props.remoteUserName[record.userID]
+                                        :
+                                        remoteAnimal
+                                    }
                                 </div>
 
                             </div>
@@ -113,9 +132,10 @@ class Chatroom extends React.Component {
 const mapStateToProps = state => {
     return {
         localUserName: state.connection.userName,
+        localUserID:state.connection.localUserID,
         remoteUserName: state.connection.remoteUserName,
         chatRecord: state.chat,
-        localUserID: state.connection.localUserID
+        participantList:state.participantList
     };
 };
 
