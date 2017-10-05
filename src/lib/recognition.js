@@ -47,7 +47,7 @@ let Recognition = {
         //************直接開始
         final_transcript = "";
 
-        //recognition.start();
+        recognition.start();
 
         recognition.onstart = () => {
             console.log("Recognition On Start");
