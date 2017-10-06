@@ -22,7 +22,7 @@ class Index extends React.Component {
         document.addEventListener("keydown", this.onKeyDown.bind(this));
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onKeyDown(e) {
         //console.log(document.activeElement);
@@ -63,7 +63,7 @@ class Index extends React.Component {
         this.setState({ roomName: e.target.value });
     }
     onClick_handleCreateRoom() {
-        document.removeEventListener("keydown",this.onKeyDown);
+        document.removeEventListener("keydown", this.onKeyDown);
         //按下建立房間後的事件
         this.props.dispatch(setUserName(this.state.userName));
         //做好名字之後>進到房間裡
@@ -74,33 +74,38 @@ class Index extends React.Component {
         return (
             <div className="container">
                 <div className="index">
-                    <img className="indexlogo" src="./img/index_logo2.png" />
-                    <br />
+                    <img className="logo-top" src="./img/logo_top.png" />
+                    <img className="logo-text" src="./img/logo_text.png" />
+                    <img className="logo-bottom" src="./img/logo_bottom.png" />
                     <div className="indexName">
-                        名字:
+                        <div className="icon-field">
+                            <img className="icon-image" src="./img/user-image.png" />
+                        </div>
                         <input
                             autoFocus={true}
                             ref="userName"
                             className="indexinput"
                             type="text"
+                            placeholder="請輸入你的名字"
                             onChange={e => {
                                 this.onChange_userName(e);
                             }}
                         />
-                        <span className="focus-border" />
                     </div>
                     <br />
                     <div className="indexMeeting">
-                        房間名稱:
+                        <div className="icon-field" >
+                            <img className="icon-image" src="./img/meeting.png" />
+                        </div>
                         <input
                             ref="roomName"
                             className="indexinput"
                             type="text"
+                            placeholder="請輸入房間名稱"
                             onChange={e => {
                                 this.onChange_roomName(e);
                             }}
                         />
-                        <span className="focus-border" />
                     </div>
                     <div
                         className="addRoom"
@@ -108,7 +113,7 @@ class Index extends React.Component {
                             this.onClick_handleCreateRoom();
                         }}
                     >
-                        建立房間
+                        <img className="icon-image" src="./img/arrow.png" />
                     </div>
                 </div>
                 <Background />
