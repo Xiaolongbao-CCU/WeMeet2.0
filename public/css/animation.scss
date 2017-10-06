@@ -229,14 +229,50 @@ opacity: 0;
     opacity: 1;
   }
   
+}
+
+@-webkit-keyframes up {
+  0% {
+  }
+  
+  100%{
+    top:-10%;
+  }
+  
+}
+
+@-webkit-keyframes logo_up {
+  0% {
+  }
+  
+  100%{
+    top:5%;
+  }
+  
+}
+
+
+@-webkit-keyframes logo_down {
+  0% {
+  }
+  
+  100%{
+    top:56%;
+  }
+  
+}
+
+@-webkit-keyframes fadeInandOut {
+  0% {
+  opacity: 0; 
   }
 
-  @-webkit-keyframes up {
-    0% {
+  50% {
+    opacity: 1;
     }
-    
-    100%{
-      top:-10%;
-    }
-    
-    }
+  
+  100% {
+  opacity: 0;
+  }
+  
+  }
