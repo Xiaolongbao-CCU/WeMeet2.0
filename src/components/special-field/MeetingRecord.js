@@ -35,47 +35,47 @@ class MeetingRecord extends React.Component {
                 <div className="meetingrecord">
                     <div className="banner">
                         <a href="/"><img className="logo" src="./img/index_logo2.png" />
-                            <div className="backtoindex">回首頁</div>
-                            <div className="title">
-                                <div className="circle">會</div>
-                                <div className="circle">議</div>
-                                <div className="circle">紀</div>
-                                <div className="circle">錄</div>
-                            </div>
-                    </div>
-                        <div className="content">
-                            <div className="old-data">
-                                <div className="title">會議日期：2017/09/27</div>
-                                <div className="title">與會人員：Andy、威君、詩婷、又嘉、宣妮、成財</div>
-                                <div className="title">會議長度：1小時00分</div>
-                                <div className="text">
-                                    {meetingRecord}
-                                </div>
-                            </div>
-
-                            <div className="new-data">
-                                <textarea className="text">
-                                    {meetingRecord}
-                                </textarea>
-                            </div>
-
+                            <div className="backtoindex">回首頁</div></a>
+                        <div className="title">
+                            <div className="circle">會</div>
+                            <div className="circle">議</div>
+                            <div className="circle">紀</div>
+                            <div className="circle">錄</div>
                         </div>
                     </div>
-                    <img className="ballon type1" src="./img/ballon.png" />
-                    <img className="ballon type2" src="./img/ballon.png" />
-                    <img className="ballon type3" src="./img/ballon.png" />
-                    <img className="ballon type4" src="./img/ballon.png" />
-                    <img className="ballon type5" src="./img/ballon.png" />
-                    <img className="ballon type6" src="./img/ballon.png" />
-                    <img className="moutain" src="./img/mountain.png" />
-                    <Background />
+                    <div className="content">
+                        <div className="old-data">
+                            <div className="title">會議日期：2017/09/27</div>
+                            <div className="title">與會人員：Andy、威君、詩婷、又嘉、宣妮、成財</div>
+                            <div className="title">會議長度：1小時00分</div>
+                            <div className="text">
+                                {meetingRecord}
+                            </div>
+                        </div>
+
+                        <div className="new-data">
+                            <textarea className="text">
+                                {meetingRecord}
+                            </textarea>
+                        </div>
+
+                    </div>
                 </div>
-                );
+                <img className="ballon type1" src="./img/ballon.png" />
+                <img className="ballon type2" src="./img/ballon.png" />
+                <img className="ballon type3" src="./img/ballon.png" />
+                <img className="ballon type4" src="./img/ballon.png" />
+                <img className="ballon type5" src="./img/ballon.png" />
+                <img className="ballon type6" src="./img/ballon.png" />
+                <img className="moutain" src="./img/mountain.png" />
+                <Background />
+            </div>
+        );
     }
 }
 const mapStateToProps = state => {
     return {
-                    recognitionRecord: state.chatAndRecognition.recognitionRecord,
+        recognitionRecord: state.chatAndRecognition.recognitionRecord,
         remoteUserName: state.connection.remoteUserName
     };
 };
