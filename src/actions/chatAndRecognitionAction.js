@@ -12,3 +12,11 @@ export function addRecognitionRecord( recordObj ) {
 		data: recordObj
 	}
 }
+
+export function setInterimResult( result ) {
+	return {
+		type: "setInterimResult",
+		data: result
+	}
+}
+	

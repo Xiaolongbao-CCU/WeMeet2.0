@@ -28,15 +28,16 @@ const fs = require("fs");
 let roomList = [];
 let userInRoom = {};
 let votingCounter = {};
+let animalName = ["貓貓","狗狗","猩猩","獅子","無尾熊","兔兔","老虎","狐狸"];
 
 //HTTPS參數
-// const option = {
-//     key: fs.readFileSync("./public/certificate/privatekey.pem"),
-//     cert: fs.readFileSync("./public/certificate/certificate.pem")
-// };
+const option = {
+    key: fs.readFileSync("./public/certificate/privatekey.pem"),
+    cert: fs.readFileSync("./public/certificate/certificate.pem")
+};
 
 //對https Server內傳入express的處理物件
-const server = require("http").createServer(app);
+const server = require("https").createServer(option,app);
 const io = require("socket.io")(server);
 server.listen(8787);
 console.log("已啟動伺服器!");
@@ -83,7 +84,7 @@ io.on("connection", function (socket) {
         socket.emit("gotSocketID", socket.id);
     });
 
-    //直接連線到房間內部的話
+    //連線到房間內部
     socket.on("IAmAt", function (location, room) {
         if (location == "/meeting") {
             if (!userInRoom.hasOwnProperty(room)) {
@@ -114,29 +115,52 @@ io.on("connection", function (socket) {
             }
 
             if (!userInRoom.hasOwnProperty(room)) {
-                //房間不存在，沒有人要通知，就通知新人
-                userInRoom[room] = [socket.id];
-                socket.emit("addParticipantList", socket.id);
+                //房間不存在，沒有人要通知，就通知新人，然後給牠隨機一種動物
+                let randomNum = Math.floor(Math.random()*8)
+                let obj = {
+                        "id":socket.id,
+                        "animal":(animalName[randomNum]),
+                        "num": randomNum
+                    }
+                userInRoom[room] = [obj];
+                socket.emit("setParticipantList", userInRoom[room]);
             } else if (
+                //房間存在，有人在裡面，但新人不存在房間裡
                 userInRoom.hasOwnProperty(room) &&
                 !userInRoom[room].includes(socket.id)
             ) {
-                //房間存在，有人在裡面，但新人不存在房間裡
                 //對新人加在名單最前面>把名單整份發過去
-                userInRoom[room].unshift(socket.id);
+                let tempAnimal = [...animalName];
+                userInRoom[room].map(userObject=>{
+                    tempAnimal.splice(tempAnimal.indexOf(userObject.animal),1)
+                })
+                let randomNum = Math.floor(Math.random()*(tempAnimal.length))
+                let obj = {
+                        "id":socket.id,
+                        "animal":tempAnimal[randomNum],
+                        "num": randomNum
+                    }
+                userInRoom[room].unshift(obj)
                 socket.emit("setParticipantList", userInRoom[room]);
                 //對房間內的人，發出新人加入的訊息
-                socket.to(room).emit("addParticipantList", socket.id);
+                socket.to(room).emit("addParticipantList", obj);
             }
         })
         .on("leaveRoom", function () {
             console.log("有人離開房間囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
             socket.leave(room);
+            let isInRoom = false;
             if (userInRoom[room]) {
                 if (
                     userInRoom[room].length == 1 &&
-                    userInRoom[room].includes(socket.id)
+                    userInRoom[room].map(obj=>{
+                        if( obj.id == socket.id ){
+                            isInRoom = true
+                        } else {
+                            isInRoom = false
+                        }
+                    })
                 ) {
                     //如果房間裏面只有他，就把房間刪掉
                     socket.emit("delRoom", room);
@@ -146,7 +170,7 @@ io.on("connection", function (socket) {
                     console.log("房間已刪除!" + room);
                 } else {
                     userInRoom[room].splice(
-                        userInRoom[room].indexOf(socket.id),
+                        userInRoom[room].indexOf(userInRoom[room][socket.id]),
                         1
                     );
                 }
@@ -275,7 +299,7 @@ io.on("connection", function (socket) {
 
     socket.on("recognitionRecord", function (_history) {
         let room = Object.keys(socket.rooms)[1];
-        console.log("有結果!")
+        //console.log("有結果!")
         socket.to(room).emit("remoteUserRecognitionRecord", _history);
         // console.log(_history);
         // db.History.create(

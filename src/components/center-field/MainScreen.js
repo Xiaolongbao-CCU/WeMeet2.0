@@ -43,7 +43,11 @@ class MainScreen extends React.Component {
                         />
                         <label className="user-name">
                             {this.props.userName ||
-                                "u_" + this.props.localUserID.substring(0, 4)}
+                                this.props.participantList.reduce((sum,value)=>{
+                                        if(value.id == this.props.localUserID){
+                                            return sum = value.animal
+                                        }
+                                    },"")}
                         </label>
                     </div>
                     <img
@@ -86,7 +90,11 @@ class MainScreen extends React.Component {
                                 {this.props.remoteUserName[userID] &&
                                 this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
-                                    : "u_" + userID.substring(0, 4)}
+                                    : this.props.participantList.reduce((sum,value)=>{
+                                        if(value.id == userID){
+                                            return sum = value.animal
+                                        }
+                                    },"")}
                             </label>
                         </div>
                         <img
@@ -126,6 +134,7 @@ class MainScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        participantList: state.participantList,
         userName: state.connection.userName,
         localUserID: state.connection.localUserID,
         isStreaming: state.connection.isStreaming,

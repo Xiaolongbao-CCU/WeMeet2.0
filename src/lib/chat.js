@@ -36,7 +36,6 @@ let Chat = {
                         let videoURL = window.URL.createObjectURL(stream);
                         localStream = stream;
                         Meeting.props.dispatch(gotLocalVideo(videoURL));
-
                         socket.emit(
                             "newParticipantA",
                             id,
@@ -60,7 +59,8 @@ let Chat = {
                 })
                 .catch(e => {
                     //alert("無法偵測到您的麥克風或鏡頭，請重新授權，WeMeet基於WebRTC連線，必需要其中");
-                    alert(e.toString());
+                    alert(e.name)
+                    console.log(e.name);
                     //window.history.back();
                 });
         };
@@ -117,7 +117,7 @@ let Chat = {
                 let url = URL.createObjectURL(event.stream);
                 Meeting.props.dispatch(
                     addRemoteStreamURL({
-                        id: remotePeer,
+                        remotePeer,
                         url: url,
                         stream: event.stream
                     })

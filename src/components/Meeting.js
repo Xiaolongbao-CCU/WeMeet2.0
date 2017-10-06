@@ -10,6 +10,7 @@ import socket from "../socket";
 // redux-action
 import {
     setLocalUserID,
+    setRoomName,
     setRemoteUserName,
     addParticipantList,
     addParticipantConnection,
@@ -67,12 +68,16 @@ class Meeting extends React.Component {
             isVoteResultOpen: false,
             roomURL: ""
         };
+        this.localStreamURL = "";
     }
 
     componentWillMount() {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
+        if(this.props.userName){
+            
+        }
     }
 
     componentDidMount() {
@@ -165,6 +170,9 @@ class Meeting extends React.Component {
                 peerConn
                     .setRemoteDescription(new RTCSessionDescription(offer))
                     .then(() => {
+                        if(!isInitiator && this.Chat.localStream){
+                            peerConn.addStream 
+                        }
                         return peerConn.createAnswer();
                     })
                     .then(answer => {
@@ -226,6 +234,7 @@ class Meeting extends React.Component {
             this.setState({
                 roomURL: window.location.href
             });
+            this.props.dispatch(setRoomName(window.location.href))
         } else {
             window.location.hash = Math.floor((1 + Math.random()) * 1e16)
                 .toString(16)
@@ -233,6 +242,7 @@ class Meeting extends React.Component {
             this.setState({
                 roomURL: window.location.href
             });
+            this.props.dispatch(setRoomName(window.location.href))
         }
     }
 
@@ -259,7 +269,7 @@ class Meeting extends React.Component {
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult />}
+                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer}/>}
 
                 </div>
 

@@ -1,6 +1,7 @@
 "use strict";
 export {
 	setUserName,
+	setRoomName,
 	setRemoteUserName,
 	setLocalUserID,
 	setParticipantList,
@@ -18,7 +19,7 @@ export {
 	setRemoteVideoState,
 	setRemoteAudioState,
 	delRemoteStreamURL,
-	addCandidateQueue
+	addCandidateQueue,
 } from './meetingAction';
 
 export {
@@ -40,7 +41,8 @@ export {
 
 export {
 	changeToAnotherChannel,
-	addRecognitionRecord
+	addRecognitionRecord,
+	setInterimResult
 } from './chatAndRecognitionAction'
 
 

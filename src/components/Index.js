@@ -16,10 +16,11 @@ class Index extends React.Component {
         this.onClick_handleCreateRoom = this.onClick_handleCreateRoom.bind(
             this
         );
+        this.onKeyDown = this.onKeyDown.bind(this)
     }
 
     componentWillMount() {
-        document.addEventListener("keydown", this.onKeyDown.bind(this));
+        document.addEventListener("keydown", this.onKeyDown);
     }
 
     componentDidMount() { }
@@ -46,6 +47,7 @@ class Index extends React.Component {
                     }
 
                     if (document.activeElement == document.body) {
+                        document.removeEventListener("keydown", this.onKeyDown);
                         this.onClick_handleCreateRoom();
                         return;
                     }

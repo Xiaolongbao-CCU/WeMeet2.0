@@ -6,6 +6,7 @@
 //     multiOrNot:[1(0:一票 1:多票),3(多票是幾票)],
 // }
 import React from "react";
+import { connect } from "react-redux";
 import socket from "../../socket";
 
 class VoteDetail extends React.Component {
@@ -17,6 +18,7 @@ class VoteDetail extends React.Component {
             isVoteReady: false,
             MultivoteNumber: 2,
             voting: {
+                creator: this.props.userName || "使用者"+this.props.localUserID.substring(0,4),
                 secretOrNot: 0,
                 multiOrNot: [0],
                 question: "",
@@ -30,9 +32,9 @@ class VoteDetail extends React.Component {
         this.onClick_Addition = this.onClick_Addition.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_Registered() {
         if (this.state.isRegisteredSelect) {
@@ -62,27 +64,26 @@ class VoteDetail extends React.Component {
         }
     }
 
-    onEnterQuestion(e) {
-        let counter = 0
-        let flag = true
-        Object.keys(this.state.voting.option).map((key) => {
+    onChangeQuestion(e) {
+        let counter = 0;
+        let flag = true;
+        Object.keys(this.state.voting.option).map(key => {
             if (this.state.voting.option[key]) {
-                counter += 1
+                counter += 1;
             } else {
-                flag = false
+                flag = false;
             }
-        })
+        });
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                isVoteReady: false,
-
+                isVoteReady: false
             });
         } else {
             this.setState({
                 voting: {
                     ...this.state.voting,
-                    isVoteReady: (counter >= 2 && flag ? true : false),
+                    isVoteReady: counter >= 2 && flag ? true : false,
                     question: e.target.value
                 }
             });
@@ -90,52 +91,65 @@ class VoteDetail extends React.Component {
     }
 
     onBlurQuestion(e) {
-        let counter = 0
-        let flag = true
-        Object.keys(this.state.voting.option).map((key) => {
+        let counter = 0;
+        let flag = true;
+        Object.keys(this.state.voting.option).map(key => {
             if (this.state.voting.option[key]) {
-                counter += 1
+                counter += 1;
             } else {
-                flag = false
+                flag = false;
             }
-        })
+        });
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
-                isVoteReady: false,
+                isVoteReady: false
             });
         } else {
             this.setState({
                 voting: {
                     ...this.state.voting,
-                    isVoteReady: (counter >= 2 && flag ? true : false),
+                    isVoteReady: counter >= 2 && flag ? true : false,
                     question: e.target.value
                 }
             });
         }
     }
 
-    onEnterOption(e) {
+    onEnterQuestion(e) {
+        if (e.keyCode == 13) {
+            e.target.blur();
+        }
+    }
+
+    onChangeOption(e) {
         if (e.target.value) {
-            let plusCounter = 0
-            let minusCounter = 0
-            Object.keys(this.state.voting.option).map((key) => {
-                if (this.state.voting.option[key]) {
-                    plusCounter += 1
-                } else {
-                    minusCounter += 1
-                }
-            })
-            this.setState({
-                isVoteReady: (plusCounter >= 1 && minusCounter <= 1 ? true : false),
-                voting: {
-                    ...this.state.voting,
-                    option: {
-                        ...this.state.voting.option,
-                        [e.target.id]: e.target.value
+            this.setState(
+                {
+                    voting: {
+                        ...this.state.voting,
+                        option: {
+                            ...this.state.voting.option,
+                            [e.target.id]: e.target.value
+                        }
                     }
+                },
+                () => {
+                    let plusCounter = 0;
+                    let minusCounter = 0;
+                    Object.keys(this.state.voting.option).map(key => {
+                        if (this.state.voting.option[key]) {
+                            plusCounter += 1;
+                        } else {
+                            minusCounter += 1;
+                        }
+                    });
+                    this.setState({
+                        isVoteReady:
+                            plusCounter >= 2 && minusCounter == 0 ? true : false
+                    });
                 }
-            });
+            );
         } else {
             console.log("沒值阿!給個紅框");
             this.setState({
@@ -153,25 +167,32 @@ class VoteDetail extends React.Component {
 
     onBlurOption(e) {
         if (e.target.value) {
-            let plusCounter = 0
-            let minusCounter = 0
-            Object.keys(this.state.voting.option).map((key) => {
-                if (this.state.voting.option[key]) {
-                    plusCounter += 1
-                } else {
-                    minusCounter += 1
-                }
-            })
-            this.setState({
-                isVoteReady: (plusCounter >= 2 && minusCounter == 0 ? true : false),
-                voting: {
-                    ...this.state.voting,
-                    option: {
-                        ...this.state.voting.option,
-                        [e.target.id]: e.target.value
+            this.setState(
+                {
+                    voting: {
+                        ...this.state.voting,
+                        option: {
+                            ...this.state.voting.option,
+                            [e.target.id]: e.target.value
+                        }
                     }
+                },
+                () => {
+                    let plusCounter = 0;
+                    let minusCounter = 0;
+                    Object.keys(this.state.voting.option).map(key => {
+                        if (this.state.voting.option[key]) {
+                            plusCounter += 1;
+                        } else {
+                            minusCounter += 1;
+                        }
+                    });
+                    this.setState({
+                        isVoteReady:
+                            plusCounter >= 2 && minusCounter == 0 ? true : false
+                    });
                 }
-            });
+            );
         } else {
             console.log("沒值阿!給個紅框");
             this.setState({
@@ -184,6 +205,12 @@ class VoteDetail extends React.Component {
                     }
                 }
             });
+        }
+    }
+
+    onEnterOption(e) {
+        if (e.keyCode == 13) {
+            e.target.blur();
         }
     }
 
@@ -249,19 +276,19 @@ class VoteDetail extends React.Component {
             newOptionOrder["option" + (index + 1)] = delOption[optionKey];
         });
 
-        let counter = 0
-        let flag = true
+        let counter = 0;
+        let flag = true;
 
-        Object.keys(newOptionOrder).map((key) => {
+        Object.keys(newOptionOrder).map(key => {
             if (!newOptionOrder[key]) {
-                flag = false
+                flag = false;
             } else {
-                counter += 1
+                counter += 1;
             }
-        })
+        });
 
         this.setState({
-            isVoteReady: (counter >= 2 && flag ? true : false),
+            isVoteReady: counter >= 2 && flag ? true : false,
             voting: {
                 ...this.state.voting,
                 option: newOptionOrder
@@ -270,19 +297,23 @@ class VoteDetail extends React.Component {
     }
 
     onClick_newOption(e) {
-        let key = "option" +
-            (Object.keys(this.state.voting.option).length + 1);
-        this.setState({
-            isVoteReady: false,
-            voting: {
-                ...this.state.voting,
-                option: {
-                    ...this.state.voting.option,
-                    ["option" +
-                    (Object.keys(this.state.voting.option).length + 1)]: ""
+        let key = "option" + (Object.keys(this.state.voting.option).length + 1);
+        this.setState(
+            {
+                isVoteReady: false,
+                voting: {
+                    ...this.state.voting,
+                    option: {
+                        ...this.state.voting.option,
+                        ["option" +
+                        (Object.keys(this.state.voting.option).length + 1)]: ""
+                    }
                 }
+            },
+            () => {
+                this.refs[key].focus();
             }
-        }, () => { this.refs[key].focus() });
+        );
     }
 
     onClick_startVoing() {
@@ -314,10 +345,13 @@ class VoteDetail extends React.Component {
                             this.onBlurOption(e);
                         }}
                         onChange={e => {
+                            this.onChangeOption(e);
+                        }}
+                        onKeyUp={e => {
                             this.onEnterOption(e);
                         }}
                     />
-                    <span className="focus-bg"></span>
+                    <span className="focus-bg" />
                 </div>
             );
             this.refs.key = this.state.voting.option[key];
@@ -361,14 +395,17 @@ class VoteDetail extends React.Component {
                         ref="votequestion"
                         type="text"
                         placeholder="請輸入投票問題"
-                        onKeyUp={e => {
-                            this.onEnterQuestion(e);
+                        onChange={e => {
+                            this.onChangeQuestion(e);
                         }}
                         onBlur={e => {
                             this.onBlurQuestion(e);
                         }}
+                        onKeyUp={e => {
+                            this.onEnterQuestion(e);
+                        }}
                     />
-                    <span className="focus-border"></span>
+                    <span className="focus-border" />
                 </div>
 
                 <div className="voteconent">
@@ -422,7 +459,7 @@ class VoteDetail extends React.Component {
                         }}
                         disabled={this.state.isVoteReady ? false : true}
                     >
-                        開始投票
+                        {this.state.isVoteReady ? "開始投票" : "至少要兩個選項"}
                     </button>
                 </div>
             </div>
@@ -430,4 +467,11 @@ class VoteDetail extends React.Component {
     }
 }
 
-export default VoteDetail;
+const mapStateToProps = state => {
+    return {
+        userName: state.connection.userName,
+        localUserID: state.connection.localUserID
+    };
+};
+
+export default connect(mapStateToProps)(VoteDetail);

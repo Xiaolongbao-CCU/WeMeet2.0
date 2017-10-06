@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { changeToAnotherChannel } from "../../actions/Actions"
+import { changeToAnotherChannel } from "../../actions/Actions";
 
 class CVcontrol extends React.Component {
     constructor(props) {
@@ -11,21 +11,21 @@ class CVcontrol extends React.Component {
         this.onClick_VoiceRecognition = this.onClick_VoiceRecognition.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_Chatroom() {
         if (this.props.isInChatNow) {
-            return
+            return;
         } else {
-            this.props.dispatch(changeToAnotherChannel())
+            this.props.dispatch(changeToAnotherChannel());
         }
     }
 
     onClick_VoiceRecognition() {
         if (this.props.isInChatNow) {
-            this.props.dispatch(changeToAnotherChannel())
+            this.props.dispatch(changeToAnotherChannel());
         }
     }
 
@@ -34,9 +34,7 @@ class CVcontrol extends React.Component {
             <div className="CVcontrol">
                 <div
                     className="chatroom"
-                    id={
-                        this.props.isInChatNow ? "selected" : "no-selected"
-                    }
+                    id={this.props.isInChatNow ? "selected" : "no-selected"}
                     onClick={this.onClick_Chatroom}
                 >
                     {" "}
@@ -45,9 +43,7 @@ class CVcontrol extends React.Component {
 
                 <div
                     className="voice-recognition"
-                    id={
-                        this.props.isInChatNow ? "no-selected" : "selected"
-                    }
+                    id={this.props.isInChatNow ? "no-selected" : "selected"}
                     onClick={this.onClick_VoiceRecognition}
                 >
                     {" "}

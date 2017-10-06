@@ -1,7 +1,8 @@
 import socket from "../socket";
 
 const initialState = {
-    userName: "",
+    userName:"",
+    roomName:"",
     localUserID: "",
     localVideoURL: "",
     isStreaming: false,
@@ -15,7 +16,13 @@ const initialState = {
 export default function connection(state = initialState, action) {
     switch (action.type) {
         case "setUserName":
-            return Object.assign({}, state, { userName: action.data });
+            if(!state.userName){
+                return Object.assign({}, state, { userName: action.data });
+            } else {
+                return state
+            }
+        case "setRoomName":
+            return Object.assign({}, state, { roomName: action.data });
         case "setRemoteUserName":
             let userID = action.data.id;
             let userName = action.data.name;
@@ -71,8 +78,8 @@ export default function connection(state = initialState, action) {
                 ...state,
                 remoteStreamURL: {
                     ...state.remoteStreamURL,
-                    [action.data.id]: {
-                        ...state.remoteStreamURL[action.data.id],
+                    [action.data.remotePeer]: {
+                        ...state.remoteStreamURL[action.data.remotePeer],
                         url: action.data.url
                     }
                 }

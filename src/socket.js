@@ -1,6 +1,7 @@
 import socketIO from "socket.io-client";
 import store from "./store";
 import {
+    setUserName,
     setRoomList,
     setRemoteUserName,
     addRoom,
@@ -44,6 +45,7 @@ socket
 socket
     .on("setParticipantList", participantList => {
         store.dispatch(setParticipantList(participantList));
+        store.dispatch(setUserName(participantList[0].animal))
     })
     .on("addParticipantList", participantID => {
         store.dispatch(addParticipantList(participantID));
