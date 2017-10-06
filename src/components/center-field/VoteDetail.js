@@ -451,6 +451,7 @@ class VoteDetail extends React.Component {
                             +
                         </button>
                     </div>
+                    {this.state.isVoteReady ? null : <span className="votestatus">至少要兩個選項</span> }
                     <button
                         className="votesubmit"
                         id={this.state.isVoteReady ? "open" : "close"}
@@ -458,8 +459,7 @@ class VoteDetail extends React.Component {
                             this.onClick_startVoing(e);
                         }}
                         disabled={this.state.isVoteReady ? false : true}
-                    >
-                        {this.state.isVoteReady ? "開始投票" : "至少要兩個選項"}
+                    >開始投票
                     </button>
                 </div>
             </div>
