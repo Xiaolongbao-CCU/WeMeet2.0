@@ -32,14 +32,16 @@ import VoiceResult from "./left-field/VoiceResult";
 import Toolbar from "./center-field/Toolbar";
 import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
+import GridGame from "./center-field/GridGame";
 
-//center-field, total 2 components
+//right-field, total 2 components
 import Agenda from "./right-field/Agenda";
 import Vote from "./right-field/Vote";
 
 //special-field, total ? components
 import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
+import GirdDetail from "./special-field/GirdDetail";
 
 let configuration = {
     iceServers: [
@@ -66,6 +68,8 @@ class Meeting extends React.Component {
         this.state = {
             loading: true,
             isVoteResultOpen: false,
+            isJiugonggeOpen: false,
+            isJiugonggePlaying: true,
             roomURL: ""
         };
         this.localStreamURL = "";
@@ -75,8 +79,8 @@ class Meeting extends React.Component {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
-        if(this.props.userName){
-            
+        if (this.props.userName) {
+
         }
     }
 
@@ -170,8 +174,8 @@ class Meeting extends React.Component {
                 peerConn
                     .setRemoteDescription(new RTCSessionDescription(offer))
                     .then(() => {
-                        if(!isInitiator && this.Chat.localStream){
-                            peerConn.addStream 
+                        if (!isInitiator && this.Chat.localStream) {
+                            peerConn.addStream
                         }
                         return peerConn.createAnswer();
                     })
@@ -266,16 +270,19 @@ class Meeting extends React.Component {
         return (
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
+                {this.state.isJiugonggeOpen ? <GirdDetail /> : null}
+
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer}/>}
+                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
 
                 </div>
 
                 <div className="center-field">
                     <Toolbar />
-                    <MainScreen />
+                    {this.state.isJiugonggePlaying ? <GridGame /> : <MainScreen />}
+
                     <AVcontrol Chat={this.Chat} />
                 </div>
 
