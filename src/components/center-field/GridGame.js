@@ -3,385 +3,134 @@
 import React from "react";
 
 class GridGame extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEnlarge: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEnlarge: false,
+            grid:[
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]],
+                [["1","2","3"],["4","5","6"],["7","8","9"]]
+            ]
+        };
+        this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
     }
-    this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
-  }
 
-  componentWillMount() {
-  }
+    componentWillMount() {}
 
-  componentDidMount() {
-  }
+    componentDidMount() {}
 
-  onClick_ChangeSize() {
-    this.setState({
-      isEnlarge: !this.state.isEnlarge
-    })
-  }
+    onChangeInput(e){
+        let key = e.target.getAttribute("data")
+        let a = parseInt(key.substring(5,6))
+        let b = parseInt(key.substring(7,8))
+        let c = parseInt(key.substring(9,10))
 
-  render() {
-    return (
-      <div className="main-screen" id={this.state.isEnlarge ? "bigger" : ""} >
-        {
-          this.state.isEnlarge ?
-            <div className="backtosmall" onClick={this.onClick_ChangeSize} ></div> :
-            <div className="button1" id="fullscreen" onClick={this.onClick_ChangeSize}>放大</div>
-        }
+        this.setState({
+            grid:[
+                ...this.state.grid.slice(0,a),
+                [
+                    ...this.state.grid[a].slice(0,b),
+                    [
+                        ...this.state.grid[a][b].slice(0,c),
+                        e.target.value,
+                        ...this.state.grid[a][b].slice(c+1)
+                    ],
+                    ...this.state.grid[a].slice(b+1)
+                ],
+                ...this.state.grid.slice(a+1)
+            ]
+        })
+    }
 
-        {
-          this.state.isEnlarge ?
-            <div className="blackBG" /> :
-            <div className="button1" id="reset" >清空</div>
-        }
+    onClick_ChangeSize() {
+        this.setState({
+            isEnlarge: !this.state.isEnlarge
+        });
+    }
 
-        < div className="divTable first" >
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
+    render() {
+        let grid = [];
+        let order = [
+            "first",
+            "second",
+            "third",
+            "forth",
+            "fifth",
+            "sixth",
+            "seventh",
+            "eighth",
+            "ninth"
+        ];
 
-        <div className="divTable second">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
+        order.map((number,index) => {
+            let name = "divTable" + " " + number;
+            let innerGrid = [];
+            for (let i = 0; i < 3; i++) {
+                let outerKey = "grid"+":"+index+":"+i
+                let input = [];
+                for (let j = 0; j<3; j ++){
+                    let innerKey = outerKey + ":" + j
+                    input.push(
+                        <div className="divTableCell">
+                            <textarea 
+                                className="TableInput" 
+                                value={this.state.grid[index][i][j]}
+                                ref={innerKey}
+                                data={innerKey}
+                                onChange={(e)=>{
+                                    this.onChangeInput(e)
+                                }}
+                            />
+                        </div>
+                    )
+                }
+                innerGrid.push(
+                    <div className="divTableRow" data={outerKey}>
+                        {input}
+                    </div>
+                );
+            }
+            grid.push(<div className={name}>{innerGrid}</div>);
+        });
 
-        <div className="divTable third">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
+        return (
+            <div
+                className="main-screen"
+                id={this.state.isEnlarge ? "bigger" : ""}
+            >
+                {this.state.isEnlarge ? (
+                    <div
+                        className="backtosmall"
+                        onClick={this.onClick_ChangeSize}
+                    />
+                ) : (
+                    <div
+                        className="button1"
+                        id="fullscreen"
+                        onClick={this.onClick_ChangeSize}
+                    >
+                        放大
+                    </div>
+                )}
 
-        <div className="divTable forth">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
+                {this.state.isEnlarge ? (
+                    <div className="blackBG" />
+                ) : (
+                    <div className="button1" id="reset">
+                        清空
+                    </div>
+                )}
+                {grid}
             </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="divTable fifth">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="divTable sixth">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="divTable seventh">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="divTable eighth">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="divTable ninth">
-          <div className="divTableBody">
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-            <div className="divTableRow">
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-              <div className="divTableCell">
-                <textarea className="TableInput" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default GridGame;
