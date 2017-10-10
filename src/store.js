@@ -7,7 +7,7 @@ import {
 	chat,
 	agenda,
 	chatAndRecognition,
-	time
+	time,
 	grid
 } from "./reducers/index";
 
@@ -19,7 +19,7 @@ let reducers = combineReducers({
 	chat,
 	agenda,
 	chatAndRecognition,
-	time
+	time,
 	grid
 });
 
