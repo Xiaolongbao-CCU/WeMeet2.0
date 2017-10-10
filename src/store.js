@@ -6,7 +6,8 @@ import {
 	vote,
 	chat,
 	agenda,
-	chatAndRecognition
+	chatAndRecognition,
+	grid
 } from "./reducers/index";
 
 let reducers = combineReducers({
@@ -16,7 +17,8 @@ let reducers = combineReducers({
 	vote,
 	chat,
 	agenda,
-	chatAndRecognition
+	chatAndRecognition,
+	grid
 });
 
 const store = createStore(

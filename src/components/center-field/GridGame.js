@@ -1,23 +1,15 @@
 "use strict";
 
 import React from "react";
+import { connect } from "react-redux";
+import { setGrid } from "../../actions/Actions";
+import socket from "../../socket";
 
 class GridGame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnlarge: false,
-            grid:[
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]],
-                [["1","2","3"],["4","5","6"],["7","8","9"]]
-            ]
+            isEnlarge: false
         };
         this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
     }
@@ -26,27 +18,36 @@ class GridGame extends React.Component {
 
     componentDidMount() {}
 
-    onChangeInput(e){
-        let key = e.target.getAttribute("data")
-        let a = parseInt(key.substring(5,6))
-        let b = parseInt(key.substring(7,8))
-        let c = parseInt(key.substring(9,10))
-
-        this.setState({
-            grid:[
-                ...this.state.grid.slice(0,a),
-                [
-                    ...this.state.grid[a].slice(0,b),
-                    [
-                        ...this.state.grid[a][b].slice(0,c),
-                        e.target.value,
-                        ...this.state.grid[a][b].slice(c+1)
-                    ],
-                    ...this.state.grid[a].slice(b+1)
-                ],
-                ...this.state.grid.slice(a+1)
-            ]
-        })
+    onChangeInput(e) {
+        let key = e.target.getAttribute("data");
+        let a = parseInt(key.substring(5, 6));
+        let b = parseInt(key.substring(7, 8));
+        let c = parseInt(key.substring(9, 10));
+        this.props.dispatch(
+            setGrid({
+                position: [a, b, c],
+                value: e.target.value
+            })
+        );
+        socket.emit("setGrid", {
+            position: [a, b, c],
+            value: e.target.value
+        });
+        // this.setState({
+        //     grid:[
+        //         ...this.state.grid.slice(0,a),
+        //         [
+        //             ...this.state.grid[a].slice(0,b),
+        //             [
+        //                 ...this.state.grid[a][b].slice(0,c),
+        //                 e.target.value,
+        //                 ...this.state.grid[a][b].slice(c+1)
+        //             ],
+        //             ...this.state.grid[a].slice(b+1)
+        //         ],
+        //         ...this.state.grid.slice(a+1)
+        //     ]
+        // })
     }
 
     onClick_ChangeSize() {
@@ -55,8 +56,16 @@ class GridGame extends React.Component {
         });
     }
 
+    onClick_clearGrid(){
+        this.props.dispatch(setGrid({
+            position:"all",
+            value:""
+        }))
+
+    }
+
     render() {
-        let grid = [];
+        let result = [];
         let order = [
             "first",
             "second",
@@ -68,28 +77,27 @@ class GridGame extends React.Component {
             "eighth",
             "ninth"
         ];
-
-        order.map((number,index) => {
+        order.map((number, index) => {
             let name = "divTable" + " " + number;
             let innerGrid = [];
             for (let i = 0; i < 3; i++) {
-                let outerKey = "grid"+":"+index+":"+i
+                let outerKey = "grid" + ":" + index + ":" + i;
                 let input = [];
-                for (let j = 0; j<3; j ++){
-                    let innerKey = outerKey + ":" + j
+                for (let j = 0; j < 3; j++) {
+                    let innerKey = outerKey + ":" + j;
                     input.push(
                         <div className="divTableCell">
-                            <textarea 
-                                className="TableInput" 
-                                value={this.state.grid[index][i][j]}
+                            <textarea
+                                className="TableInput"
+                                value={this.props.grid[index][i][j]}
                                 ref={innerKey}
                                 data={innerKey}
-                                onChange={(e)=>{
-                                    this.onChangeInput(e)
+                                onChange={e => {
+                                    this.onChangeInput(e);
                                 }}
                             />
                         </div>
-                    )
+                    );
                 }
                 innerGrid.push(
                     <div className="divTableRow" data={outerKey}>
@@ -97,7 +105,7 @@ class GridGame extends React.Component {
                     </div>
                 );
             }
-            grid.push(<div className={name}>{innerGrid}</div>);
+            result.push(<div className={name}>{innerGrid}</div>);
         });
 
         return (
@@ -123,14 +131,19 @@ class GridGame extends React.Component {
                 {this.state.isEnlarge ? (
                     <div className="blackBG" />
                 ) : (
-                    <div className="button1" id="reset">
+                    <div className="button1" id="reset" onClick={()=>{this.onClick_clearGrid()}}>
                         清空
                     </div>
                 )}
-                {grid}
+                {result}
             </div>
         );
     }
 }
 
-export default GridGame;
+const mapStateToProps = state => {
+    return {
+        grid: state.grid.grid
+    };
+};
+export default connect(mapStateToProps)(GridGame);

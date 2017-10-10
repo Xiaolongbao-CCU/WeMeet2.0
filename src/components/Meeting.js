@@ -68,7 +68,7 @@ class Meeting extends React.Component {
         this.state = {
             loading: true,
             isVoteResultOpen: false,
-            isJiugonggeOpen: false,
+            isJiugonggeOpen: true,
             isJiugonggePlaying: true,
             roomURL: ""
         };
@@ -270,7 +270,7 @@ class Meeting extends React.Component {
         return (
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
-                {this.state.isJiugonggeOpen ? <GirdDetail /> : null}
+                {this.props.isGridDetailOpen ? <GirdDetail /> : null}
 
                 <div className="left-field">
                     <CVcontrol />
@@ -281,7 +281,7 @@ class Meeting extends React.Component {
 
                 <div className="center-field">
                     <Toolbar />
-                    {this.state.isJiugonggePlaying ? <GridGame /> : <MainScreen />}
+                    {this.props.isGridStart ? <GridGame /> : <MainScreen />}
 
                     <AVcontrol Chat={this.Chat} />
                 </div>
@@ -306,7 +306,9 @@ const mapStateToProps = state => {
         connections: state.connection.connections,
         remoteStreamURL: state.connection.remoteStreamURL,
         candidateQueue: state.connection.candidateQueue,
-        isInChatNow: state.chatAndRecognition.isInChatNow
+        isInChatNow: state.chatAndRecognition.isInChatNow,
+        isGridDetailOpen:state.grid.isGridDetailOpen,
+        isGridStart:state.grid.isGridStart
     };
 };
 

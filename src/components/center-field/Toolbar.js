@@ -10,6 +10,7 @@ import Brainstorming from "./Brainstorming";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
+import {setGridDetailOpen} from "../../actions/Actions"
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -44,9 +45,10 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleBrainstorming() {
-        this.setState({
-            isBrainstormingToggle: !this.state.isBrainstormingToggle
-        })
+        // this.setState({
+        //     isBrainstormingToggle: !this.state.isBrainstormingToggle
+        // })
+        this.props.dispatch(setGridDetailOpen())
     }
 
     onClick_ToggleRecognitionControl() {
