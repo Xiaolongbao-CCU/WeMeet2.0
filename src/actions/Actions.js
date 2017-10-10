@@ -46,6 +46,12 @@ export {
 	setInterimResult
 } from './chatAndRecognitionAction'
 
+export {
+	setGrid,
+	setGridDetailOpen,
+	setGridDetailClose,
+	setGridStart
+} from "./grid"
 
 export function addChatRecord(recordObj) {
 	return {

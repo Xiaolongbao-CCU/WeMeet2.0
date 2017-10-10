@@ -20,7 +20,8 @@ import {
     deleteAgenda,
     updateAgenda,
     doneAgenda,
-    addRecognitionRecord
+    addRecognitionRecord,
+    setGrid
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -97,5 +98,9 @@ socket
 
 socket.on("remoteUserRecognitionRecord",history=>{
     store.dispatch(addRecognitionRecord(history))
+})
+
+socket.on("setGrid",obj=>{
+    store.dispatch(setGrid(obj))
 })
 export default socket;

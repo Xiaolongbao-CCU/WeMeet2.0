@@ -17,9 +17,9 @@ class MainScreen extends React.Component {
         };
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         let video = [];
@@ -27,11 +27,17 @@ class MainScreen extends React.Component {
             video.push(
                 <div className="otheruser">
                     <div className="video">
-                        <video
-                            src={this.props.localVideoURL}
-                            autoPlay={true}
-                            muted={true}
-                        />
+                        {this.props.isStreaming ?
+                            <video
+                                src={this.props.localVideoURL}
+                                autoPlay={true}
+                                muted={true}
+                            /> :
+                            <img
+                                className="img"
+                                src="./img/animal3.jpg"
+                            />
+                        }
                     </div>
                     <div
                         className="user-infro"
@@ -43,11 +49,11 @@ class MainScreen extends React.Component {
                         />
                         <label className="user-name">
                             {this.props.userName ||
-                                this.props.participantList.reduce((sum,value)=>{
-                                        if(value.id == this.props.localUserID){
-                                            return sum = value.animal
-                                        }
-                                    },"")}
+                                this.props.participantList.reduce((sum, value) => {
+                                    if (value.id == this.props.localUserID) {
+                                        return sum = value.animal
+                                    }
+                                }, "")}
                         </label>
                     </div>
                     <img
@@ -73,11 +79,18 @@ class MainScreen extends React.Component {
             Object.keys(this.props.remoteStreamURL).map(userID => {
                 video.push(
                     <div className="otheruser">
-                        <video
-                            className="video"
-                            src={this.props.remoteStreamURL[userID].url}
-                            autoPlay={true}
-                        />
+                        <div className="video">
+                            {this.props.isStreaming ?
+                                <video
+                                    src={this.props.remoteStreamURL[userID].url}
+                                    autoPlay={true}
+                                /> :
+                                <img
+                                    className="img"
+                                    src="./img/animal3.jpg"
+                                />
+                            }
+                        </div>
                         <div
                             className="user-infro"
                             id={this.state.UserInfro.first.userIdentity}
@@ -88,13 +101,13 @@ class MainScreen extends React.Component {
                             />
                             <label className="user-name">
                                 {this.props.remoteUserName[userID] &&
-                                this.props.remoteUserName[userID] !== userID
+                                    this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
-                                    : this.props.participantList.reduce((sum,value)=>{
-                                        if(value.id == userID){
+                                    : this.props.participantList.reduce((sum, value) => {
+                                        if (value.id == userID) {
                                             return sum = value.animal
                                         }
-                                    },"")}
+                                    }, "")}
                             </label>
                         </div>
                         <img

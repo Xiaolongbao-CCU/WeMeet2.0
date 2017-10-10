@@ -6,5 +6,16 @@ import chat from "./chat";
 import agenda from "./agenda";
 import chatAndRecognition from "./chatAndRecognition"
 import time from "./time"
+import grid from "./grid";
 
-export { roomList, participantList, connection, vote, chat, agenda,chatAndRecognition,time };
+export {
+	roomList,
+	participantList,
+	connection,
+	vote,
+	chat,
+	agenda,
+	chatAndRecognition,
+	grid
+};
+

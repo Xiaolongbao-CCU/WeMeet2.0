@@ -8,9 +8,21 @@ class VoiceRecognition extends React.Component {
         super(props);
     }
 
-    componentWillMount() { }
+    componentWillMount() {
+    }
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+        const node = this.messagesEnd;
+        node.scrollIntoView({ behavior: "smooth" });
+    }
 
     render() {
         let RecognitionRecord = [];
@@ -57,7 +69,12 @@ class VoiceRecognition extends React.Component {
         return (
             <div className="leftchatbox">
                 {RecognitionRecord}
+                <div
+                    style={{ float: "left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}
+                />
             </div>
+
         )
     }
 }
