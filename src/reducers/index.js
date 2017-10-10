@@ -5,5 +5,6 @@ import vote from "./vote";
 import chat from "./chat";
 import agenda from "./agenda";
 import chatAndRecognition from "./chatAndRecognition"
+import time from "./time"
 
-export { roomList, participantList, connection, vote, chat, agenda,chatAndRecognition };
+export { roomList, participantList, connection, vote, chat, agenda,chatAndRecognition,time };
