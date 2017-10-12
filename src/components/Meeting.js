@@ -79,9 +79,6 @@ class Meeting extends React.Component {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
-        if (this.props.userName) {
-
-        }
     }
 
     componentDidMount() {
@@ -177,19 +174,23 @@ class Meeting extends React.Component {
                         if (!isInitiator && this.Chat.localStream) {
                             peerConn.addStream
                         }
+                    })
+                    .then(() => {
                         return peerConn.createAnswer();
                     })
                     .then(answer => {
                         console.log("創建好本地端的 " + answer + "，要傳出去");
-                        peerConn.setLocalDescription(answer);
-                        socket.emit(
-                            "answerRemotePeer",
-                            answer,
-                            this.localUserID,
-                            sender,
-                            this.props.isStreaming,
-                            this.props.isSounding
-                        );
+                        peerConn.setLocalDescription(answer)
+                        .then(()=>{
+                            socket.emit(
+                                "answerRemotePeer",
+                                answer,
+                                this.localUserID,
+                                sender,
+                                this.props.isStreaming,
+                                this.props.isSounding
+                            );
+                        })
                     })
                     .catch(e => {
                         console.log("發生錯誤了看這裡:" + e);

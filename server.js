@@ -319,6 +319,9 @@ io.on("connection", function (socket) {
     socket.on("setGrid",(obj)=>{
         let room = Object.keys(socket.rooms)[1];
         socket.to(room).emit("setGrid",obj)
+    }).on("setGridStart",()=>{
+        let room = Object.keys(socket.rooms)[1];
+        socket.to(room).emit("setGridStart")
     })
 
     socket.on("getHistory", room => {

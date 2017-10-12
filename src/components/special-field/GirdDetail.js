@@ -20,6 +20,7 @@ class GirdDetail extends React.Component {
     onClick_start() {
         this.props.dispatch(setGridDetailClose());
         this.props.dispatch(setGridStart());
+        socket.emit('setGridStart');
     }
     render() {
         return (
