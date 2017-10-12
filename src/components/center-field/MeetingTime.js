@@ -1,6 +1,8 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux"
+import {setMeetingTime} from "../../actions/meetingAction"
 
 class MeetingTime extends React.Component {
     constructor(props) {
@@ -25,6 +27,7 @@ class MeetingTime extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.recorder);
+        this.props.dispatch(setMeetingTime(Object.values(this.state.Meetingtime)))
     }
 
     StartMeetingTime() {
@@ -59,4 +62,4 @@ class MeetingTime extends React.Component {
     }
 }
 
-export default MeetingTime;
+export default connect()(MeetingTime);

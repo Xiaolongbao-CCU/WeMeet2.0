@@ -78,7 +78,6 @@ class Meeting extends React.Component {
             isJiugonggePlaying: false,
             isKJPlaying: false,
             isSixHatPlaying: false,
-            roomURL: ""
         };
         this.localStreamURL = "";
     }
@@ -87,9 +86,6 @@ class Meeting extends React.Component {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
-        if (this.props.userName) {
-
-        }
     }
 
     componentDidMount() {
@@ -185,19 +181,23 @@ class Meeting extends React.Component {
                         if (!isInitiator && this.Chat.localStream) {
                             peerConn.addStream
                         }
+                    })
+                    .then(() => {
                         return peerConn.createAnswer();
                     })
                     .then(answer => {
                         console.log("創建好本地端的 " + answer + "，要傳出去");
-                        peerConn.setLocalDescription(answer);
-                        socket.emit(
-                            "answerRemotePeer",
-                            answer,
-                            this.localUserID,
-                            sender,
-                            this.props.isStreaming,
-                            this.props.isSounding
-                        );
+                        peerConn.setLocalDescription(answer)
+                            .then(() => {
+                                socket.emit(
+                                    "answerRemotePeer",
+                                    answer,
+                                    this.localUserID,
+                                    sender,
+                                    this.props.isStreaming,
+                                    this.props.isSounding
+                                );
+                            })
                     })
                     .catch(e => {
                         console.log("發生錯誤了看這裡:" + e);
@@ -276,47 +276,48 @@ class Meeting extends React.Component {
         }
 
         return (
-            <div className="container" id="in">
-                {this.state.isVoteResultOpen ? <VoteResult /> : null}
-                {this.state.isJiugonggeOpen ? <GirdDetail /> : null}
-                {this.state.isKJOpen ? <KJDetail /> : null}
-                {this.state.isSixHatPlaying ? <SixHatDetail /> : null}
+        <div className="container" id="in">
+            {this.state.isVoteResultOpen ? <VoteResult /> : null}
+            { this.props.isGridDetailOpen ? <GirdDetail /> : null }
+            { this.state.isKJOpen ? <KJDetail /> : null }
+            { this.state.isSixHatPlaying ? <SixHatDetail /> : null }
 
-                <div className="left-field">
-                    <CVcontrol />
-                    {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
-
-                </div>
-
-                <div className="center-field">
-                    <Toolbar />
-                    {this.state.isJiugonggePlaying ? <GridGame /> : <MainScreen />}
-                    <AVcontrol Chat={this.Chat} />
-                </div>
-
-                <div className="right-field">
-                    <Agenda />
-                    <Vote />
-                </div>
-
-                <Background />
+            <div className="left-field">
+                <CVcontrol />
+                {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
+                {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
             </div>
-        );
+
+            <div className="center-field">
+                <Toolbar />
+                {this.props.isGridStart ? <GridGame /> : <MainScreen />}
+                <AVcontrol Chat={this.Chat} />
+            </div >
+
+            <div className="right-field">
+                <Agenda />
+                <Vote />
+            </div>
+
+        <Background />
+        </div >
+    );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        userName: state.connection.userName,
-        localUserID: state.connection.localUserID,
-        isStreaming: state.connection.isStreaming,
-        isSounding: state.connection.isSounding,
-        connections: state.connection.connections,
-        remoteStreamURL: state.connection.remoteStreamURL,
-        candidateQueue: state.connection.candidateQueue,
-        isInChatNow: state.chatAndRecognition.isInChatNow
+    const mapStateToProps = state => {
+        return {
+            userName: state.connection.userName,
+            localUserID: state.connection.localUserID,
+            isStreaming: state.connection.isStreaming,
+            isSounding: state.connection.isSounding,
+            connections: state.connection.connections,
+            remoteStreamURL: state.connection.remoteStreamURL,
+            candidateQueue: state.connection.candidateQueue,
+            isInChatNow: state.chatAndRecognition.isInChatNow,
+            isGridDetailOpen: state.grid.isGridDetailOpen,
+            isGridStart: state.grid.isGridStart
+        };
     };
-};
 
-export default connect(mapStateToProps)(Meeting);
+    export default connect(mapStateToProps)(Meeting);

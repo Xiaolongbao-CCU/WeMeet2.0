@@ -1,6 +1,7 @@
 "use strict";
 export {
 	setUserName,
+	setAnimalName,
 	setRoomName,
 	setRemoteUserName,
 	setLocalUserID,
@@ -20,6 +21,7 @@ export {
 	setRemoteAudioState,
 	delRemoteStreamURL,
 	addCandidateQueue,
+	setMeetingTime
 } from './meetingAction';
 
 export {
@@ -45,6 +47,12 @@ export {
 	setInterimResult
 } from './chatAndRecognitionAction'
 
+export {
+	setGrid,
+	setGridDetailOpen,
+	setGridDetailClose,
+	setGridStart
+} from "./grid"
 
 export function addChatRecord(recordObj) {
 	return {
