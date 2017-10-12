@@ -276,3 +276,50 @@ opacity: 0;
   }
   
   }
+
+  
+@-webkit-keyframes lineRight {
+  0% {
+  width: 0%;
+  }
+
+  100% {
+  width: 78%;
+  }
+  
+  }
+
+  @-webkit-keyframes Bigger {
+    0% {
+      position: fixed;
+      top: 10%;
+      left: 20%;
+      width: 60%;
+      height: 78%;
+    }
+  
+    100% {
+      position: fixed;
+      top: 2%;
+      left: 2%;
+      width: 100%;
+      height: 96%;
+    }
+    
+    }
+
+    @-webkit-keyframes Smaller {
+      0% {
+        position: fixed;
+        top: 2%;
+        left: 2%;
+        width: 100%;
+        height: 96%;
+      }
+    
+      100% {
+
+      }
+      
+      }
+

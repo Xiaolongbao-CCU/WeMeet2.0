@@ -22,7 +22,11 @@ class MeetingRecord extends React.Component {
                             this.props.remoteUserName[record.userID] !==
                             record.userID
                             ? this.props.remoteUserName[record.userID]
-                            : "u_" + record.userID.substring(0, 4)}
+                            : this.props.participantList.reduce((sum,value)=>{
+                                if(value.id == recood.userID){
+                                    return sum = value.animal
+                                }
+                            },"")}
                         {":"}
                         {record.text}
                     </ul>
@@ -36,7 +40,7 @@ class MeetingRecord extends React.Component {
                     <div className="banner">
                         <a href="/"><img className="logo" src="./img/index_logo2.png" />
                             <div className="backtoindex">回首頁</div>
-                        </agit checkout -b Dev-Andy origin/Dev-Andy
+                        </a>
                         <div className="title">
                             <div className="circle">會</div>
                             <div className="circle">議</div>
@@ -48,7 +52,9 @@ class MeetingRecord extends React.Component {
                         <div className="old-data">
                             <div className="title">會議日期：2017/09/27</div>
                             <div className="title">與會人員：Andy、威君、詩婷、又嘉、宣妮、成財</div>
-                            <div className="title">會議長度：1小時00分</div>
+                            <div className="title">會議長度：
+                            {this.props.time[0]}小時{this.props.time[1]}分{this.props.time[2]}秒
+                            </div>
                             <div className="text">
                                 {meetingRecord}
                             </div>
@@ -76,6 +82,8 @@ class MeetingRecord extends React.Component {
 }
 const mapStateToProps = state => {
     return {
+        time:state.time,
+        participantList: state.participantList,
         recognitionRecord: state.chatAndRecognition.recognitionRecord,
         remoteUserName: state.connection.remoteUserName
     };

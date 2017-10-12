@@ -119,7 +119,7 @@ class Vote extends React.Component {
         } else {
             //不是匿名的，就傳
             socket.emit("gotVoteFromUser", {
-                sender: this.props.localUserID,
+                sender: this.props.userName || this.props.localUserID,
                 content: this.state.optionSelected
             });
         }
@@ -148,18 +148,28 @@ class Vote extends React.Component {
                         >
                             {this.props.votingDetail.voting.option[key]}
                         </span>
-                        <span className="bar"> </span>
+                        <span className="bar"></span>
                         <span className="people">
                             人數:{this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
                             投票者:{
                                 this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
                                     (
-                                        this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.reduce((allName, userName) => {
-                                            return allName + userName + "、"
-                                        }, "") : ""
+                                        this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.toString() : ""
                                     )
                             }
                         </span>
+                        {this.state.isVoteSubmited ?
+                            <div className="people-detail">
+                                投票者：{
+                                    this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
+                                        (
+                                            this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.reduce((allName, userName) => {
+                                                return allName + userName + "、"
+                                            }, "") : ""
+                                        )
+                                }
+                            </div> : null
+                        }
                     </div>
                 );
             });
@@ -248,6 +258,7 @@ class Vote extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        userName:state.connection.userName,
         votingDetail: state.vote,
         isVotingFinish: state.vote.isVotingFinish,
         localUserID: state.connection.localUserID,
