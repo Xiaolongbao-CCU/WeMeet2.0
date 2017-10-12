@@ -33,6 +33,8 @@ import Toolbar from "./center-field/Toolbar";
 import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
+import KJGame from "./center-field/KJGame";
+import SixHatGame from "./center-field/SixHatGame";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -42,6 +44,8 @@ import Vote from "./right-field/Vote";
 import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
 import GirdDetail from "./special-field/GirdDetail";
+import KJDetail from "./special-field/KJDetail";
+import SixHatDetail from "./special-field/SixHatDetail";
 
 let configuration = {
     iceServers: [
@@ -68,8 +72,12 @@ class Meeting extends React.Component {
         this.state = {
             loading: true,
             isVoteResultOpen: false,
-            isJiugonggeOpen: false,
-            isJiugonggePlaying: true,
+            isJiugonggeOpen: true,
+            isKJOpen: false,
+            isSixHatOpen: false,
+            isJiugonggePlaying: false,
+            isKJPlaying: false,
+            isSixHatPlaying: false,
             roomURL: ""
         };
         this.localStreamURL = "";
@@ -271,6 +279,8 @@ class Meeting extends React.Component {
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 {this.state.isJiugonggeOpen ? <GirdDetail /> : null}
+                {this.state.isKJOpen ? <KJDetail /> : null}
+                {this.state.isSixHatPlaying ? <SixHatDetail /> : null}
 
                 <div className="left-field">
                     <CVcontrol />
@@ -282,7 +292,6 @@ class Meeting extends React.Component {
                 <div className="center-field">
                     <Toolbar />
                     {this.state.isJiugonggePlaying ? <GridGame /> : <MainScreen />}
-
                     <AVcontrol Chat={this.Chat} />
                 </div>
 

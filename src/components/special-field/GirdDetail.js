@@ -6,6 +6,7 @@ class GirdDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            hadBeenPlayed: false
         }
     }
 
@@ -47,7 +48,8 @@ class GirdDetail extends React.Component {
                 </div>
                 <div className="bottom-field">
                     <div className="button">開始遊戲</div>
-                    <div className="button">看教學</div>
+                    <div className="button">觀看教學</div>
+                    <div className="button" id={this.state.hadBeenPlayed ? "" : "closed"}>歷史紀錄</div>
                 </div>
             </div>
         )

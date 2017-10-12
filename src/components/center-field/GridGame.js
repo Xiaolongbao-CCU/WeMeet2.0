@@ -26,17 +26,24 @@ class GridGame extends React.Component {
   render() {
     return (
       <div className="main-screen" id={this.state.isEnlarge ? "bigger" : ""} >
-        {
-          this.state.isEnlarge ?
-            <div className="backtosmall" onClick={this.onClick_ChangeSize} ></div> :
-            <div className="button1" id="fullscreen" onClick={this.onClick_ChangeSize}>放大</div>
-        }
+
 
         {
           this.state.isEnlarge ?
-            <div className="blackBG" /> :
-            <div className="button1" id="reset" >清空</div>
+            <div className="blackBG" /> : null
         }
+
+        <div className="gametoolbar" id={this.state.isEnlarge ? "bigger" : ""}>
+          {
+            this.state.isEnlarge ?
+              <div className="button2" id="backtosmall" onClick={this.onClick_ChangeSize}>縮小</div> :
+              <div className="button2" id="fullscreen" onClick={this.onClick_ChangeSize}>放大</div>
+          }
+          <div className="button2" id="reset">清空</div>
+          <div className="button2" id="dowload">下載</div>
+          <div className="button2" id="shutdown">結束</div>
+
+        </div>
 
         < div className="divTable first" >
           <div className="divTableBody">
