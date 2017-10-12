@@ -34,7 +34,6 @@ import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
 import KJGame from "./center-field/KJGame";
-import SixHatGame from "./center-field/SixHatGame";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -69,15 +68,14 @@ class Meeting extends React.Component {
         super(props);
         this.Chat = chat.createNew(this);
         this.Recognizer = recognition.createNew(this);
-        this.state = {
+        this.state = { 
             loading: true,
             isVoteResultOpen: false,
-            isJiugonggeOpen: true,
+            isJiugonggeOpen: false,
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false,
-            isSixHatPlaying: false,
+            isKJPlaying: false
         };
         this.localStreamURL = "";
     }
@@ -278,10 +276,11 @@ class Meeting extends React.Component {
         return (
         <div className="container" id="in">
             {this.state.isVoteResultOpen ? <VoteResult /> : null}
-            { this.props.isGridDetailOpen ? <GirdDetail /> : null }
-            { this.state.isKJOpen ? <KJDetail /> : null }
-            { this.state.isSixHatPlaying ? <SixHatDetail /> : null }
-
+            {
+                this.props.isGridDetailOpen ? <GirdDetail /> :
+                this.state.isKJOpen ? <KJDetail /> :
+                this.state.isSixHatOpen ? <SixHatDetail /> : null
+            }
             <div className="left-field">
                 <CVcontrol />
                 {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
@@ -290,7 +289,11 @@ class Meeting extends React.Component {
 
             <div className="center-field">
                 <Toolbar />
-                {this.props.isGridStart ? <GridGame /> : <MainScreen />}
+                {
+                    this.props.isGridStart ? <GridGame /> : 
+                    this.state.isKJPlaying ? <KJGame /> :
+                    <MainScreen />
+                }                
                 <AVcontrol Chat={this.Chat} />
             </div >
 
