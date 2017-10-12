@@ -144,3 +144,9 @@ export function addCandidateQueue(candidateObj) {
 	};
 }
 
+export function setMeetingTime(timeArray) {
+	return {
+		type: "setMeetingTime",
+		data: timeArray
+	};
+}

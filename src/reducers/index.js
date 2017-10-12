@@ -4,7 +4,8 @@ import connection from "./connection";
 import vote from "./vote";
 import chat from "./chat";
 import agenda from "./agenda";
-import chatAndRecognition from "./chatAndRecognition";
+import chatAndRecognition from "./chatAndRecognition"
+import time from "./time"
 import grid from "./grid";
 
 export {
@@ -17,3 +18,4 @@ export {
 	chatAndRecognition,
 	grid
 };
+
