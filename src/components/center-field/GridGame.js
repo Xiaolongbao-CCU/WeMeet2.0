@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { setGrid } from "../../actions/Actions";
 import socket from "../../socket";
+import { downloadCSV } from "../../lib/downloadCSV";
 
 class GridGame extends React.Component {
     constructor(props) {
@@ -57,9 +58,9 @@ class GridGame extends React.Component {
         ];
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onChangeInput(e) {
         let key = e.target.getAttribute("data");
@@ -87,54 +88,56 @@ class GridGame extends React.Component {
             return true;
         };
 
-        if ((b == 1 && c == 1) || a == 4) {
-            //0
-            if (equal([a, b, c], [0, 1, 1]) || equal([a, b, c], [4, 0, 0])) {
-                todo([0, 1, 1], e.target.value);
-                todo([4, 0, 0], e.target.value);
-            }
-            //1
-            if (equal([a, b, c], [1, 1, 1]) || equal([a, b, c], [4, 0, 1])) {
-                todo([1, 1, 1], e.target.value);
-                todo([4, 0, 1], e.target.value);
-            }
-            //2
-            if (equal([a, b, c], [2, 1, 1]) || equal([a, b, c], [4, 0, 2])) {
-                todo([2, 1, 1], e.target.value);
-                todo([4, 0, 2], e.target.value);
-            }
-            //3
-            if (equal([a, b, c], [3, 1, 1]) || equal([a, b, c], [4, 1, 0])) {
-                todo([3, 1, 1], e.target.value);
-                todo([4, 1, 0], e.target.value);
-            }
-
-            //5
-            if (equal([a, b, c], [5, 1, 1]) || equal([a, b, c], [4, 1, 2])) {
-                todo([5, 1, 1], e.target.value);
-                todo([4, 1, 2], e.target.value);
-            }
-            //6
-            if (equal([a, b, c], [6, 1, 1]) || equal([a, b, c], [4, 2, 0])) {
-                todo([6, 1, 1], e.target.value);
-                todo([4, 2, 0], e.target.value);
-            }
-            //7
-            if (equal([a, b, c], [7, 1, 1]) || equal([a, b, c], [4, 2, 1])) {
-                todo([7, 1, 1], e.target.value);
-                todo([4, 2, 1], e.target.value);
-            }
-            //
-            if (equal([a, b, c], [8, 1, 1]) || equal([a, b, c], [4, 2, 2])) {
-                todo([8, 1, 1], e.target.value);
-                todo([4, 2, 2], e.target.value);
-            }
-        } else if (a == 4 && b == 1 && c == 1) {
-            todo([4, 1, 1], e.target.value);
-        } else {
-            todo([a, b, c], e.target.value);
+        //0
+        if (equal([a, b, c], [0, 1, 1]) || equal([a, b, c], [4, 0, 0])) {
+            todo([0, 1, 1], e.target.value);
+            todo([4, 0, 0], e.target.value);
+        }
+        //1
+        if (equal([a, b, c], [1, 1, 1]) || equal([a, b, c], [4, 0, 1])) {
+            todo([1, 1, 1], e.target.value);
+            todo([4, 0, 1], e.target.value);
+        }
+        //2
+        if (equal([a, b, c], [2, 1, 1]) || equal([a, b, c], [4, 0, 2])) {
+            todo([2, 1, 1], e.target.value);
+            todo([4, 0, 2], e.target.value);
+        }
+        //3
+        if (equal([a, b, c], [3, 1, 1]) || equal([a, b, c], [4, 1, 0])) {
+            todo([3, 1, 1], e.target.value);
+            todo([4, 1, 0], e.target.value);
         }
 
+        //5
+        if (equal([a, b, c], [5, 1, 1]) || equal([a, b, c], [4, 1, 2])) {
+            todo([5, 1, 1], e.target.value);
+            todo([4, 1, 2], e.target.value);
+        }
+        //6
+        if (equal([a, b, c], [6, 1, 1]) || equal([a, b, c], [4, 2, 0])) {
+            todo([6, 1, 1], e.target.value);
+            todo([4, 2, 0], e.target.value);
+        }
+        //7
+        if (equal([a, b, c], [7, 1, 1]) || equal([a, b, c], [4, 2, 1])) {
+            todo([7, 1, 1], e.target.value);
+            todo([4, 2, 1], e.target.value);
+        }
+        //
+        if (equal([a, b, c], [8, 1, 1]) || equal([a, b, c], [4, 2, 2])) {
+            todo([8, 1, 1], e.target.value);
+            todo([4, 2, 2], e.target.value);
+        }
+
+        if (a == 4 && b == 1 && c == 1) {
+            todo([4, 1, 1], e.target.value);
+        }
+ 
+        if(a !== 4 && !(b == 1 && c== 1)){
+            todo([a, b, c], e.target.value);
+        }
+        
         // this.setState({
         //     grid:[
         //         ...this.state.grid.slice(0,a),
@@ -231,14 +234,14 @@ class GridGame extends React.Component {
                             縮小
                         </div>
                     ) : (
-                            <div
-                                className="button2"
-                                id="fullscreen"
-                                onClick={this.onClick_ChangeSize}
-                            >
-                                放大
+                        <div
+                            className="button2"
+                            id="fullscreen"
+                            onClick={this.onClick_ChangeSize}
+                        >
+                            放大
                         </div>
-                        )}
+                    )}
                     <div
                         className="button2"
                         id="reset"
@@ -248,7 +251,13 @@ class GridGame extends React.Component {
                     >
                         清空
                     </div>
-                    <div className="button2" id="dowload">
+                    <div
+                        className="button2"
+                        id="dowload"
+                        onClick={() => {
+                            downloadCSV(this.props.grid);
+                        }}
+                    >
                         下載
                     </div>
                     <div className="button2" id="shutdown">
