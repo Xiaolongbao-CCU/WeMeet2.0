@@ -2,6 +2,7 @@ import socket from "../socket";
 
 const initialState = {
     userName:"",
+    animalName:"",
     roomName:"",
     localUserID: "",
     localVideoURL: "",
@@ -21,6 +22,8 @@ export default function connection(state = initialState, action) {
             } else {
                 return state
             }
+        case "setAnimalName":
+            return Object.assign({}, state, { animalName: action.data });
         case "setRoomName":
             return Object.assign({}, state, { roomName: action.data });
         case "setRemoteUserName":
@@ -86,7 +89,6 @@ export default function connection(state = initialState, action) {
             };
 
         case "setRemoteVideoState":
-            console.log(action.data.remotePeer);
             return {
                 ...state,
                 remoteStreamURL: {

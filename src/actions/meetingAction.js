@@ -1,5 +1,12 @@
 "use strict";
 
+
+export function setAnimalName(name) {
+	return {
+		type: "setAnimalName",
+		data: name
+	};
+}
 export function setUserName(name) {
 	return {
 		type: "setUserName",

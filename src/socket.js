@@ -2,6 +2,7 @@ import socketIO from "socket.io-client";
 import store from "./store";
 import {
     setUserName,
+    setAnimalName,
     setRoomList,
     setRemoteUserName,
     addRoom,
@@ -46,7 +47,7 @@ socket
 socket
     .on("setParticipantList", participantList => {
         store.dispatch(setParticipantList(participantList));
-        store.dispatch(setUserName(participantList[0].animal))
+        store.dispatch(setAnimalName(participantList[0].animal))
     })
     .on("addParticipantList", participantID => {
         store.dispatch(addParticipantList(participantID));
@@ -102,5 +103,7 @@ socket.on("remoteUserRecognitionRecord",history=>{
 
 socket.on("setGrid",obj=>{
     store.dispatch(setGrid(obj))
+}).on("setGridStart",()=>{
+    store.dispatch(setGridStart())
 })
 export default socket;

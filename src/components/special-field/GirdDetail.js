@@ -7,7 +7,9 @@ import { setGridDetailClose, setGridStart } from "../../actions/Actions";
 class GirdDetail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            hadBeenPlayed: false
+        }
     }
 
     componentWillMount() {}
@@ -20,6 +22,7 @@ class GirdDetail extends React.Component {
     onClick_start() {
         this.props.dispatch(setGridDetailClose());
         this.props.dispatch(setGridStart());
+        socket.emit('setGridStart');
     }
     render() {
         return (
@@ -61,15 +64,9 @@ class GirdDetail extends React.Component {
                     </div>
                 </div>
                 <div className="bottom-field">
-                    <div
-                        className="button"
-                        onClick={() => {
-                            this.onClick_start();
-                        }}
-                    >
-                        開始遊戲
-                    </div>
-                    <div className="button">看教學</div>
+                    <div className="button" onClick={() => {this.onClick_start();}}>開始遊戲</div>
+                    <div className="button">觀看教學</div>
+                    <div className="button" id={this.state.hadBeenPlayed ? "" : "closed"}>歷史紀錄</div>
                 </div>
             </div>
         );
