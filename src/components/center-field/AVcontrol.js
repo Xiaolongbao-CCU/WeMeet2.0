@@ -48,7 +48,7 @@ class AVcontrol extends React.Component {
     }
 
     onClick_showRecord() {
-        this.props.history.push("/record#" + this.props.roomName)
+        this.props.history.push("/record" + this.props.roomName.substring(35))
     }
 
     render() {

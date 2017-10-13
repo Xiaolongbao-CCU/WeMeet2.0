@@ -16,6 +16,7 @@ export {
 	chat,
 	agenda,
 	chatAndRecognition,
+	time,
 	grid
 };
 
