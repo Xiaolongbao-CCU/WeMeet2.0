@@ -252,6 +252,25 @@ class Meeting extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        socket.emit("leaveRoom");
+        if (this.state.isStreaming) {
+            this.Chat.toggleUserMedia();
+            this.props.dispatch(toggleUserMedia());
+        }
+        if (this.state.isSounding) {
+            this.Chat.toggleAudio();
+            this.props.dispatch(toggleAudio());
+        }
+        socket
+            .off("gotSocketID")
+            .off("joinRoom")
+            .off("newParticipantB")
+            .off("answer")
+            .off("offer")
+            .off("onIceCandidateB")
+            .off("participantDisconnected");
+    }
     render() {
         const { loading } = this.state;
 

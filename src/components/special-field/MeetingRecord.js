@@ -33,7 +33,7 @@ class MeetingRecord extends React.Component {
                 );
             });
         }
-
+        console.log(this.props)
         return (
             <div className="container">
                 <div className="meetingrecord">
