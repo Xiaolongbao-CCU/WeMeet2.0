@@ -150,13 +150,7 @@ class Vote extends React.Component {
                         </span>
                         <span className="bar"></span>
                         <span className="people">
-                            人數:{this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
-                            投票者:{
-                                this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
-                                    (
-                                        this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.toString() : ""
-                                    )
-                            }
+                            {this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
                         </span>
                         {this.state.isVoteSubmited ?
                             <div className="people-detail">

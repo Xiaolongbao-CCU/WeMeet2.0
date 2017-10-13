@@ -66,74 +66,73 @@ class GridGame extends React.Component {
         let a = parseInt(key.substring(5, 6));
         let b = parseInt(key.substring(7, 8));
         let c = parseInt(key.substring(9, 10));
-        let todo = (array,value)=> {
+        let todo = (array, value) => {
             this.props.dispatch(
                 setGrid({
-                    position: [array[0],array[1],array[2]],
+                    position: [array[0], array[1], array[2]],
                     value: value
                 })
             );
             socket.emit("setGrid", {
-                position:  [array[0],array[1],array[2]],
+                position: [array[0], array[1], array[2]],
                 value: value
             });
-        }
-        let equal = (arrayA,arrayB)=>{
-            for(let i = 0;i<3;i++){
-                if(arrayA[i] !== arrayB[i]){
-                    return false
+        };
+        let equal = (arrayA, arrayB) => {
+            for (let i = 0; i < 3; i++) {
+                if (arrayA[i] !== arrayB[i]) {
+                    return false;
                 }
             }
-            return true
-        }
+            return true;
+        };
 
-        if (b == 1 && c == 1 || a == 4) {
+        if ((b == 1 && c == 1) || a == 4) {
             //0
-            if ( equal([a,b,c],[0,1,1]) || equal([a,b,c],[4,0,0]) ){
-                todo([0,1,1],e.target.value)
-                todo([4,0,0],e.target.value)
+            if (equal([a, b, c], [0, 1, 1]) || equal([a, b, c], [4, 0, 0])) {
+                todo([0, 1, 1], e.target.value);
+                todo([4, 0, 0], e.target.value);
             }
             //1
-            if ( equal([a,b,c],[1,1,1]) || equal([a,b,c],[4,0,1]) ){
-                todo([1,1,1],e.target.value)
-                todo([4,0,1],e.target.value)
+            if (equal([a, b, c], [1, 1, 1]) || equal([a, b, c], [4, 0, 1])) {
+                todo([1, 1, 1], e.target.value);
+                todo([4, 0, 1], e.target.value);
             }
             //2
-            if ( equal([a,b,c],[2,1,1]) || equal([a,b,c],[4,0,2]) ){
-                todo([2,1,1],e.target.value)
-                todo([4,0,2],e.target.value)
+            if (equal([a, b, c], [2, 1, 1]) || equal([a, b, c], [4, 0, 2])) {
+                todo([2, 1, 1], e.target.value);
+                todo([4, 0, 2], e.target.value);
             }
             //3
-            if ( equal([a,b,c],[3,1,1]) || equal([a,b,c],[4,1,0]) ){
-                todo([3,1,1],e.target.value)
-                todo([4,1,0],e.target.value)
-            }
-            
-            //5
-            if ( equal([a,b,c],[5,1,1]) || equal([a,b,c],[4,1,2]) ){
-                todo([5,1,1],e.target.value)
-                todo([4,1,2],e.target.value)
-            }
-            //6
-            if ( equal([a,b,c],[6,1,1]) || equal([a,b,c],[4,2,0]) ){
-                todo([6,1,1],e.target.value)
-                todo([4,2,0],e.target.value)
-            }
-            //7
-            if ( equal([a,b,c],[7,1,1]) || equal([a,b,c],[4,2,1]) ){
-                todo([7,1,1],e.target.value)
-                todo([4,2,1],e.target.value)
-            }
-            //
-            if ( equal([a,b,c],[8,1,1]) || equal([a,b,c],[4,2,2]) ){
-                todo([8,1,1],e.target.value)
-                todo([4,2,2],e.target.value)
+            if (equal([a, b, c], [3, 1, 1]) || equal([a, b, c], [4, 1, 0])) {
+                todo([3, 1, 1], e.target.value);
+                todo([4, 1, 0], e.target.value);
             }
 
-        } else if (a == 4 && b == 1 && c == 1 ){
-            todo([4,1,1],e.target.value)
+            //5
+            if (equal([a, b, c], [5, 1, 1]) || equal([a, b, c], [4, 1, 2])) {
+                todo([5, 1, 1], e.target.value);
+                todo([4, 1, 2], e.target.value);
+            }
+            //6
+            if (equal([a, b, c], [6, 1, 1]) || equal([a, b, c], [4, 2, 0])) {
+                todo([6, 1, 1], e.target.value);
+                todo([4, 2, 0], e.target.value);
+            }
+            //7
+            if (equal([a, b, c], [7, 1, 1]) || equal([a, b, c], [4, 2, 1])) {
+                todo([7, 1, 1], e.target.value);
+                todo([4, 2, 1], e.target.value);
+            }
+            //
+            if (equal([a, b, c], [8, 1, 1]) || equal([a, b, c], [4, 2, 2])) {
+                todo([8, 1, 1], e.target.value);
+                todo([4, 2, 2], e.target.value);
+            }
+        } else if (a == 4 && b == 1 && c == 1) {
+            todo([4, 1, 1], e.target.value);
         } else {
-            todo([a,b,c],e.target.value)
+            todo([a, b, c], e.target.value);
         }
 
         // this.setState({
@@ -151,12 +150,6 @@ class GridGame extends React.Component {
         //         ...this.state.grid.slice(a+1)
         //     ]
         // })
-    }
-
-    onClick_ChangeSize() {
-        this.setState({
-            isEnlarge: !this.state.isEnlarge
-        });
     }
 
     onClick_clearGrid() {
@@ -218,26 +211,30 @@ class GridGame extends React.Component {
                 className="main-screen"
                 id={this.state.isEnlarge ? "bigger" : ""}
             >
-                {this.state.isEnlarge ? (
+                {this.state.isEnlarge ? <div className="blackBG" /> : null}
+                <div
+                    className="gametoolbar"
+                    id={this.state.isEnlarge ? "bigger" : ""}
+                >
+                    {this.state.isEnlarge ? (
+                        <div
+                            className="button2"
+                            id="backtosmall"
+                            onClick={this.onClick_ChangeSize}
+                        >
+                            縮小
+                        </div>
+                    ) : (
+                        <div
+                            className="button2"
+                            id="fullscreen"
+                            onClick={this.onClick_ChangeSize}
+                        >
+                            放大
+                        </div>
+                    )}
                     <div
-                        className="backtosmall"
-                        onClick={this.onClick_ChangeSize}
-                    />
-                ) : (
-                    <div
-                        className="button1"
-                        id="fullscreen"
-                        onClick={this.onClick_ChangeSize}
-                    >
-                        放大
-                    </div>
-                )}
-
-                {this.state.isEnlarge ? (
-                    <div className="blackBG" />
-                ) : (
-                    <div
-                        className="button1"
+                        className="button2"
                         id="reset"
                         onClick={() => {
                             this.onClick_clearGrid();
@@ -245,7 +242,13 @@ class GridGame extends React.Component {
                     >
                         清空
                     </div>
-                )}
+                    <div className="button2" id="dowload">
+                        下載
+                    </div>
+                    <div className="button2" id="shutdown">
+                        結束
+                    </div>
+                </div>
                 {result}
             </div>
         );

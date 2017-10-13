@@ -2,6 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import SixHatGame from "./SixHatGame";
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class MainScreen extends React.Component {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num
-            }
+            },
+            isSixHatPlaying: true
         };
     }
 
@@ -32,7 +34,7 @@ class MainScreen extends React.Component {
         });
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClickSelfStream() {
         this.setState({
@@ -76,18 +78,18 @@ class MainScreen extends React.Component {
                                 }}
                             />
                         ) : (
-                            <img
-                                className="img"
-                                src={
-                                    "./img/animal" +
-                                    (this.props.participantList[0].num + 1) +
-                                    ".jpg"
-                                }
-                                onClick={() => {
-                                    this.onClickSelfStream();
-                                }}
-                            />
-                        )}
+                                <img
+                                    className="img"
+                                    src={
+                                        "./img/animal" +
+                                        (this.props.participantList[0].num + 1) +
+                                        ".jpg"
+                                    }
+                                    onClick={() => {
+                                        this.onClickSelfStream();
+                                    }}
+                                />
+                            )}
                     </div>
                     <div
                         className="user-infro"
@@ -151,19 +153,19 @@ class MainScreen extends React.Component {
                                     }}
                                 />
                             ) : (
-                                <img
-                                    className="img"
-                                    src={
-                                        "./img/animal" +
-                                        remoteAnimalNumber +
-                                        ".jpg"
-                                    }
-                                    data={userID}
-                                    onClick={e => {
-                                        this.onClick_otherUserStream(e);
-                                    }}
-                                />
-                            )}
+                                    <img
+                                        className="img"
+                                        src={
+                                            "./img/animal" +
+                                            remoteAnimalNumber +
+                                            ".jpg"
+                                        }
+                                        data={userID}
+                                        onClick={e => {
+                                            this.onClick_otherUserStream(e);
+                                        }}
+                                    />
+                                )}
                         </div>
                         <div
                             className="user-infro"
@@ -175,7 +177,7 @@ class MainScreen extends React.Component {
                             />
                             <label className="user-name">
                                 {this.props.remoteUserName[userID] &&
-                                this.props.remoteUserName[userID] !== userID
+                                    this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
                                     : remoteAnimalName}
                             </label>
@@ -204,20 +206,21 @@ class MainScreen extends React.Component {
         if (this.state.focusingOnWhichUser.url == this.props.localVideoURL) {
             bigScreen = this.props.isStreaming ? (
                 <video
+                    className={this.state.isSixHatPlaying ? "videoset" : ""}
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
                 />
             ) : (
-                <img
-                    className="user-image"
-                    src={
-                        "./img/animal" +
-                        (this.props.participantList[0].num + 1) +
-                        ".jpg"
-                    }
-                />
-            );
+                    <img
+                        className="user-image"
+                        src={
+                            "./img/animal" +
+                            (this.props.participantList[0].num + 1) +
+                            ".jpg"
+                        }
+                    />
+                );
         } else {
             if (this.props.remoteStreamURL[this.state.focusingOnWhichUser.id]) {
                 if (
@@ -258,11 +261,14 @@ class MainScreen extends React.Component {
         }
         return (
             <div className="main-screen">
-                <div className="main-video"> 
+                {this.state.isSixHatPlaying ? <SixHatGame /> : null}
+                <div className="main-video">
                     {bigScreen}
                 </div>
+
+                <div className="other-video">{video}
                     
-                <div className="other-video">{video}</div>
+                </div>
             </div>
         );
     }

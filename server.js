@@ -30,14 +30,14 @@ let userInRoom = {};
 let votingCounter = {};
 let animalName = ["貓貓", "狗狗", "猩猩", "獅子", "無尾熊", "兔兔", "老虎", "狐狸"];
 
-//HTTPS參數
+HTTPS參數
 const option = {
     key: fs.readFileSync("./public/certificate/privatekey.pem"),
     cert: fs.readFileSync("./public/certificate/certificate.pem")
 };
 
 //對https Server內傳入express的處理物件
-const server = require("https").createServer(option,app);
+const server = require("https").createServer(app,option);
 const io = require("socket.io")(server);
 server.listen(8787);
 console.log("已啟動伺服器!");
@@ -178,6 +178,32 @@ io.on("connection", function (socket) {
                 socket.to(room).emit("delParticipantList", socket.id);
                 socket.to(room).emit("participantDisconnected", socket.id);
             }
+        })
+        .on("disconnecting", function () {
+            console.log("有人斷線囉~" + socket.id);
+            let room = Object.keys(socket.rooms)[1];
+            socket.leave(room);
+            if (userInRoom[room]) {
+                if (
+                    userInRoom[room].length == 1 &&
+                    userInRoom[room].includes(socket.id)
+                ) {
+                    //如果房間裏面只有他，就把房間刪掉
+                    socket.emit("delRoom", room);
+                    socket.broadcast.emit("delRoom", room);
+                    roomList.splice(roomList.indexOf(room), 1);
+                    delete userInRoom[room];
+                    console.log("房間已刪除!" + room);
+                } else {
+                    userInRoom[room].splice(
+                        userInRoom[room].indexOf(socket.id),
+                        1
+                    );
+                }
+                socket.emit("delParticipantList", socket.id);
+                socket.to(room).emit("delParticipantList", socket.id);
+                socket.to(room).emit("participantDisconnected", socket.id);
+            }
         });
 
     socket
@@ -230,32 +256,6 @@ io.on("connection", function (socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         })
-        .on("disconnecting", function () {
-            console.log("有人斷線囉~" + socket.id);
-            let room = Object.keys(socket.rooms)[1];
-            socket.leave(room);
-            if (userInRoom[room]) {
-                if (
-                    userInRoom[room].length == 1 &&
-                    userInRoom[room].includes(socket.id)
-                ) {
-                    //如果房間裏面只有他，就把房間刪掉
-                    socket.emit("delRoom", room);
-                    socket.broadcast.emit("delRoom", room);
-                    roomList.splice(roomList.indexOf(room), 1);
-                    delete userInRoom[room];
-                    console.log("房間已刪除!" + room);
-                } else {
-                    userInRoom[room].splice(
-                        userInRoom[room].indexOf(socket.id),
-                        1
-                    );
-                }
-                socket.emit("delParticipantList", socket.id);
-                socket.to(room).emit("delParticipantList", socket.id);
-                socket.to(room).emit("participantDisconnected", socket.id);
-            }
-        });
 
     socket
         .on("setAgenda", function (list) {
@@ -315,14 +315,6 @@ io.on("connection", function (socket) {
         // );
 
     });
-
-    socket.on("setGrid",(obj)=>{
-        let room = Object.keys(socket.rooms)[1];
-        socket.to(room).emit("setGrid",obj)
-    }).on("setGridStart",()=>{
-        let room = Object.keys(socket.rooms)[1];
-        socket.to(room).emit("setGridStart")
-    })
 
     socket.on("getHistory", room => {
         db.History.find(
