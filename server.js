@@ -30,14 +30,14 @@ let userInRoom = {};
 let votingCounter = {};
 let animalName = ["貓貓", "狗狗", "猩猩", "獅子", "無尾熊", "兔兔", "老虎", "狐狸"];
 
-//HTTPS參數
-// const option = {
-//     key: fs.readFileSync("./public/certificate/privatekey.pem"),
-//     cert: fs.readFileSync("./public/certificate/certificate.pem")
-// };
+HTTPS參數
+const option = {
+    key: fs.readFileSync("./public/certificate/privatekey.pem"),
+    cert: fs.readFileSync("./public/certificate/certificate.pem")
+};
 
 //對https Server內傳入express的處理物件
-const server = require("http").createServer(app);
+const server = require("https").createServer(app,option);
 const io = require("socket.io")(server);
 server.listen(8787);
 console.log("已啟動伺服器!");

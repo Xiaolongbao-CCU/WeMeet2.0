@@ -112,22 +112,22 @@ class SixHatGame extends React.Component {
       case "one":
         Content = (
           <ul>
-            {Sixhat.white.indrotuction}
           </ul >
         );
         break;
       case "two":
         Content = (
           <ul>
-            <li>我們擁有哪些資訊?</li>
-            <li>少了那些資訊?</li>
-            <li>告訴我有關員工離職率的相關資料?</li>
-          </ul>
+          {Sixhat.white.indrotuction}
+          </ul >
         )
         break;
       case "three":
         Content = (
           <ul>
+            <li>我們擁有哪些資訊?</li>
+            <li>少了那些資訊?</li>
+            <li>告訴我有關員工離職率的相關資料?</li>
           </ul>
         )
         break;
@@ -141,9 +141,9 @@ class SixHatGame extends React.Component {
 
             <img className="content-img" src="./img/whitehat.png" />
             <div className="teachinglist">
-              <div className="button3" onClick={this.onClick_ChangeIntroduction}>介紹</div>
-              <div className="button3" onClick={this.onClick_ChangeExample}>舉例</div>
-              <div className="button3" onClick={this.onClick_ChangeOrder}>建議順序</div>
+              <div className="button3" onClick={this.onClick_ChangeIntroduction}>發言順序</div>
+              <div className="button3" onClick={this.onClick_ChangeExample}>介紹</div>
+              <div className="button3" onClick={this.onClick_ChangeOrder}>舉例</div>
               <div className="bottom">
                 <div className="focus" id={this.state.WhatPage} />
               </div>
