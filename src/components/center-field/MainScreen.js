@@ -267,7 +267,7 @@ class MainScreen extends React.Component {
                 </div>
 
                 <div className="other-video">{video}
-                    
+
                 </div>
             </div>
         );

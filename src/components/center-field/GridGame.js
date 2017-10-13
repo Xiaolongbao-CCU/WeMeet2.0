@@ -57,9 +57,9 @@ class GridGame extends React.Component {
         ];
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onChangeInput(e) {
         let key = e.target.getAttribute("data");
@@ -152,6 +152,12 @@ class GridGame extends React.Component {
         // })
     }
 
+    onClick_ChangeSize() {
+        this.setState({
+            isEnlarge: !this.state.isEnlarge
+        });
+    }
+
     onClick_clearGrid() {
         this.props.dispatch(
             setGrid({
@@ -225,14 +231,14 @@ class GridGame extends React.Component {
                             縮小
                         </div>
                     ) : (
-                        <div
-                            className="button2"
-                            id="fullscreen"
-                            onClick={this.onClick_ChangeSize}
-                        >
-                            放大
+                            <div
+                                className="button2"
+                                id="fullscreen"
+                                onClick={this.onClick_ChangeSize}
+                            >
+                                放大
                         </div>
-                    )}
+                        )}
                     <div
                         className="button2"
                         id="reset"
