@@ -79,6 +79,8 @@ class Meeting extends React.Component {
         this.getRoomURL();
         socket.emit("giveMeMySocketId");
         socket.emit("IAmAt", window.location.pathname, window.location.hash);
+    }
+
     componentDidMount() {
 
         setTimeout(() => this.setState({ loading: false }), 1500);

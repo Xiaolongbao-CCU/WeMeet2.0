@@ -101,9 +101,12 @@ socket.on("remoteUserRecognitionRecord",history=>{
     store.dispatch(addRecognitionRecord(history))
 })
 
-socket.on("setGrid",obj=>{
-    store.dispatch(setGrid(obj))
-}).on("setGridStart",()=>{
-    store.dispatch(setGridStart())
-})
+socket
+    .on("setGrid",obj=>{
+        store.dispatch(setGrid(obj))
+    })
+    .on("setGridStart",()=>{
+        store.dispatch(setGridStart())
+    })
+
 export default socket;
