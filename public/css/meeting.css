@@ -946,7 +946,8 @@
   align-items: center;
   width: 99%;
   height: 74%;
-  border-radius: 5px; }
+  border-radius: 5px; 
+}
 
 .other-video {
   display: flex;
@@ -980,7 +981,8 @@
 .video {
   position: inherit;
   width: 145px;
-  height: 110px; }
+  height: 110px; 
+}
 
 .user-infro {
   float: left;

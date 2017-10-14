@@ -22,6 +22,7 @@ class MainScreen extends React.Component {
             },
             isSixHatPlaying: true
         };
+        this.mirroredVideo = 'rotateY(180deg)';
     }
 
     componentWillMount() {
@@ -76,6 +77,7 @@ class MainScreen extends React.Component {
                                 onClick={() => {
                                     this.onClickSelfStream();
                                 }}
+                                style={{"transform":this.mirroredVideo}}
                             />
                         ) : (
                                 <img
@@ -151,6 +153,7 @@ class MainScreen extends React.Component {
                                     onClick={e => {
                                         this.onClick_otherUserStream(e);
                                     }}
+                                    style={{"transform":this.mirroredVideo}}
                                 />
                             ) : (
                                     <img
@@ -210,6 +213,7 @@ class MainScreen extends React.Component {
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
+                    style={{"transform":this.mirroredVideo}}
                 />
             ) : (
                     <img
