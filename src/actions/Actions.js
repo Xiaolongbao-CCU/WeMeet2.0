@@ -4,6 +4,7 @@ export {
 	setAnimalName,
 	setRoomName,
 	setRemoteUserName,
+	delRemoteUserName,
 	setLocalUserID,
 	setParticipantList,
 	addParticipantList,

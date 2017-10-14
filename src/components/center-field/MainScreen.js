@@ -50,7 +50,7 @@ class MainScreen extends React.Component {
         let key = e.target.getAttribute("data");
         let num = this.props.participantList.reduce((sum, value) => {
             if (value.id == key) {
-                return (sum = value.num + 1);
+                return (sum = value.num);
             }
         }, 0);
         this.setState({
@@ -82,7 +82,7 @@ class MainScreen extends React.Component {
                                     className="img"
                                     src={
                                         "./img/animal" +
-                                        (this.props.participantList[0].num + 1) +
+                                        (this.props.participantList[0].num) +
                                         ".jpg"
                                     }
                                     onClick={() => {
@@ -124,21 +124,21 @@ class MainScreen extends React.Component {
         }
         if (this.props.remoteStreamURL) {
             Object.keys(this.props.remoteStreamURL).map(userID => {
-                let remoteAnimalName = this.props.participantList.reduce(
-                    (sum, value) => {
-                        if (value.id == userID) {
-                            return (sum = value.animal);
+                let remoteAnimalName;
+                this.props.participantList.map(
+                    userObj => {
+                        if (userObj.id == userID) {
+                            remoteAnimalName = userObj.animal;
                         }
-                    },
-                    ""
+                    }
                 );
-                let remoteAnimalNumber = this.props.participantList.reduce(
-                    (sum, value) => {
-                        if (value.id == userID) {
-                            return (sum = value.num + 1);
+                let remoteAnimalNumber; 
+                this.props.participantList.map(
+                    userObj => {
+                        if (userObj.id == userID) {
+                            remoteAnimalNumber = userObj.num;
                         }
-                    },
-                    0
+                    }
                 );
                 video.push(
                     <div className="otheruser">
@@ -216,7 +216,7 @@ class MainScreen extends React.Component {
                         className="user-image"
                         src={
                             "./img/animal" +
-                            (this.props.participantList[0].num + 1) +
+                            (this.props.participantList[0].num) +
                             ".jpg"
                         }
                     />

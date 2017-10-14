@@ -36,6 +36,17 @@ export default function connection(state = initialState, action) {
                     [userID]: userName
                 }
             };
+        case "delRemoteUserName":
+            return Object.assign({}, state, {
+                remoteUserName: Object.keys(
+                    state.remoteUserName
+                ).reduce((result, key) => {
+                    if (key !== action.data) {
+                        result[key] = state.remoteUserName[key];
+                    }
+                    return result;
+                }, {})
+            });
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":

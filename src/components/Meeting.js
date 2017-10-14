@@ -12,6 +12,7 @@ import {
     setLocalUserID,
     setRoomName,
     setRemoteUserName,
+    delRemoteUserName,
     addParticipantList,
     addParticipantConnection,
     delParticipantConnection,
@@ -106,12 +107,12 @@ class Meeting extends React.Component {
                     window.location.hash,
                     socket
                 );
-
             })
             .on("joinRoom", () => {
                 socket.emit("join", window.location.hash);
             })
             .on("newParticipantB", participantID => {
+                console.log("接到新人加入的訊息時，檢查是否已有連線")
                 //接到新人加入的訊息時，檢查是否已有連線
                 if (this.props.connections[participantID]) {
                     console.log("已存在，刪除該連線，再重新連線");
@@ -238,6 +239,7 @@ class Meeting extends React.Component {
                 // )
                 this.props.dispatch(delParticipantConnection(participantID));
                 this.props.dispatch(delRemoteStreamURL(participantID));
+                this.props.dispatch(delRemoteUserName(participantID));
             });
     }
 
@@ -279,7 +281,7 @@ class Meeting extends React.Component {
             .off("answer")
             .off("offer")
             .off("onIceCandidateB")
-            .off("participantDisconnected");
+            .off("participantDisconnected")
     }
     render() {
         const { loading } = this.state;

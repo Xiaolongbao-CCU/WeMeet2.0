@@ -28,6 +28,13 @@ export function setRemoteUserName(name) {
 	};
 }
 
+export function delRemoteUserName(id) {
+	return {
+		type: "delRemoteUserName",
+		data: id
+	};
+}
+
 export function setLocalUserID(id) {
 	return {
 		type: "setLocalUserID",
