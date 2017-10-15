@@ -10,12 +10,7 @@ const initialVoteDetail = {
             "option1": ""
         }
     },
-    result:{
-        "option1":{
-            "sum":0,
-            "voter":[]
-        }
-    }
+    result:{}
 };
 
 export default function vote(state = initialVoteDetail, action) {

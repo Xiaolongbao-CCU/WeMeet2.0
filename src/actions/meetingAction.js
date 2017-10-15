@@ -89,13 +89,22 @@ export function gotLocalVideo(url) {
 		data: url
 	};
 }
-
+export function turnOnUserAudio() {
+	return {
+		type: "turnOnUserAudio"
+	};
+}
 export function toggleAudio() {
 	return {
 		type: "toggleAudio"
 	};
 }
 
+export function turnOnUserMedia() {
+	return {
+		type: "turnOnUserMedia"
+	};
+}
 export function toggleUserMedia() {
 	return {
 		type: "toggleUserMedia"

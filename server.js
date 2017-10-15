@@ -155,6 +155,9 @@ io.on("connection", function(socket) {
                 socket.to(room).emit("addParticipantList", obj);
             }
         })
+        .on("joinFinish",()=>{
+            socket.emit("joinSuccess")
+        })
         .on("leaveRoom", function() {
             console.log("有人離開房間囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
@@ -202,7 +205,9 @@ io.on("connection", function(socket) {
                         if(userObj.id == socket.id){
                             userInRoom[room].splice(index,1)
                         }
-                    })                    
+
+                    })  
+                    console.log( userInRoom[room])                  
                 }
                 socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);

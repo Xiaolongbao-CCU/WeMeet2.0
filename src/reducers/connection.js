@@ -51,10 +51,19 @@ export default function connection(state = initialState, action) {
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
+        
+        case "turnOnUserAudio":
+            return Object.assign({}, state, { isSounding: true });
+
         case "toggleAudio":
             return Object.assign({}, state, {
                 isSounding: !state.isSounding
             });
+
+        case "turnOnUserMedia":
+            return Object.assign({}, state, { isStreaming: true });
+
+
         case "toggleUserMedia":
             return Object.assign({}, state, {
                 isStreaming: !state.isStreaming
@@ -68,6 +77,13 @@ export default function connection(state = initialState, action) {
                     [action.data.id]: action.data.connectionObj
                 }
             };
+            window.connections = {
+                ...state,
+                connections: {
+                    ...state.connections,
+                    [action.data.id]: action.data.connectionObj
+                }
+            }
         case "delParticipantConnection":
             return Object.assign({}, state, {
                 connections: Object.keys(

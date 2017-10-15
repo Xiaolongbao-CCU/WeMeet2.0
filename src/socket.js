@@ -45,9 +45,10 @@ socket
     });
 
 socket
-    .on("setParticipantList", participantList => {
+    .on("setParticipantList", (participantList) => {
         store.dispatch(setParticipantList(participantList));
         store.dispatch(setAnimalName(participantList[0].animal))
+        socket.emit("joinFinish")
     })
     .on("addParticipantList", participantID => {
         store.dispatch(addParticipantList(participantID));

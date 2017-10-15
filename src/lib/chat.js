@@ -4,7 +4,9 @@ import {
     addRemoteStreamURL,
     delRemoteStreamURL,
     addParticipantConnection,
+    turnOnUserAudio,
     toggleAudio,
+    turnOnUserMedia,
     toggleUserMedia,
     setRemoteVideoState,
     setRemoteAudioState,
@@ -35,23 +37,18 @@ let Chat = {
                     ) {
                         let videoURL = window.URL.createObjectURL(stream);
                         localStream = stream;
+                        window.localStream = stream;
                         Meeting.props.dispatch(gotLocalVideo(videoURL));
-                        socket.emit(
-                            "newParticipantA",
-                            id,
-                            room,
-                            (Meeting.props.userName
-                                ? Meeting.props.userName
-                                : Meeting.props.localUserID)
-                        );
                         if (stream.getVideoTracks().length > 0) {
-                            Meeting.props.dispatch(toggleUserMedia());
+                            Chat.startUserMedia()
+                            Meeting.props.dispatch(turnOnUserMedia());
+                            //Meeting.props.dispatch(toggleUserMedia());
                         }
                         if (stream.getAudioTracks().length > 0) {
-                            Meeting.props.dispatch(toggleAudio());
-                        }
-
-                        
+                            Chat.startAudio()
+                            Meeting.props.dispatch(turnOnUserAudio());
+                            //Meeting.props.dispatch(toggleAudio());
+                        }         
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");
                         window.history.back();
@@ -61,9 +58,14 @@ let Chat = {
                     //alert("無法偵測到您的麥克風或鏡頭，請重新授權，WeMeet基於WebRTC連線，必需要其中");
                     alert(e.name)
                     console.log(e.name);
+                    console.log(e)
                     //window.history.back();
                 });
         };
+
+        Chat.startUserMedia = () => {
+            localStream.getVideoTracks()[0].enabled = true
+        }
 
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
@@ -72,6 +74,10 @@ let Chat = {
 
         Chat.stopUserMedia = () => {
             localStream.getVideoTracks()[0].stop()
+        };
+
+        Chat.startAudio = () => {
+            localStream.getAudioTracks()[0].enabled = true
         };
 
         Chat.toggleAudio = () => {
@@ -91,10 +97,9 @@ let Chat = {
             socket
         ) => {
             let peerConn = new RTCPeerConnection(config);
-            if (localStream) {
-                peerConn.addStream(localStream);
+            if(isInitiator){
+                peerConn.addStream(localStream)
             }
-
             if (Meeting.props.candidateQueue) {
                 if (Meeting.props.candidateQueue[Meeting.localUserID]) {
                     Meeting.props.candidateQueue[

@@ -40,9 +40,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -148,22 +148,25 @@ class Vote extends React.Component {
                         >
                             {this.props.votingDetail.voting.option[key]}
                         </span>
-                        <span className="bar"></span>
+                        <span className="bar" />
                         <span className="people">
-                            {this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
+                            {this.props.votingDetail.result[key]
+                                ? this.props.votingDetail.result[key].sum
+                                : ""}
                         </span>
-                        {this.state.isVoteSubmited ?
+                        {this.state.isVoteSubmited ? (
                             <div className="people-detail">
-                                投票者：{
-                                    this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
-                                        (
-                                            this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.reduce((allName, userName) => {
-                                                return allName + userName + "、"
-                                            }, "") : ""
-                                        )
-                                }
-                            </div> : null
-                        }
+                                投票者：{this.props.votingDetail.voting.secretOrNot
+                                    ? "匿名無法觀看投票者"
+                                    : this.props.votingDetail.result[key]
+                                      ? this.props.votingDetail.result[
+                                            key
+                                        ].voter.reduce((allName, userName) => {
+                                            return allName + userName + "、";
+                                        }, "")
+                                      : ""}
+                            </div>
+                        ) : null}
                     </div>
                 );
             });
@@ -210,15 +213,14 @@ class Vote extends React.Component {
                         >
                             {this.props.isVotingFinish //1. 先審核是否所有人投票完，如果投完就不會有任何東西
                                 ? null
-
                                 : this.state.isVoteSubmited
-                                    ? "等待他人投票中 "
-                                    : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                                  ? "等待他人投票中 "
+                                  : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
                             {this.props.isVotingFinish ? null : this.state
                                 .isVoteSubmited ? (
-                                    <img src="./img/wait.gif" />
-                                ) : null}
+                                <img src="./img/wait.gif" />
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -252,7 +254,7 @@ class Vote extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        userName:state.connection.userName,
+        userName: state.connection.userName,
         votingDetail: state.vote,
         isVotingFinish: state.vote.isVotingFinish,
         localUserID: state.connection.localUserID,
