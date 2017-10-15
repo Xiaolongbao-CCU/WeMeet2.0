@@ -75,7 +75,7 @@ class Meeting extends React.Component {
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false
+            isKJPlaying: true
         };
         this.localStreamURL = "";
     }
