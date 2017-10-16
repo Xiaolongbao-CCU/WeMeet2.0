@@ -58,6 +58,9 @@ class KJGame extends React.Component {
 
     return (
       <div className="main-screen" >
+        
+        <div className="button4"/>
+
         <div className="center">
           <div className="hexagonal" id="white">
             <textarea className="hexInput" placeholder="請輸入欲發想的主題"></textarea>

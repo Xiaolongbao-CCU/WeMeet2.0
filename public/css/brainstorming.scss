@@ -855,3 +855,182 @@
   text-align: center;
   color: #262626;
 }
+
+/* Hex Second  */
+
+.button4{
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  width: 60px;
+  height: 60px;
+  border-radius: 99em;
+  opacity: .5;
+  background: rgba(253,251,236,1) url('../img/arrow.png') no-repeat center center;
+  background-size: 50%;
+  &:hover{
+    cursor: pointer;
+    opacity: .9;
+  }
+}
+
+.KJGame_second{
+  width: 100%;
+  height: 100%;
+}
+
+.honeylist{
+  box-sizing: border-box;
+  padding: 0% 2%;
+  float: left;
+  width: 15%;
+  height: 100%;
+}
+
+.honeylist .content{
+  float: left;
+  width:100%;
+  height: 87%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  } 
+  
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  &::-webkit-scrollbar-button:vertical:decrement {
+    opacity: 100%;
+  }
+  
+  &::-webkit-scrollbar-button:vertical:increment {
+    opacity: 100%;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0);
+    border-radius: 5px;
+  }
+  
+}
+
+.honeylist .up{
+  float: left;
+  margin-bottom: 10%;
+  width:100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+    opacity: .7;
+  }
+}
+
+.honeylist .down{
+  float: left;
+  margin-top: 10%;
+  width:100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+    opacity: .7;
+  }
+}
+
+.honeylist .img{
+  height:100%;
+}
+
+.gamecontent{
+  box-sizing: border-box;
+  padding: 1%;
+  float: left;
+  width: 70%;
+  height: 100%;
+}
+
+.KJ{
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.honey-element{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-bottom: 10%;
+  width: 100%;
+  height: 16%;
+  background: transparent url(../img/honey.png) no-repeat center center;
+  background-size: 65%;
+  &:hover{
+    opacity: .85;
+    cursor: move;
+  }
+}
+
+.honey-element .text{
+  float: left;
+  margin-top: 20%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+  &:hover{
+    cursor: move;
+  }
+}
+
+.honey-arrow{
+  width: 25%;
+  float: left;
+  margin: 0% 17%;
+}
+
+
+.honey-arrow1{
+  width: 25%;
+  float: left;
+  margin: 0% 0%;
+  transform: rotate(90deg);
+}
+
+.honey-input{
+  float:left;
+  width:50%;
+  height: 40%;
+  background: transparent url('../img/honeybucket_empty.png') no-repeat center center;
+  background-size: 85%;
+}
+
+.honey-process{
+  float:left;
+  width:100%;
+  height: 15%;
+}
+
+.honey-output{
+  float:left;
+  width:100%;
+  height: 45%;
+  background: transparent url('../img/honeybucket_full.png') no-repeat center center;
+  background-size: 65%;
+}
