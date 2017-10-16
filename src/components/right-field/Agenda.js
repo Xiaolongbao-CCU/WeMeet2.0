@@ -29,7 +29,7 @@ class Agenda extends React.Component {
         //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
     componentDidMount() {
         this.scrollToBottom();
@@ -159,9 +159,9 @@ class Agenda extends React.Component {
                             style={
                                 this.props.agendaList[key].isAgendaFinished
                                     ? {
-                                          textDecoration: "line-through",
-                                          background: "transparent"
-                                      }
+                                        textDecoration: "line-through",
+                                        background: "transparent"
+                                    }
                                     : {}
                             }
                             ref={"agenda_input" + key}

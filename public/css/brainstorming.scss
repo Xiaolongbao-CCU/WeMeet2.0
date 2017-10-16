@@ -424,76 +424,6 @@
   }
 }
 
-.hexagonal:before {
-  display: block;
-  float: left;
-  margin-top: -64%;
-  width: 0;
-  height: 0;
-  content: '';
-  border: 45px dashed transparent;
-  border-left-width: 70px;
-  border-right-width: 70px;
-}
-
-.hexagonal:after{
-  display: block;
-  float: left;
-  width: 0;
-  height: 0;
-  content: '';
-  border: 45px dashed transparent;
-  border-left-width: 70px;
-  border-right-width: 70px;
-}
-
-.hexagonal {
-    float: left;
-    margin-top: 30%;
-    width: 140px;
-    height: 70px;
-    background: #ffea4a;
-  &:before {
-    bottom: 100px;
-    border-bottom-color: #ffea4a;
-  }
-  &:after {
-    top: 100px;
-    border-top-color: #ffea4a;
-  }
-
-  &:hover {
-    background: darken(#ffea4a,10%);
-    
-    &:before {
-      border-bottom-color: darken(#ffea4a,10%);
-    }
-    &:after {
-      border-top-color: darken(#ffea4a,10%);
-    }
-  }
-}
-
-
-.hexInput{
-  box-sizing: border-box;
-  padding: 5%;
-  float: left;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  resize: none;
-  outline: none;
-  border-style: none;
-}
-
-.hex-field{
-  float: left;
-  box-sizing: border-box;
-  padding: 0.5%;
-  width: 18%;
-  height: 35%;
-}
 
 .sixhat-field{
   position: absolute;
@@ -619,9 +549,9 @@
 .others-sixhat .hat-img{
   float: left;
   z-index: 100;
-  margin-top: -2%;
-  margin-left: -10%;
-  width: 28%;
+  margin-top: -18%;
+  margin-left: 2%;
+  width: 20%;
   transform: rotate(-10deg);
 }
 
@@ -656,41 +586,21 @@
 }
 
 .others-sixhat .hat-text{
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 95%;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
   height: 45%;
-  border-radius: 4px;
   float: left;
-  margin-left: -4%;
-  bottom: 32%;
-  left: -1%;
+  margin-top: 15%;
   color: white;
-  text-align: center;
+  text-align: right;
   box-sizing: border-box;
-  padding: 2.5%;
-  &:after{
-    float: left;
-    margin-top: 15%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    pointer-events: none;
-    border-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(0, 0, 0, 0.7);
-    border-width: 4px;
-  }
-}
-
-.other-hat:hover .hat-text{
-  opacity: 1;
+  padding: 3.5% 7%;
 }
 
 .other-hat{
   float: left;
   margin-top: 8%;
-  margin-right: 1.5%;
+  //margin-right: 1.5%;
   width: 18%;
   height: 40%;
 }
@@ -790,4 +700,337 @@
   position: absolute;
   top: 3%;
   left: 21%;
+}
+
+/*KJ GAME*/
+
+.center{
+  position: absolute;
+  left: 40%;
+  top: 40%;
+  width: 100px;
+  height: 110px;
+}
+
+.center-border{
+  position: absolute;
+  width: 100px;
+  height: 110px;
+  animation: fadeIn 1s;
+}
+
+.hex{
+  position: absolute;
+  z-index: 0;
+  width: 100px;
+  height: 110px;
+  animation: fadeIn 1s;
+}
+
+.center-border#one{
+  left: 34%;
+  top: 28%;
+}
+
+.center-border#two{
+  left: 46%;
+  top: 28%;
+}
+
+.center-border#three{
+  left: 28%;
+  top: 40%;
+}
+
+.center-border#four{
+  left: 52%;
+  top: 40%;
+}
+
+.center-border#five{
+  left: 34%;
+  top: 52%;
+}
+
+.center-border#six{
+  left: 46%;
+  top: 52%;
+}
+
+.hexagonal {
+  position: absolute;
+  z-index: 50;
+  left: 5%;
+  top: 30%;
+  width: 90%;
+  height: 43.5%;
+  &:before,&:after {
+    position: absolute;
+    content: "";
+    z-index: -50;
+    width: 0;
+    height: 0;
+    border: 25px dashed transparent;
+    border-left-width: 45px;
+    border-right-width: 45px;
+  }
+}
+
+.hexagonal:before {
+  left: 0%;
+  top: -105%;
+}
+.hexagonal:after {
+  left: 0%;
+  top: 100%;
+}
+
+.hexagonal#white{
+  background-color: white;
+  &:before{
+    border-bottom-color:white;
+  }
+  &:after{
+    border-top-color:white;
+  }
+}
+
+.hexagonal#yellow{
+  background-color: #ffea4a;
+  &:before{
+    border-bottom-color: #ffea4a;
+  }
+  &:after{
+    border-top-color: #ffea4a;
+  }
+}
+
+.hexagonal#whiteyellow{
+  background-color: #FFE699;
+  &:before{
+    border-bottom-color: #FFE699;
+  }
+  &:after{
+    border-top-color: #FFE699;
+  }
+}
+
+.hexagonal#notyetwrite{
+  opacity: .4;
+  background-color: white;
+  &:before{
+    border-bottom-color:white;
+  }
+  &:after{
+    border-top-color:white;
+  }
+  
+  &:hover{
+    cursor: pointer;
+    opacity: .7;
+  }
+
+}
+
+
+.hexInput{
+  box-sizing: border-box;
+  padding: 5%;
+  float: left;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  border-style: none;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.hexadd{
+  float: left;
+  width: 100%;
+  height: 100%;
+  font-size: 3.5em;
+  text-align: center;
+  color: #262626;
+}
+
+/* Hex Second  */
+
+.button4{
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  width: 60px;
+  height: 60px;
+  border-radius: 99em;
+  opacity: .5;
+  background: rgba(253,251,236,1) url('../img/arrow.png') no-repeat center center;
+  background-size: 50%;
+  &:hover{
+    cursor: pointer;
+    opacity: .9;
+  }
+}
+
+.KJGame_second{
+  width: 100%;
+  height: 100%;
+}
+
+.honeylist{
+  box-sizing: border-box;
+  padding: 0% 2%;
+  float: left;
+  width: 15%;
+  height: 100%;
+}
+
+.honeylist .content{
+  float: left;
+  width:100%;
+  height: 87%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  } 
+  
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  &::-webkit-scrollbar-button:vertical:decrement {
+    opacity: 100%;
+  }
+  
+  &::-webkit-scrollbar-button:vertical:increment {
+    opacity: 100%;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0);
+    border-radius: 5px;
+  }
+  
+}
+
+.honeylist .up{
+  float: left;
+  margin-bottom: 10%;
+  width:100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+    opacity: .7;
+  }
+}
+
+.honeylist .down{
+  float: left;
+  margin-top: 10%;
+  width:100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+    opacity: .7;
+  }
+}
+
+.honeylist .img{
+  height:100%;
+}
+
+.gamecontent{
+  box-sizing: border-box;
+  padding: 1%;
+  float: left;
+  width: 70%;
+  height: 100%;
+}
+
+.KJ{
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.honey-element{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-bottom: 10%;
+  width: 100%;
+  height: 16%;
+  background: transparent url(../img/honey.png) no-repeat center center;
+  background-size: 65%;
+  &:hover{
+    opacity: .85;
+    cursor: move;
+  }
+}
+
+.honey-element .text{
+  float: left;
+  margin-top: 20%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+  &:hover{
+    cursor: move;
+  }
+}
+
+.honey-arrow{
+  width: 25%;
+  float: left;
+  margin: 0% 17%;
+}
+
+
+.honey-arrow1{
+  width: 25%;
+  float: left;
+  margin: 0% 0%;
+  transform: rotate(90deg);
+}
+
+.honey-input{
+  float:left;
+  width:50%;
+  height: 40%;
+  background: transparent url('../img/honeybucket_empty.png') no-repeat center center;
+  background-size: 85%;
+}
+
+.honey-process{
+  float:left;
+  width:100%;
+  height: 15%;
+}
+
+.honey-output{
+  float:left;
+  width:100%;
+  height: 45%;
+  background: transparent url('../img/honeybucket_full.png') no-repeat center center;
+  background-size: 65%;
 }

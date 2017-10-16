@@ -36,6 +36,7 @@ import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
 import KJGame from "./center-field/KJGame";
+import KJGame_result from "./center-field/KJGame_result";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -70,14 +71,14 @@ class Meeting extends React.Component {
         super(props);
         this.Chat = chat.createNew(this);
         this.Recognizer = recognition.createNew(this);
-        this.state = { 
+        this.state = {
             loading: true,
             isVoteResultOpen: false,
             isJiugonggeOpen: false,
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false
+            isKJPlaying: true
         };
         this.localStreamURL = "";
     }
@@ -299,53 +300,53 @@ class Meeting extends React.Component {
         }
 
         return (
-        <div className="container" id="in">
-            {this.state.isVoteResultOpen ? <VoteResult /> : null}
-            {
-                this.props.isGridDetailOpen ? <GirdDetail /> :
-                this.state.isKJOpen ? <KJDetail /> :
-                this.state.isSixHatOpen ? <SixHatDetail /> : null
-            }
-            <div className="left-field">
-                <CVcontrol />
-                {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
-            </div>
-
-            <div className="center-field">
-                <Toolbar />
+            <div className="container" id="in">
+                {this.state.isVoteResultOpen ? <VoteResult /> : null}
                 {
-                    this.props.isGridStart ? <GridGame /> : 
-                    this.state.isKJPlaying ? <KJGame /> :
-                    <MainScreen />
-                }                
-                <AVcontrol Chat={this.Chat} />
+                    this.props.isGridDetailOpen ? <GirdDetail /> :
+                        this.state.isKJOpen ? <KJDetail /> :
+                            this.state.isSixHatOpen ? <SixHatDetail /> : null
+                }
+                <div className="left-field">
+                    <CVcontrol />
+                    {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
+                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
+                </div>
+
+                <div className="center-field">
+                    <Toolbar />
+                    {
+                        this.props.isGridStart ? <GridGame /> :
+                            this.state.isKJPlaying ? <KJGame_result /> :
+                                <MainScreen />
+                    }
+                    <AVcontrol Chat={this.Chat} />
+                </div >
+
+                <div className="right-field">
+                    <Agenda />
+                    <Vote />
+                </div>
+
+                <Background />
             </div >
-
-            <div className="right-field">
-                <Agenda />
-                <Vote />
-            </div>
-
-        <Background />
-        </div >
-    );
+        );
     }
 }
 
-    const mapStateToProps = state => {
-        return {
-            userName: state.connection.userName,
-            localUserID: state.connection.localUserID,
-            isStreaming: state.connection.isStreaming,
-            isSounding: state.connection.isSounding,
-            connections: state.connection.connections,
-            remoteStreamURL: state.connection.remoteStreamURL,
-            candidateQueue: state.connection.candidateQueue,
-            isInChatNow: state.chatAndRecognition.isInChatNow,
-            isGridDetailOpen: state.grid.isGridDetailOpen,
-            isGridStart: state.grid.isGridStart
-        };
+const mapStateToProps = state => {
+    return {
+        userName: state.connection.userName,
+        localUserID: state.connection.localUserID,
+        isStreaming: state.connection.isStreaming,
+        isSounding: state.connection.isSounding,
+        connections: state.connection.connections,
+        remoteStreamURL: state.connection.remoteStreamURL,
+        candidateQueue: state.connection.candidateQueue,
+        isInChatNow: state.chatAndRecognition.isInChatNow,
+        isGridDetailOpen: state.grid.isGridDetailOpen,
+        isGridStart: state.grid.isGridStart
     };
+};
 
-    export default connect(mapStateToProps)(Meeting);
+export default connect(mapStateToProps)(Meeting);

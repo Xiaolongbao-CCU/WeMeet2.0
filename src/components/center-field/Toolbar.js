@@ -10,7 +10,7 @@ import Brainstorming from "./Brainstorming";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
-import {setGridDetailOpen} from "../../actions/Actions"
+import { setGridDetailOpen } from "../../actions/Actions"
 
 class Toolbar extends React.Component {
     constructor(props) {
