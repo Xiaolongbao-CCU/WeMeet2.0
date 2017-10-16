@@ -16,7 +16,9 @@ import {
     addParticipantConnection,
     delParticipantConnection,
     delRemoteStreamURL,
-    addCandidateQueue
+    addCandidateQueue,
+    toggleUserMedia,
+    toggleAudio
 } from "../actions/Actions";
 
 //component
@@ -259,14 +261,18 @@ class Meeting extends React.Component {
 
     componentWillUnmount() {
         socket.emit("leaveRoom");
-        if (this.state.isStreaming) {
+        if (this.props.isStreaming) {
             this.Chat.toggleUserMedia();
             this.props.dispatch(toggleUserMedia());
+            
         }
-        if (this.state.isSounding) {
+        if (this.props.isSounding) {
             this.Chat.toggleAudio();
             this.props.dispatch(toggleAudio());
+
         }
+        this.Chat.stopUserMedia()
+        this.Chat.stopAudio()
         socket
             .off("gotSocketID")
             .off("joinRoom")

@@ -70,9 +70,17 @@ let Chat = {
                 .enabled;     
         };
 
+        Chat.stopUserMedia = () => {
+            localStream.getVideoTracks()[0].stop()
+        };
+
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
                 .enabled;   
+        };
+
+        Chat.stopAudio = () => {
+            localStream.getAudioTracks()[0].stop()
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗

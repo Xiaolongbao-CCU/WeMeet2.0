@@ -30,14 +30,14 @@ let userInRoom = {};
 let votingCounter = {};
 let animalName = ["貓貓", "狗狗", "猩猩", "獅子", "無尾熊", "兔兔", "老虎", "狐狸"];
 
-HTTPS參數
+//HTTPS參數;
 const option = {
     key: fs.readFileSync("./public/certificate/privatekey.pem"),
     cert: fs.readFileSync("./public/certificate/certificate.pem")
 };
 
 //對https Server內傳入express的處理物件
-const server = require("https").createServer(app, opgion);
+const server = require("https").createServer(option, app);
 const io = require("socket.io")(server);
 server.listen(8787);
 console.log("已啟動伺服器!");
@@ -116,12 +116,12 @@ io.on("connection", function (socket) {
 
             if (!userInRoom.hasOwnProperty(room)) {
                 //房間不存在，沒有人要通知，就通知新人，然後給牠隨機一種動物
-                let randomNum = Math.floor(Math.random() * 8)
+                let randomNum = Math.floor(Math.random() * 8);
                 let obj = {
-                    "id": socket.id,
-                    "animal": (animalName[randomNum]),
-                    "num": randomNum
-                }
+                    id: socket.id,
+                    animal: animalName[randomNum],
+                    num: randomNum
+                };
                 userInRoom[room] = [obj];
                 socket.emit("setParticipantList", userInRoom[room]);
             } else if (
@@ -132,15 +132,16 @@ io.on("connection", function (socket) {
                 //對新人加在名單最前面>把名單整份發過去
                 let tempAnimal = [...animalName];
                 userInRoom[room].map(userObject => {
-                    tempAnimal.splice(tempAnimal.indexOf(userObject.animal), 1)
-                })
-                let randomNum = Math.floor(Math.random() * (tempAnimal.length))
+                    tempAnimal.splice(tempAnimal.indexOf(userObject.animal), 1);
+                    console.log(tempAnimal[room])
+                });
+                let randomNum = Math.floor(Math.random() * tempAnimal.length);
                 let obj = {
-                    "id": socket.id,
-                    "animal": tempAnimal[randomNum],
-                    "num": randomNum
-                }
-                userInRoom[room].unshift(obj)
+                    id: socket.id,
+                    animal: tempAnimal[randomNum],
+                    num: randomNum
+                };
+                userInRoom[room].unshift(obj);
                 socket.emit("setParticipantList", userInRoom[room]);
                 //對房間內的人，發出新人加入的訊息
                 socket.to(room).emit("addParticipantList", obj);
@@ -156,9 +157,9 @@ io.on("connection", function (socket) {
                     userInRoom[room].length == 1 &&
                     userInRoom[room].map(obj => {
                         if (obj.id == socket.id) {
-                            isInRoom = true
+                            isInRoom = true;
                         } else {
-                            isInRoom = false
+                            isInRoom = false;
                         }
                     })
                 ) {
@@ -240,22 +241,24 @@ io.on("connection", function (socket) {
             isSounding
         ) {
             socket.to(receiver).emit("answer", answer, sender);
-            socket.to(receiver).emit("setRemoteVideoState", isStreaming, sender);
+            socket
+                .to(receiver)
+                .emit("setRemoteVideoState", isStreaming, sender);
             socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
         })
         .on("onIceCandidateA", function (candidate, sender, receiver) {
             socket.to(receiver).emit("onIceCandidateB", candidate, sender);
         })
         .on("setRemoteVideoState", (state, remotePeer) => {
-            console.log("有送了")
+            console.log("有送了");
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteVideoState", state, remotePeer);
         })
         .on("setRemoteAudioState", (state, remotePeer) => {
-            console.log("有送了")
+            console.log("有送了");
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
-        })
+        });
 
     socket
         .on("setAgenda", function (list) {
@@ -277,7 +280,7 @@ io.on("connection", function (socket) {
     socket
         .on("createVote", votingDetail => {
             let room = Object.keys(socket.rooms)[1];
-            votingCounter[room] = io.sockets.adapter.rooms[room].length
+            votingCounter[room] = io.sockets.adapter.rooms[room].length;
             //發給房內所有人，包含發起投票的人
             //console.log(votingDetail)
             io.in(room).emit("gotCreateVote", votingDetail);
@@ -285,7 +288,7 @@ io.on("connection", function (socket) {
         })
         .on("gotVoteFromUser", voteContent => {
             let room = Object.keys(socket.rooms)[1];
-            votingCounter[room] = votingCounter[room] - 1
+            votingCounter[room] = votingCounter[room] - 1;
             // console.log(room);
             io.in(room).emit("gotVoteFromServer", voteContent); //把投票內容告訴房內所有人
             if (votingCounter[room] == 0) {
@@ -313,8 +316,17 @@ io.on("connection", function (socket) {
         //         }
         //     }
         // );
-
     });
+
+    socket
+        .on("setGrid", obj => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("setGrid", obj);
+        })
+        .on("setGridStart", () => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("setGridStart");
+        });
 
     socket.on("getHistory", room => {
         db.History.find(
