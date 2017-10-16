@@ -78,7 +78,7 @@ class Meeting extends React.Component {
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: true
+            isKJPlaying: false
         };
         this.localStreamURL = "";
     }
@@ -264,7 +264,7 @@ class Meeting extends React.Component {
         if (this.props.isStreaming) {
             this.Chat.toggleUserMedia();
             this.props.dispatch(toggleUserMedia());
-            
+
         }
         if (this.props.isSounding) {
             this.Chat.toggleAudio();
