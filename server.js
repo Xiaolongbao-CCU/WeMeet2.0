@@ -36,7 +36,7 @@ const option = {
     cert: fs.readFileSync("./public/certificate/certificate.pem")
 };
 
-//對https Server內傳入express的處理物件
+//對https Server內傳入express的處理
 const server = require("https").createServer(option, app);
 const io = require("socket.io")(server);
 server.listen(8787);
