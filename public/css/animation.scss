@@ -332,3 +332,21 @@ opacity: 0;
 
   }
 }
+
+#fadeIn{
+  animation: fadeIn 0.5s;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+
+#fadeIn1{
+  animation: fadeIn 0.5s;
+  animation-delay: 1.3s;
+  animation-fill-mode: both;
+}
+
+#fadeIn2{
+  animation: fadeIn 0.5s;
+  animation-delay: 1.8s;
+  animation-fill-mode: both;
+}

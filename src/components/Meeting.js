@@ -37,6 +37,7 @@ import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
 import KJGame from "./center-field/KJGame";
 import KJGame_result from "./center-field/KJGame_result";
+import Painting from "./center-field/Painting";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -78,7 +79,8 @@ class Meeting extends React.Component {
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false
+            isKJPlaying: false,
+            isPainting: true
         };
         this.localStreamURL = "";
     }
@@ -242,6 +244,9 @@ class Meeting extends React.Component {
             });
     }
 
+
+
+
     getRoomURL() {
         if (window.location.hash) {
             this.setState({
@@ -282,6 +287,7 @@ class Meeting extends React.Component {
             .off("onIceCandidateB")
             .off("participantDisconnected");
     }
+    
     render() {
         const { loading } = this.state;
 
@@ -317,8 +323,9 @@ class Meeting extends React.Component {
                     <Toolbar />
                     {
                         this.props.isGridStart ? <GridGame /> :
-                            this.state.isKJPlaying ? <KJGame_result /> :
-                                <MainScreen />
+                            this.state.isKJPlaying ? <KJGame /> :
+                                this.state.isPainting ? <Painting /> :
+                                    <MainScreen />
                     }
                     <AVcontrol Chat={this.Chat} />
                 </div >

@@ -10,7 +10,7 @@ import Brainstorming from "./Brainstorming";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
-import { setGridDetailOpen } from "../../actions/Actions"
+import { setGridDetailOpen } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -28,7 +28,10 @@ class Toolbar extends React.Component {
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
         this.onClick_ToggleAddUserControl = this.onClick_ToggleAddUserControl.bind(this);
         this.onClick_ToggleBrainstorming = this.onClick_ToggleBrainstorming.bind(this);
+        this.onClick_TogglePainting = this.onClick_TogglePainting.bind(this);
+        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(this);
         this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
+
     }
 
 
@@ -64,6 +67,13 @@ class Toolbar extends React.Component {
         })
     }
 
+    onClick_TogglePainting() {
+    }
+
+    onClick_ToggleReservation() {
+
+    }
+
     //Others Events
 
     // AdduserControl() {
@@ -89,11 +99,21 @@ class Toolbar extends React.Component {
 
                 <VoiceStatus />
 
-                <button
+                <div
+                    className="toolbar-button"
+                    id="reservation"
+                    onClick={this.onClick_ToggleReservation}
+                >
+                    <div className="hovertext" id="reservation">預約開會</div>
+                </div>
+
+                <div
                     className="toolbar-button"
                     id="brainstorming"
                     onClick={this.onClick_ToggleBrainstorming}
-                />
+                >
+                    <div className="hovertext" id="brainstorming">腦力激盪</div>
+                </div>
 
                 {
                     this.state.isBrainstormingToggle
@@ -101,11 +121,13 @@ class Toolbar extends React.Component {
                         : null
                 }
 
-                <button
+                <div
                     className="toolbar-button"
                     id="adduser"
                     onClick={this.onClick_ToggleAddUserControl}
-                />
+                >
+                    <div className="hovertext" id="adduser">邀請</div>
+                </div>
 
                 {
                     this.state.isAddUserToggle
@@ -114,16 +136,26 @@ class Toolbar extends React.Component {
                 }
 
 
-                <button
+                <div
                     className="toolbar-button"
                     id="vote"
                     onClick={this.onClick_ToggleVotePage}
-                />
+                >
+                    <div className="hovertext" id="vote">投票</div>
+                </div>
 
                 <div ref="VoteDetail"
                     style={{ display: (this.props.votingDetail.isVotingStart ? "none" : "display") }}
                 >
                     <VoteDetail />
+                </div>
+
+                <div
+                    className="toolbar-button"
+                    id="canvas"
+                    onClick={this.onClick_TogglePainting}
+                >
+                    <div className="hovertext" id="canvas">電子白板</div>
                 </div>
 
                 <MeetingTime />
