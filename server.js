@@ -339,6 +339,16 @@ io.on("connection", function (socket) {
             }
         );
     });
+
+    //1018 Andy Added
+    socket.
+        on("drawing", (data) => {
+            socket.broadcast.emit('drawing', data);
+        })
+        .on("reset", (key) => {
+            socket.broadcast.emit('reset', key);
+        });
+
 });
 
 //沒有定義路徑，則接收到請求就執行這個函數

@@ -11,6 +11,11 @@
   background-color: rgba(253,251,236,.95);
 }
 
+.startPage,.teachingPage{
+  width: 100%;
+  height: 100%;
+}
+
 .brainstorming-field .title{
   position: absolute;
   left: 35%;
@@ -84,12 +89,17 @@
 
 .title .text{
   font-size: 2.3em;
+  width: 70%;
+  text-align: center;
   float: left;
+  margin-left: 2%;
   margin-top: -15%;
   animation: fadeIn 0.8s;
   animation-delay: 0.5s;
   animation-fill-mode: both;
+
 }
+
 
 .brainstorming-field .left-field,.brainstorming-field .right-field{
   box-sizing: border-box;
@@ -99,6 +109,9 @@
   width: 50%;
   height: 70%;
   float: left;
+  animation: fadeIn 0.8s;
+  animation-delay: 1s;
+  animation-fill-mode: both;
 }
 
 .left-field .img{
@@ -106,9 +119,6 @@
   margin-top: 5%;
   margin-left: 13.5%;
   width: 75%;
-  animation: fadeIn 0.8s;
-  animation-delay: 1s;
-  animation-fill-mode: both;
 }
 
 .left-field .text{
@@ -117,9 +127,6 @@
   margin-left: 13.5%;
   width: 75%;
   font-size: 1.5em;
-  animation: fadeIn 0.8s;
-  animation-delay: 1.5s;
-  animation-fill-mode: both;
 }
 
 .instruction{
@@ -129,7 +136,7 @@
   width: 100%;
   height: 45%;
   animation: fadeIn 0.8s;
-  animation-delay: 2s;
+  animation-delay: 1.6s;
   animation-fill-mode: both;
 }
 
@@ -159,15 +166,15 @@
 }
 
 .bottom-field{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   padding: 1% 20%;
   position: absolute;
   top: 85%;
   width: 96%;
   height: 13%;
-  animation: fadeIn 0.8s;
-  animation-delay: 2.5s;
-  animation-fill-mode: both;
 }
 
 .bottom-field .button{
@@ -355,6 +362,7 @@
   background:transparent url("../img/download_excel.png") no-repeat top 20% center ;
   background-size: 62%;
 }
+
 
 .button2#shutdown{
   background:transparent url("../img/shutdown.png") no-repeat top 20% center ;
@@ -700,6 +708,37 @@
   position: absolute;
   top: 3%;
   left: 21%;
+}
+
+.teachingText{
+  box-sizing: border-box;
+  padding: 1% 10%;
+  float: left;
+  top: 20%;
+  width: 100%;
+  height: 20%;
+  margin-top: 10%;
+  font-size: 1.4em;
+  line-height: 120%;
+}
+
+.teachingImg{
+  width:100%;
+}
+
+
+.teachingText li{
+  margin-top: 1%;
+}
+
+.teachingSixhat{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  top: 20%;
+  width: 100%;
+  height: 50%;
 }
 
 /*KJ GAME*/

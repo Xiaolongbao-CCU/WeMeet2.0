@@ -46,6 +46,20 @@ $otherscreen-top: 78%;
   }
 } 
 
+.hovertext{
+  display: none;
+  box-sizing: border-box;
+  padding: 0.2%;
+  position: fixed;
+  width: 4.5%;
+  height: 3.2%;
+  color: white;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.7);
+  text-align: center;
+  top:3.3%;
+}
+
 .toolbar-button#moreinfro{
   background-image: url('../img/more-infro.png');
   background-size: 20%;
@@ -54,26 +68,58 @@ $otherscreen-top: 78%;
 .toolbar-button#brainstorming{
   background-image: url('../img/brainstorming.png');
   background-size: 75%;
+  &:hover .hovertext#brainstorming{
+    display: block;
+    left: 45.3%;
+  }
 }
 
 .toolbar-button#adduser{
   background-image: url('../img/addperson.png');
   background-size: 70%;
+  &:hover .hovertext#adduser{
+    display: block;
+    left: 51%;
+    width:3%;
+  }
 }
 
-.toolbar-button#recognition-on{
-  background-image: url('../img/recognition.png');
-  background-size: 70%;
-}
+// .toolbar-button#recognition-on{
+//   background-image: url('../img/recognition.png');
+//   background-size: 70%;
+// }
 
-.toolbar-button#recognition-off{
-  background-image: url('../img/recognize-off.png');
-  background-size: 70%;
-}
+// .toolbar-button#recognition-off{
+//   background-image: url('../img/recognize-off.png');
+//   background-size: 70%;
+// }
 
 .toolbar-button#vote{
   background-image: url('../img/vote.png');
   background-size: 60%;
+  &:hover .hovertext#vote{
+    display: block;
+    left: 56.5%;
+    width:3%;
+  }
+}
+
+.toolbar-button#canvas{
+  background-image: url('../img/canvas.png');
+  background-size: 60%;
+  &:hover .hovertext#canvas{
+    display: block;
+    left: 62%;
+  }
+}
+
+.toolbar-button#reservation{
+  background-image: url('../img/reservation.png');
+  background-size: 60%;
+  &:hover .hovertext#reservation{
+    display: block;
+    left: 39.5%;
+  }
 }
 
 .toolbar-button#grid{
@@ -98,7 +144,7 @@ $otherscreen-top: 78%;
   animation: wait 1.2s;
   animation: OtherAppear 0.8s linear 0.6s;
   animation-fill-mode: both;
-  }
+}
   
 
 /*****************************
