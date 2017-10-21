@@ -7,6 +7,7 @@ import VoteDetail from "./VoteDetail";
 import AddUser from "./AddUser";
 import { connect } from "react-redux";
 import Brainstorming from "./Brainstorming";
+import ReservationDetail from "./ReservationDetail";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
@@ -20,6 +21,7 @@ class Toolbar extends React.Component {
             isVoteToggle: false,
             isAddUserToggle: false,
             isBrainstormingToggle: false,
+            isRerservationToggle: false,
             //Open Status
             isRecognitionOpen: false,
             //Special Status
@@ -71,6 +73,9 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleReservation() {
+        this.setState({
+            isRerservationToggle: !this.state.isRerservationToggle
+        })
 
     }
 
@@ -106,6 +111,14 @@ class Toolbar extends React.Component {
                 >
                     <div className="hovertext" id="reservation">預約開會</div>
                 </div>
+
+                {
+                    this.state.isRerservationToggle ?
+                        <ReservationDetail /> :
+                        null
+                }
+
+
 
                 <div
                     className="toolbar-button"

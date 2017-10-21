@@ -12,8 +12,9 @@ class Painting extends React.Component {
       isSizeListOpen: false,
       color: "black",
       size: 2,
-      size_id: "size"
-    }
+      size_id: "size",
+      imghref: "#"
+    };
     this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
     this.showColrList = this.showColrList.bind(this);
     this.showSizeList = this.showSizeList.bind(this);
@@ -50,8 +51,6 @@ class Painting extends React.Component {
     socket.off("drawing");
     socket.off("reset");
   }
-
-
 
   onResize() {
     var canvas = this.refs.whiteboard;
@@ -253,7 +252,7 @@ class Painting extends React.Component {
           </div>
 
           <div className="button2" id="color">
-            <div className="color" id={this.state.color} onClick={this.showColrList} />
+            <div className={this.state.isEnlarge ? "color bigger" : "color"} id={this.state.color} onClick={this.showColrList} />
             顏色
           </div>
 
@@ -266,7 +265,9 @@ class Painting extends React.Component {
             <div className="choice" id="blue" onClick={this.onClick_blue} />
           </div>
           <div className="button2" id="reset1" onClick={this.onClick_reset}>清空</div>
-          <div className="button2" id="dowload-img">下載</div>
+          <a href={this.state.imghref} download="painting.png">
+            <div className="button2" id="dowload-img" >下載</div>
+          </a>
         </div>
         <div className="paintingfield" id={this.state.isEnlarge ? "bigger" : ""} ref="paintingfield">
           <canvas className="whiteboard" ref="whiteboard"></canvas>

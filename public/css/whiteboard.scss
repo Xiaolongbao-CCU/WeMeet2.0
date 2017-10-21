@@ -9,6 +9,13 @@
   border-radius: 6px;
 }
 
+.paintingtoolbar#bigger{
+  top: 10%;
+  height: 75%;
+  line-height: 687%;
+  font-size: 1.5em;
+}
+
 .whiteboard{
   position: absolute;
   width: 100%;
@@ -98,6 +105,12 @@
   background-color: black;
 }
 
+.color.bigger{
+  left: 23%;
+  width: 40px;
+  height: 40px;  
+}
+
 .colorlist{
   display: none;
   box-sizing: border-box;
@@ -178,4 +191,32 @@
 
 .button2.new{
   height: 19%;
+}
+
+/* Reservation */
+.reservation-detail{
+  line-height: 150%;
+  position: absolute;
+  z-index: 200;
+  top: 11%;
+  left: 15%;
+  width: 40%;
+  height: 33%;
+  background-color: #fdfbec;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #d7d2ab;
+  animation: fadeIn 0.5s;
+  &:after{
+    position: absolute;
+    left: 30%;
+    top: -8.5%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fdfbec;
+    border-width: 10px;
+  }
 }

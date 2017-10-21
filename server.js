@@ -31,13 +31,13 @@ let votingCounter = {};
 let animalName = ["貓貓", "狗狗", "猩猩", "獅子", "無尾熊", "兔兔", "老虎", "狐狸"];
 
 //HTTPS參數;
-const option = {
-    key: fs.readFileSync("./public/certificate/privatekey.pem"),
-    cert: fs.readFileSync("./public/certificate/certificate.pem")
-};
+// const option = {
+//     key: fs.readFileSync("./public/certificate/privatekey.pem"),
+//     cert: fs.readFileSync("./public/certificate/certificate.pem")
+// };
 
 //對https Server內傳入express的處理
-const server = require("https").createServer(option, app);
+const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 server.listen(8787);
 console.log("已啟動伺服器!");
@@ -343,10 +343,12 @@ io.on("connection", function (socket) {
     //1018 Andy Added
     socket.
         on("drawing", (data) => {
-            socket.broadcast.emit('drawing', data);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('drawing', data);
         })
         .on("reset", (key) => {
-            socket.broadcast.emit('reset', key);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('reset', key);
         });
 
 });
