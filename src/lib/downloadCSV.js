@@ -59,11 +59,11 @@ export function downloadCSV(array) {
         }
     }
 
-    let data = "data:text/csv;charset=utf-8," + finalArray.join()
+    let data = "data:text/csv;charset=utf-8" + finalArray.join()
     var encodedUri = encodeURI(data);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "九宮格法.csv");
+    link.setAttribute("download", "九宮格法.xlsx");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

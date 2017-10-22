@@ -50,18 +50,25 @@ import KJDetail from "./special-field/KJDetail";
 import SixHatDetail from "./special-field/SixHatDetail";
 let configuration = {
     iceServers: [
-        {
-            urls: [
-                "stun:stun.l.google.com:19302",
-                "stun:stun1.l.google.com:19302",
-                "stun:stun2.l.google.com:19302",
-                "stun:stun3.l.google.com:19302",
-                "stun:stun4.l.google.com:19302"
-            ]
-        },
-        {
-            urls: "stun:stun.services.mozilla.com"
-        }
+        { url: "stun:stun01.sipphone.com" },
+        { url: "stun:stun.ekiga.net" },
+        { url: "stun:stun.fwdnet.net" },
+        { url: "stun:stun.ideasip.com" },
+        { url: "stun:stun.iptel.org" },
+        { url: "stun:stun.rixtelecom.se" },
+        { url: "stun:stun.schlund.de" },
+        { url: "stun:stun.l.google.com:19302" },
+        { url: "stun:stun1.l.google.com:19302" },
+        { url: "stun:stun2.l.google.com:19302" },
+        { url: "stun:stun3.l.google.com:19302" },
+        { url: "stun:stun4.l.google.com:19302" },
+        { url: "stun:stunserver.org" },
+        { url: "stun:stun.softjoys.com" },
+        { url: "stun:stun.voiparound.com" },
+        { url: "stun:stun.voipbuster.com" },
+        { url: "stun:stun.voipstunt.com" },
+        { url: "stun:stun.voxgratia.org" },
+        { url: "stun:stun.xten.com" }
     ]
 };
 
@@ -101,7 +108,10 @@ class Meeting extends React.Component {
                 this.localUserID = id;
                 this.Recognizer.id = this.localUserID;
                 this.props.dispatch(setLocalUserID(id));
-                this.Chat.getUserMedia();
+                this.Chat.getUserMedia().then(stream => {
+                    console.log(stream);
+                    window.localStream = stream;
+                });
             })
             .on("joinRoom", () => {
                 socket.emit("join", window.location.hash);
@@ -125,6 +135,7 @@ class Meeting extends React.Component {
                 //         delParticipantConnection(participantID)
                 //     );
                 // }
+                console.log("收到新人訊息(1)");
                 //主動建立連線
                 let isInitiator = true;
                 let peerConn = this.Chat.createPeerConnection(
@@ -133,6 +144,7 @@ class Meeting extends React.Component {
                     participantID,
                     socket
                 );
+
                 peerConn
                     .createOffer()
                     .then(offer => {
@@ -155,10 +167,6 @@ class Meeting extends React.Component {
                                         connectionObj: peerConn
                                     })
                                 );
-                                window.connections = {
-                                    ...window.connections,
-                                    [participantID]: peerConn
-                                };
                             },
                             error => {
                                 console.log("set失敗了: ") + error;
@@ -168,13 +176,24 @@ class Meeting extends React.Component {
                     .catch(e => {
                         console.log("createOffer出錯了: " + e);
                     });
+                window.connections = {
+                    ...window.connections,
+                    [participantID]: peerConn
+                };
             })
             .on("answer", (answer, sender) => {
                 //console.log("answer" + JSON.stringify(answer));
                 //console.log('有收到answer喔!');
-                this.props.connections[sender].setRemoteDescription(
-                    new RTCSessionDescription(answer)
-                );
+                // this.props.connections[sender]
+                //     .setRemoteDescription(new RTCSessionDescription(answer))
+                //     .catch(error => {
+                //         console.log(error);
+                //     });
+                window.connections[sender]
+                    .setRemoteDescription(new RTCSessionDescription(answer))
+                    .catch(error => {
+                        console.log(error);
+                    });
                 // window.connections[sender] = this.props.connections[sender]
                 //console.log(this.state.connections[sender].getRemoteStreams()[0]);
             })
@@ -192,62 +211,107 @@ class Meeting extends React.Component {
                     socket
                 );
 
-                peerConn
-                    .setRemoteDescription(new RTCSessionDescription(offer))
-                    .then(() => {
-                        console.log(!isInitiator);
-                        console.log(window.localStream);
-                        if(!window.localStream){
-                            this.Chat = chat.createNew(this);
-                        }
-                        if (!isInitiator && window.localStream) {
-                            console.log("加了!");
+                peerConn.setRemoteDescription(
+                    new RTCSessionDescription(offer),
+                    () => {
+                        if (
+                            Object.keys(window.localStream).length == 0 ||
+                            window.localStream == null ||
+                            window.localStream == undefined
+                        ) {
+                            this.Chat
+                                .getUserMedia()
+                                .then(stream => {
+                                    console.log(window.localStream);
+
+                                    peerConn.addStream(window.localStream);
+
+                                    peerConn.createAnswer(
+                                        answer => {
+                                            peerConn.setLocalDescription(
+                                                answer,
+                                                () => {
+                                                    socket.emit(
+                                                        "answerRemotePeer",
+                                                        answer,
+                                                        this.localUserID,
+                                                        sender,
+                                                        this.props.isStreaming,
+                                                        this.props.isSounding
+                                                    );
+                                                },
+                                                error => {
+                                                    console.log(error);
+                                                }
+                                            );
+                                        },
+                                        error => {
+                                            console.log(error);
+                                        }
+                                    );
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                });
+                        } else {
+                            console.log(window.localStream);
+
                             peerConn.addStream(window.localStream);
-                        }
-                    })
-                    .then(() => {
-                        return peerConn.createAnswer();
-                    })
-                    .then(answer => {
-                        console.log("創建好本地端的 " + answer + "，要傳出去");
-                        peerConn.setLocalDescription(answer).then(() => {
-                            socket.emit(
-                                "answerRemotePeer",
-                                answer,
-                                this.localUserID,
-                                sender,
-                                this.props.isStreaming,
-                                this.props.isSounding
+
+                            peerConn.createAnswer(
+                                answer => {
+                                    peerConn.setLocalDescription(
+                                        answer,
+                                        () => {
+                                            socket.emit(
+                                                "answerRemotePeer",
+                                                answer,
+                                                this.localUserID,
+                                                sender,
+                                                this.props.isStreaming,
+                                                this.props.isSounding
+                                            );
+                                        },
+                                        error => {
+                                            console.log(error);
+                                        }
+                                    );
+                                },
+                                error => {
+                                    console.log(error);
+                                }
                             );
-                        });
-                    })
-                    .catch(e => {
-                        console.log("發生錯誤了看這裡:" + e);
-                    });
+                        }
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+
                 window.connections = {
                     ...window.connections,
                     [sender]: peerConn
                 };
             })
             .on("onIceCandidateB", (candidate, sender) => {
-                if (
-                    this.props.connections[sender] &&
-                    this.props.connections[sender].remoteDescription.type
-                ) {
-                    //console.log('加到了!');
-                    this.props.connections[sender]
-                        .addIceCandidate(new RTCIceCandidate(candidate))
-                        .catch(e => {
-                            console.log("發生錯誤了看這裡: " + e);
-                        });
-                } else {
-                    this.props.dispatch(
-                        addCandidateQueue({
-                            id: sender,
-                            candidate: candidate
-                        })
-                    );
-                }
+                // if (
+                //     this.props.connections[sender] &&
+                //     this.props.connections[sender].remoteDescription.type
+                // ) {
+                //     //console.log('加到了!');
+                this.props.connections[sender]
+                    .addIceCandidate(new RTCIceCandidate(candidate))
+                    .catch(e => {
+                        console.log("發生錯誤了看這裡: " + e);
+                    });
+                // } else {
+                //     this.props.dispatch(
+                //         addCandidateQueue({
+                //             id: sender,
+                //             candidate: candidate
+                //         })
+                //     );
+                // }
             })
             .on("participantDisconnected", participantID => {
                 window.connections = Object.assign(
