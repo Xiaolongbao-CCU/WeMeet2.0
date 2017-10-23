@@ -20,7 +20,7 @@ class MainScreen extends React.Component {
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num
             },
-            isSixHatPlaying: true
+            isSixHatPlaying: false
         };
         this.mirroredVideo = 'rotateY(180deg)';
     }

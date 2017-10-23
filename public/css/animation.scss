@@ -329,29 +329,24 @@ opacity: 0;
   }
 
   100% {
-    top: 0%;
-    left: 33.33%;
+
   }
 }
 
-
-@-webkit-keyframes TurnRight1 {
-  0% {
-  }
-
-  100% {
-    top: 0%;
-    left: 66.66%;
-  }
+#fadeIn{
+  animation: fadeIn 0.5s;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
 }
 
-@-webkit-keyframes TurnRight2 {
-  0% {
-  }
-
-  100% {
-    top: 0%;
-    left: 0%;
-  }
+#fadeIn1{
+  animation: fadeIn 0.5s;
+  animation-delay: 1.3s;
+  animation-fill-mode: both;
 }
 
+#fadeIn2{
+  animation: fadeIn 0.5s;
+  animation-delay: 1.8s;
+  animation-fill-mode: both;
+}
