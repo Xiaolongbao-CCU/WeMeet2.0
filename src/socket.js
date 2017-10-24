@@ -1,3 +1,5 @@
+
+
 import socketIO from "socket.io-client";
 import store from "./store";
 import {
@@ -10,6 +12,7 @@ import {
     setParticipantList,
     addParticipantList,
     delParticipantList,
+    addChatRecord,
     setRemoteVideoState,
     setRemoteAudioState,
     setVotingDetail,
@@ -26,7 +29,7 @@ import {
 } from "./actions/Actions";
 
 let io = socketIO();
-let socket = io.connect("https://140.123.175.95:8787");
+let socket = io.connect("https://140.123.175.95:8080");
 
 socket
     .on("setRoomList", list => {
@@ -56,6 +59,10 @@ socket
     .on("delParticipantList", participantID => {
         store.dispatch(delParticipantList(participantID));
     });
+
+socket.on("chatMessage",(record)=>{
+    store.dispatch(addChatRecord(record))
+});
 
 socket
     .on("setRemoteVideoState", (state, remotePeer) => {

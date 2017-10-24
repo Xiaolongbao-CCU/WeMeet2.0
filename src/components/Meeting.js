@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import chat from "../lib/chat";
 import recognition from "../lib/recognition";
 import socket from "../socket";
+import "../lib/peer";
 
 // redux-action
 import {
@@ -16,6 +17,7 @@ import {
     addParticipantList,
     addParticipantConnection,
     delParticipantConnection,
+    addRemoteStreamURL,
     delRemoteStreamURL,
     addCandidateQueue,
     toggleUserMedia,
@@ -87,7 +89,7 @@ class Meeting extends React.Component {
             isSixHatOpen: false,
             isJiugonggePlaying: false,
             isKJPlaying: false,
-            isPainting: true
+            isPainting: false
         };
     }
 
@@ -111,12 +113,15 @@ class Meeting extends React.Component {
                 this.localUserID = id;
                 this.Recognizer.id = this.localUserID;
                 this.props.dispatch(setLocalUserID(id));
-                this.Chat.getUserMedia().then(stream => {
-                    console.log(stream);
-                    window.localStream = stream;
-                }).catch(error=>{
-                    console.log(error)
-                });
+                this.Chat
+                    .getUserMedia()
+                    .then(stream => {
+                        console.log(stream);
+                        window.localStream = stream;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             })
             .on("joinRoom", () => {
                 socket.emit("join", window.location.hash);
@@ -181,201 +186,150 @@ class Meeting extends React.Component {
                 //     .catch(e => {
                 //         console.log("createOffer出錯了: " + e);
                 //     });
+
                 console.log("收到新人訊息(1)");
-                let peerConn = new Peer(localUserID, {key: 'lcl1o5jwjt027qfr'}); 
+                let peerConn = new Peer(
+                    `${this.props.localUserID}${participantID}`,
+                    {
+                        host: "140.123.175.95",
+                        port: 8080,
+                        path: "/peerjs",
+                        debug: "3"
+                    }
+                );
+                console.log("創建好連線物件(2)");
                 window.connections = {
                     ...window.connections,
                     [participantID]: peerConn
                 };
-            }).on('answerFromParticipant',(participantID)=>{
-                if(window.stream && Object.keys(window.stream).length>0){
-                    peerConn.call(participantID, window.stream);
-                    call.on('stream', function(remoteStream) {
+                socket.emit(
+                    "callRequest",
+                    this.props.localUserID,
+                    participantID
+                );
+                console.log("通知對方建立連線物件(3)");
+            })
+            .on("callRequest", senderID => {
+                console.log("收到連線要求(1)");
+                let peerConn = new Peer(
+                    `${this.props.localUserID}${senderID}`,
+                    {
+                        host: "140.123.175.95",
+                        port: 8080,
+                        path: "/peerjs",
+                        debug: "3"
+                    }
+                );
+                console.log("創建連線物件，接收連線(2)");
+                window.connections = {
+                    ...window.connections,
+                    [senderID]: peerConn
+                };
+                peerConn.on("call", call => {
+                    if (
+                        window.localStream &&
+                        Object.keys(window.localStream).length > 0
+                    ) {
+                        call.answer(window.localStream);
+                        call.on("stream", remoteStream => {
+                            console.log("收到影像啦!" + stream);
+                            let url = URL.createObjectURL(remoteStream);
+                            this.props.dispatch(
+                                addRemoteStreamURL({
+                                    remotePeer: senderID,
+                                    url: url,
+                                    stream: remoteStream
+                                })
+                            );
+                        });
+                    } else {
+                        this.Chat.getUserMedia().then(stream => {
+                            call.answer(window.localStream);
+                            call.on("stream", remoteStream => {
+                                let url = URL.createObjectURL(remoteStream);
+                                console.log("收到影像啦!" + stream);
+                                this.props.dispatch(
+                                    addRemoteStreamURL({
+                                        remotePeer: senderID,
+                                        url: url,
+                                        stream: remoteStream
+                                    })
+                                );
+                            });
+                        });
+                    }
+                });
+
+                socket.emit(
+                    "answerCallRequest",
+                    this.props.localUserID,
+                    senderID
+                );
+                socket.emit(
+                    "setRemoteVideoState",
+                    true,
+                    this.props.localUserID
+                );
+                socket.emit(
+                    "setRemoteAudioState",
+                    true,
+                    this.props.localUserID
+                );
+                console.log("傳送回復，等待連線(3)");
+            })
+            .on("answerCallRequest", sender => {
+                console.log("收到回覆");
+                if (
+                    window.localStream &&
+                    Object.keys(window.localStream).length > 0
+                ) {
+                    let call = window.connections[sender].call(
+                        `${sender}${this.props.localUserID}`,
+                        window.localStream
+                    );
+                    console.log("發出連線(4)");
+                    call.on("stream", remoteStream => {
+                        let url = URL.createObjectURL(remoteStream);
+                        console.log("收到影像囉!(5)" + remoteStream);
                         this.props.dispatch(
                             addRemoteStreamURL({
-                                [participantID]:participantID,
+                                remotePeer: sender,
                                 url: url,
                                 stream: remoteStream
                             })
                         );
                     });
                 } else {
-                    this.Chat.getUserMedia().then((stream)=>{
-                        window.stream = stream;
-                        peerConn.call(participantID, window.stream);
-                        call.on('stream', function(remoteStream) {
-                            this.props.dispatch(
-                                addRemoteStreamURL({
-                                    [participantID]:participantID,
-                                    url: url,
-                                    stream: remoteStream
-                                })
-                            );
-                        });
-                    })
-                }
-                
-            })
-            // .on("answer", (answer, sender) => {
-            //     //console.log("answer" + JSON.stringify(answer));
-            //     //console.log('有收到answer喔!');
-            //     // this.props.connections[sender]
-            //     //     .setRemoteDescription(new RTCSessionDescription(answer))
-            //     //     .catch(error => {
-            //     //         console.log(error);
-            //     //     });
-            //     window.connections[sender]
-            //         .setRemoteDescription(new RTCSessionDescription(answer))
-            //         .catch(error => {
-            //             console.log(error);
-            //         });
-            //     // window.connections[sender] = this.props.connections[sender]
-            //     //console.log(this.state.connections[sender].getRemoteStreams()[0]);
-            // })
-            .on("offer", (offer, sender, senderName) => {
-                //console.log("888888888888")
-                // if (this.props.connections[sender]) {
-                //     this.props.dispatch(delParticipantConnection(sender));
-                // }
-                //console.log('收到遠端的 offer，要建立連線並處理');
-                // let isInitiator = false;
-                // let peerConn = this.Chat.createPeerConnection(
-                //     isInitiator,
-                //     configuration,
-                //     sender,
-                //     socket
-                // );
-
-                // peerConn.setRemoteDescription(
-                //     new RTCSessionDescription(offer),
-                //     () => {
-                //         if (
-                //             Object.keys(window.localStream).length == 0 ||
-                //             window.localStream == null ||
-                //             window.localStream == undefined
-                //         ) {
-                //             this.Chat
-                //                 .getUserMedia()
-                //                 .then(stream => {
-                //                     console.log(window.localStream);
-
-                //                     peerConn.addStream(window.localStream);
-
-                //                     peerConn.createAnswer(
-                //                         answer => {
-                //                             peerConn.setLocalDescription(
-                //                                 answer,
-                //                                 () => {
-                //                                     socket.emit(
-                //                                         "answerRemotePeer",
-                //                                         answer,
-                //                                         this.localUserID,
-                //                                         sender,
-                //                                         this.props.isStreaming,
-                //                                         this.props.isSounding
-                //                                     );
-                //                                 },
-                //                                 error => {
-                //                                     console.log(error);
-                //                                 }
-                //                             );
-                //                         },
-                //                         error => {
-                //                             console.log(error);
-                //                         }
-                //                     );
-                //                 })
-                //                 .catch(error => {
-                //                     console.log(error);
-                //                 });
-                //         } else {
-                //             console.log(window.localStream);
-
-                //             peerConn.addStream(window.localStream);
-
-                //             peerConn.createAnswer(
-                //                 answer => {
-                //                     peerConn.setLocalDescription(
-                //                         answer,
-                //                         () => {
-                //                             socket.emit(
-                //                                 "answerRemotePeer",
-                //                                 answer,
-                //                                 this.localUserID,
-                //                                 sender,
-                //                                 this.props.isStreaming,
-                //                                 this.props.isSounding
-                //                             );
-                //                         },
-                //                         error => {
-                //                             console.log(error);
-                //                         }
-                //                     );
-                //                 },
-                //                 error => {
-                //                     console.log(error);
-                //                 }
-                //             );
-                //         }
-                //     },
-                //     error => {
-                //         console.log(error);
-                //     }
-                // );
-                let peerConn = new Peer(localUserID, {key: 'lcl1o5jwjt027qfr'}); 
-                peerConn.on('call', function(call) {
-                    if(window.stream && Object.keys(window.stream).length>0){
-                        call.answer(window.stream); // Answer the call with an A/V stream.
-                        call.on('stream', function(remoteStream) {
-                             this.props.dispatch(
-                                addRemoteStreamURL({
-                                    [sender]:sender,
-                                    url: url,
-                                    stream: remoteStream
-                                })
+                    this.Chat.getUserMedia().then(stream => {
+                        window.localStream = stream;
+                        let call = window.connections[sender].call(
+                            `${sender}${this.props.localUserID}`,
+                            window.localStream
                         );
-                          // Show stream in some video/canvas element.
-                        });
-                    } else {
-                    this.Chat.getUserMedia().then((stream)=>{
-                        window.stream = stream;
-                        call.answer(window.stream);
-                        call.on('stream', function(remoteStream) {
+                        console.log("發出連線(4)");
+                        call.on("stream", remoteStream => {
+                            console.log("收到影像囉!(5)" + remoteStream);
+                            let url = URL.createObjectURL(remoteStream);
                             this.props.dispatch(
                                 addRemoteStreamURL({
-                                    [participantID]:participantID,
+                                    remotePeer: sender,
                                     url: url,
                                     stream: remoteStream
                                 })
                             );
                         });
-                    })
-                }
-                });
-                window.connections = {
-                    ...window.connections,
-                    [sender]: peerConn
-                };
-            })
-            .on("onIceCandidateB", (candidate, sender) => {
-                // if (
-                //     this.props.connections[sender] &&
-                //     this.props.connections[sender].remoteDescription.type
-                // ) {
-                //     //console.log('加到了!');
-                this.props.connections[sender]
-                    .addIceCandidate(new RTCIceCandidate(candidate))
-                    .catch(e => {
-                        console.log("發生錯誤了看這裡: " + e);
                     });
-                // } else {
-                //     this.props.dispatch(
-                //         addCandidateQueue({
-                //             id: sender,
-                //             candidate: candidate
-                //         })
-                //     );
-                // }
+                }
+                socket.emit(
+                    "setRemoteVideoState",
+                    true,
+                    this.props.localUserID
+                );
+                socket.emit(
+                    "setRemoteAudioState",
+                    true,
+                    this.props.localUserID
+                );
             })
             .on("participantDisconnected", participantID => {
                 window.connections = Object.assign(
@@ -395,10 +349,174 @@ class Meeting extends React.Component {
                 this.props.dispatch(delRemoteStreamURL(participantID));
                 this.props.dispatch(delRemoteUserName(participantID));
             });
+        // .on("answer", (answer, sender) => {
+        //     //console.log("answer" + JSON.stringify(answer));
+        //     //console.log('有收到answer喔!');
+        //     // this.props.connections[sender]
+        //     //     .setRemoteDescription(new RTCSessionDescription(answer))
+        //     //     .catch(error => {
+        //     //         console.log(error);
+        //     //     });
+        //     window.connections[sender]
+        //         .setRemoteDescription(new RTCSessionDescription(answer))
+        //         .catch(error => {
+        //             console.log(error);
+        //         });
+        //     // window.connections[sender] = this.props.connections[sender]
+        //     //console.log(this.state.connections[sender].getRemoteStreams()[0]);
+        // })
+        // .on("offer", (offer, sender, senderName) => {
+        //     //console.log("888888888888")
+        //     // if (this.props.connections[sender]) {
+        //     //     this.props.dispatch(delParticipantConnection(sender));
+        //     // }
+        //     //console.log('收到遠端的 offer，要建立連線並處理');
+        //     // let isInitiator = false;
+        //     // let peerConn = this.Chat.createPeerConnection(
+        //     //     isInitiator,
+        //     //     configuration,
+        //     //     sender,
+        //     //     socket
+        //     // );
+
+        //     // peerConn.setRemoteDescription(
+        //     //     new RTCSessionDescription(offer),
+        //     //     () => {
+        //     //         if (
+        //     //             Object.keys(window.localStream).length == 0 ||
+        //     //             window.localStream == null ||
+        //     //             window.localStream == undefined
+        //     //         ) {
+        //     //             this.Chat
+        //     //                 .getUserMedia()
+        //     //                 .then(stream => {
+        //     //                     console.log(window.localStream);
+
+        //     //                     peerConn.addStream(window.localStream);
+
+        //     //                     peerConn.createAnswer(
+        //     //                         answer => {
+        //     //                             peerConn.setLocalDescription(
+        //     //                                 answer,
+        //     //                                 () => {
+        //     //                                     socket.emit(
+        //     //                                         "answerRemotePeer",
+        //     //                                         answer,
+        //     //                                         this.localUserID,
+        //     //                                         sender,
+        //     //                                         this.props.isStreaming,
+        //     //                                         this.props.isSounding
+        //     //                                     );
+        //     //                                 },
+        //     //                                 error => {
+        //     //                                     console.log(error);
+        //     //                                 }
+        //     //                             );
+        //     //                         },
+        //     //                         error => {
+        //     //                             console.log(error);
+        //     //                         }
+        //     //                     );
+        //     //                 })
+        //     //                 .catch(error => {
+        //     //                     console.log(error);
+        //     //                 });
+        //     //         } else {
+        //     //             console.log(window.localStream);
+
+        //     //             peerConn.addStream(window.localStream);
+
+        //     //             peerConn.createAnswer(
+        //     //                 answer => {
+        //     //                     peerConn.setLocalDescription(
+        //     //                         answer,
+        //     //                         () => {
+        //     //                             socket.emit(
+        //     //                                 "answerRemotePeer",
+        //     //                                 answer,
+        //     //                                 this.localUserID,
+        //     //                                 sender,
+        //     //                                 this.props.isStreaming,
+        //     //                                 this.props.isSounding
+        //     //                             );
+        //     //                         },
+        //     //                         error => {
+        //     //                             console.log(error);
+        //     //                         }
+        //     //                     );
+        //     //                 },
+        //     //                 error => {
+        //     //                     console.log(error);
+        //     //                 }
+        //     //             );
+        //     //         }
+        //     //     },
+        //     //     error => {
+        //     //         console.log(error);
+        //     //     }
+        //     // );
+        //     let peerConn = new Peer(localUserID, {
+        //         key: "lcl1o5jwjt027qfr"
+        //     });
+        //     peerConn.on("call", function(call) {
+        //         if (
+        //             window.localStream &&
+        //             Object.keys(window.localStream).length > 0
+        //         ) {
+        //             call.answer(window.localStream); // Answer the call with an A/V stream.
+        //             call.on("stream", function(remoteStream) {
+        //                 this.props.dispatch(
+        //                     addRemoteStreamURL({
+        //                         [sender]: sender,
+        //                         url: url,
+        //                         stream: remoteStream
+        //                     })
+        //                 );
+        //                 // Show stream in some video/canvas element.
+        //             });
+        //         } else {
+        //             this.Chat.getUserMedia().then(stream => {
+        //                 window.localStream = stream;
+        //                 call.answer(window.localStream);
+        //                 call.on("stream", function(remoteStream) {
+        //                     this.props.dispatch(
+        //                         addRemoteStreamURL({
+        //                             [participantID]: participantID,
+        //                             url: url,
+        //                             stream: remoteStream
+        //                         })
+        //                     );
+        //                 });
+        //             });
+        //         }
+        //     });
+        //     window.connections = {
+        //         ...window.connections,
+        //         [sender]: peerConn
+        //     };
+        // })
+        // .on("onIceCandidateB", (candidate, sender) => {
+        //     // if (
+        //     //     this.props.connections[sender] &&
+        //     //     this.props.connections[sender].remoteDescription.type
+        //     // ) {
+        //     //     //console.log('加到了!');
+        //     this.props.connections[sender]
+        //         .addIceCandidate(new RTCIceCandidate(candidate))
+        //         .catch(e => {
+        //             console.log("發生錯誤了看這裡: " + e);
+        //         });
+        //     // } else {
+        //     //     this.props.dispatch(
+        //     //         addCandidateQueue({
+        //     //             id: sender,
+        //     //             candidate: candidate
+        //     //         })
+        //     //     );
+        //     // }
+        // })
+        
     }
-
-
-
 
     getRoomURL() {
         if (window.location.hash) {
@@ -434,12 +552,14 @@ class Meeting extends React.Component {
             .off("joinRoom")
             .off("joinSuccess")
             .off("newParticipantB")
+            .off("callRequest")
+            .off("answerCallRequest")
             .off("answer")
             .off("offer")
             .off("onIceCandidateB")
             .off("participantDisconnected");
     }
-    
+
     render() {
         const { loading } = this.state;
 
@@ -460,37 +580,39 @@ class Meeting extends React.Component {
         return (
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
-                {
-                    this.props.isGridDetailOpen ? <GirdDetail /> :
-                        this.state.isKJOpen ? <KJDetail /> :
-                            this.state.isSixHatOpen ? <SixHatDetail /> : null
-                }
+                {this.props.isGridDetailOpen ? (
+                    <GirdDetail />
+                ) : this.state.isKJOpen ? (
+                    <KJDetail />
+                ) : this.state.isSixHatOpen ? (
+                    <SixHatDetail />
+                ) : null}
                 <div className="left-field">
                     <CVcontrol />
-                    {this.props.isInChatNow ? <Chatroom /> : <VoiceRecognition Recognizer={this.Recognizer} />}
-                    {this.props.isInChatNow ? <ChatInput Chat={this.Chat} /> : <VoiceResult Recognizer={this.Recognizer} />}
+                    {this.props.isInChatNow ? (
+                        <Chatroom />
+                    ) : (
+                        <VoiceRecognition Recognizer={this.Recognizer} />
+                    )}
+                    {this.props.isInChatNow ? (
+                        <ChatInput Chat={this.Chat} />
+                    ) : (
+                        <VoiceResult Recognizer={this.Recognizer} />
+                    )}
                 </div>
-
                 <div className="center-field">
                     <Toolbar />
                     {this.props.isGridStart ? (
                         <GridGame />
                     ) : this.state.isKJPlaying ? (
                         <KJGame />
+                    ) : this.state.isPainting ? (
+                        <Painting />
                     ) : (
                         <MainScreen />
                     )}
                     <AVcontrol Chat={this.Chat} />
                 </div>
-                    {
-                        this.props.isGridStart ? <GridGame /> :
-                            this.state.isKJPlaying ? <KJGame /> :
-                                this.state.isPainting ? <Painting /> :
-                                    <MainScreen />
-                    }
-                    <AVcontrol Chat={this.Chat} />
-                </div>
-
                 <div className="right-field">
                     <Agenda />
                     <Vote />

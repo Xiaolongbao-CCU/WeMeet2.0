@@ -2,8 +2,20 @@
 
 //回傳一個具有express的library的物件，當作處理request的Callback
 const express = require("express");
+const ExpressPeerServer = require('peer').ExpressPeerServer;
 const bodyParser = require("body-parser");
 const app = express();
+const fs = require("fs");
+//const db = require('./app/lib/db.js');
+
+//HTTPS參數;
+const option = {
+    key: fs.readFileSync("./public/certificate/privatekey.pem"),
+    cert: fs.readFileSync("./public/certificate/certificate.pem")
+};
+
+//對https Server內傳入express的處理
+const server = require("https").createServer(option, app);
 app.use(
     bodyParser.urlencoded({
         type: "image/*",
@@ -22,8 +34,16 @@ app.use(
         type: "text/plain"
     })
 );
-const fs = require("fs");
-//const db = require('./app/lib/db.js');
+
+let peerServerOption = {
+    debug: true
+}
+app.use('/peerjs', ExpressPeerServer(server, peerServerOption));
+
+const io = require("socket.io")(server);
+
+server.listen(8080);
+console.log("已啟動伺服器!");
 
 let roomList = [];
 let userInRoom = {};
@@ -39,17 +59,7 @@ let animalName = {
     8:"狐狸"
 };
 
-//HTTPS參數;
-const option = {
-    key: fs.readFileSync("./public/certificate/privatekey.pem"),
-    cert: fs.readFileSync("./public/certificate/certificate.pem")
-};
 
-//對https Server內傳入express的處理
-const server = require("https").createServer(option, app);
-const io = require("socket.io")(server);
-server.listen(8787);
-console.log("已啟動伺服器!");
 
 // app.get("/api/db/history", (req, res) => {
 //     db.History.find({ "room": '#53ee66' }, (err, data) => {
@@ -85,13 +95,8 @@ console.log("已啟動伺服器!");
 
 // });
 
-<<<<<<< HEAD
 io.on("connection", function(socket) {
     //console.log("有人連線囉~" + socket.id);
-=======
-io.on("connection", function (socket) {
-    console.log("有人連線囉~" + socket.id);
->>>>>>> 244d1f9f6cbd439dd50fcc212736354976e8cfb7
     socket.emit("setRoomList", roomList);
 
     socket.on("giveMeMySocketId", () => {
@@ -160,14 +165,10 @@ io.on("connection", function (socket) {
                 socket.to(room).emit("addParticipantList", obj);
             }
         })
-<<<<<<< HEAD
         .on("joinFinish",()=>{
             socket.emit("joinSuccess")
         })
         .on("leaveRoom", function() {
-=======
-        .on("leaveRoom", function () {
->>>>>>> 244d1f9f6cbd439dd50fcc212736354976e8cfb7
             console.log("有人離開房間囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
             socket.leave(room);
@@ -232,39 +233,15 @@ io.on("connection", function (socket) {
                 name: userName
             });
         })
-        .on("offerRemotePeer", function (
-            offer,
-            sender,
-            receiver,
-            senderName,
-            isStreaming,
-            isSounding
-        ) {
-            socket.to(receiver).emit("offer", offer, sender, senderName);
-            socket.to(receiver).emit("setRemoteUserName", {
-                id: sender,
-                name: senderName
-            });
-            socket
-                .to(receiver)
-                .emit("setRemoteVideoState", isStreaming, sender);
-            socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+        .on("callRequest",(sender,receiver)=>{
+            socket.to(receiver).emit("callRequest",sender)
         })
-        .on("answerRemotePeer", function (
-            answer,
-            sender,
-            receiver,
-            isStreaming,
-            isSounding
-        ) {
-            socket.to(receiver).emit("answer", answer, sender);
-            socket
-                .to(receiver)
-                .emit("setRemoteVideoState", isStreaming, sender);
-            socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+        .on("answerCallRequest",(sender,receiver)=>{
+            socket.to(receiver).emit("answerCallRequest",sender)
         })
-        .on("onIceCandidateA", function (candidate, sender, receiver) {
-            socket.to(receiver).emit("onIceCandidateB", candidate, sender);
+        .on("chatMessage",(record)=>{
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("chatMessage",record)
         })
         .on("setRemoteVideoState", (state, remotePeer) => {
             let room = Object.keys(socket.rooms)[1];
@@ -274,6 +251,40 @@ io.on("connection", function (socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         });
+        // .on("offerRemotePeer", function (
+        //     offer,
+        //     sender,
+        //     receiver,
+        //     senderName,
+        //     isStreaming,
+        //     isSounding
+        // ) {
+        //     socket.to(receiver).emit("offer", offer, sender, senderName);
+        //     socket.to(receiver).emit("setRemoteUserName", {
+        //         id: sender,
+        //         name: senderName
+        //     });
+        //     socket
+        //         .to(receiver)
+        //         .emit("setRemoteVideoState", isStreaming, sender);
+        //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+        // })
+        // .on("answerRemotePeer", function (
+        //     answer,
+        //     sender,
+        //     receiver,
+        //     isStreaming,
+        //     isSounding
+        // ) {
+        //     socket.to(receiver).emit("answer", answer, sender);
+        //     socket
+        //         .to(receiver)
+        //         .emit("setRemoteVideoState", isStreaming, sender);
+        //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+        // })
+        // .on("onIceCandidateA", function (candidate, sender, receiver) {
+        //     socket.to(receiver).emit("onIceCandidateB", candidate, sender);
+        // })
 
     socket
         .on("setAgenda", function (list) {
