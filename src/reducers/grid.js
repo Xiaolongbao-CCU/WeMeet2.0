@@ -46,6 +46,8 @@ export default function grid(state = initialState, action) {
             return Object.assign({}, state, { isGridDetailOpen: false });
         case "setGridStart":
             return Object.assign({}, state, { isGridStart: true });
+        case "setGridClose":
+            return Object.assign({}, state, { isGridStart: false });
         default:
             return state;
     }

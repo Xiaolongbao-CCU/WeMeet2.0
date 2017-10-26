@@ -8,7 +8,8 @@ import {
 	agenda,
 	chatAndRecognition,
 	time,
-	grid
+	grid,
+	paint
 } from "./reducers/index";
 
 let reducers = combineReducers({
@@ -20,7 +21,8 @@ let reducers = combineReducers({
 	agenda,
 	chatAndRecognition,
 	time,
-	grid
+	grid,
+	paint
 });
 
 const store = createStore(

@@ -54,8 +54,14 @@ export {
 	setGrid,
 	setGridDetailOpen,
 	setGridDetailClose,
-	setGridStart
+	setGridStart,
+	setGridClose
 } from "./grid"
+
+export {
+	setPaintOpen,
+	setPaintClose
+} from "./paint"
 
 export function addChatRecord(recordObj) {
 	return {

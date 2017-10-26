@@ -21,3 +21,9 @@ export function setGridStart() {
 		type: "setGridStart"
 	};
 }
+
+export function setGridClose() {
+	return {
+		type: "setGridClose"
+	};
+}

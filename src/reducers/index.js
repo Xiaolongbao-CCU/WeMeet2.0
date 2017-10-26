@@ -7,6 +7,7 @@ import agenda from "./agenda";
 import chatAndRecognition from "./chatAndRecognition"
 import time from "./time"
 import grid from "./grid";
+import paint from "./paint"
 
 export {
 	roomList,
@@ -17,6 +18,7 @@ export {
 	agenda,
 	chatAndRecognition,
 	time,
-	grid
+	grid,
+	paint
 };
 

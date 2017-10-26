@@ -98,8 +98,7 @@ class Meeting extends React.Component {
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false,
-            isPainting: false
+            isKJPlaying: false
         };
     }
 
@@ -614,15 +613,10 @@ class Meeting extends React.Component {
                 </div>
                 <div className="center-field">
                     <Toolbar />
-                    {this.props.isGridStart ? (
-                        <GridGame />
-                    ) : this.state.isKJPlaying ? (
-                        <KJGame />
-                    ) : this.state.isPainting ? (
-                        <Painting />
-                    ) : (
-                        <MainScreen />
-                    )}
+                    {this.props.isGridStart ? <GridGame /> : null}
+                    {this.state.isKJPlaying ? <KJGame /> : null}
+                    {this.props.isPaintOpen ? <Painting /> : null}
+                    {!this.props.isGridStart && !this.state.isKJPlaying && !this.props.isPaintOpen? <MainScreen /> : null}
                     <AVcontrol Chat={this.Chat} />
                 </div>
                 <div className="right-field">
@@ -648,7 +642,8 @@ const mapStateToProps = state => {
         candidateQueue: state.connection.candidateQueue,
         isInChatNow: state.chatAndRecognition.isInChatNow,
         isGridDetailOpen: state.grid.isGridDetailOpen,
-        isGridStart: state.grid.isGridStart
+        isGridStart: state.grid.isGridStart,
+        isPaintOpen:state.paint.isPaintOpen
     };
 };
 

@@ -10,7 +10,11 @@ import Brainstorming from "./Brainstorming";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
-import { setGridDetailOpen } from "../../actions/Actions";
+import { 
+    setGridDetailOpen,
+    setPaintOpen,
+    setPaintClose
+ } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -68,6 +72,12 @@ class Toolbar extends React.Component {
     }
 
     onClick_TogglePainting() {
+        if(this.props.isPaintOpen){
+            this.props.dispatch(setPaintClose())
+        } else {
+            this.props.dispatch(setPaintOpen())
+        }
+        
     }
 
     onClick_ToggleReservation() {
@@ -153,7 +163,7 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="canvas"
-                    onClick={this.onClick_TogglePainting}
+                    onClick={()=>{this.onClick_TogglePainting()}}
                 >
                     <div className="hovertext" id="canvas">電子白板</div>
                 </div>
@@ -167,7 +177,8 @@ class Toolbar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        votingDetail: state.vote
+        votingDetail: state.vote,
+        isPaintOpen: state.paint.isPaintOpen
     };
 };
 
