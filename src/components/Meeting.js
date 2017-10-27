@@ -286,7 +286,16 @@ class Meeting extends React.Component {
     }
 
     getRoomURL() {
-        if (window.location.hash) {
+        let temp = window.location.href.split("?hash=");
+        console.log(temp[0], temp[1]);
+        if (temp.length >= 2) {
+            window.location.href = temp[0] + "#" + temp[1];
+            console.log(window.location.href);
+            this.setState({
+                roomURL: window.location.href
+            });
+            this.props.dispatch(setRoomName(window.location.href))
+        } else if (window.location.hash) {
             this.setState({
                 roomURL: window.location.href
             });

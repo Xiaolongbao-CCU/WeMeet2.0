@@ -62,7 +62,6 @@ let animalName = {
 server.on("disconnect",(id)=>{
     
 })
-
 // app.get("/api/db/history", (req, res) => {
 //     db.History.find({ "room": '#53ee66' }, (err, data) => {
 //         if (err) console.log(err);
@@ -371,10 +370,12 @@ io.on("connection", function(socket) {
     //1018 Andy Added
     socket.
         on("drawing", (data) => {
-            socket.broadcast.emit('drawing', data);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('drawing', data);
         })
         .on("reset", (key) => {
-            socket.broadcast.emit('reset', key);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('reset', key);
         });
 
 });

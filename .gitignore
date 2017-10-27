@@ -9,3 +9,6 @@ public/certificate/certrequest.csr
 *.csr
 public/certificate/certrequest.csr
 *.map
+
+.vscode/launch.json
+*.scssc
