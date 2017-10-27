@@ -27,7 +27,7 @@ class Background extends React.Component {
             })
             // console.log('現在是早上喔!');
 
-        } else if (currentDateTime >= 15 && currentDateTime <= 18) {
+        } else if (currentDateTime >= 15 && currentDateTime <= 17) {
             this.setState({
                 Currentperiod: 'afternoon'
             })
@@ -75,36 +75,16 @@ class Background extends React.Component {
                 cssstyle = (
                     <div>
                         <div className="sky" style={skycolor}>
-                            <img className="cloud site1" style={cloudstatus} src="./img/main-cloud.png" />
-                            <img className="cloud site2" style={cloudstatus} src="./img/main-cloud1.png" />
-                            <img className="cloud site3" style={cloudstatus} src="./img/main-cloud.png" />
-                            <img className="cloud site4" style={cloudstatus} src="./img/main-cloud.png" />
-                            <img className="cloud site5" style={cloudstatus} src="./img/main-cloud1.png" />
-                            <img className="cloud site6" style={cloudstatus} src="./img/main-cloud.png" />
-                            <img className="cloud site7" style={cloudstatus} src="./img/main-cloud1.png" />
-                            <img className="cloud site8" style={cloudstatus} src="./img/main-cloud.png" />
-                            <img className="cloud site9" style={cloudstatus} src="./img/main-cloud1.png" />
-                            <img className="cloud site10" style={cloudstatus} src="./img/main-cloud.png" />
-                        </div>
-
-                        <div className="forest">
-                            <div className="tree type1 site1" />
-                            <div className="tree type2 site2" />
-                            <div className="tree type3 site3" />
-                            <div className="tree type2 site4" />
-                            <div className="tree type1 site5" />
-                            <div className="tree type3 site6" />
-                            <div className='tree type2 site7' />
-                            <div className='tree type1 site8' />
-                            <div className='tree type3 site9' />
-                            <div className='tree type2 site10' />
                         </div>
                         <div className="ground" id="nature" />
                     </div>
                 )
                 break;
 
-            case 'universe':
+            case 'profession':
+                skycolor = {
+                    backgroundColor: '#201C22'
+                };
                 cssstyle = (
                     <div>
                         <div className="sky" style={skycolor}>

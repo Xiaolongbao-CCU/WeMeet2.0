@@ -19,6 +19,42 @@ html,body,.container,#app{
   height: 100%;
 }
 
+.laydate-theme-molv .layui-laydate-main {
+  width: 240px;
+}
+
+.layui-laydate-content td, .layui-laydate-content th {
+  height: 24px;
+}
+
+.layui-laydate-content {
+  padding: 7px;
+}
+
+.layui-laydate-header i {
+  font-size: 10px;
+}
+
+.layui-laydate-header i.laydate-prev-y {
+  left: 5px;
+}
+
+.layui-laydate-header i.laydate-prev-m {
+  left: 30px;
+}
+
+.laydate-time-list ol li {
+  line-height: 25px;
+}
+
+.laydate-time-list p {
+  line-height: 20px;
+}
+
+.laydate-time-list ol {
+  height: 145px;
+}
+
 /*****************************
 0. Three-field (left,center,right)
 *****************************/

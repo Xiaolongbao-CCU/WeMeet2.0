@@ -51,7 +51,7 @@ let Chat = {
                             Meeting.props.dispatch(toggleAudio());
                         }
 
-                        
+
                     } else {
                         console.log("沒聲音也沒影像欸QQ? 我覺得不行");
                         window.history.back();
@@ -67,7 +67,7 @@ let Chat = {
 
         Chat.toggleUserMedia = () => {
             localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
-                .enabled;     
+                .enabled;
         };
 
         Chat.stopUserMedia = () => {
@@ -76,7 +76,7 @@ let Chat = {
 
         Chat.toggleAudio = () => {
             localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
-                .enabled;   
+                .enabled;
         };
 
         Chat.stopAudio = () => {

@@ -323,15 +323,16 @@ opacity: 0;
   
   }
 
-
-@-webkit-keyframes TurnRight {
-  0% {
+  @-webkit-keyframes Darken {
+    0% {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  
+    100% {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
   }
 
-  100% {
-
-  }
-}
 
 #fadeIn{
   animation: fadeIn 0.5s;
