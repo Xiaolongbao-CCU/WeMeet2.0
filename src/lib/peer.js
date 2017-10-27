@@ -1083,7 +1083,7 @@ Peer.prototype.destroy = function() {
   if (!this.destroyed) {
     this._cleanup();
     this.disconnect();
-    this.destroyed = true;
+    this.destroyed = false;
   }
 };
 

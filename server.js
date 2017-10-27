@@ -59,7 +59,9 @@ let animalName = {
     8:"狐狸"
 };
 
-
+server.on("disconnect",(id)=>{
+    
+})
 
 // app.get("/api/db/history", (req, res) => {
 //     db.History.find({ "room": '#53ee66' }, (err, data) => {
