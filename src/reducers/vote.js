@@ -1,6 +1,7 @@
 const initialVoteDetail = {
     isVotingStart: false,
     isVotingFinish: false,
+    isSelfSubmit:false,
     voting: {
         creator: "",
         secretOrNot: false,
@@ -16,8 +17,15 @@ const initialVoteDetail = {
 export default function vote(state = initialVoteDetail, action) {
     switch (action.type) {
         case "setVotingDetail":
-            return Object.assign({}, state, { voting: action.data });
-
+            if(action.data.restart){
+                return Object.assign({}, { 
+                    isSelfSubmit:false,
+                    isVotingFinish: false,
+                    voting: action.data 
+                });
+            } else {
+                return Object.assign({}, state, { voting: action.data });
+            }
         case "setVotingStart":
             return Object.assign({}, state, { isVotingStart: true });
 
@@ -60,6 +68,10 @@ export default function vote(state = initialVoteDetail, action) {
             return Object.assign({}, state, { result: newResult });
         case "setVotingFinish":
             return Object.assign({}, state, { isVotingFinish: true });
+
+        case "selfSubmitVote":
+            return Object.assign({}, state, { isSelfSubmit: true });
+
         default:
             return state;
     }

@@ -32,7 +32,8 @@ export {
 	setSecretOrNot,
 	setVotingStart,
 	gotVoteFromServer,
-	setVotingFinish
+	setVotingFinish,
+	selfSubmitVote,
 } from './voteAction'
 
 

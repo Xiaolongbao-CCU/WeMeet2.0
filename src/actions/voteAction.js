@@ -31,3 +31,9 @@ export function setVotingFinish() {
 		type: "setVotingFinish" 
 	};
 }
+
+export function selfSubmitVote() {
+	return {
+		type: "selfSubmitVote" 
+	};
+}
