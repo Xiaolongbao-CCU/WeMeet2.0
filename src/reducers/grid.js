@@ -11,7 +11,8 @@ const initialState = {
         [["", "", ""], ["", "", ""], ["", "", ""]]
     ],
     isGridDetailOpen: false,
-    isGridStart: false
+    isGridStart: false,
+    isGridOpen: false
 };
 
 export default function grid(state = initialState, action) {
@@ -46,8 +47,10 @@ export default function grid(state = initialState, action) {
             return Object.assign({}, state, { isGridDetailOpen: false });
         case "setGridStart":
             return Object.assign({}, state, { isGridStart: true });
+        case "setGridOpen":
+            return Object.assign({}, state, { isGridOpen: true });
         case "setGridClose":
-            return Object.assign({}, state, { isGridStart: false });
+            return Object.assign({}, state, { isGridOpen: false });
         default:
             return state;
     }

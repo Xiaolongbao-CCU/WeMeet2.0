@@ -2,7 +2,11 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { setGridDetailClose, setGridStart } from "../../actions/Actions";
+import { 
+    setGridDetailClose,
+    setGridOpen,
+    setGridStart 
+} from "../../actions/Actions";
 
 class GirdDetail extends React.Component {
     constructor(props) {
@@ -22,6 +26,7 @@ class GirdDetail extends React.Component {
     onClick_start() {
         this.props.dispatch(setGridDetailClose());
         this.props.dispatch(setGridStart());
+        this.props.dispatch(setGridOpen());
         //socket.emit('setGridStart');
     }
     render() {

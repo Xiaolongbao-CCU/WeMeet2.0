@@ -124,7 +124,6 @@ class Vote extends React.Component {
             });
         }
         this.setState({
-            ...this.state,
             isVoteSubmited: true
         });
     }
@@ -150,9 +149,10 @@ class Vote extends React.Component {
                         </span>
                         <span className="bar" />
                         <span className="people">
-                            {this.props.votingDetail.result[key]
-                                ? this.props.votingDetail.result[key].sum
-                                : ""}
+                            {this.state.isVoteSubmited ? 
+                                (this.props.votingDetail.result[key] ?
+                                  this.props.votingDetail.result[key].sum : 0 ) : ""
+                            }
                         </span>
                         {this.state.isVoteSubmited ? (
                             <div className="people-detail">

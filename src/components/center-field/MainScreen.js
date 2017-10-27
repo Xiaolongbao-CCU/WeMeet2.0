@@ -19,8 +19,7 @@ class MainScreen extends React.Component {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num
-            },
-            isSixHatPlaying: false
+            }
         };
         this.mirroredVideo = "rotateY(180deg)";
     }
@@ -205,7 +204,7 @@ class MainScreen extends React.Component {
         if (this.state.focusingOnWhichUser.url == this.props.localVideoURL) {
             bigScreen = this.props.isStreaming ? (
                 <video
-                    className={this.state.isSixHatPlaying ? "videoset" : ""}
+                    className={this.props.isSixhatOpen ? "videoset" : ""}
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
@@ -271,9 +270,8 @@ class MainScreen extends React.Component {
         }
         return (
             <div className="main-screen">
-                {this.state.isSixHatPlaying ? <SixHatGame /> : null}
+                {this.props.isSixhatOpen ? <SixHatGame /> : null}
                 <div className="main-video">{bigScreen}</div>
-
                 <div className="other-video">{video}</div>
             </div>
         );
@@ -290,7 +288,8 @@ const mapStateToProps = state => {
         isSounding: state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
         remoteStreamURL: state.connection.remoteStreamURL,
-        remoteUserName: state.connection.remoteUserName
+        remoteUserName: state.connection.remoteUserName,
+        isSixhatOpen: state.sixhat.isSixhatOpen
     };
 };
 

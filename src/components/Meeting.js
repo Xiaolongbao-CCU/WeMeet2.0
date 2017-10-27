@@ -591,13 +591,8 @@ class Meeting extends React.Component {
         return (
             <div className="container" id="in">
                 {this.state.isVoteResultOpen ? <VoteResult /> : null}
-                {this.props.isGridDetailOpen ? (
-                    <GirdDetail />
-                ) : this.state.isKJOpen ? (
-                    <KJDetail />
-                ) : this.state.isSixHatOpen ? (
-                    <SixHatDetail />
-                ) : null}
+                {this.props.isGridDetailOpen ? <GirdDetail /> : null}
+                {this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? (
@@ -613,10 +608,9 @@ class Meeting extends React.Component {
                 </div>
                 <div className="center-field">
                     <Toolbar />
-                    {this.props.isGridStart ? <GridGame /> : null}
-                    {this.state.isKJPlaying ? <KJGame /> : null}
+                    {this.props.isGridOpen ? <GridGame /> : null}
                     {this.props.isPaintOpen ? <Painting /> : null}
-                    {!this.props.isGridStart && !this.state.isKJPlaying && !this.props.isPaintOpen? <MainScreen /> : null}
+                    <MainScreen/>
                     <AVcontrol Chat={this.Chat} />
                 </div>
                 <div className="right-field">
@@ -642,8 +636,9 @@ const mapStateToProps = state => {
         candidateQueue: state.connection.candidateQueue,
         isInChatNow: state.chatAndRecognition.isInChatNow,
         isGridDetailOpen: state.grid.isGridDetailOpen,
-        isGridStart: state.grid.isGridStart,
-        isPaintOpen:state.paint.isPaintOpen
+        isGridOpen: state.grid.isGridOpen,
+        isPaintOpen:state.paint.isPaintOpen,
+        isSixhatDetailOpen:state.sixhat.isSixhatDetailOpen
     };
 };
 

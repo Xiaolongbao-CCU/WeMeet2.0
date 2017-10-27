@@ -55,13 +55,22 @@ export {
 	setGridDetailOpen,
 	setGridDetailClose,
 	setGridStart,
+	setGridOpen,
 	setGridClose
-} from "./grid"
+} from "./gridAction"
 
 export {
 	setPaintOpen,
 	setPaintClose
-} from "./paint"
+} from "./paintAction"
+
+export {
+	setSixhatDetailOpen,
+	setSixhatDetailClose,
+	setSixhatOpen,
+	setSixhatClose
+} from './sixhatAction'
+
 
 export function addChatRecord(recordObj) {
 	return {

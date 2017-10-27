@@ -9,7 +9,8 @@ import {
 	chatAndRecognition,
 	time,
 	grid,
-	paint
+	paint,
+	sixhat
 } from "./reducers/index";
 
 let reducers = combineReducers({
@@ -22,7 +23,8 @@ let reducers = combineReducers({
 	chatAndRecognition,
 	time,
 	grid,
-	paint
+	paint,
+	sixhat
 });
 
 const store = createStore(

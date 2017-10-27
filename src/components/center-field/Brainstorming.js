@@ -1,71 +1,68 @@
 "use strict";
 
 import React from "react";
+import { connect } from "react-redux";
+import {
+    setGridDetailOpen,
+    setGridOpen,
+    setGridClose,
+    setPaintOpen,
+    setPaintClose,
+    setSixhatDetailOpen,
+    setSixhatOpen,
+    setSixhatClose
+} from "../../actions/Actions"
 
 class Brainstorming extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isGridToggle: false,
-      isSixHatToggle: false,
-      isKJToggle: false
+    constructor(props) {
+        super(props);
     }
-    this.onClick_ToggleGridGame = this.onClick_ToggleGridGame.bind(this);
-    this.onClick_ToggleSixHatGame = this.onClick_ToggleSixHatGame.bind(this);
-    this.onClick_ToggleKJGame = this.onClick_ToggleKJGame.bind(this);
-  }
 
-  componentWillMount() {
-  }
+    componentWillMount() {}
 
-  componentDidMount() {
-  }
+    componentDidMount() {}
 
-  componentWillUnmount() {
-  }
+    componentWillUnmount() {}
 
-  onClick_ToggleGridGame() {
-    this.setState({
-      isGridToggle: true,
-    });
-  }
+    onClick_ToggleGridGame() {
+        this.props.closeBrainStorming()
+        this.props.dispatch(setPaintClose())
+        this.props.dispatch(setSixhatClose())
+        this.props.dispatch(setGridDetailOpen())   
+    }
 
-  onClick_ToggleSixHatGame() {
-    this.setState({
-      isSixHatToggle: true
-    });
-  }
+    onClick_ToggleSixHatGame() {
+        this.props.closeBrainStorming()
+        this.props.dispatch(setPaintClose())
+        this.props.dispatch(setGridClose())
+        this.props.dispatch(setSixhatDetailOpen())
+    }
 
-  onClick_ToggleKJGame() {
-    this.setState({
-      isKJoggle: true
-    });
-  }
+    render() {
+        return (
+            <div className="brainstorming">
+                <button
+                    className="toolbar-button"
+                    id="grid"
+                    onClick={()=>{this.onClick_ToggleGridGame()}}
+                />
 
-  render() {
-    return (
-      <div className="brainstorming">
-        <button
-          className="toolbar-button"
-          id="grid"
-          onClick={this.onClick_ToggleGridGame}
-        />
-
-        <button
-          className="toolbar-button"
-          id="sixhat"
-          onClick={this.onClick_ToggleSixHatGame}
-        />
-
-        <button
-          className="toolbar-button"
-          id="KJ"
-          onClick={this.onClick_ToggleKJGame}
-        />
-
-      </div>
-    );
-  }
+                <button
+                    className="toolbar-button"
+                    id="sixhat"
+                    onClick={()=>{this.onClick_ToggleSixHatGame()}}
+                />
+                
+            </div>
+        );
+    }
 }
 
-export default Brainstorming;
+const mapStateToProps = state => {
+    return {
+        isPaintOpen: state.paint.isPaintOpen,
+        isGridOpen: state.grid.isGridOpen,
+    };
+};
+
+export default connect()(Brainstorming);
