@@ -181,3 +181,13 @@
   height: 0.1px;
 }
 
+.voice-arrow{
+  position: absolute;
+  right: 10%;
+  top: 26%;
+  width: 5%;
+  &:hover{
+    opacity: .8;
+    cursor: pointer;
+  }
+}

@@ -20,6 +20,51 @@
   background-color: $second-color;
   border-radius: 15px;
   box-shadow: 1px 2px 0 #153648;
+  &:hover .hover-content{
+    display: block;
+    animation: fadeIn 0.5s;
+    cursor: pointer;
+  }
+}
+
+.hover-content{
+  display: none;
+  text-align: center;
+  position: absolute;
+  width: 20%;
+  height: 5%;
+  border-radius: 15px;
+  background-color: rgba(28,75,100,.9);
+  line-height: 150%;
+  color: white;
+  line-height: 170%;
+  font-size: 1.3em;
+}
+
+.voice-type{
+  box-sizing: border-box;
+  padding: 0.7% 2%;
+  position: absolute;
+  z-index: 99;
+  width: 20%;
+  height: 5%;
+  border-radius: 15px;
+  background-color: #1c4b64;
+  color: white;
+  font-size: 1.2em;
+}
+
+.VoiceInput{
+  position: absolute;
+  top: 15%;
+  right: 21%;
+  width: 40%;
+  height: 68%;
+  background-color: #1c4b64;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  outline: none;
 }
 
 
