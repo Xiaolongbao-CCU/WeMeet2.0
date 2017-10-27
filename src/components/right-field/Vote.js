@@ -8,7 +8,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
-
+import { selfSubmitVote } from "../../actions/Actions";
 class Vote extends React.Component {
     constructor(props) {
         super(props);
@@ -40,9 +40,9 @@ class Vote extends React.Component {
         );
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -109,24 +109,23 @@ class Vote extends React.Component {
     }
 
     onclick_sendVote() {
-        console.log(this.state.optionSelected);
-        if (this.props.votingDetail.voting.secretOrNot) {
-            //如果是匿名的，就不傳送sender資訊
-            socket.emit("gotVoteFromUser", {
-                sender: 0,
-                content: this.state.optionSelected
-            });
-        } else {
-            //不是匿名的，就傳
-            socket.emit("gotVoteFromUser", {
-                sender: this.props.userName || this.props.localUserID,
-                content: this.state.optionSelected
-            });
+        if (!this.props.isSelfSubmit) {
+            console.log(this.state.optionSelected);
+            if (this.props.votingDetail.voting.secretOrNot) {
+                //如果是匿名的，就不傳送sender資訊
+                socket.emit("gotVoteFromUser", {
+                    sender: 0,
+                    content: this.state.optionSelected
+                });
+            } else {
+                //不是匿名的，就傳
+                socket.emit("gotVoteFromUser", {
+                    sender: this.props.userName || this.props.localUserID,
+                    content: this.state.optionSelected
+                });
+            }
+            this.props.dispatch(selfSubmitVote());
         }
-        this.setState({
-            ...this.state,
-            isVoteSubmited: true
-        });
     }
 
     render() {
@@ -148,22 +147,27 @@ class Vote extends React.Component {
                         >
                             {this.props.votingDetail.voting.option[key]}
                         </span>
-                        <span className="bar"></span>
+                        <span className="bar" />
                         <span className="people">
-                            {this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].sum : 0}
+                            {this.props.isSelfSubmit
+                                ? this.props.votingDetail.result[key]
+                                  ? this.props.votingDetail.result[key].sum
+                                  : 0
+                                : ""}
                         </span>
-                        {this.state.isVoteSubmited ?
+                        {this.props.isSelfSubmit ? (
                             <div className="people-detail">
-                                投票者：{
-                                    this.props.votingDetail.voting.secretOrNot ? "匿名無法觀看投票者" :
-                                        (
-                                            this.props.votingDetail.result[key] ? this.props.votingDetail.result[key].voter.reduce((allName, userName) => {
-                                                return allName + userName + "、"
-                                            }, "") : ""
-                                        )
-                                }
-                            </div> : null
-                        }
+                                投票者：{this.props.votingDetail.voting.secretOrNot
+                                    ? "匿名無法觀看投票者"
+                                    : this.props.votingDetail.result[key]
+                                      ? this.props.votingDetail.result[
+                                            key
+                                        ].voter.reduce((allName, userName) => {
+                                            return allName + userName + "、";
+                                        }, "")
+                                      : ""}
+                            </div>
+                        ) : null}
                     </div>
                 );
             });
@@ -195,9 +199,7 @@ class Vote extends React.Component {
                         </div>
                         <div
                             className={
-                                this.state.isVoteSubmited
-                                    ? "votewait"
-                                    : "votego"
+                                this.props.isSelfSubmit ? "votewait" : "votego"
                             }
                             id={
                                 this.state.isMyselfVoteCanSumbit
@@ -210,15 +212,12 @@ class Vote extends React.Component {
                         >
                             {this.props.isVotingFinish //1. 先審核是否所有人投票完，如果投完就不會有任何東西
                                 ? null
-
-                                : this.state.isVoteSubmited
-                                    ? "等待他人投票中 "
-                                    : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                                : this.props.isSelfSubmit ? "等待他人投票中 " : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
-                            {this.props.isVotingFinish ? null : this.state
-                                .isVoteSubmited ? (
-                                    <img src="./img/wait.gif" />
-                                ) : null}
+                            {this.props.isVotingFinish ? null : this.props
+                                .isSelfSubmit ? (
+                                <img src="./img/wait.gif" />
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -252,9 +251,10 @@ class Vote extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        userName:state.connection.userName,
+        userName: state.connection.userName,
         votingDetail: state.vote,
         isVotingFinish: state.vote.isVotingFinish,
+        isSelfSubmit: state.vote.isSelfSubmit,
         localUserID: state.connection.localUserID,
         connection: state.connection.connections
     };

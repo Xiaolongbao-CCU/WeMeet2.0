@@ -4,6 +4,7 @@ export {
 	setAnimalName,
 	setRoomName,
 	setRemoteUserName,
+	delRemoteUserName,
 	setLocalUserID,
 	setParticipantList,
 	addParticipantList,
@@ -12,7 +13,9 @@ export {
 	addRoom,
 	delRoom,
 	gotLocalVideo,
+	turnOnUserAudio,
 	toggleAudio,
+	turnOnUserMedia,
 	toggleUserMedia,
 	addParticipantConnection,
 	delParticipantConnection,
@@ -29,7 +32,8 @@ export {
 	setSecretOrNot,
 	setVotingStart,
 	gotVoteFromServer,
-	setVotingFinish
+	setVotingFinish,
+	selfSubmitVote,
 } from './voteAction'
 
 
@@ -51,8 +55,23 @@ export {
 	setGrid,
 	setGridDetailOpen,
 	setGridDetailClose,
-	setGridStart
-} from "./grid"
+	setGridStart,
+	setGridOpen,
+	setGridClose
+} from "./gridAction"
+
+export {
+	setPaintOpen,
+	setPaintClose
+} from "./paintAction"
+
+export {
+	setSixhatDetailOpen,
+	setSixhatDetailClose,
+	setSixhatOpen,
+	setSixhatClose
+} from './sixhatAction'
+
 
 export function addChatRecord(recordObj) {
 	return {

@@ -24,7 +24,8 @@ class VoteDetail extends React.Component {
                 question: "",
                 option: {
                     option1: ""
-                }
+                },
+                restart:false
             }
         };
         this.onClick_ToggleMultivote = this.onClick_ToggleMultivote.bind(this);
@@ -317,8 +318,23 @@ class VoteDetail extends React.Component {
     }
 
     onClick_startVoing() {
-        console.log("發送投票資訊到伺服器>全部人同步");
-        socket.emit("createVote", this.state.voting);
+        if(this.props.isVotingStart){
+            let r = confirm("要建立新的投票嗎?");
+            if(r = true){
+                console.log("發送投票資訊到伺服器>全部人同步");
+                this.setState({
+                    voting:{
+                        ...this.state.voting,
+                        restart:true
+                    }
+                },()=>{
+                   socket.emit("createVote", this.state.voting); 
+                })  
+            }
+        } else {
+            console.log("發送投票資訊到伺服器>全部人同步");
+            socket.emit("createVote", this.state.voting);
+        }
     }
 
     render() {
@@ -470,7 +486,8 @@ class VoteDetail extends React.Component {
 const mapStateToProps = state => {
     return {
         userName: state.connection.userName,
-        localUserID: state.connection.localUserID
+        localUserID: state.connection.localUserID,
+        isVotingStart: state.vote.isVotingStart
     };
 };
 

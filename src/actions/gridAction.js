@@ -21,3 +21,15 @@ export function setGridStart() {
 		type: "setGridStart"
 	};
 }
+
+export function setGridOpen() {
+	return {
+		type: "setGridOpen"
+	};
+}
+
+export function setGridClose() {
+	return {
+		type: "setGridClose"
+	};
+}

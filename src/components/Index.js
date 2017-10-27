@@ -25,6 +25,10 @@ class Index extends React.Component {
 
     componentDidMount() { }
 
+    componentDidUnmount(){
+        
+    }
+
     onKeyDown(e) {
         //console.log(document.activeElement);
         switch (e.keyCode) {

@@ -23,7 +23,7 @@ class MeetingRecord extends React.Component {
                             record.userID
                             ? this.props.remoteUserName[record.userID]
                             : this.props.participantList.reduce((sum,value)=>{
-                                if(value.id == recood.userID){
+                                if(value.id == record.userID){
                                     return sum = value.animal
                                 }
                             },"")}

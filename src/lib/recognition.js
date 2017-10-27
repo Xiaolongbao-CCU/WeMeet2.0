@@ -56,13 +56,12 @@ let Recognition = {
         };
 
         recognition.onerror = event => {
-            console.log("Recognition On Error");
             if (event.error == "no-speech") {
-                console.log("偵測不到麥克風訊號，請調整裝置的設定。");
+                console.log("Recognition On Error，偵測不到麥克風訊號，請調整裝置的設定。");
                 isRecognizing = false;
             }
             if (event.error == "audio-capture") {
-                console.log("偵測不到麥克風，請正確安裝。");
+                console.log("Recognition On Error，偵測不到麥克風，請正確安裝。");
                 isRecognizing = false;
                 shouldStop = true;
             }
@@ -71,10 +70,10 @@ let Recognition = {
                 shouldStop = true;
                 if (event.timeStamp - start_timestamp < 100) {
                     console.log(
-                        "麥克風的權限被阻擋，請至chrome://settings/contentExceptions#media-stream更改設定"
+                        "Recognition On Error，麥克風的權限被阻擋，請至chrome://settings/contentExceptions#media-stream更改設定"
                     );
                 } else {
-                    console.log("存取麥克風被拒。");
+                    console.log("Recognition On Error，存取麥克風被拒。");
                 }
             }
             // Meeting.setState({

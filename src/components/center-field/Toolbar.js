@@ -11,7 +11,15 @@ import ReservationDetail from "./ReservationDetail";
 // Other 
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
-import { setGridDetailOpen } from "../../actions/Actions";
+import { 
+    setGridDetailOpen,
+    setGridStart,
+    setGridOpen,
+    setGridClose,
+    setPaintOpen,
+    setPaintClose,
+    setSixhatClose
+ } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -20,7 +28,7 @@ class Toolbar extends React.Component {
             //Toggle Status
             isVoteToggle: false,
             isAddUserToggle: false,
-            isBrainstormingToggle: false,
+            isBrainstormingOpen: false,
             isRerservationToggle: false,
             //Open Status
             isRecognitionOpen: false,
@@ -33,7 +41,7 @@ class Toolbar extends React.Component {
         this.onClick_TogglePainting = this.onClick_TogglePainting.bind(this);
         this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(this);
         this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
-
+        this.closeBrainStorming = this.closeBrainStorming.bind(this)
     }
 
 
@@ -50,10 +58,9 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleBrainstorming() {
-        // this.setState({
-        //     isBrainstormingToggle: !this.state.isBrainstormingToggle
-        // })
-        this.props.dispatch(setGridDetailOpen())
+        this.setState({
+            isBrainstormingOpen: !this.state.isBrainstormingOpen
+        })
     }
 
     onClick_ToggleRecognitionControl() {
@@ -70,6 +77,13 @@ class Toolbar extends React.Component {
     }
 
     onClick_TogglePainting() {
+        if(this.props.isPaintOpen){
+            this.props.dispatch(setPaintClose())
+        } else {
+            this.props.dispatch(setGridClose())
+            this.props.dispatch(setSixhatClose())
+            this.props.dispatch(setPaintOpen())
+        }
     }
 
     onClick_ToggleReservation() {
@@ -95,6 +109,12 @@ class Toolbar extends React.Component {
     ClearAddUserBlock() {
         this.setState({
             isAddUserToggle: false
+        })
+    }
+
+    closeBrainStorming(){
+        this.setState({
+            isBrainstormingOpen : false
         })
     }
 
@@ -129,8 +149,8 @@ class Toolbar extends React.Component {
                 </div>
 
                 {
-                    this.state.isBrainstormingToggle
-                        ? <Brainstorming />
+                    this.state.isBrainstormingOpen
+                        ? <Brainstorming closeBrainStorming={this.closeBrainStorming}/>
                         : null
                 }
 
@@ -166,7 +186,7 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="canvas"
-                    onClick={this.onClick_TogglePainting}
+                    onClick={()=>{this.onClick_TogglePainting()}}
                 >
                     <div className="hovertext" id="canvas">電子白板</div>
                 </div>
@@ -180,7 +200,10 @@ class Toolbar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        votingDetail: state.vote
+        votingDetail: state.vote,
+        isPaintOpen: state.paint.isPaintOpen,
+        isGridStart: state.grid.isGridStart,
+        isGridOpen: state.grid.isGridOpen
     };
 };
 

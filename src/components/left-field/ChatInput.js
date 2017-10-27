@@ -1,6 +1,9 @@
 "use strict";
 
 import React from "react";
+import {connect} from "react-redux"
+import socket from "../../socket"
+import {addChatRecord} from "../../actions/Actions"
 
 class ChatInput extends React.Component {
     constructor(props) {
@@ -24,11 +27,29 @@ class ChatInput extends React.Component {
     }
 
     handleInputPressClick() {
-        let inputText = this.state.chatInputValue;
-        this.props.Chat.sendText(inputText);
-        this.setState({
-            chatInputValue: ""
-        })
+        if(this.state.chatInputValue){
+            //取得現在時間
+            let date = new Date();
+            //自定義時間格式:Hour-Minute
+            let formattedTime =
+                date.getHours() +
+                ":" +
+                (date.getMinutes() < 10 ? "0" : "") +
+                date.getMinutes();
+            let record = {
+                name: this.props.userName, //0903 Andy Add a Temp
+                userID: this.props.localUserID,
+                sendTime: formattedTime,
+                text: this.state.chatInputValue
+            };
+            socket.emit("chatMessage",record)
+            //加到自己畫面上的
+            this.props.dispatch(addChatRecord(record));
+            this.setState({
+                chatInputValue: ""
+            })
+        }
+        
     }
 
     handleInputOnChange(e) {
@@ -61,4 +82,10 @@ class ChatInput extends React.Component {
     }
 }
 
-export default ChatInput;
+const mapStateToProps = state => {
+    return {
+        userName: state.connection.userName,
+        localUserID: state.connection.localUserID
+    };
+};
+export default connect(mapStateToProps)(ChatInput);

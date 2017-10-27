@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { setGrid } from "../../actions/Actions";
+import { setGrid,setGridClose } from "../../actions/Actions";
 import socket from "../../socket";
 import { downloadCSV } from "../../lib/downloadCSV";
 
@@ -170,6 +170,12 @@ class GridGame extends React.Component {
         );
     }
 
+    onClick_closeGrid(){
+        this.props.dispatch(
+            setGridClose()
+        )
+    }
+
     render() {
         let result = [];
         let order = [
@@ -260,7 +266,13 @@ class GridGame extends React.Component {
                     >
                         下載
                     </div>
-                    <div className="button2" id="shutdown">
+                    <div 
+                        className="button2" 
+                        id="shutdown"
+                        onClick={()=>{
+                            this.onClick_closeGrid()
+                        }}
+                    >
                         結束
                     </div>
                 </div>

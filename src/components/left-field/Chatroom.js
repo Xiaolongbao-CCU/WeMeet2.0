@@ -30,9 +30,9 @@ class Chatroom extends React.Component {
                 if (record.userID == this.props.localUserID) {
                     let localAnimalNum = 0;
                     let localAnimal = "";
-                    this.props.participantList.map((obj) => {
-                        if (obj.id == this.props.localUserID) {
-                            localAnimalNum = obj.num + 1
+                    this.props.participantList.map((obj)=>{
+                        if(obj.id == this.props.localUserID){
+                            localAnimalNum = obj.num
                             localAnimal = obj.animal
                         }
                     })
@@ -54,9 +54,9 @@ class Chatroom extends React.Component {
                 ) {
                     let remoteAnimalNum = 0;
                     let remoteAnimal = "";
-                    this.props.participantList.map((obj) => {
-                        if (record.userID == obj.id) {
-                            remoteAnimalNum = obj.num + 1
+                    this.props.participantList.map((obj)=>{
+                        if(record.userID == obj.id){
+                            remoteAnimalNum = obj.num
                             remoteAnimal = obj.animal
                         }
                     })

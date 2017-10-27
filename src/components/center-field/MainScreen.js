@@ -19,9 +19,9 @@ class MainScreen extends React.Component {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num
-            },
-            isSixHatPlaying: false
+            }
         };
+        this.mirroredVideo = "rotateY(180deg)";
     }
 
     componentWillMount() {
@@ -34,7 +34,7 @@ class MainScreen extends React.Component {
         });
     }
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClickSelfStream() {
         this.setState({
@@ -50,7 +50,7 @@ class MainScreen extends React.Component {
         let key = e.target.getAttribute("data");
         let num = this.props.participantList.reduce((sum, value) => {
             if (value.id == key) {
-                return (sum = value.num + 1);
+                return (sum = value.num);
             }
         }, 0);
         this.setState({
@@ -76,20 +76,21 @@ class MainScreen extends React.Component {
                                 onClick={() => {
                                     this.onClickSelfStream();
                                 }}
+                                style={{ transform: this.mirroredVideo }}
                             />
                         ) : (
-                                <img
-                                    className="img"
-                                    src={
-                                        "./img/animal" +
-                                        (this.props.participantList[0].num + 1) +
-                                        ".jpg"
-                                    }
-                                    onClick={() => {
-                                        this.onClickSelfStream();
-                                    }}
-                                />
-                            )}
+                            <img
+                                className="img"
+                                src={
+                                    "./img/animal" +
+                                    this.props.participantList[0].num +
+                                    ".jpg"
+                                }
+                                onClick={() => {
+                                    this.onClickSelfStream();
+                                }}
+                            />
+                        )}
                     </div>
                     <div
                         className="user-infro"
@@ -124,22 +125,18 @@ class MainScreen extends React.Component {
         }
         if (this.props.remoteStreamURL) {
             Object.keys(this.props.remoteStreamURL).map(userID => {
-                let remoteAnimalName = this.props.participantList.reduce(
-                    (sum, value) => {
-                        if (value.id == userID) {
-                            return (sum = value.animal);
-                        }
-                    },
-                    ""
-                );
-                let remoteAnimalNumber = this.props.participantList.reduce(
-                    (sum, value) => {
-                        if (value.id == userID) {
-                            return (sum = value.num + 1);
-                        }
-                    },
-                    0
-                );
+                let remoteAnimalName;
+                this.props.participantList.map(userObj => {
+                    if (userObj.id == userID) {
+                        remoteAnimalName = userObj.animal;
+                    }
+                });
+                let remoteAnimalNumber;
+                this.props.participantList.map(userObj => {
+                    if (userObj.id == userID) {
+                        remoteAnimalNumber = userObj.num;
+                    }
+                });
                 video.push(
                     <div className="otheruser">
                         <div className="video">
@@ -151,21 +148,22 @@ class MainScreen extends React.Component {
                                     onClick={e => {
                                         this.onClick_otherUserStream(e);
                                     }}
+                                    style={{ transform: this.mirroredVideo }}
                                 />
                             ) : (
-                                    <img
-                                        className="img"
-                                        src={
-                                            "./img/animal" +
-                                            remoteAnimalNumber +
-                                            ".jpg"
-                                        }
-                                        data={userID}
-                                        onClick={e => {
-                                            this.onClick_otherUserStream(e);
-                                        }}
-                                    />
-                                )}
+                                <img
+                                    className="img"
+                                    src={
+                                        "./img/animal" +
+                                        remoteAnimalNumber +
+                                        ".jpg"
+                                    }
+                                    data={userID}
+                                    onClick={e => {
+                                        this.onClick_otherUserStream(e);
+                                    }}
+                                />
+                            )}
                         </div>
                         <div
                             className="user-infro"
@@ -177,7 +175,7 @@ class MainScreen extends React.Component {
                             />
                             <label className="user-name">
                                 {this.props.remoteUserName[userID] &&
-                                    this.props.remoteUserName[userID] !== userID
+                                this.props.remoteUserName[userID] !== userID
                                     ? this.props.remoteUserName[userID]
                                     : remoteAnimalName}
                             </label>
@@ -206,21 +204,22 @@ class MainScreen extends React.Component {
         if (this.state.focusingOnWhichUser.url == this.props.localVideoURL) {
             bigScreen = this.props.isStreaming ? (
                 <video
-                    className={this.state.isSixHatPlaying ? "videoset" : ""}
+                    className={this.props.isSixhatOpen ? "videoset" : ""}
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
+                    style={{ transform: this.mirroredVideo }}
                 />
             ) : (
-                    <img
-                        className="user-image"
-                        src={
-                            "./img/animal" +
-                            (this.props.participantList[0].num + 1) +
-                            ".jpg"
-                        }
-                    />
-                );
+                <img
+                    className="user-image"
+                    src={
+                        "./img/animal" +
+                        this.props.participantList[0].num +
+                        ".jpg"
+                    }
+                />
+            );
         } else {
             if (this.props.remoteStreamURL[this.state.focusingOnWhichUser.id]) {
                 if (
@@ -242,6 +241,7 @@ class MainScreen extends React.Component {
                                 }
                                 autoPlay={true}
                                 muted={true}
+                                style={{ transform: this.mirroredVideo }}
                             />
                         );
                     } else {
@@ -250,25 +250,29 @@ class MainScreen extends React.Component {
                                 className="user-image"
                                 src={
                                     "./img/animal" +
-                                    (this.state.focusingOnWhichUser.animalNumber) +
+                                    this.state.focusingOnWhichUser
+                                        .animalNumber +
                                     ".jpg"
                                 }
                             />
                         );
                     }
                 }
+            } else {
+                this.setState({
+                    focusingOnWhichUser: {
+                        id: this.props.localUserID,
+                        url: this.props.localVideoURL,
+                        animalNumber: this.props.participantList[0].num
+                    }
+                });
             }
         }
         return (
             <div className="main-screen">
-                {this.state.isSixHatPlaying ? <SixHatGame /> : null}
-                <div className="main-video">
-                    {bigScreen}
-                </div>
-
-                <div className="other-video">{video}
-
-                </div>
+                {this.props.isSixhatOpen ? <SixHatGame /> : null}
+                <div className="main-video">{bigScreen}</div>
+                <div className="other-video">{video}</div>
             </div>
         );
     }
@@ -284,7 +288,8 @@ const mapStateToProps = state => {
         isSounding: state.connection.isSounding,
         localVideoURL: state.connection.localVideoURL,
         remoteStreamURL: state.connection.remoteStreamURL,
-        remoteUserName: state.connection.remoteUserName
+        remoteUserName: state.connection.remoteUserName,
+        isSixhatOpen: state.sixhat.isSixhatOpen
     };
 };
 

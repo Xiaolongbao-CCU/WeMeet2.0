@@ -36,14 +36,34 @@ export default function connection(state = initialState, action) {
                     [userID]: userName
                 }
             };
+        case "delRemoteUserName":
+            return Object.assign({}, state, {
+                remoteUserName: Object.keys(
+                    state.remoteUserName
+                ).reduce((result, key) => {
+                    if (key !== action.data) {
+                        result[key] = state.remoteUserName[key];
+                    }
+                    return result;
+                }, {})
+            });
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
             return Object.assign({}, state, { localVideoURL: action.data });
+        
+        case "turnOnUserAudio":
+            return Object.assign({}, state, { isSounding: true });
+
         case "toggleAudio":
             return Object.assign({}, state, {
                 isSounding: !state.isSounding
             });
+
+        case "turnOnUserMedia":
+            return Object.assign({}, state, { isStreaming: true });
+
+
         case "toggleUserMedia":
             return Object.assign({}, state, {
                 isStreaming: !state.isStreaming
@@ -57,6 +77,13 @@ export default function connection(state = initialState, action) {
                     [action.data.id]: action.data.connectionObj
                 }
             };
+            window.connections = {
+                ...state,
+                connections: {
+                    ...state.connections,
+                    [action.data.id]: action.data.connectionObj
+                }
+            }
         case "delParticipantConnection":
             return Object.assign({}, state, {
                 connections: Object.keys(

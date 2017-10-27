@@ -6,8 +6,8 @@ export default function participantList(state = initialState, action) {
     		return action.data;
 
     	case "delParticipantList":
-            return state.filter((id)=>{
-            	return id !== action.data
+            return state.filter((userObj)=>{
+            	return userObj.id !== action.data
             });
 
         case "addParticipantList":
