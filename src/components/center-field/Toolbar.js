@@ -8,10 +8,10 @@ import AddUser from "./AddUser";
 import { connect } from "react-redux";
 import Brainstorming from "./Brainstorming";
 import ReservationDetail from "./ReservationDetail";
-// Other 
+// Other
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
-import { 
+import {
     setGridDetailOpen,
     setGridStart,
     setGridOpen,
@@ -19,7 +19,7 @@ import {
     setPaintOpen,
     setPaintClose,
     setSixhatClose
- } from "../../actions/Actions";
+} from "../../actions/Actions";
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -27,25 +27,28 @@ class Toolbar extends React.Component {
         this.state = {
             //Toggle Status
             isVoteToggle: false,
-            isAddUserToggle: false,
+            isAddUserOpen: false,
             isBrainstormingOpen: false,
             isRerservationToggle: false,
             //Open Status
-            isRecognitionOpen: false,
+            isRecognitionOpen: false
             //Special Status
         };
         this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
-        this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(this);
-        this.onClick_ToggleAddUserControl = this.onClick_ToggleAddUserControl.bind(this);
-        this.onClick_ToggleBrainstorming = this.onClick_ToggleBrainstorming.bind(this);
+        this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(
+            this
+        );
+        this.onClick_ToggleBrainstorming = this.onClick_ToggleBrainstorming.bind(
+            this
+        );
         this.onClick_TogglePainting = this.onClick_TogglePainting.bind(this);
-        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(this);
-        this.ClearAddUserBlock = this.ClearAddUserBlock.bind(this);
-        this.closeBrainStorming = this.closeBrainStorming.bind(this)
+        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(
+            this
+        );
+        this.closeBrainStorming = this.closeBrainStorming.bind(this);
     }
 
-
-    componentWillMount() { }
+    componentWillMount() {}
 
     componentDidMount() {
         this.refs.VoteDetail.style.display = "none";
@@ -54,74 +57,69 @@ class Toolbar extends React.Component {
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        this.refs.VoteDetail.style.display = (this.refs.VoteDetail.style.display == "block" ? "none" : "block")
+        this.refs.VoteDetail.style.display =
+            this.refs.VoteDetail.style.display == "block" ? "none" : "block";
     }
 
     onClick_ToggleBrainstorming() {
         this.setState({
             isBrainstormingOpen: !this.state.isBrainstormingOpen
-        })
+        });
     }
 
     onClick_ToggleRecognitionControl() {
         this.setState({
             isRecognitionOpen: !this.state.isRecognitionOpen
-        })
+        });
     }
 
-    onClick_ToggleAddUserControl() {
-        var timer;
-        this.setState({
-            isAddUserToggle: !this.state.isAddUserToggle
-        })
+    onClick_addUserControl() {
+        clearTimeout(window.closeTimeOut)
+        if (this.state.isAddUserOpen) {
+            this.setState({
+                isAddUserOpen: false
+            });
+        } else {
+            this.setState(
+                {
+                    isAddUserOpen: true
+                },
+                () => {
+                    window.closeTimeOut = setTimeout(() => {
+                        this.setState({
+                            isAddUserOpen: false
+                        });
+                    }, 1000);
+                }
+            );
+        }
     }
 
     onClick_TogglePainting() {
-        if(this.props.isPaintOpen){
-            this.props.dispatch(setPaintClose())
+        if (this.props.isPaintOpen) {
+            this.props.dispatch(setPaintClose());
         } else {
-            this.props.dispatch(setGridClose())
-            this.props.dispatch(setSixhatClose())
-            this.props.dispatch(setPaintOpen())
+            this.props.dispatch(setGridClose());
+            this.props.dispatch(setSixhatClose());
+            this.props.dispatch(setPaintOpen());
         }
     }
 
     onClick_ToggleReservation() {
         this.setState({
             isRerservationToggle: !this.state.isRerservationToggle
-        })
-
+        });
     }
 
-    //Others Events
-
-    // AdduserControl() {
-    //     console.log(this.state.isAddUserToggle);
-    //     if (this.state.isAddUserToggle) {
-    //         var timer = setTimeout(this.ClearAddUserBlock, 3000);
-    //         console.log('引發A');
-    //     } else {
-    //         clearTimeout(timer);
-    //         console.log('引發B');
-    //     }
-    // }
-
-    ClearAddUserBlock() {
+    closeBrainStorming() {
         this.setState({
-            isAddUserToggle: false
-        })
-    }
-
-    closeBrainStorming(){
-        this.setState({
-            isBrainstormingOpen : false
-        })
+            isBrainstormingOpen: false
+        });
     }
 
     render() {
         return (
             <div className="toolbar">
-
                 <VoiceStatus />
 
                 <div
@@ -129,56 +127,60 @@ class Toolbar extends React.Component {
                     id="reservation"
                     onClick={this.onClick_ToggleReservation}
                 >
-                    <div className="hovertext" id="reservation">預約開會</div>
+                    <div className="hovertext" id="reservation">
+                        預約開會
+                    </div>
                 </div>
 
-                {
-                    this.state.isRerservationToggle ?
-                        <ReservationDetail /> :
-                        null
-                }
-
-
+                {this.state.isRerservationToggle ? <ReservationDetail /> : null}
 
                 <div
                     className="toolbar-button"
                     id="brainstorming"
                     onClick={this.onClick_ToggleBrainstorming}
                 >
-                    <div className="hovertext" id="brainstorming">腦力激盪</div>
+                    <div className="hovertext" id="brainstorming">
+                        腦力激盪
+                    </div>
                 </div>
 
-                {
-                    this.state.isBrainstormingOpen
-                        ? <Brainstorming closeBrainStorming={this.closeBrainStorming}/>
-                        : null
-                }
+                {this.state.isBrainstormingOpen ? (
+                    <Brainstorming
+                        closeBrainStorming={this.closeBrainStorming}
+                    />
+                ) : null}
 
                 <div
                     className="toolbar-button"
                     id="adduser"
-                    onClick={this.onClick_ToggleAddUserControl}
+                    onClick={() => {
+                        this.onClick_addUserControl();
+                    }}
                 >
-                    <div className="hovertext" id="adduser">邀請</div>
+                    <div className="hovertext" id="adduser">
+                        邀請
+                    </div>
                 </div>
 
-                {
-                    this.state.isAddUserToggle
-                        ? <AddUser />
-                        : null
-                }
-
+                {this.state.isAddUserOpen ? <AddUser /> : null}
 
                 <div
                     className="toolbar-button"
                     id="vote"
                     onClick={this.onClick_ToggleVotePage}
                 >
-                    <div className="hovertext" id="vote">投票</div>
+                    <div className="hovertext" id="vote">
+                        投票
+                    </div>
                 </div>
 
-                <div ref="VoteDetail"
-                    style={{ display: (this.props.votingDetail.isVotingStart ? "none" : "display") }}
+                <div
+                    ref="VoteDetail"
+                    style={{
+                        display: this.props.votingDetail.isVotingStart
+                            ? "none"
+                            : "display"
+                    }}
                 >
                     <VoteDetail />
                 </div>
@@ -186,13 +188,16 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="canvas"
-                    onClick={()=>{this.onClick_TogglePainting()}}
+                    onClick={() => {
+                        this.onClick_TogglePainting();
+                    }}
                 >
-                    <div className="hovertext" id="canvas">電子白板</div>
+                    <div className="hovertext" id="canvas">
+                        電子白板
+                    </div>
                 </div>
 
                 <MeetingTime />
-
             </div>
         );
     }

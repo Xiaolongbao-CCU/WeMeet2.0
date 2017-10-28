@@ -179,6 +179,7 @@ class Agenda extends React.Component {
                                     ? "readonly"
                                     : ""
                             }
+                            placeholder='點此輸入議程內容'
                         />
                         <div
                             className="delete"
