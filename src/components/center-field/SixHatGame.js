@@ -217,10 +217,10 @@ class SixHatGame extends React.Component {
 							this.props.localHat
 						][0]}.png`}
 					/>
-					<div className="hat-type" id="white">
+					<div className="hat-type" id={this.sixhat[this.props.localHat][0]}>
 						你是{this.sixhat[this.props.localHat][1].description}的代表
 					</div>
-					<div className="hat-text" id="white">
+					<div className="hat-text" id={this.sixhat[this.props.localHat][0]}>
 						{this.sixhat[this.props.localHat][1].needtodo}
 					</div>
 				</div>
