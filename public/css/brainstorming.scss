@@ -471,6 +471,7 @@
   width: 30%;
   height: 9%;
   font-size: 1.5em;
+  font-weight:bold;
 }
 
 .hat-type#white{
@@ -517,33 +518,33 @@
   width: 30%;
   height: 9%;
   font-size: 1.5em;
-  text-shadow: 0px 0px 7px white;
+  text-shadow: 0px 0px 7px black;
+  font-weight:bold;
 }
 
 .bigscreen-sixhat .hat-text#white{
   color: white;
-  text-shadow: 0px 0px 7px black;
 }
 
 .bigscreen-sixhat .hat-text#red{
-  color: #DB2843;
+  color: #ff3131;
 }
 
 .bigscreen-sixhat .hat-text#yellow{
   color: #F9ED55;
-  text-shadow: 0px 0px 7px black;
 }
 
 .bigscreen-sixhat .hat-text#blue{
-  color: #1C4B64;
+  color: #5ca1db;
 }
 
 .bigscreen-sixhat .hat-text#green{
-  color: #3CB371;
+  color: #20e632;
 }
 
 .bigscreen-sixhat .hat-text#black{
   color: black;
+  text-shadow: 0px 0px 7px white;
 }
 
 
@@ -556,10 +557,11 @@
 
 .others-sixhat .hat-img{
   float: left;
-  z-index: 100;
-  margin-top: -18%;
-  margin-left: 2%;
-  width: 20%;
+  z-index: 999;
+  position: relative;
+  margin-top: -15%;
+  margin-left: 4%;
+  width: 15%;
   transform: rotate(-10deg);
 }
 
@@ -603,6 +605,8 @@
   text-align: right;
   box-sizing: border-box;
   padding: 3.5% 7%;
+  z-index: 100;
+  position: relative;
 }
 
 .other-hat{

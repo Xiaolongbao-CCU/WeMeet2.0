@@ -333,13 +333,15 @@
   text-indent: 10%;
   background: transparent url('../img/blub.png') no-repeat 5% 50%;
   background-size:7%;
+}
 
+.status.hover{
   &:hover{
-  background: transparent url('../img/blub-selected.png') no-repeat 5% 50%;
-  background-size:7%;
-  cursor: pointer;
-  color:#797979;
-  }
+    background: transparent url('../img/blub-selected.png') no-repeat 5% 50%;
+    background-size:7%;
+    cursor: pointer;
+    color:#797979;
+    }
 }
 
 .status#selected{
