@@ -58,10 +58,6 @@ let animalName = {
     7: "老虎",
     8: "狐狸"
 };
-
-server.on("disconnect", (id) => {
-
-})
 // app.get("/api/db/history", (req, res) => {
 //     db.History.find({ "room": '#53ee66' }, (err, data) => {
 //         if (err) console.log(err);
@@ -234,12 +230,6 @@ io.on("connection", function (socket) {
                 name: userName
             });
         })
-        .on("callRequest", (sender, receiver) => {
-            socket.to(receiver).emit("callRequest", sender)
-        })
-        .on("answerCallRequest", (sender, receiver) => {
-            socket.to(receiver).emit("answerCallRequest", sender)
-        })
         .on("chatMessage", (record) => {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("chatMessage", record)
@@ -252,41 +242,6 @@ io.on("connection", function (socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         });
-    // .on("offerRemotePeer", function (
-    //     offer,
-    //     sender,
-    //     receiver,
-    //     senderName,
-    //     isStreaming,
-    //     isSounding
-    // ) {
-    //     socket.to(receiver).emit("offer", offer, sender, senderName);
-    //     socket.to(receiver).emit("setRemoteUserName", {
-    //         id: sender,
-    //         name: senderName
-    //     });
-    //     socket
-    //         .to(receiver)
-    //         .emit("setRemoteVideoState", isStreaming, sender);
-    //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
-    // })
-    // .on("answerRemotePeer", function (
-    //     answer,
-    //     sender,
-    //     receiver,
-    //     isStreaming,
-    //     isSounding
-    // ) {
-    //     socket.to(receiver).emit("answer", answer, sender);
-    //     socket
-    //         .to(receiver)
-    //         .emit("setRemoteVideoState", isStreaming, sender);
-    //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
-    // })
-    // .on("onIceCandidateA", function (candidate, sender, receiver) {
-    //     socket.to(receiver).emit("onIceCandidateB", candidate, sender);
-    // })
-
     socket
         .on("setAgenda", function (list) {
             socket.broadcast.emit("setAgenda", list);
@@ -323,9 +278,21 @@ io.on("connection", function (socket) {
             }
         });
 
-    socket.on("requestVideoFromUser", function (sender) {
-        console.log("使用者:" + socket.id + "請求了他的錄影BLOB檔");
-    });
+    // socket.on("requestVideoFromUser", function (sender) {
+    //     console.log("使用者:" + socket.id + "請求了他的錄影BLOB檔");
+    // });
+
+    // socket.on("getHistory", room => {
+    //     db.History.find(
+    //         {
+    //             room: room
+    //         },
+    //         function (err, data) {
+    //             if (err) throw err;
+    //             socket.emit("onHistoryResult", data);
+    //         }
+    //     );
+    // });
 
     socket.on("recognitionRecord", function (_history) {
         let room = Object.keys(socket.rooms)[1];
@@ -354,19 +321,6 @@ io.on("connection", function (socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setGridStart");
         });
-
-    socket.on("getHistory", room => {
-        db.History.find(
-            {
-                room: room
-            },
-            function (err, data) {
-                if (err) throw err;
-                socket.emit("onHistoryResult", data);
-            }
-        );
-    });
-
     //1018 Andy Added 電子白板
     socket.
         on("drawing", (data) => {
@@ -385,6 +339,19 @@ io.on("connection", function (socket) {
             socket.to(room).emit('AddReservation', data);
         });
 
+    socket.on('setAllUserRandomHat', (randomNumberArray) => {
+        let room = Object.keys(socket.rooms)[1];
+        let hatList = {}
+        let localHat = 0;
+        userInRoom[room].map((participant) => {
+            let hat = randomNumberArray.shift()
+            hatList[participant.id] = hat
+            if (participant.id == socket.id) {
+                localHat = hat
+            }
+        })
+        io.in(room).emit('setSixhatList', localHat, hatList)
+    })
 });
 
 //沒有定義路徑，則接收到請求就執行這個函數

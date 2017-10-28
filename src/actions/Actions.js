@@ -48,7 +48,8 @@ export {
 export {
 	changeToAnotherChannel,
 	addRecognitionRecord,
-	setInterimResult
+	setInterimResult,
+	setLanguage
 } from './chatAndRecognitionAction'
 
 export {
@@ -69,7 +70,10 @@ export {
 	setSixhatDetailOpen,
 	setSixhatDetailClose,
 	setSixhatOpen,
-	setSixhatClose
+	setSixhatClose,
+	setSixhatList,
+	setLocalHat,
+	setSixhat
 } from './sixhatAction'
 
 

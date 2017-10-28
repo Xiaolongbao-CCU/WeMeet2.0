@@ -11,6 +11,7 @@ import "../lib/peer";
 // redux-action
 import {
     setLocalUserID,
+    setUserName,
     setRoomName,
     setRemoteUserName,
     delRemoteUserName,
@@ -86,6 +87,7 @@ let configuration = {
     ]
 };
 
+document.ondblclick = function() { return false; }
 class Meeting extends React.Component {
     constructor(props) {
         super(props);
@@ -109,6 +111,9 @@ class Meeting extends React.Component {
     }
 
     componentDidMount() {
+        if(!this.props.userName && window.sessionStorage.hasOwnProperty('userName')){
+            this.props.dispatch(setUserName(window.sessionStorage.userName))
+        }
         window.connections = {};
         window.localStream = {};
         setTimeout(() => this.setState({ loading: false }), 1500);
@@ -140,7 +145,6 @@ class Meeting extends React.Component {
                             host: "140.123.175.95",
                             port: 8080,
                             path: "/peerjs",
-                            debug: "3",
                             config: configuration
                         }
                     );
@@ -201,7 +205,7 @@ class Meeting extends React.Component {
                     window.location.hash,
                     this.props.userName
                         ? this.props.userName
-                        : this.props.localUserID
+                        : this.props.animalName
                 );
             })
             .on("newParticipantB", participantID => {
@@ -372,7 +376,7 @@ class Meeting extends React.Component {
                         )}
                 </div>
                 <div className="center-field">
-                    <Toolbar />
+                    <Toolbar Recognizer={this.Recognizer}/>
                     {this.props.isGridOpen ? <GridGame /> : null}
                     {this.props.isPaintOpen ? <Painting /> : null}
                     <MainScreen />
@@ -392,6 +396,7 @@ class Meeting extends React.Component {
 const mapStateToProps = state => {
     return {
         userName: state.connection.userName,
+        animalName: state.connection.animalName,
         localUserID: state.connection.localUserID,
         localVideo: state.connection.localVideo,
         isStreaming: state.connection.isStreaming,

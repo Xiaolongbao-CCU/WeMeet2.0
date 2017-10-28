@@ -25,7 +25,10 @@ import {
     updateAgenda,
     doneAgenda,
     addRecognitionRecord,
-    setGrid
+    setGrid,
+    setSixhatList,
+    setLocalHat,
+    setSixhat
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -116,5 +119,10 @@ socket
     .on("setGridStart",()=>{
         store.dispatch(setGridStart())
     })
+
+socket.on('setSixhatList',(localhat, obj)=>{
+    //store.dispatch(setLocalHat(localhat))
+    store.dispatch(setSixhat(localhat,obj))
+})
 
 export default socket;

@@ -49,7 +49,6 @@ class Index extends React.Component {
                         document.activeElement.blur();
                         return;
                     }
-
                     if (document.activeElement == document.body) {
                         document.removeEventListener("keydown", this.onKeyDown);
                         this.onClick_handleCreateRoom();
@@ -72,6 +71,7 @@ class Index extends React.Component {
         document.removeEventListener("keydown", this.onKeyDown);
         //按下建立房間後的事件
         this.props.dispatch(setUserName(this.state.userName));
+        window.sessionStorage.setItem('userName', this.state.userName);
         //做好名字之後>進到房間裡
         this.props.history.push("/meeting#" + this.state.roomName);
     }

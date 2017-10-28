@@ -2,7 +2,10 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { setSixhatOpen, setSixhatDetailClose } from "../../actions/Actions";
+import { 
+    setSixhatOpen, 
+    setSixhatDetailClose 
+} from "../../actions/Actions";
 
 class SixHatDetail extends React.Component {
     constructor(props) {
@@ -44,7 +47,7 @@ class SixHatDetail extends React.Component {
             case "teachingPage":
                 SixHatPage = (
                     <div className="teachingPage">
-                        <div className="exit" />
+                        <div className="exit" onClick={()=>{this.props.dispatch(setSixhatDetailClose())}}/>
                         <div className="title">
                             <div className="logo" id="SixHat" />
                             <div className="line" />
@@ -93,7 +96,7 @@ class SixHatDetail extends React.Component {
             default:
                 SixHatPage = (
                     <div className="startPage">
-                        <div className="exit" />
+                        <div className="exit" onClick={()=>{this.props.dispatch(setSixhatDetailClose())}}/>
                         <div className="title">
                             <div className="logo" id="SixHat" />
                             <div className="line" />
