@@ -127,6 +127,16 @@ $otherscreen-top: 78%;
   background-size: 60%;
   margin-bottom: 25%;
   animation: GridAppear 0.8s linear ;
+  &:hover .hovertext#grid{
+    display: block;
+    z-index: 9;
+    left: 45.3%;
+    top: 12.5%;
+    padding: 0.3% .5%;
+    width: 8%;
+    height: 4%;
+    font-size: 1.1em;
+  }
 }
 
 .toolbar-button#sixhat{
@@ -135,6 +145,16 @@ $otherscreen-top: 78%;
   margin-bottom: 25%;
   animation: OtherAppear 0.8s linear 0.3s;
   animation-fill-mode: both;
+  &:hover .hovertext#sixhat{
+    display: block;
+    z-index: 9;
+    left: 45.3%;
+    top: 21.5%;
+    padding: 0.3% .5%;
+    width: 8%;
+    height: 4%;
+    font-size: 1.1em;
+  }
 }
 
 .toolbar-button#KJ{

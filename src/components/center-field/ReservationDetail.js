@@ -1,22 +1,25 @@
 "use strict";
 
 import React from "react";
+import socket from "../../socket";
+import ReservationResult from "./ReservationResult";
 
 class ReservationDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             reservationHref: "",
-            date: ""
+            date: "",
+            isReceivedData: true
         };
-        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(this);
+        this.OnChange_ToggleReservation = this.OnChange_ToggleReservation.bind(this);
+        this.OnClick_EmitMeeting = this.OnClick_EmitMeeting.bind(this);
         this.date = "";
     };
 
     componentWillMount() { }
 
     componentDidMount() {
-        //执行一个laydate实例
         laydate.render({
             elem: document.getElementById('datetime'),
             type: 'datetime',
@@ -32,9 +35,23 @@ class ReservationDetail extends React.Component {
                 element.value = inputdate;
             }
         });
+
+        socket.on("AddReservation", (data) => {
+            console.log('收到預約了啦');
+            this.setState({
+                receivedMeeting: data,  //要傳給ReservationResult
+                receivedURL: data.href, //要傳給ReservationResult
+                isReceivedData: true
+            });
+        });
     }
 
-    onClick_ToggleReservation() {
+    componentWillUnmount() {
+        socket.off("dreserveMeeting");
+        socket.off("AddReservation");
+    }
+
+    OnChange_ToggleReservation() {
         let Ref = this.refs;
         let inputdate = this.date;
         let Hash = Math.floor((1 + Math.random()) * 1e16).toString(16).substring(8);
@@ -49,6 +66,17 @@ class ReservationDetail extends React.Component {
         });
     }
 
+    OnClick_EmitMeeting() {
+        console.log('按下預約囉!');
+        socket.emit("reserveMeeting", {
+            href: this.state.reservationHref,
+            datetime: this.refs.date.value,
+            location: this.refs.site.value,
+            title: this.refs.title.value,
+            note: this.refs.note.value
+        });
+    }
+
     render() {
         return (
             <div className="reservation-detail" id="Fadein">
@@ -56,25 +84,33 @@ class ReservationDetail extends React.Component {
                 <div className="input-field">
                     <span><img className="img" src='./img/calendar.png' /></span>
                     <span className="title">開會日期</span>
-                    <input className="content" id="datetime" onChange={this.onClick_ToggleReservation} />
+                    <input className="content" id="datetime" onChange={this.OnChange_Reservation} />
                     <input type="hidden" id="date" ref="date" />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/location.png' /></span>
                     <span className="title" >開會地點</span>
-                    <input className="content" ref="site" onChange={this.onClick_ToggleReservation} />
+                    <input className="content" ref="site" onChange={this.OnChange_ToggleReservation} />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/aim.png' /></span>
                     <span className="title" >開會主題</span>
-                    <input className="content" ref="title" onChange={this.onClick_ToggleReservation} />
+                    <input className="content" ref="title" onChange={this.OnChange_ToggleReservation} />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/note.png' /></span>
                     <span className="title" >備註</span>
-                    <input className="content" ref="note" onChange={this.onClick_ToggleReservation} />
+                    <input className="content" ref="note" onChange={this.OnChange_ToggleReservation} />
                 </div>
-                <a href={this.state.reservationHref}><div className="submit" >預約</div></a>
+                <a href={this.state.reservationHref} target="_blank">
+                    <div className="submit" onClick={this.OnClick_EmitMeeting}>預約</div>
+                </a>
+
+                {
+                    this.state.isReceivedData ?
+                        <ReservationResult />
+                        : null
+                }
 
             </div>
         );

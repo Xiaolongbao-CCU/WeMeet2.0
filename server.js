@@ -49,18 +49,18 @@ let roomList = [];
 let userInRoom = {};
 let votingCounter = {};
 let animalName = {
-    1:"貓貓",
-    2:"狗狗",
-    3:"猩猩",
-    4:"獅子",
-    5:"無尾熊",
-    6:"兔兔",
-    7:"老虎",
-    8:"狐狸"
+    1: "貓貓",
+    2: "狗狗",
+    3: "猩猩",
+    4: "獅子",
+    5: "無尾熊",
+    6: "兔兔",
+    7: "老虎",
+    8: "狐狸"
 };
 
-server.on("disconnect",(id)=>{
-    
+server.on("disconnect", (id) => {
+
 })
 // app.get("/api/db/history", (req, res) => {
 //     db.History.find({ "room": '#53ee66' }, (err, data) => {
@@ -96,7 +96,7 @@ server.on("disconnect",(id)=>{
 
 // });
 
-io.on("connection", function(socket) {
+io.on("connection", function (socket) {
     //console.log("有人連線囉~" + socket.id);
     socket.emit("setRoomList", roomList);
 
@@ -136,7 +136,7 @@ io.on("connection", function(socket) {
 
             if (!userInRoom.hasOwnProperty(room)) {
                 //房間不存在，沒有人要通知，就通知新人，然後給牠隨機一種動物
-                let randomNum = Math.floor(Math.random() * 8) + 1 ; //1~8
+                let randomNum = Math.floor(Math.random() * 8) + 1; //1~8
                 let obj = {
                     id: socket.id,
                     animal: animalName[randomNum],
@@ -150,11 +150,11 @@ io.on("connection", function(socket) {
                 !userInRoom[room].includes(socket.id)
             ) {
                 //對新人加在名單最前面>把名單整份發過去
-                let tempAnimal = Object.assign({},animalName);
+                let tempAnimal = Object.assign({}, animalName);
                 userInRoom[room].map(userObject => {
                     delete tempAnimal[userObject.num]
                 });
-                let randomNum = Math.floor(Math.random() * Object.keys(tempAnimal).length); 
+                let randomNum = Math.floor(Math.random() * Object.keys(tempAnimal).length);
                 let obj = {
                     id: socket.id,
                     animal: tempAnimal[Object.keys(tempAnimal)[randomNum]],
@@ -166,10 +166,10 @@ io.on("connection", function(socket) {
                 socket.to(room).emit("addParticipantList", obj);
             }
         })
-        .on("joinFinish",()=>{
+        .on("joinFinish", () => {
             socket.emit("joinSuccess")
         })
-        .on("leaveRoom", function() {
+        .on("leaveRoom", function () {
             console.log("有人離開房間囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
             socket.leave(room);
@@ -185,11 +185,11 @@ io.on("connection", function(socket) {
                     console.log("房間已刪除!" + room);
                 } else {
                     //房間有超過一人
-                    userInRoom[room].map((userObj,index)=>{
-                        if(userObj.id == socket.id){
-                            userInRoom[room].splice(index,1)
+                    userInRoom[room].map((userObj, index) => {
+                        if (userObj.id == socket.id) {
+                            userInRoom[room].splice(index, 1)
                         }
-                    })                    
+                    })
                 }
                 socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);
@@ -212,13 +212,13 @@ io.on("connection", function(socket) {
                     console.log("房間已刪除!" + room);
                 } else {
                     //房間有超過一人
-                    userInRoom[room].map((userObj,index)=>{
-                        if(userObj.id == socket.id){
-                            userInRoom[room].splice(index,1)
+                    userInRoom[room].map((userObj, index) => {
+                        if (userObj.id == socket.id) {
+                            userInRoom[room].splice(index, 1)
                         }
 
-                    })  
-                    console.log( userInRoom[room])                  
+                    })
+                    console.log(userInRoom[room])
                 }
                 socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);
@@ -234,15 +234,15 @@ io.on("connection", function(socket) {
                 name: userName
             });
         })
-        .on("callRequest",(sender,receiver)=>{
-            socket.to(receiver).emit("callRequest",sender)
+        .on("callRequest", (sender, receiver) => {
+            socket.to(receiver).emit("callRequest", sender)
         })
-        .on("answerCallRequest",(sender,receiver)=>{
-            socket.to(receiver).emit("answerCallRequest",sender)
+        .on("answerCallRequest", (sender, receiver) => {
+            socket.to(receiver).emit("answerCallRequest", sender)
         })
-        .on("chatMessage",(record)=>{
+        .on("chatMessage", (record) => {
             let room = Object.keys(socket.rooms)[1];
-            socket.to(room).emit("chatMessage",record)
+            socket.to(room).emit("chatMessage", record)
         })
         .on("setRemoteVideoState", (state, remotePeer) => {
             let room = Object.keys(socket.rooms)[1];
@@ -252,40 +252,40 @@ io.on("connection", function(socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
         });
-        // .on("offerRemotePeer", function (
-        //     offer,
-        //     sender,
-        //     receiver,
-        //     senderName,
-        //     isStreaming,
-        //     isSounding
-        // ) {
-        //     socket.to(receiver).emit("offer", offer, sender, senderName);
-        //     socket.to(receiver).emit("setRemoteUserName", {
-        //         id: sender,
-        //         name: senderName
-        //     });
-        //     socket
-        //         .to(receiver)
-        //         .emit("setRemoteVideoState", isStreaming, sender);
-        //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
-        // })
-        // .on("answerRemotePeer", function (
-        //     answer,
-        //     sender,
-        //     receiver,
-        //     isStreaming,
-        //     isSounding
-        // ) {
-        //     socket.to(receiver).emit("answer", answer, sender);
-        //     socket
-        //         .to(receiver)
-        //         .emit("setRemoteVideoState", isStreaming, sender);
-        //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
-        // })
-        // .on("onIceCandidateA", function (candidate, sender, receiver) {
-        //     socket.to(receiver).emit("onIceCandidateB", candidate, sender);
-        // })
+    // .on("offerRemotePeer", function (
+    //     offer,
+    //     sender,
+    //     receiver,
+    //     senderName,
+    //     isStreaming,
+    //     isSounding
+    // ) {
+    //     socket.to(receiver).emit("offer", offer, sender, senderName);
+    //     socket.to(receiver).emit("setRemoteUserName", {
+    //         id: sender,
+    //         name: senderName
+    //     });
+    //     socket
+    //         .to(receiver)
+    //         .emit("setRemoteVideoState", isStreaming, sender);
+    //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+    // })
+    // .on("answerRemotePeer", function (
+    //     answer,
+    //     sender,
+    //     receiver,
+    //     isStreaming,
+    //     isSounding
+    // ) {
+    //     socket.to(receiver).emit("answer", answer, sender);
+    //     socket
+    //         .to(receiver)
+    //         .emit("setRemoteVideoState", isStreaming, sender);
+    //     socket.to(receiver).emit("setRemoteAudioState", isSounding, sender);
+    // })
+    // .on("onIceCandidateA", function (candidate, sender, receiver) {
+    //     socket.to(receiver).emit("onIceCandidateB", candidate, sender);
+    // })
 
     socket
         .on("setAgenda", function (list) {
@@ -367,7 +367,7 @@ io.on("connection", function(socket) {
         );
     });
 
-    //1018 Andy Added
+    //1018 Andy Added 電子白板
     socket.
         on("drawing", (data) => {
             let room = Object.keys(socket.rooms)[1];
@@ -376,6 +376,13 @@ io.on("connection", function(socket) {
         .on("reset", (key) => {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit('reset', key);
+        });
+
+    //1028 Andy Added 預約開會
+    socket.
+        on("reserveMeeting", (data) => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('AddReservation', data);
         });
 
 });
