@@ -9,14 +9,15 @@ class VoiceStatus extends React.Component {
         super(props);
         this.state = {
             isSetting: false,
-            language: "cmn-Hant-TW"
+            language: "cmn-Hant-TW",
+            isChangeLanguage: false,
         };
         this.onClick_ToggleSetting = this.onClick_ToggleSetting.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleSetting() {
         this.setState({
@@ -38,7 +39,7 @@ class VoiceStatus extends React.Component {
 
     render() {
         return (
-            <div className="voice-content">
+            <div className="voice-content" onClick={this.state.isSetting ? "" : this.onClick_ToggleSetting}>
                 <div className="voice-ai">
                     <div className="rect1" />
                     <div className="rect2" />
@@ -64,20 +65,17 @@ class VoiceStatus extends React.Component {
                                 <option value="en-US">英文</option>
                             </select>
                         </form>
-                        <img
-                            className="voice-arrow"
-                            src="./img/arrow_white.png"
-                            onClick={()=>{this.onClick_setLanguage()}}
-                        />
+                        <div className="Voice-img">
+                            <img
+                                className="voice-arrow"
+                                src="./img/arrow_white.png"
+                                onClick={() => { this.onClick_setLanguage() }}
+                            />
+                        </div>
                     </div>
-                ) : (
-                    <div
-                        className="hover-content"
-                        onClick={this.onClick_ToggleSetting}
-                    >
-                        點我換語言
-                    </div>
-                )}
+                ) :
+                    <div className="hover-content" >↑點此換語言</div>
+                }
             </div>
         );
     }
