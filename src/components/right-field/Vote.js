@@ -13,13 +13,6 @@ class Vote extends React.Component {
             isVoteSubmited: false, //我是否提交投票? 完成會換成等待他人投票中
             optionSelected: []
         };
-
-        this.onClick_ToggleVoteSelected = this.onClick_ToggleVoteSelected.bind(
-            this
-        );
-        this.onClick_ToggleVoteDetail = this.onClick_ToggleVoteDetail.bind(
-            this
-        );
     }
 
     componentWillMount() {}
@@ -102,7 +95,7 @@ class Vote extends React.Component {
             } else {
                 //不是匿名的，就傳
                 socket.emit("gotVoteFromUser", {
-                    sender: this.props.userName || this.props.localUserID,
+                    sender: this.props.userName || this.props.animalName || this.props.localUserID,
                     content: this.state.optionSelected
                 });
             }
@@ -124,7 +117,11 @@ class Vote extends React.Component {
                                     : ""
                             }
                             onClick={e => {
-                                this.onClick_ToggleVoteSelected(e);
+                                if(this.props.isSelfSubmit){
+                                    e.preventDefault()
+                                } else {
+                                    this.onClick_ToggleVoteSelected(e);
+                                }
                             }}
                         >
                             {this.props.votingDetail.voting.option[key]}
@@ -211,7 +208,7 @@ class Vote extends React.Component {
                 <div
                     className="votebox"
                     id="one"
-                    onClick={this.onClick_ToggleVoteDetail}
+                    onClick={()=>{this.onClick_ToggleVoteDetail()}}
                     style={{
                         display: this.props.votingDetail.isVotingStart
                             ? "block"
@@ -234,6 +231,7 @@ class Vote extends React.Component {
 const mapStateToProps = state => {
     return {
         userName: state.connection.userName,
+        animalName: state.connection.animalName,
         votingDetail: state.vote,
         isVotingFinish: state.vote.isVotingFinish,
         isSelfSubmit: state.vote.isSelfSubmit,

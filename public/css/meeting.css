@@ -282,6 +282,11 @@
 /*****************************
 1.Set(sky,ground,forest,cloud)
 *****************************/
+* {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
 .sky {
   z-index: -500;
   position: absolute;
@@ -1711,17 +1716,26 @@
   margin-bottom: 1%;
   border-radius: 20em;
   outline: none;
-  border-style: none; }
+  border-style: none; 
+  color: white
+  }
   .votesubmit:hover {
     cursor: pointer; }
 
 .votesubmit#close {
+  color:black;
   background-color: #e4e4e4;
   box-shadow: 1px 1px 0px #a3a3a3; }
 
 .votesubmit#open {
   background-color: #cb253e;
   box-shadow: 1px 1px 0px #a31d31; }
+
+.votesubmit#restartVote{
+  background-color: #146eb4;
+  box-shadow: 1px 1px 0px #a31d31;
+}
+
 
 .multivote-number {
   position: absolute;

@@ -18,7 +18,7 @@ class VoteDetail extends React.Component {
             isVoteReady: false,
             MultivoteNumber: 2,
             voting: {
-                creator: this.props.userName || "使用者"+this.props.localUserID.substring(0,4),
+                creator: this.props.userName || this.props.animalName || "使用者"+this.props.localUserID.substring(0,4),
                 secretOrNot: 0,
                 multiOrNot: [0],
                 question: "",
@@ -346,7 +346,7 @@ class VoteDetail extends React.Component {
     onClick_startVoing() {
         if(this.state.isVoteReady){
             this.setState({
-                showAlertMessage:'block'
+                showAlertMessage:'none'
             })
                 if(this.props.isVotingStart){
                 let r = confirm("要建立新的投票嗎?");
@@ -533,11 +533,11 @@ class VoteDetail extends React.Component {
                     <span className="votestatus" style={{display:this.state.showAlertMessage}}>{this.state.alertMessage}</span>
                     <button
                         className="votesubmit"
-                        id={this.state.showAlertMessage == 'block' ? 'close':'open'}
+                        id={this.props.isVotingStart? "restartVote" : (this.state.showAlertMessage == 'block' ? 'close':'open')}
                         onClick={e => {
                             this.onClick_startVoing(e);
                         }}
-                    >開始投票
+                    >{this.props.isVotingStart? "發起新投票":"開始投票"}
                     </button>
                 </div>
             </div>
@@ -548,6 +548,7 @@ class VoteDetail extends React.Component {
 const mapStateToProps = state => {
     return {
         userName: state.connection.userName,
+        animalName: state.connection.animalName,
         localUserID: state.connection.localUserID,
         isVotingStart: state.vote.isVotingStart
     };

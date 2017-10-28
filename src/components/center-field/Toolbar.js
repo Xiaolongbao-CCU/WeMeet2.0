@@ -120,7 +120,7 @@ class Toolbar extends React.Component {
     render() {
         return (
             <div className="toolbar">
-                <VoiceStatus />
+                <VoiceStatus Recognizer={this.props.Recognizer}/>
 
                 <div
                     className="toolbar-button"

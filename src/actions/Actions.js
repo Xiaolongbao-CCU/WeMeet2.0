@@ -48,7 +48,8 @@ export {
 export {
 	changeToAnotherChannel,
 	addRecognitionRecord,
-	setInterimResult
+	setInterimResult,
+	setLanguage
 } from './chatAndRecognitionAction'
 
 export {

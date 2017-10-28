@@ -125,16 +125,16 @@ class SixHatGame extends React.Component {
 
 		// })
 		// (
-		// 	<div className="other-hat">
-		// 		<div className="hat-text">
-		// 			{Sixhat.blue.description}的代表
-		// 		</div>
-		// 		<img
-		// 			className="hat-img"
-		// 			onMouseOver={this.OthersTextappear}
-		// 			src="./img/other_white.png"
-		// 		/>
-		// 	</div>
+			<div className="other-hat">
+				<div className="hat-text">
+					{Sixhat.blue.description}的代表
+				</div>
+				<img
+					className="hat-img"
+					onMouseOver={this.OthersTextappear}
+					src="./img/other_white.png"
+				/>
+			</div>
 		// )
 
 		return (

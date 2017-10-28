@@ -2,21 +2,27 @@
 
 export function changeToAnotherChannel() {
 	return {
-		type: "changeToAnotherChannel",
+		type: "changeToAnotherChannel"
 	};
 }
 
-export function addRecognitionRecord( recordObj ) {
+export function addRecognitionRecord(recordObj) {
 	return {
 		type: "addRecognitionRecord",
 		data: recordObj
-	}
+	};
 }
 
-export function setInterimResult( result ) {
+export function setInterimResult(result) {
 	return {
 		type: "setInterimResult",
 		data: result
-	}
+	};
 }
-	
+
+export function setLanguage(language) {
+	return {
+		type: "setLanguage",
+		data: language
+	};
+}

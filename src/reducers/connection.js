@@ -17,11 +17,7 @@ const initialState = {
 export default function connection(state = initialState, action) {
     switch (action.type) {
         case "setUserName":
-            if(!state.userName){
-                return Object.assign({}, state, { userName: action.data });
-            } else {
-                return state
-            }
+             return Object.assign({}, state, { userName: action.data });
         case "setAnimalName":
             return Object.assign({}, state, { animalName: action.data });
         case "setRoomName":
