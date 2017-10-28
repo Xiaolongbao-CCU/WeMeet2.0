@@ -22,6 +22,7 @@ let Recognition = {
         //************直接開始
         recognition.start();
 
+
         recognizer.setLanguage = language => {
             if (isRecognizing) {
                 recognition.stop();

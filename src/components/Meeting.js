@@ -74,12 +74,12 @@ let configuration = {
         { urls: "stun:stun.voipstunt.com" },
         { urls: "stun:stun.voxgratia.org" },
         { urls: "stun:stun.xten.com" },
-        { 
+        {
             urls: "turn:140.123.175.95:8888?transport=udp",
             'username': 'weichun0911',
             'credential': 'willy84911'
         },
-        { 
+        {
             urls: "turn:140.123.175.95:8888?transport=tcp",
             'username': 'weichun0911',
             'credential': 'willy84911'
@@ -136,7 +136,7 @@ class Meeting extends React.Component {
                     .catch(error => {
                         console.log(error);
                     });
-                if(window.Peer && window.Peer.disconnected){
+                if (window.Peer && window.Peer.disconnected) {
                     window.Peer.reconnect()
                 } else {
                     let peer = new Peer(
@@ -214,7 +214,7 @@ class Meeting extends React.Component {
                     window.localStream &&
                     Object.keys(window.localStream).length > 0
                 ) {
-                    let call = window.Peer.call(participantID,window.localStream)
+                    let call = window.Peer.call(participantID, window.localStream)
                     // let call = window.connections[sender].call(
                     //     `${sender}${this.props.localUserID}`,
                     //     window.localStream
@@ -238,7 +238,7 @@ class Meeting extends React.Component {
                         //     `${sender}${this.props.localUserID}`,
                         //     window.localStream
                         // );
-                        let call = window.Peer.call(participantID,window.localStream)
+                        let call = window.Peer.call(participantID, window.localStream)
                         console.log("發出連線(4)");
                         call.on("stream", remoteStream => {
                             console.log("收到影像囉!(5)" + remoteStream);
@@ -294,7 +294,6 @@ class Meeting extends React.Component {
         console.log(temp[0], temp[1]);
         if (temp.length >= 2) {
             window.location.href = temp[0] + "#" + temp[1];
-            console.log(window.location.href);
             this.setState({
                 roomURL: window.location.href
             });
@@ -368,19 +367,19 @@ class Meeting extends React.Component {
                     {this.props.isInChatNow ? (
                         <Chatroom />
                     ) : (
-                        <VoiceRecognition Recognizer={this.Recognizer} />
-                    )}
+                            <VoiceRecognition Recognizer={this.Recognizer} />
+                        )}
                     {this.props.isInChatNow ? (
                         <ChatInput Chat={this.Chat} />
                     ) : (
-                        <VoiceResult Recognizer={this.Recognizer} />
-                    )}
+                            <VoiceResult Recognizer={this.Recognizer} />
+                        )}
                 </div>
                 <div className="center-field">
                     <Toolbar Recognizer={this.Recognizer}/>
                     {this.props.isGridOpen ? <GridGame /> : null}
                     {this.props.isPaintOpen ? <Painting /> : null}
-                    <MainScreen/>
+                    <MainScreen />
                     <AVcontrol Chat={this.Chat} />
                 </div>
                 <div className="right-field">
@@ -408,8 +407,8 @@ const mapStateToProps = state => {
         isInChatNow: state.chatAndRecognition.isInChatNow,
         isGridDetailOpen: state.grid.isGridDetailOpen,
         isGridOpen: state.grid.isGridOpen,
-        isPaintOpen:state.paint.isPaintOpen,
-        isSixhatDetailOpen:state.sixhat.isSixhatDetailOpen
+        isPaintOpen: state.paint.isPaintOpen,
+        isSixhatDetailOpen: state.sixhat.isSixhatDetailOpen
     };
 };
 

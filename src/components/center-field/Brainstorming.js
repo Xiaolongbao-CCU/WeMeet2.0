@@ -18,17 +18,17 @@ class Brainstorming extends React.Component {
         super(props);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     onClick_ToggleGridGame() {
         this.props.closeBrainStorming()
         this.props.dispatch(setPaintClose())
         this.props.dispatch(setSixhatClose())
-        this.props.dispatch(setGridDetailOpen())   
+        this.props.dispatch(setGridDetailOpen())
     }
 
     onClick_ToggleSixHatGame() {
@@ -41,18 +41,22 @@ class Brainstorming extends React.Component {
     render() {
         return (
             <div className="brainstorming">
-                <button
+                <div
                     className="toolbar-button"
                     id="grid"
-                    onClick={()=>{this.onClick_ToggleGridGame()}}
-                />
+                    onClick={() => { this.onClick_ToggleGridGame() }}
+                >
+                    <div className="hovertext" id="grid">九宮格發散法</div>
+                </div>
 
-                <button
+                <div
                     className="toolbar-button"
                     id="sixhat"
-                    onClick={()=>{this.onClick_ToggleSixHatGame()}}
-                />
-                
+                    onClick={() => { this.onClick_ToggleSixHatGame() }}
+                >
+                    <div className="hovertext" id="sixhat">六頂思考帽法</div>
+                </div>
+
             </div>
         );
     }

@@ -4,33 +4,33 @@ import React from "react";
 import socket from "../../socket";
 
 class Painting extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEnlarge: false,
-      isColorListOpen: false,
-      isSizeListOpen: false,
-      color: "black",
-      size: 2,
-      size_id: "size",
-      imghref: "#"
-    };
-    this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
-    this.showColrList = this.showColrList.bind(this);
-    this.showSizeList = this.showSizeList.bind(this);
-    this.onClick_black = this.onClick_black.bind(this);
-    this.onClick_green = this.onClick_green.bind(this);
-    this.onClick_red = this.onClick_red.bind(this);
-    this.onClick_blue = this.onClick_blue.bind(this);
-    this.onClick_white = this.onClick_white.bind(this);
-    this.onClick_yellow = this.onClick_yellow.bind(this);
-    this.onClick_size1 = this.onClick_size1.bind(this);
-    this.onClick_size2 = this.onClick_size2.bind(this);
-    this.onClick_size3 = this.onClick_size3.bind(this);
-    this.onClick_reset = this.onClick_reset.bind(this);
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEnlarge: false,
+            isColorListOpen: false,
+            isSizeListOpen: false,
+            color: "black",
+            size: 2,
+            size_id: "size",
+            imghref: "#"
+        };
+        this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
+        this.showColrList = this.showColrList.bind(this);
+        this.showSizeList = this.showSizeList.bind(this);
+        this.onClick_black = this.onClick_black.bind(this);
+        this.onClick_green = this.onClick_green.bind(this);
+        this.onClick_red = this.onClick_red.bind(this);
+        this.onClick_blue = this.onClick_blue.bind(this);
+        this.onClick_white = this.onClick_white.bind(this);
+        this.onClick_yellow = this.onClick_yellow.bind(this);
+        this.onClick_size1 = this.onClick_size1.bind(this);
+        this.onClick_size2 = this.onClick_size2.bind(this);
+        this.onClick_size3 = this.onClick_size3.bind(this);
+        this.onClick_reset = this.onClick_reset.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
     componentDidMount() {
         this.onResize();
@@ -144,7 +144,7 @@ class Painting extends React.Component {
         // limit the number of events per second
         function throttle(callback, delay) {
             var previousCall = new Date().getTime();
-            return function() {
+            return function () {
                 var time = new Date().getTime();
 
                 if (time - previousCall >= delay) {
@@ -279,14 +279,14 @@ class Painting extends React.Component {
                             縮小
                         </div>
                     ) : (
-                        <div
-                            className="button2"
-                            id="fullscreen1"
-                            onClick={this.onClick_ChangeSize}
-                        >
-                            放大
+                            <div
+                                className="button2"
+                                id="fullscreen1"
+                                onClick={this.onClick_ChangeSize}
+                            >
+                                放大
                         </div>
-                    )}
+                        )}
                     <div
                         className="button2 new"
                         id={this.state.size_id}
