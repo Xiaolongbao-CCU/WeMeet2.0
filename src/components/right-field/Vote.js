@@ -1,10 +1,4 @@
 "use strict";
-// {   投票資料格式
-//     secretOrNot:1,
-//     title:"sssssss",
-//     option:["ssss","xxxxx","pppppp"],
-//     multiOrNot:[1,3]
-// }
 import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
@@ -15,20 +9,8 @@ class Vote extends React.Component {
         this.state = {
             /* Basic Set */
             isVoteBoxOpen: true, //投票視窗是否被點選而打開了
-            isSeclected: {
-                first: false,
-                second: false,
-                third: false
-            }, //投票哪些被選取了? 會影響投票上限和觸發個別投票選項被選取
             isMyselfVoteCanSumbit: false,
             isVoteSubmited: false, //我是否提交投票? 完成會換成等待他人投票中
-
-            /* About VoteBox Detail */
-            VoteFounder: "佳怡", //投票建立者
-
-            VoteNumber: {
-                first: ""
-            }, //投票票數
             optionSelected: []
         };
 

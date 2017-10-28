@@ -23,10 +23,13 @@ class VoteDetail extends React.Component {
                 multiOrNot: [0],
                 question: "",
                 option: {
-                    option1: ""
+                    option1: "",
+                    option2: ""
                 },
                 restart:false
-            }
+            },
+            alertMessage:"",
+            showAlertMessage:'none'
         };
         this.onClick_ToggleMultivote = this.onClick_ToggleMultivote.bind(this);
         this.onClick_Subtractuon = this.onClick_Subtractuon.bind(this);
@@ -78,15 +81,23 @@ class VoteDetail extends React.Component {
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
+                voting:{
+                    ...this.state.voting,
+                    question: e.target.value
+                },
                 isVoteReady: false
+            },()=>{
+                this.checkValue()
             });
         } else {
             this.setState({
+                isVoteReady: counter >= 2 && flag ? true : false,
                 voting: {
                     ...this.state.voting,
-                    isVoteReady: counter >= 2 && flag ? true : false,
                     question: e.target.value
                 }
+            },()=>{
+                this.checkValue()
             });
         }
     }
@@ -104,15 +115,23 @@ class VoteDetail extends React.Component {
         if (!e.target.value) {
             console.log("沒打東C喔QQ，提醒一波");
             this.setState({
+                voting:{
+                    ...this.state.voting,
+                    question: e.target.value
+                },
                 isVoteReady: false
+            },()=>{
+                this.checkValue()
             });
         } else {
             this.setState({
+                isVoteReady: counter >= 2 && flag ? true : false,
                 voting: {
                     ...this.state.voting,
-                    isVoteReady: counter >= 2 && flag ? true : false,
                     question: e.target.value
                 }
+            },()=>{
+                this.checkValue()
             });
         }
     }
@@ -148,6 +167,8 @@ class VoteDetail extends React.Component {
                     this.setState({
                         isVoteReady:
                             plusCounter >= 2 && minusCounter == 0 ? true : false
+                    },()=>{
+                        this.checkValue()
                     });
                 }
             );
@@ -162,6 +183,8 @@ class VoteDetail extends React.Component {
                         [e.target.id]: e.target.value
                     }
                 }
+            },()=>{
+                this.checkValue()
             });
         }
     }
@@ -191,6 +214,8 @@ class VoteDetail extends React.Component {
                     this.setState({
                         isVoteReady:
                             plusCounter >= 2 && minusCounter == 0 ? true : false
+                    },()=>{
+                        this.checkValue()
                     });
                 }
             );
@@ -313,27 +338,65 @@ class VoteDetail extends React.Component {
             },
             () => {
                 this.refs[key].focus();
+                this.checkValue()
             }
         );
     }
 
     onClick_startVoing() {
-        if(this.props.isVotingStart){
-            let r = confirm("要建立新的投票嗎?");
-            if(r = true){
+        if(this.state.isVoteReady){
+            this.setState({
+                showAlertMessage:'block'
+            })
+                if(this.props.isVotingStart){
+                let r = confirm("要建立新的投票嗎?");
+                if(r = true){
+                    console.log("發送投票資訊到伺服器>全部人同步");
+                    this.setState({
+                        voting:{
+                            ...this.state.voting,
+                            restart:true
+                        }
+                    },()=>{
+                       socket.emit("createVote", this.state.voting); 
+                    })  
+                }
+            } else {
                 console.log("發送投票資訊到伺服器>全部人同步");
-                this.setState({
-                    voting:{
-                        ...this.state.voting,
-                        restart:true
-                    }
-                },()=>{
-                   socket.emit("createVote", this.state.voting); 
-                })  
+                socket.emit("createVote", this.state.voting);
             }
         } else {
-            console.log("發送投票資訊到伺服器>全部人同步");
-            socket.emit("createVote", this.state.voting);
+            this.checkValue()
+        }
+    }
+
+    checkValue(){
+        if(!this.state.isVoteReady){
+            this.setState({
+                showAlertMessage:'block'
+            })
+            if(!this.state.voting.question){
+                this.setState({
+                    alertMessage:"主題是空的"
+                })
+                return
+            } 
+            if(Object.values(this.state.voting.option).includes("")){
+                this.setState({
+                    alertMessage:"有空的選項"
+                })
+                return
+            } 
+            if(Object.keys(this.state.voting.option).length < 2){
+                this.setState({
+                    alertMessage:"至少要兩個選項"
+                })
+                return
+            }
+        } else {
+            this.setState({
+                showAlertMessage:'none'
+            })
         }
     }
 
@@ -356,7 +419,7 @@ class VoteDetail extends React.Component {
                         type="text"
                         id={key}
                         ref={key}
-                        placeholder="點此新增投票選項"
+                        placeholder="請輸入投票選項"
                         onBlur={e => {
                             this.onBlurOption(e);
                         }}
@@ -410,12 +473,12 @@ class VoteDetail extends React.Component {
                         className="input"
                         ref="votequestion"
                         type="text"
-                        placeholder="請輸入投票問題"
+                        placeholder="請輸入投票主題"
                         onChange={e => {
                             this.onChangeQuestion(e);
                         }}
                         onBlur={e => {
-                            this.onBlurQuestion(e);
+                            this.onChangeQuestion(e);
                         }}
                         onKeyUp={e => {
                             this.onEnterQuestion(e);
@@ -467,14 +530,13 @@ class VoteDetail extends React.Component {
                             +
                         </button>
                     </div>
-                    {this.state.isVoteReady ? null : <span className="votestatus">至少要兩個選項</span> }
+                    <span className="votestatus" style={{display:this.state.showAlertMessage}}>{this.state.alertMessage}</span>
                     <button
                         className="votesubmit"
-                        id={this.state.isVoteReady ? "open" : "close"}
+                        id={this.state.showAlertMessage == 'block' ? 'close':'open'}
                         onClick={e => {
                             this.onClick_startVoing(e);
                         }}
-                        disabled={this.state.isVoteReady ? false : true}
                     >開始投票
                     </button>
                 </div>
