@@ -22,16 +22,16 @@ let Recognition = {
         //************直接開始
         recognition.start();
 
-        recognizer.setLanguage = (language) => {
-            if(isRecognizing){
-                recognition.stop()
+        recognizer.setLanguage = language => {
+            if (isRecognizing) {
+                recognition.stop();
             }
             recognition.lang = language;
             //這邊有點問題
             //stop之後不會立即收到onend訊息
             //但是確定是停止了所以可以設定語言
             //recognition.start()
-        }
+        };
 
         recognition.onstart = () => {
             console.log("Recognition On Start");
@@ -77,10 +77,9 @@ let Recognition = {
             shouldStop = false;
         };
 
-        recognition.onnomatch = ()=>{
-            console.log("有聽到!但辨識不出來..")
-        }
-
+        recognition.onnomatch = () => {
+            console.log("有聽到!但辨識不出來..");
+        };
         recognition.onresult = event => {
             console.log("有聽到有聽到!");
             let interim_transcript = "";

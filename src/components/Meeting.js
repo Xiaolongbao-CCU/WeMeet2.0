@@ -145,7 +145,6 @@ class Meeting extends React.Component {
                             host: "140.123.175.95",
                             port: 8080,
                             path: "/peerjs",
-                            debug: "3",
                             config: configuration
                         }
                     );

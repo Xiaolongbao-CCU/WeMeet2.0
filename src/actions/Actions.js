@@ -70,7 +70,10 @@ export {
 	setSixhatDetailOpen,
 	setSixhatDetailClose,
 	setSixhatOpen,
-	setSixhatClose
+	setSixhatClose,
+	setSixhatList,
+	setLocalHat,
+	setSixhat
 } from './sixhatAction'
 
 
