@@ -34,6 +34,9 @@ export {
 	gotVoteFromServer,
 	setVotingFinish,
 	selfSubmitVote,
+	waitingForAnimate,
+	setAnimateOpen,
+	setAnimateClose
 } from './voteAction'
 
 
@@ -76,6 +79,11 @@ export {
 	setSixhat
 } from './sixhatAction'
 
+export {
+	setMeetingData,
+	setURL,
+	setReceiveData
+} from './reservationAction'
 
 export function addChatRecord(recordObj) {
 	return {

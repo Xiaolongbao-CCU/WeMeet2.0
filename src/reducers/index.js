@@ -9,6 +9,7 @@ import time from "./time"
 import grid from "./grid";
 import paint from "./paint"
 import sixhat from './sixhat'
+import reservation from './reservation';
 
 export {
 	roomList,
@@ -21,6 +22,7 @@ export {
 	time,
 	grid,
 	paint,
-	sixhat
+	sixhat,
+	reservation
 };
 

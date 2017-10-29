@@ -10,7 +10,8 @@ import {
 	time,
 	grid,
 	paint,
-	sixhat
+	sixhat,
+	reservation
 } from "./reducers/index";
 
 let reducers = combineReducers({
@@ -24,7 +25,8 @@ let reducers = combineReducers({
 	time,
 	grid,
 	paint,
-	sixhat
+	sixhat,
+	reservation
 });
 
 const store = createStore(

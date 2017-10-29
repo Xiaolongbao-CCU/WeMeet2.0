@@ -36,7 +36,7 @@ app.use(
 );
 
 let peerServerOption = {
-    debug: true
+    debug: false
 }
 app.use('/peerjs', ExpressPeerServer(server, peerServerOption));
 

@@ -141,14 +141,15 @@ class SixHatGame extends React.Component {
 				Content = <ul />;
 				break;
 			case "two":
-				Content = <ul>{this.sixhat[0][1].indrotuction}</ul>;
+				Content = <ul>{this.sixhat[this.props.localHat][1].indrotuction}</ul>;
 				break;
 			case "three":
+				let li = this.sixhat[this.props.localHat][1].example.map((string)=>{
+					return <li>{string}</li>
+				})
 				Content = (
 					<ul>
-						<li>我們擁有哪些資訊?</li>
-						<li>少了那些資訊?</li>
-						<li>告訴我有關員工離職率的相關資料?</li>
+						{li}
 					</ul>
 				);
 				break;

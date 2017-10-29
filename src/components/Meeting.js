@@ -53,6 +53,8 @@ import VoteResult from "./special-field/VoteResult";
 import GirdDetail from "./special-field/GirdDetail";
 import KJDetail from "./special-field/KJDetail";
 import SixHatDetail from "./special-field/SixHatDetail";
+import ReservationResult from './center-field/ReservationResult'
+
 let configuration = {
     iceServers: [
         { urls: "stun:stun01.sipphone.com" },
@@ -359,7 +361,7 @@ class Meeting extends React.Component {
 
         return (
             <div className="container" id="in">
-                {this.state.isVoteResultOpen ? <VoteResult /> : null}
+                {this.props.isVotingFinish && this.props.isAnimateOpen ? <VoteResult /> : null}
                 {this.props.isGridDetailOpen ? <GirdDetail /> : null}
                 {this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
                 <div className="left-field">
@@ -388,6 +390,7 @@ class Meeting extends React.Component {
                 </div>
 
                 <Background />
+                {this.props.isReceivedData ? <ReservationResult /> : null}
             </div>
         );
     }
@@ -408,7 +411,10 @@ const mapStateToProps = state => {
         isGridDetailOpen: state.grid.isGridDetailOpen,
         isGridOpen: state.grid.isGridOpen,
         isPaintOpen: state.paint.isPaintOpen,
-        isSixhatDetailOpen: state.sixhat.isSixhatDetailOpen
+        isSixhatDetailOpen: state.sixhat.isSixhatDetailOpen,
+        isReceivedData: state.reservation.isReceivedData,
+        isVotingFinish: state.vote.isVotingFinish,
+        isAnimateOpen: state.vote.isAnimateOpen
     };
 };
 

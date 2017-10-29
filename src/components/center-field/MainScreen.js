@@ -234,6 +234,7 @@ class MainScreen extends React.Component {
                     ) {
                         bigScreen = (
                             <video
+                                className={this.props.isSixhatOpen ? "videoset" : ""}
                                 src={
                                     this.props.remoteStreamURL[
                                         this.state.focusingOnWhichUser.id

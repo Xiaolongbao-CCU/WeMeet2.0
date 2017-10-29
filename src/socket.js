@@ -18,6 +18,7 @@ import {
     setVotingDetail,
     setVotingStart,
     gotVoteFromServer,
+    waitingForAnimate,
     setVotingFinish,
     setAgenda,
     newAgenda,
@@ -28,7 +29,10 @@ import {
     setGrid,
     setSixhatList,
     setLocalHat,
-    setSixhat
+    setSixhat,
+    setMeetingData,
+    setURL,
+    setReceiveData
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -88,7 +92,7 @@ socket
         store.dispatch(gotVoteFromServer(voteContent));
     })
     .on("votingIsFinish", ()=>{
-        store.dispatch(setVotingFinish())
+        store.dispatch(waitingForAnimate())
     })
 
 socket
@@ -124,5 +128,11 @@ socket.on('setSixhatList',(localhat, obj)=>{
     //store.dispatch(setLocalHat(localhat))
     store.dispatch(setSixhat(localhat,obj))
 })
+
+socket.on("AddReservation", data => {
+    store.dispatch(setMeetingData(data))
+    store.dispatch(setURL(data.href))
+    store.dispatch(setReceiveData(true))
+});
 
 export default socket;

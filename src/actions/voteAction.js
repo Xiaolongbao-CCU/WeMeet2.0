@@ -37,3 +37,22 @@ export function selfSubmitVote() {
 		type: "selfSubmitVote" 
 	};
 }
+
+export function waitingForAnimate() {
+	return {
+		type: "waitingForAnimate" 
+	};
+}
+
+export function setAnimateOpen() {
+	return {
+		type: "setAnimateOpen" 
+	};
+}
+
+export function setAnimateClose() {
+	return {
+		type: "setAnimateClose" 
+	};
+}
+
