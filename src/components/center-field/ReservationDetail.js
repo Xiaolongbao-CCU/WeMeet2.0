@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
 import ReservationResult from "./ReservationResult";
-import { 
+import {
     setReceiveData,
     setURL
 } from "../../actions/Actions";
@@ -18,10 +18,10 @@ class ReservationDetail extends React.Component {
             note: ""
         };
         this.OnClick_EmitMeeting = this.OnClick_EmitMeeting.bind(this);
-        this.date =""
+        this.date = ""
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
     componentDidMount() {
         laydate.render({
@@ -31,7 +31,7 @@ class ReservationDetail extends React.Component {
             format: "yyyy年MM月dd日 HH時mm分",
             min: 0,
             max: 120,
-            done: function(value, date, endDate) {
+            done: function (value, date, endDate) {
                 let element = document.getElementById("date");
                 let inputdate =
                     date.year.toString().padLeft(2, "0") +
@@ -46,28 +46,28 @@ class ReservationDetail extends React.Component {
         });
     }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     OnChange_site(e) {
         this.setState({
-            site:e.target.value
-        },()=>{
+            site: e.target.value
+        }, () => {
             this.OnChange_reservation()
         })
     }
 
     OnChange_title(e) {
         this.setState({
-            title:e.target.value
-        },()=>{
+            title: e.target.value
+        }, () => {
             this.OnChange_reservation()
         })
     }
 
     OnChange_note(e) {
         this.setState({
-            note:e.target.value
-        },()=>{
+            note: e.target.value
+        }, () => {
             this.OnChange_reservation()
         })
     }
@@ -121,17 +121,17 @@ class ReservationDetail extends React.Component {
                         id="datetime"
                         ref="datetime"
                     />
-                    <input type="hidden" id="date" ref="date"/>
+                    <input type="hidden" id="date" ref="date" />
                 </div>
                 <div className="input-field">
                     <span>
                         <img className="img" src="./img/location.png" />
-                   </span>
+                    </span>
                     <span className="title">開會地點</span>
                     <input
                         className="content"
                         ref="site"
-                        onChange={(e)=>{this.OnChange_site(e)}}
+                        onChange={(e) => { this.OnChange_site(e) }}
                     />
                 </div>
                 <div className="input-field">
@@ -142,7 +142,7 @@ class ReservationDetail extends React.Component {
                     <input
                         className="content"
                         ref="title"
-                        onChange={(e)=>{this.OnChange_title(e)}}
+                        onChange={(e) => { this.OnChange_title(e) }}
                     />
                 </div>
                 <div className="input-field">
@@ -153,7 +153,7 @@ class ReservationDetail extends React.Component {
                     <input
                         className="content"
                         ref="note"
-                        onChange={(e)=>{this.OnChange_note(e)}}
+                        onChange={(e) => { this.OnChange_note(e) }}
                     />
                 </div>
                 <a href={this.props.url} target="_blank">

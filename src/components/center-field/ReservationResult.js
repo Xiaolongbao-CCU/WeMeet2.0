@@ -7,14 +7,14 @@ class ReservationResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isResultDetailOpen : false
+            isResultDetailOpen: false
         }
         this.onClick_ToggleDetail = this.onClick_ToggleDetail.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleDetail() {
         this.setState({
@@ -32,7 +32,6 @@ class ReservationResult extends React.Component {
                     <img className="mail" src="./img/mail.png" />
                     <div className="content">一則預約開會通知！</div>
                 </div>
-
                 {this.state.isResultDetailOpen ? (
                     <div className="Recevied-Detail">
                         <div className="recevied-filed">
