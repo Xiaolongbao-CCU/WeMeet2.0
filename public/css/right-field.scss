@@ -377,9 +377,26 @@
   text-align: center;
   width: 25%;
   height: 13%;
-
   border-radius: 50px;
+  &:hover{
+    cursor: pointer;
+    background-color: #fdf371;
+  }
+}
 
+.votefinish{
+  box-sizing: border-box;
+  padding: 2% 2%;
+  margin-top:3%;
+  position: absolute;
+  right:5%;
+  font-size: 1.2em;
+  text-align: center;
+  width: 90%;
+  height: 13%;
+  border-radius: 50px; 
+  background-color: #f9ed55;
+  box-shadow:1px 2px 0px  #e3d86b;
   &:hover{
     cursor: pointer;
     background-color: #fdf371;

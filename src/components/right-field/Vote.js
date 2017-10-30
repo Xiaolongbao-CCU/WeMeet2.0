@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
-import { 
+import {
     selfSubmitVote,
     setVotingFinish,
     setAnimateOpen
@@ -19,9 +19,9 @@ class Vote extends React.Component {
         };
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -100,9 +100,9 @@ class Vote extends React.Component {
                 //不是匿名的，就傳
                 socket.emit("gotVoteFromUser", {
                     sender:
-                        this.props.userName ||
-                        this.props.animalName ||
-                        this.props.localUserID,
+                    this.props.userName ||
+                    this.props.animalName ||
+                    this.props.localUserID,
                     content: this.state.optionSelected
                 });
             }
@@ -144,28 +144,28 @@ class Vote extends React.Component {
                         </span>
                         <span className="bar" />
                         <span className="people">
-                            {!this.props.isVotingFinish ? null : 
+                            {!this.props.isVotingFinish ? null :
                                 this.props.isSelfSubmit
-                                ? this.props.votingDetail.result[key]
-                                  ? this.props.votingDetail.result[key].sum
-                                  : 0
-                                : ""}
+                                    ? this.props.votingDetail.result[key]
+                                        ? this.props.votingDetail.result[key].sum
+                                        : 0
+                                    : ""}
                         </span>
                         {!this.props.isVotingFinish ? null : this.props
                             .isSelfSubmit ? (
-                            <div className="people-detail">
-                                投票者：
+                                <div className="people-detail">
+                                    投票者：
                                 {this.props.votingDetail.voting.secretOrNot
-                                    ? "匿名無法觀看投票者"
-                                    : this.props.votingDetail.result[key]
-                                      ? this.props.votingDetail.result[
-                                            key
-                                        ].voter.reduce((allName, userName) => {
-                                            return allName + userName + "、";
-                                        }, "")
-                                      : ""}
-                            </div>
-                        ) : null}
+                                        ? "匿名無法觀看投票者"
+                                        : this.props.votingDetail.result[key]
+                                            ? this.props.votingDetail.result[
+                                                key
+                                            ].voter.reduce((allName, userName) => {
+                                                return allName + userName + "、";
+                                            }, "")
+                                            : ""}
+                                </div>
+                            ) : null}
                     </div>
                 );
             });
@@ -188,20 +188,26 @@ class Vote extends React.Component {
                             投票問題：{this.props.votingDetail.voting.question}
                         </div>
                         <div className="choice">{option}</div>
-                        <div className="maxVoteNumber">
-                            投票上限：
-                            {this.props.votingDetail.voting.multiOrNot[0]
-                                ? this.props.votingDetail.voting.multiOrNot[1]
-                                : "1"}
-                            票
-                        </div>
+                        {
+                            this.props.waitingForAnimate ?
+                                null
+                                :
+                                <div className="maxVoteNumber">
+                                    投票上限：
+                                {this.props.votingDetail.voting.multiOrNot[0] ?
+                                        this.props.votingDetail.voting.multiOrNot[1]
+                                        : "1"}
+                                    票
+                                </div>
+                        }
+
                         <div
                             className={
                                 this.props.waitingForAnimate
-                                    ? "votego"
+                                    ? "votefinish"
                                     : this.props.isSelfSubmit
-                                      ? "votewait"
-                                      : "votego"
+                                        ? "votewait"
+                                        : "votego"
                             }
                             id={
                                 this.state.isMyselfVoteCanSumbit
@@ -216,15 +222,15 @@ class Vote extends React.Component {
                                 }
                             }}
                         >
-                            {this.props.isVotingFinish ? "再看一次>_<" :  
-                            this.props.waitingForAnimate //1. 先審核是否所有人投票完，如果投完就不會有任何東西
-                                ? "結果出爐囉!點我觀看結果!"
-                                : this.props.isSelfSubmit ? "等待他人投票中 " : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
+                            {this.props.isVotingFinish ? "再看一次>_<" :
+                                this.props.waitingForAnimate //1. 先審核是否所有人投票完，如果投完就不會有任何東西
+                                    ? "結果出爐！點我觀看結果"
+                                    : this.props.isSelfSubmit ? "等待他人投票中 " : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
                             {this.props.isVotingFinish ? null : this.props
                                 .isSelfSubmit ? (
-                                <img src="./img/wait.gif" />
-                            ) : null}
+                                    <img src="./img/wait.gif" />
+                                ) : null}
                         </div>
                     </div>
                 </div>

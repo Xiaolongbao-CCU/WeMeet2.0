@@ -57,7 +57,6 @@ $otherscreen-top: 78%;
   border-radius: 5px;
   background-color: rgba(0,0,0,0.7);
   text-align: center;
-  top:3.3%;
 }
 
 .toolbar-button#moreinfro{
@@ -71,6 +70,7 @@ $otherscreen-top: 78%;
   &:hover .hovertext#brainstorming{
     display: block;
     left: 45.3%;
+    top:3.3%;
   }
 }
 
@@ -80,6 +80,7 @@ $otherscreen-top: 78%;
   &:hover .hovertext#adduser{
     display: block;
     left: 51%;
+    top:3.3%;
     width:3%;
   }
 }
@@ -101,6 +102,7 @@ $otherscreen-top: 78%;
     display: block;
     left: 56.5%;
     width:3%;
+    top:3.3%;
   }
 }
 
@@ -110,6 +112,7 @@ $otherscreen-top: 78%;
   &:hover .hovertext#canvas{
     display: block;
     left: 62%;
+    top:3.3%;
   }
 }
 
@@ -119,6 +122,7 @@ $otherscreen-top: 78%;
   &:hover .hovertext#reservation{
     display: block;
     left: 39.5%;
+    top:3.3%;
   }
 }
 
@@ -201,21 +205,43 @@ $otherscreen-top: 78%;
 .av-button#audio-on{
   background-image: url('../img/audio.png');
   background-size: 80%;
+  &:hover .hovertext#audio-on{
+    display: block;
+    left: 43%;
+    bottom: 9.5%;
+    width: 2.5%;
+  }
 }
 
 .av-button#audio-off{
   background-image: url('../img/mute.png');
   background-size: 80%;
+  &:hover .hovertext#audio-off{
+    display: block;
+    left: 42%;
+    bottom: 9.5%;
+    width: 4.5%;
+  }
 }
 
 .av-button#video-on{
   background-image: url('../img/video.png');
   background-size: 75%;
+  &:hover .hovertext#video-on{
+    display: block;
+    left: 51.5%;
+    bottom: 9.5%;
+  }
 }
 
 .av-button#video-off{
   background-image: url('../img/video-off.png');
   background-size: 75%;
+  &:hover .hovertext#video-off{
+    display: block;
+    left: 51.5%;
+    bottom: 9.5%;
+  }
 }
 
 .av-button#exit{
@@ -240,6 +266,11 @@ $otherscreen-top: 78%;
     margin-top:-0.5%;
     background-color: #db2843;
   }
+  &:hover .hovertext#exit{
+    display: block;
+    left: 47%;
+    bottom: 12%;
+  }
 }
 
 .button-submit{
@@ -249,4 +280,59 @@ $otherscreen-top: 78%;
   background-color: black;
   background-image: url('../img/exit.png');
   background-size: 60%;
+}
+
+.sharescreen{
+  box-sizing: border-box;
+  padding: 1.4% 1.5%;
+  position: absolute;
+  bottom: 3%;
+  left: 61%;
+  width: 5%;
+  height: 6%;
+  border-radius: 25px;
+  background: #f9ed55 url(../img/screensharing.png) no-repeat center center;
+  box-shadow: 1px 1px 0px darken(#f9ed55, 40%);
+  background-size: 65%;
+  font-size: 1.25em;
+}
+
+.sharescreen#no-active{
+  &:hover{
+    cursor: pointer;
+    animation: ShareScreen 0.5s;
+    animation-fill-mode: both;
+  }
+  &:hover .sharetext{
+    display: block;
+    float: right;
+    animation-delay: 1s;
+    animation: fadeIn 0.5s;
+    animation-fill-mode: both;
+  }
+}
+
+.sharescreen#active{
+  width: 15%;
+  background-size: 23%;
+  background-position: left 13% center;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.sharescreen .sharetext{
+  display: none;
+  font-weight:bold;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.sharescreen .sharetext#active{
+  display: block;
+  float: right;
+  &:hover{
+    cursor: pointer;
+  }
 }
