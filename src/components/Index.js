@@ -26,7 +26,7 @@ class Index extends React.Component {
     componentDidMount() { }
 
     componentDidUnmount(){
-        
+        document.removeEventListener("keydown",this.onKeyDown);
     }
 
     onKeyDown(e) {
@@ -50,7 +50,7 @@ class Index extends React.Component {
                         return;
                     }
                     if (document.activeElement == document.body) {
-                        document.removeEventListener("keydown", this.onKeyDown);
+                        // document.removeEventListener("keydown", this.onKeyDown);
                         this.onClick_handleCreateRoom();
                         return;
                     }

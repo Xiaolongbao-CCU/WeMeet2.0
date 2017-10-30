@@ -29,7 +29,7 @@ class Toolbar extends React.Component {
             isVoteToggle: false,
             isAddUserOpen: false,
             isBrainstormingOpen: false,
-            isRerservationToggle: false,
+            isRerservationOpen: false,
             //Open Status
             isRecognitionOpen: false
             //Special Status
@@ -74,7 +74,7 @@ class Toolbar extends React.Component {
     }
 
     onClick_addUserControl() {
-        clearTimeout(window.closeTimeOut)
+        clearTimeout(window.closeTimeOut);
         if (this.state.isAddUserOpen) {
             this.setState({
                 isAddUserOpen: false
@@ -107,7 +107,7 @@ class Toolbar extends React.Component {
 
     onClick_ToggleReservation() {
         this.setState({
-            isRerservationToggle: !this.state.isRerservationToggle
+            isRerservationOpen: !this.state.isRerservationOpen
         });
     }
 
@@ -117,10 +117,16 @@ class Toolbar extends React.Component {
         });
     }
 
+    closeReservation() {
+        this.setState({
+            isRerservationOpen: false
+        });
+    }
+
     render() {
         return (
             <div className="toolbar">
-                <VoiceStatus Recognizer={this.props.Recognizer}/>
+                <VoiceStatus Recognizer={this.props.Recognizer} />
 
                 <div
                     className="toolbar-button"
@@ -132,7 +138,13 @@ class Toolbar extends React.Component {
                     </div>
                 </div>
 
-                {this.state.isRerservationToggle ? <ReservationDetail /> : null}
+                {this.state.isRerservationOpen ? (
+                    <ReservationDetail
+                        closeReservation={() => {
+                            this.closeReservation();
+                        }}
+                    />
+                ) : null}
 
                 <div
                     className="toolbar-button"

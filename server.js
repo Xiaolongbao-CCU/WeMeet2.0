@@ -9,13 +9,13 @@ const fs = require("fs");
 //const db = require('./app/lib/db.js');
 
 //HTTPS參數;
-const option = {
-    key: fs.readFileSync("./public/certificate/privatekey.pem"),
-    cert: fs.readFileSync("./public/certificate/certificate.pem")
-};
+// const option = {
+//     key: fs.readFileSync("./public/certificate/privatekey.pem"),
+//     cert: fs.readFileSync("./public/certificate/certificate.pem")
+// };
 
 //對https Server內傳入express的處理
-const server = require("https").createServer(option, app);
+const server = require("http").createServer(app);
 app.use(
     bodyParser.urlencoded({
         type: "image/*",
@@ -36,7 +36,7 @@ app.use(
 );
 
 let peerServerOption = {
-    debug: true
+    debug: false
 }
 app.use('/peerjs', ExpressPeerServer(server, peerServerOption));
 

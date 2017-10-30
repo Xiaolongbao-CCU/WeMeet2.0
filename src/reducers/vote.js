@@ -2,6 +2,8 @@ const initialVoteDetail = {
     isVotingStart: false,
     isVotingFinish: false,
     isSelfSubmit:false,
+    waitingForAnimate:false,
+    isAnimateOpen:false,
     voting: {
         creator: "",
         secretOrNot: false,
@@ -66,8 +68,18 @@ export default function vote(state = initialVoteDetail, action) {
                 }
             });
             return Object.assign({}, state, { result: newResult });
-        case "setVotingFinish":
+
+        case "setAnimateOpen":
+            return Object.assign({}, state, { isAnimateOpen: true });
+
+        case "setAnimateClose":
+            return Object.assign({}, state, { isAnimateOpen: false });
+            
+        case "setVotingFinish" :
             return Object.assign({}, state, { isVotingFinish: true });
+            
+        case "waitingForAnimate":
+            return Object.assign({}, state, { waitingForAnimate: true });
 
         case "selfSubmitVote":
             return Object.assign({}, state, { isSelfSubmit: true });

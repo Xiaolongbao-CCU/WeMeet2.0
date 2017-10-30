@@ -2,7 +2,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
-import { selfSubmitVote } from "../../actions/Actions";
+import { 
+    selfSubmitVote,
+    setVotingFinish,
+    setAnimateOpen
+} from "../../actions/Actions";
 class Vote extends React.Component {
     constructor(props) {
         super(props);
@@ -15,9 +19,9 @@ class Vote extends React.Component {
         };
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     onClick_ToggleVoteSelected(e) {
         let key = e.target.parentNode.id;
@@ -95,12 +99,20 @@ class Vote extends React.Component {
             } else {
                 //不是匿名的，就傳
                 socket.emit("gotVoteFromUser", {
-                    sender: this.props.userName || this.props.animalName || this.props.localUserID,
+                    sender:
+                        this.props.userName ||
+                        this.props.animalName ||
+                        this.props.localUserID,
                     content: this.state.optionSelected
                 });
             }
             this.props.dispatch(selfSubmitVote());
         }
+    }
+
+    onClick_showAnimate() {
+        this.props.dispatch(setAnimateOpen());
+        this.props.dispatch(setVotingFinish())
     }
 
     render() {
@@ -110,7 +122,11 @@ class Vote extends React.Component {
                 option.push(
                     <div className="cotent" id={key}>
                         <span
-                            className={this.props.isSelfSubmit ? "status" : "status hover"}
+                            className={
+                                this.props.isSelfSubmit
+                                    ? "status"
+                                    : "status hover"
+                            }
                             id={
                                 this.state.optionSelected.indexOf(key) >= 0
                                     ? "selected"
@@ -118,7 +134,7 @@ class Vote extends React.Component {
                             }
                             onClick={e => {
                                 if (this.props.isSelfSubmit) {
-                                    e.preventDefault()
+                                    e.preventDefault();
                                 } else {
                                     this.onClick_ToggleVoteSelected(e);
                                 }
@@ -128,23 +144,26 @@ class Vote extends React.Component {
                         </span>
                         <span className="bar" />
                         <span className="people">
-                            {this.props.isSelfSubmit
+                            {!this.props.isVotingFinish ? null : 
+                                this.props.isSelfSubmit
                                 ? this.props.votingDetail.result[key]
-                                    ? this.props.votingDetail.result[key].sum
-                                    : 0
+                                  ? this.props.votingDetail.result[key].sum
+                                  : 0
                                 : ""}
                         </span>
-                        {this.props.isSelfSubmit ? (
+                        {!this.props.isVotingFinish ? null : this.props
+                            .isSelfSubmit ? (
                             <div className="people-detail">
-                                投票者：{this.props.votingDetail.voting.secretOrNot
+                                投票者：
+                                {this.props.votingDetail.voting.secretOrNot
                                     ? "匿名無法觀看投票者"
                                     : this.props.votingDetail.result[key]
-                                        ? this.props.votingDetail.result[
+                                      ? this.props.votingDetail.result[
                                             key
                                         ].voter.reduce((allName, userName) => {
                                             return allName + userName + "、";
                                         }, "")
-                                        : ""}
+                                      : ""}
                             </div>
                         ) : null}
                     </div>
@@ -178,7 +197,11 @@ class Vote extends React.Component {
                         </div>
                         <div
                             className={
-                                this.props.isSelfSubmit ? "votewait" : "votego"
+                                this.props.waitingForAnimate
+                                    ? "votego"
+                                    : this.props.isSelfSubmit
+                                      ? "votewait"
+                                      : "votego"
                             }
                             id={
                                 this.state.isMyselfVoteCanSumbit
@@ -186,17 +209,22 @@ class Vote extends React.Component {
                                     : "closed"
                             }
                             onClick={() => {
-                                this.onclick_sendVote();
+                                if (this.props.waitingForAnimate) {
+                                    this.onClick_showAnimate();
+                                } else {
+                                    this.onclick_sendVote();
+                                }
                             }}
                         >
-                            {this.props.isVotingFinish //1. 先審核是否所有人投票完，如果投完就不會有任何東西
-                                ? null
+                            {this.props.isVotingFinish ? "再看一次>_<" :  
+                            this.props.waitingForAnimate //1. 先審核是否所有人投票完，如果投完就不會有任何東西
+                                ? "結果出爐囉!點我觀看結果!"
                                 : this.props.isSelfSubmit ? "等待他人投票中 " : "投票！" //2. 再來確認自己的投票是否已提交，沒有是按鈕，有是等待投票
                             }
                             {this.props.isVotingFinish ? null : this.props
                                 .isSelfSubmit ? (
-                                    <img src="./img/wait.gif" />
-                                ) : null}
+                                <img src="./img/wait.gif" />
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -208,7 +236,9 @@ class Vote extends React.Component {
                 <div
                     className="votebox"
                     id="one"
-                    onClick={() => { this.onClick_ToggleVoteDetail() }}
+                    onClick={() => {
+                        this.onClick_ToggleVoteDetail();
+                    }}
                     style={{
                         display: this.props.votingDetail.isVotingStart
                             ? "block"
@@ -236,7 +266,8 @@ const mapStateToProps = state => {
         isVotingFinish: state.vote.isVotingFinish,
         isSelfSubmit: state.vote.isSelfSubmit,
         localUserID: state.connection.localUserID,
-        connection: state.connection.connections
+        connection: state.connection.connections,
+        waitingForAnimate: state.vote.waitingForAnimate
     };
 };
 
