@@ -89,7 +89,7 @@ let configuration = {
     ]
 };
 
-document.ondblclick = function() { return false; }
+document.ondblclick = function () { return false; }
 class Meeting extends React.Component {
     constructor(props) {
         super(props);
@@ -113,7 +113,7 @@ class Meeting extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.props.userName && window.sessionStorage.hasOwnProperty('userName')){
+        if (!this.props.userName && window.sessionStorage.hasOwnProperty('userName')) {
             this.props.dispatch(setUserName(window.sessionStorage.userName))
         }
         window.connections = {};
@@ -378,10 +378,17 @@ class Meeting extends React.Component {
                         )}
                 </div>
                 <div className="center-field">
-                    <Toolbar Recognizer={this.Recognizer}/>
+                    <Toolbar Recognizer={this.Recognizer} />
                     {this.props.isGridOpen ? <GridGame /> : null}
                     {this.props.isPaintOpen ? <Painting /> : null}
-                    <MainScreen />
+                    {
+                        this.props.isGridOpen || this.props.isPaintOpen ?
+                            <div className="display-none">
+                                <MainScreen />
+                            </div>
+                            : <MainScreen />
+                    }
+
                     <AVcontrol Chat={this.Chat} />
                 </div>
                 <div className="right-field">
