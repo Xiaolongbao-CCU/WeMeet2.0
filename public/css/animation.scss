@@ -333,6 +333,18 @@ opacity: 0;
     }
   }
 
+  @-webkit-keyframes ShareScreen {
+    0% {
+
+    }
+  
+    100% {
+      width: 15%;
+      background-size: 23%;
+      background-position: left 13% center;
+    }
+  }
+
 
 #fadeIn{
   animation: fadeIn 0.5s;
