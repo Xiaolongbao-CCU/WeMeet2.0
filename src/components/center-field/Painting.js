@@ -40,6 +40,7 @@ class Painting extends React.Component {
             var context = canvas.getContext("2d");
             context.clearRect(0, 0, canvas.width, canvas.height);
         });
+        window.addEventListener('resize', this.onResize, false);
     }
 
     componentDidUpdate() {
@@ -52,10 +53,11 @@ class Painting extends React.Component {
     }
 
     onResize() {
+        var parent = this.refs.paintingfield;
         var canvas = this.refs.whiteboard;
         var context = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = parent.getBoundingClientRect().width;
+        canvas.height = parent.getBoundingClientRect().height;
     }
 
     PaintSystem() {

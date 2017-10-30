@@ -84,23 +84,23 @@ class ReservationDetail extends React.Component {
                 <div className="input-field">
                     <span><img className="img" src='./img/calendar.png' /></span>
                     <span className="title">開會日期</span>
-                    <input className="content" id="datetime" onChange={this.OnChange_Reservation} />
+                    <input className="content" id="datetime" placeholder="選擇欲開會的日期與時間" onChange={this.OnChange_Reservation} />
                     <input type="hidden" id="date" ref="date" />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/location.png' /></span>
                     <span className="title" >開會地點</span>
-                    <input className="content" ref="site" onChange={this.OnChange_ToggleReservation} />
+                    <input className="content" ref="site" placeholder="例如：線上開會、會議廳等" onChange={this.OnChange_ToggleReservation} />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/aim.png' /></span>
                     <span className="title" >開會主題</span>
-                    <input className="content" ref="title" onChange={this.OnChange_ToggleReservation} />
+                    <input className="content" ref="title" placeholder="例如：常會、討論新企畫等" onChange={this.OnChange_ToggleReservation} />
                 </div>
                 <div className="input-field">
                     <span><img className="img" src='./img/note.png' /></span>
                     <span className="title" >備註</span>
-                    <input className="content" ref="note" onChange={this.OnChange_ToggleReservation} />
+                    <input className="content" ref="note" placeholder="是否有任何注意事項？" onChange={this.OnChange_ToggleReservation} />
                 </div>
                 <a href={this.state.reservationHref} target="_blank">
                     <div className="submit" onClick={this.OnClick_EmitMeeting}>預約</div>

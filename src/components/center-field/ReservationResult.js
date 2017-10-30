@@ -28,7 +28,7 @@ class ReservationResult extends React.Component {
       <div>
         <div className="ReceviedMeeting" onClick={this.onClick_ToggleDetail}>
           <img className="mail" src="./img/mail.png" />
-          <div className="content">一則預約開會通知！</div>
+          <div className="content">您有預約開會通知！</div>
         </div>
 
         {
