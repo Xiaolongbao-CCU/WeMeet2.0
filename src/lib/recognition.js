@@ -112,6 +112,7 @@ let Recognition = {
                     );
                     socket.emit("recognitionRecord", {
                         sendTime: tempTime,
+                        name: Meeting.props.userName,
                         userID: Meeting.props.localUserID,
                         text: event.results[i][0].transcript
                     });

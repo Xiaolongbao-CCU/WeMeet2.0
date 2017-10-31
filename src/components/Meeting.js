@@ -162,9 +162,9 @@ class Meeting extends React.Component {
                                 let url = URL.createObjectURL(remoteStream);
                                 this.props.dispatch(
                                     addRemoteStreamURL({
-                                        remotePeer: call.peer,
-                                        url: url,
-                                        stream: remoteStream
+                                        'remotePeer': call.peer,
+                                        'url': url,
+                                        'stream': remoteStream
                                     })
                                 );
                             });
@@ -176,9 +176,9 @@ class Meeting extends React.Component {
                                     console.log("收到影像啦!" + stream);
                                     this.props.dispatch(
                                         addRemoteStreamURL({
-                                            remotePeer: call.peer,
-                                            url: url,
-                                            stream: remoteStream
+                                            'remotePeer': call.peer,
+                                            'url': url,
+                                            'stream': remoteStream
                                         })
                                     );
                                 });
@@ -222,9 +222,9 @@ class Meeting extends React.Component {
                         console.log("收到影像囉!(5)" + remoteStream);
                         this.props.dispatch(
                             addRemoteStreamURL({
-                                remotePeer: participantID,
-                                url: url,
-                                stream: remoteStream
+                                'remotePeer': participantID,
+                                'url': url,
+                                'stream': remoteStream
                             })
                         );
                     });
@@ -238,9 +238,8 @@ class Meeting extends React.Component {
                             let url = URL.createObjectURL(remoteStream);
                             this.props.dispatch(
                                 addRemoteStreamURL({
-                                    remotePeer: participantID,
-                                    url: url,
-                                    stream: remoteStream
+                                    'remotePeer': participantID,
+                                    'url': url
                                 })
                             );
                         });

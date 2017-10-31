@@ -21,15 +21,18 @@ class Index extends React.Component {
 
     componentWillMount() {
         document.addEventListener("keydown", this.onKeyDown);
+        this.props.dispatch({'type':'CLEAR'})
+        window.localStorage.clear()
+        console.log(window.localStorage)
+
     }
 
-    componentDidMount() { }
+    componentDidMount() { 
+
+    }
 
     componentWillUnmount() {
         document.removeEventListener("keydown",this.onKeyDown);
-        window.localStorage.clear()
-        console.log(window.localStorage)
-        this.props.dispatch({type:'CLEAR'})
     }
 
     onKeyDown(e) {

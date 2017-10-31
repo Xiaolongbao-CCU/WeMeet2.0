@@ -142,35 +142,8 @@ io.on("connection", function (socket) {
                     userInRoom[room].length == 1
                 ) {
                     //如果房間裏面只有他，就把房間刪掉
-                    socket.emit("delRoom", room);
-                    socket.broadcast.emit("delRoom", room);
-                    roomList.splice(roomList.indexOf(room), 1);
-                    delete userInRoom[room];
-                    console.log("房間已刪除!" + room);
-                } else {
-                    //房間有超過一人
-                    userInRoom[room].map((userObj, index) => {
-                        if (userObj.id == socket.id) {
-                            userInRoom[room].splice(index, 1)
-                        }
-                    })
-                }
-                socket.emit("delParticipantList", socket.id);
-                socket.to(room).emit("delParticipantList", socket.id);
-                socket.to(room).emit("participantDisconnected", socket.id);
-            }
-        })
-        .on("disconnecting", function () {
-            console.log("有人斷線囉~" + socket.id);
-            let room = Object.keys(socket.rooms)[1];
-            socket.leave(room);
-            if (userInRoom[room]) {
-                if (
-                    userInRoom[room].length == 1
-                ) {
-                    //如果房間裏面只有他，就把房間刪掉
-                    socket.emit("delRoom", room);
-                    socket.broadcast.emit("delRoom", room);
+                    // socket.emit("delRoom", room);
+                    socket.to(room).emit("delRoom", room);
                     roomList.splice(roomList.indexOf(room), 1);
                     delete userInRoom[room];
                     console.log("房間已刪除!" + room);
@@ -184,7 +157,36 @@ io.on("connection", function (socket) {
                     })
                     console.log(userInRoom[room])
                 }
-                socket.emit("delParticipantList", socket.id);
+                //socket.emit("delParticipantList", socket.id);
+                socket.to(room).emit("delParticipantList", socket.id);
+                socket.to(room).emit("participantDisconnected", socket.id);
+            }
+        })
+        .on("disconnecting", function () {
+            console.log("有人斷線囉~" + socket.id);
+            let room = Object.keys(socket.rooms)[1];
+            socket.leave(room);
+            if (userInRoom[room]) {
+                if (
+                    userInRoom[room].length == 1
+                ) {
+                    //如果房間裏面只有他，就把房間刪掉
+                    // socket.emit("delRoom", room);
+                    socket.to(room).emit("delRoom", room);
+                    roomList.splice(roomList.indexOf(room), 1);
+                    delete userInRoom[room];
+                    console.log("房間已刪除!" + room);
+                } else {
+                    //房間有超過一人
+                    userInRoom[room].map((userObj, index) => {
+                        if (userObj.id == socket.id) {
+                            userInRoom[room].splice(index, 1)
+                        }
+
+                    })
+                    console.log(userInRoom[room])
+                }
+                //socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);
                 socket.to(room).emit("participantDisconnected", socket.id);
             }

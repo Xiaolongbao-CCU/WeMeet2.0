@@ -3,7 +3,10 @@
 import React from "react";
 import {connect} from "react-redux"
 import socket from "../../socket"
-import {addChatRecord} from "../../actions/Actions"
+import {
+    addChatRecord,
+    addRecognitionRecord
+} from "../../actions/Actions"
 
 class ChatInput extends React.Component {
     constructor(props) {

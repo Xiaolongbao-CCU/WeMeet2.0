@@ -1,5 +1,3 @@
-
-
 import socketIO from "socket.io-client";
 import store from "./store";
 import {
@@ -55,10 +53,10 @@ socket
     });
 
 socket
-    .on("setParticipantList", (participantList) => {
+    .on("setParticipantList", participantList => {
         store.dispatch(setParticipantList(participantList));
-        store.dispatch(setAnimalName(participantList[0].animal))
-        socket.emit("joinFinish")
+        store.dispatch(setAnimalName(participantList[0].animal));
+        socket.emit("joinFinish");
     })
     .on("addParticipantList", participantID => {
         store.dispatch(addParticipantList(participantID));
@@ -67,8 +65,8 @@ socket
         store.dispatch(delParticipantList(participantID));
     });
 
-socket.on("chatMessage",(record)=>{
-    store.dispatch(addChatRecord(record))
+socket.on("chatMessage", record => {
+    store.dispatch(addChatRecord(record));
 });
 
 socket
@@ -91,9 +89,9 @@ socket
     .on("gotVoteFromServer", voteContent => {
         store.dispatch(gotVoteFromServer(voteContent));
     })
-    .on("votingIsFinish", ()=>{
-        store.dispatch(waitingForAnimate())
-    })
+    .on("votingIsFinish", () => {
+        store.dispatch(waitingForAnimate());
+    });
 
 socket
     .on("setAgenda", function(list) {
@@ -112,27 +110,27 @@ socket
         store.dispatch(doneAgenda(key));
     });
 
-socket.on("remoteUserRecognitionRecord",history=>{
-    store.dispatch(addRecognitionRecord(history))
-})
+socket.on("remoteUserRecognitionRecord", history => {
+    store.dispatch(addRecognitionRecord(history));
+});
 
 socket
-    .on("setGrid",obj=>{
-        store.dispatch(setGrid(obj))
+    .on("setGrid", obj => {
+        store.dispatch(setGrid(obj));
     })
-    .on("setGridStart",()=>{
-        store.dispatch(setGridStart())
-    })
+    .on("setGridStart", () => {
+        store.dispatch(setGridStart());
+    });
 
-socket.on('setSixhatList',(localhat, obj)=>{
+socket.on("setSixhatList", (localhat, obj) => {
     //store.dispatch(setLocalHat(localhat))
-    store.dispatch(setSixhat(localhat,obj))
-})
+    store.dispatch(setSixhat(localhat, obj));
+});
 
 socket.on("AddReservation", data => {
-    store.dispatch(setMeetingData(data))
-    store.dispatch(setURL(data.href))
-    store.dispatch(setReceiveData(true))
+    store.dispatch(setMeetingData(data));
+    store.dispatch(setURL(data.href));
+    store.dispatch(setReceiveData(true));
 });
 
 export default socket;

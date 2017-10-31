@@ -6,16 +6,6 @@ import { connect } from "react-redux";
 class Chatroom extends React.Component {
     constructor(props) {
         super(props);
-        let animalName = {
-            1: "貓貓",
-            2: "狗狗",
-            3: "猩猩",
-            4: "獅子",
-            5: "無尾熊",
-            6: "兔兔",
-            7: "老虎",
-            8: "狐狸"
-        };
     }
 
     componentWillMount() { }
