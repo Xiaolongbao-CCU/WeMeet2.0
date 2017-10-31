@@ -20,7 +20,7 @@ let Recognition = {
         //************預設中文
         recognition.lang = "cmn-Hant-TW";
         //************直接開始
-        //recognition.start();
+        recognition.start();
 
 
         recognizer.setLanguage = language => {
@@ -82,7 +82,7 @@ let Recognition = {
             console.log("有聽到!但辨識不出來..");
         };
         recognition.onresult = event => {
-            console.log("有聽到有聽到!");
+            // console.log("有聽到有聽到!");
             let interim_transcript = "";
             //版本過舊的情況
             // if (typeof(event.results) == 'undefined') {

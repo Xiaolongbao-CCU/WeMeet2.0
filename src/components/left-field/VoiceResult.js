@@ -1,7 +1,8 @@
 "use strict";
 
 import React from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
+import Assistant from "./Assistant";
 
 class VoiceResult extends React.Component {
     constructor(props) {
@@ -9,9 +10,15 @@ class VoiceResult extends React.Component {
         this.state = {};
     }
 
-    componentWillMount() {}
+    componentWillMount() {
+    }
 
     componentDidMount() {
+        this.Assistant = Assistant.createNew(this.props.interimResult);
+    }
+
+    componentDidUpdate() {
+        this.Assistant = Assistant.createNew(this.props.interimResult);
     }
 
     render() {
