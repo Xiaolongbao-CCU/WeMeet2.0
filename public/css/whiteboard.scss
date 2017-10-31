@@ -283,17 +283,17 @@
 
 .ReceviedMeeting{
   position: fixed;
-  bottom: 3%;
-  right: 30%;
+  bottom: 2.5%;
+  left: 25%;
   width: 13%;
   height: 7%;
   animation: fadeIn 0.5s;
   &:hover{
-    bottom: 3.3%;
+    bottom: 3%;
     cursor: pointer;
   }
   &:active{
-    bottom: 3%;
+    bottom: 2.5%;
   }
 }
 

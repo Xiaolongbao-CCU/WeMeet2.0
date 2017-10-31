@@ -42,6 +42,7 @@ import GridGame from "./center-field/GridGame";
 import KJGame from "./center-field/KJGame";
 import KJGame_result from "./center-field/KJGame_result";
 import Painting from "./center-field/Painting";
+import ShareScreen from "./center-field/ShareScreen";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
