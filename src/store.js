@@ -14,7 +14,7 @@ import {
 	reservation
 } from "./reducers/index";
 
-let reducers = combineReducers({
+let appReducer = combineReducers({
 	roomList,
 	participantList,
 	connection,
@@ -29,9 +29,26 @@ let reducers = combineReducers({
 	reservation
 });
 
+const rootReducer = (state, action) => {
+	if (action.type === "CLEAR") {
+		state = undefined;
+	}
+	return appReducer(state, action);
+};
+
+import { loadState, saveState } from "./lib/loadState";
+const persistStore = loadState();
+
 const store = createStore(
-	reducers,
+	rootReducer,
+	persistStore,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+store.subscribe(() => {
+	saveState(
+		store.getState()
+	);
+});
 
 export default store;

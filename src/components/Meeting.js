@@ -217,11 +217,6 @@ class Meeting extends React.Component {
                     Object.keys(window.localStream).length > 0
                 ) {
                     let call = window.Peer.call(participantID, window.localStream)
-                    // let call = window.connections[sender].call(
-                    //     `${sender}${this.props.localUserID}`,
-                    //     window.localStream
-                    // );
-                    // console.log("發出連線(4)");
                     call.on("stream", remoteStream => {
                         let url = URL.createObjectURL(remoteStream);
                         console.log("收到影像囉!(5)" + remoteStream);
@@ -236,10 +231,6 @@ class Meeting extends React.Component {
                 } else {
                     this.Chat.getUserMedia().then(stream => {
                         window.localStream = stream;
-                        // let call = window.connections[sender].call(
-                        //     `${sender}${this.props.localUserID}`,
-                        //     window.localStream
-                        // );
                         let call = window.Peer.call(participantID, window.localStream)
                         console.log("發出連線(4)");
                         call.on("stream", remoteStream => {
@@ -265,26 +256,13 @@ class Meeting extends React.Component {
                     true,
                     this.props.localUserID
                 );
+                socket.emit('setRemoteUserName',
+                    this.props.localUserID,
+                    this.props.userName,
+                    participantID
+                );
             })
             .on("participantDisconnected", participantID => {
-                // Object.values(window.connections).map((peer)=>{
-                //     if(peer.id. == participantID){
-                //         peer.disconnect()
-                //     }
-                // })
-                // window.connections = Object.assign(
-                //     {},
-                //     {
-                //         connections: Object.keys(
-                //             window.connections
-                //         ).reduce((result, key) => {
-                //             if (key !== participantID) {
-                //                 result[key] = window.connections[key];
-                //             }
-                //             return result;
-                //         }, {})
-                //     }
-                // );
                 this.props.dispatch(delParticipantConnection(participantID));
                 this.props.dispatch(delRemoteStreamURL(participantID));
                 this.props.dispatch(delRemoteUserName(participantID));

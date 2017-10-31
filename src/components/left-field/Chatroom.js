@@ -6,6 +6,16 @@ import { connect } from "react-redux";
 class Chatroom extends React.Component {
     constructor(props) {
         super(props);
+        let animalName = {
+            1: "貓貓",
+            2: "狗狗",
+            3: "猩猩",
+            4: "獅子",
+            5: "無尾熊",
+            6: "兔兔",
+            7: "老虎",
+            8: "狐狸"
+        };
     }
 
     componentWillMount() { }
@@ -39,9 +49,9 @@ class Chatroom extends React.Component {
                     chatbox.push(
                         <div className="myself-message">
                             <div className="myself-infro">
-                                <img className="image" src={"./img/animal" + localAnimalNum + ".jpg"} />
+                                <img className="image" src={"./img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
-                                    {this.props.localUserName || localAnimal}
+                                    {record.name || record.userID}
                                 </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
@@ -63,14 +73,15 @@ class Chatroom extends React.Component {
                     chatbox.push(
                         <div className="others-message">
                             <div className="others-infro">
-                                <img className="image" src={"./img/animal" + remoteAnimalNum + ".jpg"} />
+                                <img className="image" src={"./img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
-                                    {this.props.remoteUserName[record.userID] &&
+                                    {   this.props.participantList.includes(record.userID) ? 
+                                        (this.props.remoteUserName[record.userID] &&
                                         this.props.remoteUserName[record.userID] !== record.userID
                                         ?
                                         this.props.remoteUserName[record.userID]
                                         :
-                                        remoteAnimal
+                                        remoteAnimal) : record.name
                                     }
                                 </div>
 

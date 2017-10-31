@@ -34,8 +34,10 @@ class VoiceRecognition extends React.Component {
                             <div className="myself-infro">
                                 <img className="image" src="./img/animal1.jpg" />
                                 <div className="name">
-                                    {this.props.localUserName ||
-                                        "u_" + record.userID.substring(0, 4)}
+                                    {
+                                        this.props.localUserName || 
+                                        localAnimalName
+                                    }
                                 </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
@@ -51,11 +53,9 @@ class VoiceRecognition extends React.Component {
                             <div className="others-infro">
                                 <img className="image" src="./img/animal2.jpg" />
                                 <div className="name">
-                                    {this.props.remoteUserName[record.userID] &&
-                                        this.props.remoteUserName[record.userID] !==
-                                        record.userID
-                                        ? this.props.remoteUserName[record.userID]
-                                        : "u_" + record.userID.substring(0, 4)}
+                                    {
+                                        this.props.remoteUserName[record.userID]
+                                    }
                                 </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>
@@ -82,6 +82,7 @@ class VoiceRecognition extends React.Component {
 const mapStateToProps = state => {
     return {
         localUserName: state.connection.userName,
+        localAnimalName: state.connection.animalName,
         remoteUserName: state.connection.remoteUserName,
         localUserID: state.connection.localUserID,
         recognitionRecord: state.chatAndRecognition.recognitionRecord

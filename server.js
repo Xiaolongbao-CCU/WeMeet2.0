@@ -9,13 +9,13 @@ const fs = require("fs");
 //const db = require('./app/lib/db.js');
 
 //HTTPS參數;
-// const option = {
-//     key: fs.readFileSync("./public/certificate/privatekey.pem"),
-//     cert: fs.readFileSync("./public/certificate/certificate.pem")
-// };
+const option = {
+    key: fs.readFileSync("./public/certificate/privatekey.pem"),
+    cert: fs.readFileSync("./public/certificate/certificate.pem")
+};
 
 //對https Server內傳入express的處理
-const server = require("http").createServer(app);
+const server = require("https").createServer(option,app);
 app.use(
     bodyParser.urlencoded({
         type: "image/*",
@@ -58,39 +58,6 @@ let animalName = {
     7: "老虎",
     8: "狐狸"
 };
-// app.get("/api/db/history", (req, res) => {
-//     db.History.find({ "room": '#53ee66' }, (err, data) => {
-//         if (err) console.log(err);
-//         console.log(data);
-//         res.send('有成功喔!');
-//     });
-// });
-
-//資料庫「新增」部分
-// app.post("/api/db/history", (req, res) => {
-//     let { roomName, record } = req.body;
-//     db.History.create({
-//         room: roomName,
-//         history: record
-//     }, function(err, data) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.send('新增成功^^');
-//         }
-//     });
-// });
-
-// app.post("/api/db/create/photo", (req, res) => {
-//     db.Account.findOneAndUpdate({ username: 'change' }, { photo: req.body.data }, (err, data) => {
-//         if (err) console.log(err);
-//         console.log('photo success');
-//     });
-// });
-
-// app.post("/api/db/save/video", (req, res) => {
-
-// });
 
 io.on("connection", function (socket) {
     //console.log("有人連線囉~" + socket.id);
@@ -161,6 +128,7 @@ io.on("connection", function (socket) {
                 //對房間內的人，發出新人加入的訊息
                 socket.to(room).emit("addParticipantList", obj);
             }
+            console.log(room,userInRoom[room])
         })
         .on("joinFinish", () => {
             socket.emit("joinSuccess")
@@ -226,8 +194,8 @@ io.on("connection", function (socket) {
         .on("newParticipantA", function (msgSender, room, userName) {
             socket.to(room).emit("newParticipantB", msgSender);
             socket.to(room).emit("setRemoteUserName", {
-                id: msgSender,
-                name: userName
+                'id': msgSender,
+                'name': userName
             });
         })
         .on("chatMessage", (record) => {
@@ -241,22 +209,30 @@ io.on("connection", function (socket) {
         .on("setRemoteAudioState", (state, remotePeer) => {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setRemoteAudioState", state, remotePeer);
-        });
+        })
+        .on('setRemoteUserName',(sender,userName,receiver)=>{
+            socket.to(receiver).emit('setRemoteUserName',{'id':sender,'name':userName})
+        })       
     socket
         .on("setAgenda", function (list) {
-            socket.broadcast.emit("setAgenda", list);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('setAgenda', list)
         })
         .on("newAgenda", () => {
-            socket.broadcast.emit("newAgenda");
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("newAgenda");
         })
         .on("deleteAgenda", key => {
-            socket.broadcast.emit("deleteAgenda", key);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("deleteAgenda", key);
         })
         .on("updateAgenda", obj => {
-            socket.broadcast.emit("updateAgenda", obj);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("updateAgenda", obj);
         })
         .on("doneAgenda", key => {
-            socket.broadcast.emit("doneAgenda", key);
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("doneAgenda", key);
         });
 
     socket
@@ -278,38 +254,11 @@ io.on("connection", function (socket) {
             }
         });
 
-    // socket.on("requestVideoFromUser", function (sender) {
-    //     console.log("使用者:" + socket.id + "請求了他的錄影BLOB檔");
-    // });
-
-    // socket.on("getHistory", room => {
-    //     db.History.find(
-    //         {
-    //             room: room
-    //         },
-    //         function (err, data) {
-    //             if (err) throw err;
-    //             socket.emit("onHistoryResult", data);
-    //         }
-    //     );
-    // });
 
     socket.on("recognitionRecord", function (_history) {
         let room = Object.keys(socket.rooms)[1];
         //console.log("有結果!")
         socket.to(room).emit("remoteUserRecognitionRecord", _history);
-        // console.log(_history);
-        // db.History.create(
-        //     {
-        //         room: room,
-        //         history: _history
-        //     },
-        //     function(err, data) {
-        //         if (err) {
-        //             console.log(err);
-        //         }
-        //     }
-        // );
     });
 
     socket

@@ -253,6 +253,7 @@ let Chat = {
             let record = {
                 name: Meeting.props.userName, //0903 Andy Add a Temp
                 userID: Meeting.localUserID,
+                animal: Meeting.props.animalName,
                 sendTime: formattedTime,
                 text: value
             };
@@ -263,66 +264,6 @@ let Chat = {
             //加到自己畫面上的
             Meeting.props.dispatch(addChatRecord(record));
         };
-
-        // Chat.sendFileToUser = (files) => {
-        //     if (!files) {
-        //         alert('沒有給我檔案我生77喔!');
-        //         return;
-        //     }
-        //     //這個功能是直接將檔案廣播給房內的人，沒有存進資料庫
-        //     //假設一次上傳多個檔案，files[0]指的是第一個傳的檔案
-        //     //這裡暫時只做單一檔案上傳功能
-        //     //webrtc的data channel一次最多只能傳送16*1024Bytes的檔案
-        //     let file = files;
-        //     console.log('File is ' + [file.name, file.size, file.type, file.lastModifiedDate].join(', '));
-
-        //     let chunkSize = 16384;
-        //     //切割檔案的，並傳入起始點，從頭開始切
-        //     let sliceFile = (offset) => {
-        //         //讀取<input>中的檔案
-        //         let reader = new window.FileReader();
-        //         //讀取完成時觸發此函數
-        //         reader.onload = (e) => {
-        //             //把讀取好的檔案透過fileChannel傳送給「所有」遠端使用者
-        //             for (let id in fileChannels) {
-        //                 //e.target.result是一個ArrayBuffer，長度為:16384bytes，把他送給遠端使用者
-        //                 fileChannels[id].send(e.target.result);
-        //                 //如果檔案總大小>0+16384>再呼叫一次sliceFile(0+16384+16384+...)>遞迴
-        //                 if (file.size > offset + e.target.result.byteLength) {
-        //                     window.setTimeout(sliceFile, 0, offset + chunkSize);
-        //                 } else {
-        //                     fileChannels[id].send(JSON.stringify({
-        //                         'fileName': file.name,
-        //                         'fileSize': file.size,
-        //                         'fileType': file.type
-        //                     }));
-        //                 }
-        //             }
-        //         };
-        //         //從檔案開頭，切一塊16384的檔案下來
-        //         let slice = file.slice(offset, offset + chunkSize);
-        //         reader.readAsArrayBuffer(slice);
-        //     };
-        //     sliceFile(0);
-        // };
-
-        // Chat.sendFileToDB = (localUserID, files) => {
-        //     //假設一次上傳多個檔案，files[0]指的是第一個傳的檔案
-        //     //這裡只做單一檔案上傳功能
-        //     let file = files;
-        //     console.log('File is ' + [file.name, file.size, file.type, file.lastModifiedDate].join(', '));
-        //     let reader = new window.FileReader();
-        //     reader.onload = (e) => {
-        //         let xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "https://140.123.175.95:8787/api/db/create/photo", true);
-        //         xhr.setRequestHeader('Content-Type', 'application/json');
-        //         xhr.send(JSON.stringify({
-        //             id: localUserID,
-        //             data: e.target.result
-        //         }));
-        //     };
-        //     reader.readAsDataURL(file);
-        // };
         return Chat;
     }
 };
