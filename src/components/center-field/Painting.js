@@ -59,8 +59,9 @@ class Painting extends React.Component {
         canvas.width = parent.getBoundingClientRect().width;
         canvas.height = parent.getBoundingClientRect().height;
     }
-
     PaintSystem() {
+
+        console.log('執行function中');
         var canvas = this.refs.whiteboard;
         var context = canvas.getContext("2d");
         var drawing = false;
@@ -68,6 +69,10 @@ class Painting extends React.Component {
             color: this.state.color,
             size: this.state.size
         };
+        canvas.removeEventListener("mousedown", onMouseDown, false);
+        canvas.removeEventListener("mouseup", onMouseUp, false);
+        canvas.removeEventListener("mouseout", onMouseUp, false);
+        canvas.removeEventListener("mousemove", throttle(onMouseMove, 10), false);
         canvas.addEventListener("mousedown", onMouseDown, false);
         canvas.addEventListener("mouseup", onMouseUp, false);
         canvas.addEventListener("mouseout", onMouseUp, false);
@@ -101,9 +106,10 @@ class Painting extends React.Component {
         }
 
         function onMouseDown(e) {
+            console.log('安安');
             drawing = true;
-            current.x = e.clientX;
-            current.y = e.clientY;
+            current.x = e.clientX - 280;
+            current.y = e.clientY - 70;
         }
 
         function onMouseUp(e) {
@@ -114,8 +120,8 @@ class Painting extends React.Component {
             drawLine(
                 current.x,
                 current.y,
-                e.clientX,
-                e.clientY,
+                e.clientX - 280,
+                e.clientY - 70,
                 current.color,
                 current.size,
                 true
@@ -129,14 +135,14 @@ class Painting extends React.Component {
             drawLine(
                 current.x,
                 current.y,
-                e.clientX,
-                e.clientY,
+                e.clientX - 280,
+                e.clientY - 70,
                 current.color,
                 current.size,
                 true
             );
-            current.x = e.clientX;
-            current.y = e.clientY;
+            current.x = e.clientX - 280;
+            current.y = e.clientY - 70;
         }
 
         function onColorUpdate(e) {

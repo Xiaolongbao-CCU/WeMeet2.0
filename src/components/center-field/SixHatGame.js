@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import socket from "../../socket"
+import socket from "../../socket";
 
 class SixHatGame extends React.Component {
 	constructor(props) {
@@ -90,23 +90,18 @@ class SixHatGame extends React.Component {
 		];
 	}
 
+	componentWillMount() {}
 
+	componentDidMount() {}
 
-	componentWillMount() {
-	}
-
-	componentDidMount() {
-		
-	}
-
-	setRandomHat(){
+	setRandomHat() {
 		let numberOfParticipant = this.props.participantList.length;
-		let arr = [0,1,2,3,4,5]
-		let final = []
+		let arr = [0, 1, 2, 3, 4, 5];
+		let final = [];
 		for (let i = 0; i < numberOfParticipant; i++) {
-			let randomNumber = Math.floor((Math.random()*(6-i)));
+			let randomNumber = Math.floor(Math.random() * (6 - i));
 			final.push(arr[randomNumber]);
-			arr.splice(randomNumber,1)
+			arr.splice(randomNumber, 1);
 		}
 		socket.emit("setAllUserRandomHat", final);
 	}
@@ -137,13 +132,13 @@ class SixHatGame extends React.Component {
 
 	render() {
 		let Content;
-		let localHat = undefined
+		let localHat = undefined;
 		let others = [];
 
-		Object.keys(this.props.hatList).map( participantID => {
+		Object.keys(this.props.hatList).map(participantID => {
 			let hatKey = this.props.hatList[participantID];
-			if(participantID == this.props.localUserID){
-				localHat = hatKey
+			if (participantID == this.props.localUserID) {
+				localHat = hatKey;
 				let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
 				others.unshift(
 					<div className="other-hat">
@@ -172,7 +167,6 @@ class SixHatGame extends React.Component {
 					</div>
 				);
 			}
-			
 		});
 		switch (this.state.WhatPage) {
 			case "one":
@@ -182,14 +176,10 @@ class SixHatGame extends React.Component {
 				Content = <ul>{this.sixhat[localHat][1].indrotuction}</ul>;
 				break;
 			case "three":
-				let li = this.sixhat[localHat][1].example.map((string)=>{
-					return <li>{string}</li>
-				})
-				Content = (
-					<ul>
-						{li}
-					</ul>
-				);
+				let li = this.sixhat[localHat][1].example.map(string => {
+					return <li>{string}</li>;
+				});
+				Content = <ul>{li}</ul>;
 				break;
 		}
 
@@ -197,7 +187,6 @@ class SixHatGame extends React.Component {
 			<div className="sixhat-field">
 				<div className="bigscreen-sixhat">
 					<div className="teaching">
-						
 						<div className="teachinglist">
 							<div
 								className="button3"
@@ -234,29 +223,50 @@ class SixHatGame extends React.Component {
 						][0]}.png`}
 					/>
 
-					<div className="hat-type" id={this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][0]}>
-						你是{this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][1].description}的代表
+					<div
+						className="hat-type"
+						id={
+							this.sixhat[
+								`${this.props.hatList[this.props.localUserID] ||
+									0}`
+							][0]
+						}
+					>
+						你是{
+							this.sixhat[
+								`${this.props.hatList[this.props.localUserID] ||
+									0}`
+							][1].description
+						}的代表
 					</div>
-					<div className="hat-text" id={this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][0]}>
-						{this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][1].needtodo}
+					<div
+						className="hat-text"
+						id={
+							this.sixhat[
+								`${this.props.hatList[this.props.localUserID] ||
+									0}`
+							][0]
+						}
+					>
+						{
+							this.sixhat[
+								`${this.props.hatList[this.props.localUserID] ||
+									0}`
+							][1].needtodo
+						}
 					</div>
 				</div>
 
 				<div className="others-sixhat">{others}</div>
-				<div 
-					className="button1" 
-					id="changehat"
-					onClick={()=>{this.setRandomHat()}}
-				>
-					交換帽子
-				</div>
 				<div
 					className="button1"
-					id={this.state.isSameHatType ? "samehat" : "diffhat"}
-					onClick={this.onClick_ChangeGameType}
-				>
-					{this.state.isSameHatType ? "相同帽子" : "不同帽子"}
-				</div>
+					id="changehat"
+					onClick={() => {
+						this.setRandomHat();
+					}}
+				/>
+
+				<div className="button1" id="exit" />
 			</div>
 		);
 	}
