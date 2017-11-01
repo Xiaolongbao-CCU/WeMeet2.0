@@ -292,15 +292,14 @@ io.on("connection", function (socket) {
     socket.on('setAllUserRandomHat', (randomNumberArray) => {
         let room = Object.keys(socket.rooms)[1];
         let hatList = {}
-        let localHat = 0;
+        let array = randomNumberArray
         userInRoom[room].map((participant) => {
-            let hat = randomNumberArray.shift()
+            let hat = array.shift()
             hatList[participant.id] = hat
-            if (participant.id == socket.id) {
-                localHat = hat
-            }
+            console.log(participant.id)
+            socket.to(participant.id).emit('setSixhatList',hatList)
         })
-        io.in(room).emit('setSixhatList', localHat, hatList)
+        //io.in(room).emit('setSixhatList', localHat, hatList)
     })
 });
 

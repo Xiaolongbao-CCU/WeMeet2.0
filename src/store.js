@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from "redux";
+import throttle from 'lodash/throttle'
 import {
 	roomList,
 	participantList,
@@ -45,10 +46,10 @@ const store = createStore(
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-store.subscribe(() => {
+store.subscribe(throttle(() => {
 	saveState(
 		store.getState()
 	);
-});
+}),1000);
 
 export default store;

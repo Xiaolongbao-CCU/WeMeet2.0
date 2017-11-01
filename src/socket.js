@@ -125,9 +125,8 @@ socket
         store.dispatch(setGridStart());
     });
 
-socket.on("setSixhatList", (localhat, obj) => {
-    //store.dispatch(setLocalHat(localhat))
-    store.dispatch(setSixhat(localhat, obj));
+socket.on("setSixhatList", (obj) => {
+    store.dispatch(setSixhatList(obj));
 });
 
 socket.on("AddReservation", data => {

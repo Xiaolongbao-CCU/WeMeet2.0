@@ -90,10 +90,13 @@ class SixHatGame extends React.Component {
 		];
 	}
 
-	componentWillMount() {}
+
+
+	componentWillMount() {
+	}
 
 	componentDidMount() {
-		this.setRandomHat()
+		
 	}
 
 	setRandomHat(){
@@ -105,7 +108,6 @@ class SixHatGame extends React.Component {
 			final.push(arr[randomNumber]);
 			arr.splice(randomNumber,1)
 		}
-		console.log(final)
 		socket.emit("setAllUserRandomHat", final);
 	}
 
@@ -135,16 +137,52 @@ class SixHatGame extends React.Component {
 
 	render() {
 		let Content;
+		let localHat = undefined
+		let others = [];
 
+		Object.keys(this.props.hatList).map( participantID => {
+			let hatKey = this.props.hatList[participantID];
+			if(participantID == this.props.localUserID){
+				localHat = hatKey
+				let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
+				others.unshift(
+					<div className="other-hat">
+						<div className="hat-text">
+							{this.sixhat[hatKey][1].description}的代表
+						</div>
+						<img
+							className="hat-img"
+							onMouseOver={this.OthersTextappear}
+							src={img}
+						/>
+					</div>
+				);
+			} else {
+				let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
+				others.push(
+					<div className="other-hat">
+						<div className="hat-text">
+							{this.sixhat[hatKey][1].description}的代表
+						</div>
+						<img
+							className="hat-img"
+							onMouseOver={this.OthersTextappear}
+							src={img}
+						/>
+					</div>
+				);
+			}
+			
+		});
 		switch (this.state.WhatPage) {
 			case "one":
 				Content = <ul />;
 				break;
 			case "two":
-				Content = <ul>{this.sixhat[this.props.localHat][1].indrotuction}</ul>;
+				Content = <ul>{this.sixhat[localHat][1].indrotuction}</ul>;
 				break;
 			case "three":
-				let li = this.sixhat[this.props.localHat][1].example.map((string)=>{
+				let li = this.sixhat[localHat][1].example.map((string)=>{
 					return <li>{string}</li>
 				})
 				Content = (
@@ -155,34 +193,11 @@ class SixHatGame extends React.Component {
 				break;
 		}
 
-		let others = [];
-		Object.keys(this.props.hatList).map( participantID => {
-			let hatKey = this.props.hatList[participantID];
-			let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
-			others.push(
-				<div className="other-hat">
-					<div className="hat-text">
-						{this.sixhat[hatKey][1].description}的代表
-					</div>
-					<img
-						className="hat-img"
-						onMouseOver={this.OthersTextappear}
-						src={img}
-					/>
-				</div>
-			);
-		});
-
 		return (
 			<div className="sixhat-field">
 				<div className="bigscreen-sixhat">
 					<div className="teaching">
-						<img
-							className="content-img"
-							src={`./img/${this.sixhat[
-								this.props.localHat
-							][0]}hat.png`}
-						/>
+						
 						<div className="teachinglist">
 							<div
 								className="button3"
@@ -215,14 +230,14 @@ class SixHatGame extends React.Component {
 					<img
 						className="hat-img"
 						src={`./img/sixhat_${this.sixhat[
-							this.props.localHat
+							this.props.hatList[this.props.localUserID]
 						][0]}.png`}
 					/>
-					<div className="hat-type" id={this.sixhat[this.props.localHat][0]}>
-						你是{this.sixhat[this.props.localHat][1].description}的代表
+					<div className="hat-type" id={this.sixhat[this.props.hatList[this.props.localUserID]][0]}>
+						你是{this.sixhat[this.props.hatList[this.props.localUserID]][1].description}的代表
 					</div>
-					<div className="hat-text" id={this.sixhat[this.props.localHat][0]}>
-						{this.sixhat[this.props.localHat][1].needtodo}
+					<div className="hat-text" id={this.sixhat[this.props.hatList[this.props.localUserID]][0]}>
+						{this.sixhat[this.props.hatList[this.props.localUserID]][1].needtodo}
 					</div>
 				</div>
 
@@ -250,7 +265,6 @@ const mapStateToProps = state => {
 	return {
 		localUserID: state.connection.localUserID,
 		participantList: state.participantList,
-		localHat: state.sixhat.localHat,
 		hatList: state.sixhat.hatList
 	};
 };
