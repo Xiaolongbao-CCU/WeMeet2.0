@@ -44,7 +44,7 @@ class ChatInput extends React.Component {
             //取得現在時間
             let date = new Date();
             //自定義時間格式:Hour-Minute
-            let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}}`
+            let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}`
             let animal = Number(Object.values(this.animalName).indexOf(this.props.animalName))+1
             let record = {
                 name: this.props.userName, //0903 Andy Add a Temp

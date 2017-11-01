@@ -18,7 +18,9 @@ import {
     setGridClose,
     setPaintOpen,
     setPaintClose,
-    setSixhatClose
+    setSixhatClose,
+    setReservationDetailState,
+    setVotingDetailState
 } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
@@ -29,12 +31,10 @@ class Toolbar extends React.Component {
             isVoteToggle: false,
             isAddUserOpen: false,
             isBrainstormingOpen: false,
-            isRerservationOpen: false,
             //Open Status
             isRecognitionOpen: false
             //Special Status
         };
-        this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(
             this
         );
@@ -42,9 +42,6 @@ class Toolbar extends React.Component {
             this
         );
         this.onClick_TogglePainting = this.onClick_TogglePainting.bind(this);
-        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(
-            this
-        );
         this.closeBrainStorming = this.closeBrainStorming.bind(this);
     }
 
@@ -57,8 +54,11 @@ class Toolbar extends React.Component {
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        this.refs.VoteDetail.style.display =
-            this.refs.VoteDetail.style.display == "block" ? "none" : "block";
+        if(this.props.isVotingDetailOpen){
+            this.props.dispatch(setVotingDetailState(false))
+        } else {
+            this.props.dispatch(setVotingDetailState(true))
+        }
     }
 
     onClick_ToggleBrainstorming() {
@@ -106,9 +106,11 @@ class Toolbar extends React.Component {
     }
 
     onClick_ToggleReservation() {
-        this.setState({
-            isRerservationOpen: !this.state.isRerservationOpen
-        });
+        if(this.props.isRerservationDetailOpen){
+            this.props.dispatch(setReservationDetailState(false))
+        } else {
+            this.props.dispatch(setReservationDetailState(true))
+        }
     }
 
     closeBrainStorming() {
@@ -131,14 +133,14 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="reservation"
-                    onClick={this.onClick_ToggleReservation}
+                    onClick={()=>{this.onClick_ToggleReservation()}}
                 >
                     <div className="hovertext" id="reservation">
                         預約開會
                     </div>
                 </div>
 
-                {this.state.isRerservationOpen ? (
+                {this.props.isRerservationDetailOpen ? (
                     <ReservationDetail
                         closeReservation={() => {
                             this.closeReservation();
@@ -179,7 +181,7 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="vote"
-                    onClick={this.onClick_ToggleVotePage}
+                    onClick={()=>{this.onClick_ToggleVotePage()}}
                 >
                     <div className="hovertext" id="vote">
                         投票
@@ -189,9 +191,9 @@ class Toolbar extends React.Component {
                 <div
                     ref="VoteDetail"
                     style={{
-                        display: this.props.votingDetail.isVotingStart
-                            ? "none"
-                            : "display"
+                        display: this.props.votingDetail.isVotingDetailOpen
+                            ? "block"
+                            : "none"
                     }}
                 >
                     <VoteDetail />
@@ -220,7 +222,9 @@ const mapStateToProps = state => {
         votingDetail: state.vote,
         isPaintOpen: state.paint.isPaintOpen,
         isGridStart: state.grid.isGridStart,
-        isGridOpen: state.grid.isGridOpen
+        isGridOpen: state.grid.isGridOpen,
+        isRerservationDetailOpen: state.reservation.isRerservationDetailOpen,
+        isVotingDetailOpen: state.vote.isVotingDetailOpen
     };
 };
 

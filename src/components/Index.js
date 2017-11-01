@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import socket from "../socket";
-import { setUserName, setRoomList } from "../actions/Actions";
+import { setUserName} from "../actions/Actions";
 import Background from "./special-field/Background";
 
 // socket.emit("id");

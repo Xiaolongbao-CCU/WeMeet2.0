@@ -1,6 +1,7 @@
 const initialVoteDetail = {
     isVotingStart: false,
     isVotingFinish: false,
+    isVotingDetailOpen: false,
     isSelfSubmit: false,
     waitingForAnimate: false,
     isAnimateOpen: false,
@@ -27,6 +28,7 @@ export default function vote(state = initialVoteDetail, action) {
                     isVotingStart: false,
                     isVotingFinish: false,
                     isSelfSubmit: false,
+                    isVotingDetailOpen: true,
                     waitingForAnimate: false,
                     isAnimateOpen: false,
                     voting: action.data,
@@ -36,10 +38,6 @@ export default function vote(state = initialVoteDetail, action) {
                 return Object.assign({}, state, { voting: action.data });
             }
         case "setVotingStart":
-        console.log(Object.assign(
-                    {},{'createTime':action.time},
-                    {...state.voting}
-                ))
             return { 
                 ...state,
                 'voting': Object.assign(
@@ -47,7 +45,8 @@ export default function vote(state = initialVoteDetail, action) {
                     {...state.voting},
                     {'createTime':action.time}
                 ),
-                isVotingStart: true 
+                isVotingStart: true,
+                isVotingDetailOpen: false
             }
 
         case "gotVoteFromServer":
@@ -112,6 +111,9 @@ export default function vote(state = initialVoteDetail, action) {
             };
         case "selfSubmitVote":
             return Object.assign({}, state, { isSelfSubmit: true });
+
+        case 'setVotingDetailState':
+            return Object.assign({}, state, { isVotingDetailOpen: action.data });
 
         default:
             return state;

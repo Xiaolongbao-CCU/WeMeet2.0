@@ -311,7 +311,6 @@ class Meeting extends React.Component {
         this.Recognizer.stop();
 
         socket
-            .off('setRoomList')
             .off("gotSocketID")
             .off("joinRoom")
             .off("joinSuccess")

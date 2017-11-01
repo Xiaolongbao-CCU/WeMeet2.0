@@ -58,3 +58,9 @@ export function setAnimateClose() {
 	};
 }
 
+export function setVotingDetailState(boolean) {
+	return {
+		type: "setVotingDetailState",
+		data:boolean
+	};
+}

@@ -20,3 +20,10 @@ export function setReceiveData(boolean) {
 		data: boolean
 	};
 }
+
+export function setReservationDetailState(boolean) {
+	return {
+		type: "setReservationDetailState",
+		data: boolean
+	};
+}

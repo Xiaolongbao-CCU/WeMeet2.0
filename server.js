@@ -170,8 +170,9 @@ io.on("connection", function(socket) {
                     });
                     console.log(userInRoom[room]);
                 }
-                //socket.emit("delParticipantList", socket.id);
+                socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);
+                socket.emit("participantDisconnected", socket.id);
                 socket.to(room).emit("participantDisconnected", socket.id);
                 socket.leave(room);
             }
@@ -197,8 +198,9 @@ io.on("connection", function(socket) {
                     });
                     console.log(userInRoom[room]);
                 }
-                //socket.emit("delParticipantList", socket.id);
+                socket.emit("delParticipantList", socket.id);
                 socket.to(room).emit("delParticipantList", socket.id);
+                socket.emit("participantDisconnected", socket.id);
                 socket.to(room).emit("participantDisconnected", socket.id);
             }
             socket.leave(room);

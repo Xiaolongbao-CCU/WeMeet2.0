@@ -30,7 +30,9 @@ import {
     setSixhat,
     setMeetingData,
     setURL,
-    setReceiveData
+    setReceiveData,
+    delParticipantConnection,
+    delRemoteStreamURL
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -64,6 +66,9 @@ socket
     })
     .on("delParticipantList", participantID => {
         store.dispatch(delParticipantList(participantID));
+        store.dispatch(delParticipantConnection(participantID));
+        store.dispatch(delRemoteStreamURL(participantID));
+        store.dispatch(delRemoteUserName(participantID));
     });
 
 socket.on("chatMessage", record => {
