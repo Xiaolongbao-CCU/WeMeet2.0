@@ -201,13 +201,14 @@ class Meeting extends React.Component {
                 socket.emit("join", window.location.hash);
             })
             .on("joinSuccess", () => {
+                if(!this.props.userName){
+                    this.props.dispatch(setUserName(this.props.animalName));
+                }
                 socket.emit(
                     "newParticipantA",
                     this.localUserID,
                     window.location.hash,
                     this.props.userName
-                        ? this.props.userName
-                        : this.props.animalName
                 );
             })
             .on("newParticipantB", participantID => {
@@ -305,6 +306,8 @@ class Meeting extends React.Component {
         }
         this.Chat.stopUserMedia();
         this.Chat.stopAudio();
+        this.Recognizer.stop();
+
         socket
             .off("gotSocketID")
             .off("joinRoom")

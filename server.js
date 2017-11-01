@@ -238,13 +238,12 @@ io.on("connection", function (socket) {
         });
 
     socket
-        .on("createVote", votingDetail => {
+        .on("createVote", (votingDetail,time) => {
             let room = Object.keys(socket.rooms)[1];
             votingCounter[room] = io.sockets.adapter.rooms[room].length;
             //發給房內所有人，包含發起投票的人
             //console.log(votingDetail)
-            io.in(room).emit("gotCreateVote", votingDetail);
-            // socket.emit("gotCreateVote", votingDetail);
+            io.in(room).emit("gotCreateVote", votingDetail,time);
         })
         .on("gotVoteFromUser", voteContent => {
             let room = Object.keys(socket.rooms)[1];

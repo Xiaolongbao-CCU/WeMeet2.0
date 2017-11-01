@@ -20,7 +20,7 @@ let Recognition = {
         //************預設中文
         recognition.lang = "cmn-Hant-TW";
         //************直接開始
-        //recognition.start();
+        recognition.start();
 
 
         recognizer.setLanguage = language => {
@@ -32,6 +32,11 @@ let Recognition = {
             //stop之後不會立即收到onend訊息
             //但是確定是停止了所以可以設定語言
             //recognition.start()
+        };
+
+        recognizer.stop = language => {
+            shouldStop = true
+            recognition.stop();   
         };
 
         recognition.onstart = () => {

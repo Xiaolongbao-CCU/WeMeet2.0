@@ -1,9 +1,9 @@
 const initialVoteDetail = {
     isVotingStart: false,
     isVotingFinish: false,
-    isSelfSubmit:false,
-    waitingForAnimate:false,
-    isAnimateOpen:false,
+    isSelfSubmit: false,
+    waitingForAnimate: false,
+    isAnimateOpen: false,
     voting: {
         creator: "",
         secretOrNot: false,
@@ -11,25 +11,44 @@ const initialVoteDetail = {
         question: "",
         option: {
             option1: ""
-        }
+        },
+        createTime:""
     },
-    result: {}
+    result: {},
+    history: []
 };
 
 export default function vote(state = initialVoteDetail, action) {
     switch (action.type) {
         case "setVotingDetail":
-            if(action.data.restart){
-                return Object.assign({}, { 
-                    isSelfSubmit:false,
+            if (action.data.restart) {
+                return {
+                    ...state,
+                    isVotingStart: false,
                     isVotingFinish: false,
-                    voting: action.data 
-                });
+                    isSelfSubmit: false,
+                    waitingForAnimate: false,
+                    isAnimateOpen: false,
+                    voting: action.data,
+                    result: {}
+                };
             } else {
                 return Object.assign({}, state, { voting: action.data });
             }
         case "setVotingStart":
-            return Object.assign({}, state, { isVotingStart: true });
+        console.log(Object.assign(
+                    {},{'createTime':action.time},
+                    {...state.voting}
+                ))
+            return { 
+                ...state,
+                'voting': Object.assign(
+                    {},
+                    {...state.voting},
+                    {'createTime':action.time}
+                ),
+                isVotingStart: true 
+            }
 
         case "gotVoteFromServer":
             let sender = action.data.sender;
@@ -74,13 +93,23 @@ export default function vote(state = initialVoteDetail, action) {
 
         case "setAnimateClose":
             return Object.assign({}, state, { isAnimateOpen: false });
-            
-        case "setVotingFinish" :
-            return Object.assign({}, state, { isVotingFinish: true });
-            
-        case "waitingForAnimate":
-            return Object.assign({}, state, { waitingForAnimate: true });
 
+        case "setVotingFinish":
+            return Object.assign({}, state, { isVotingFinish: true });
+
+        case "waitingForAnimate":
+            return {
+                ...state,
+                waitingForAnimate: true,
+                history: [
+                    ...state.history,
+                    {
+                        'vote': state.voting,
+                        'result': state.result,
+                        'finishTime': action.time
+                    }
+                ]
+            };
         case "selfSubmitVote":
             return Object.assign({}, state, { isSelfSubmit: true });
 

@@ -13,9 +13,10 @@ export function setSecretOrNot(YesOrNo) {
 	};
 }
 
-export function setVotingStart() {
+export function setVotingStart(createTime) {
 	return {
-		type: "setVotingStart"
+		type: "setVotingStart",
+		time:createTime
 	};
 }
 
@@ -38,9 +39,10 @@ export function selfSubmitVote() {
 	};
 }
 
-export function waitingForAnimate() {
+export function waitingForAnimate(finishTime) {
 	return {
-		type: "waitingForAnimate" 
+		type: "waitingForAnimate",
+		time:finishTime
 	};
 }
 

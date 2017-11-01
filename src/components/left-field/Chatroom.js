@@ -41,7 +41,7 @@ class Chatroom extends React.Component {
                             <div className="myself-infro">
                                 <img className="image" src={"./img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
-                                    {record.name || record.userID}
+                                    {record.name}
                                 </div>
                             </div>
                             <div className="dialogbox">{record.text}</div>

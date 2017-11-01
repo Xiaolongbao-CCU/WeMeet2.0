@@ -18,7 +18,7 @@ class MainScreen extends React.Component {
             focusingOnWhichUser: {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
-                animalNumber: this.props.participantList[0].num
+                animalNumber: this.props.participantList[0].num || '0'
             }
         };
         this.mirroredVideo = "rotateY(180deg)";

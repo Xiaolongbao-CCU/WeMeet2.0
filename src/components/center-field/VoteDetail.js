@@ -345,6 +345,9 @@ class VoteDetail extends React.Component {
 
     onClick_startVoing() {
         if(this.state.isVoteReady){
+            let date = new Date();
+            //自定義時間格式:Hour-Minute
+            let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
             this.setState({
                 showAlertMessage:'none'
             })
@@ -358,12 +361,12 @@ class VoteDetail extends React.Component {
                             restart:true
                         }
                     },()=>{
-                       socket.emit("createVote", this.state.voting); 
+                       socket.emit("createVote", this.state.voting, formattedTime); 
                     })  
                 }
             } else {
                 console.log("發送投票資訊到伺服器>全部人同步");
-                socket.emit("createVote", this.state.voting);
+                socket.emit("createVote", this.state.voting, formattedTime);
             }
         } else {
             this.checkValue()

@@ -82,15 +82,18 @@ socket
     });
 
 socket
-    .on("gotCreateVote", votingDetail => {
+    .on("gotCreateVote", (votingDetail,time) => {
         store.dispatch(setVotingDetail(votingDetail));
-        store.dispatch(setVotingStart());
+        store.dispatch(setVotingStart(time));
     })
     .on("gotVoteFromServer", voteContent => {
         store.dispatch(gotVoteFromServer(voteContent));
     })
     .on("votingIsFinish", () => {
-        store.dispatch(waitingForAnimate());
+        let date = new Date();
+        //自定義時間格式:Hour-Minute
+        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
+        store.dispatch(waitingForAnimate(formattedTime));
     });
 
 socket

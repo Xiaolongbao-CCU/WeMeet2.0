@@ -19,10 +19,11 @@ export function deleteAgenda(key) {
 	};
 }
 
-export function doneAgenda(key) {
+export function doneAgenda(key, time) {
 	return {
 		type: "doneAgenda",
-		data: key
+		data: key,
+		time: time
 	};
 }
 
