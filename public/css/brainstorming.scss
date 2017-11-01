@@ -382,9 +382,8 @@
 
 .button1{
   position: fixed;
-  width: 100px;
-  height: 35px;
-  box-shadow: 1px 1px 1px grey;
+  width: 3%;
+  height: 7%;
   border-radius: 10px;
   box-sizing: border-box;
   padding: 0.5%;
@@ -393,42 +392,23 @@
 
 
 .button1#changehat{
-  font-size: 1.3em;
-  width: 8.7%;
-  right: 35%;
-  bottom: 7%;
-  background: #fdfbec url(../img/changehat.png) no-repeat 7% center;
-  background-size: 27%;
+  z-index: 9;
+  right: 22%;
+  top: 58%;
+  background: transparent url(../img/changehat.png) no-repeat center center;
+  background-size: 95%;
   &:hover{
-    background-color: darken(rgba(253,251,236,1),5%);
     cursor: pointer;
   }
 }
 
-
-
-.button1#samehat{
-  font-size: 1.3em;
-  width: 8.7%;
-  bottom: 7%;
-  right: 25.5%;
-  background: rgba(253,251,236,1) url(../img/samehat.png) no-repeat 10% center;
-  background-size: 25%;
+.button1#exit{
+  z-index: 9;
+  right: 22%;
+  top: 11.5%;
+  background: url(../img/shutdown1.png) no-repeat center center;
+  background-size: 80%;
   &:hover{
-    background-color: darken(rgba(253,251,236,1),5%);
-    cursor: pointer;
-  }
-}
-
-.button1#diffhat{
-  font-size: 1.3em;
-  width: 8.7%;
-  bottom: 7%;
-  right: 25.5%;
-  background: rgba(253,251,236,1) url(../img/diffhat.png) no-repeat 10% center;
-  background-size: 25%;
-  &:hover{
-    background-color: darken(rgba(253,251,236,1),5%);
     cursor: pointer;
   }
 }

@@ -2,7 +2,6 @@
 
 import React from "react";
 import Screen from "../../lib/screen";
-import getScreenId from "../../lib/getScreenId";
 
 class ShareScreen extends React.Component {
   constructor(props) {
