@@ -10,6 +10,7 @@ import "../lib/peer";
 
 // redux-action
 import {
+    setRoomList,
     setLocalUserID,
     setUserName,
     setRoomName,
@@ -145,7 +146,7 @@ class Meeting extends React.Component {
                         id,
                         {
                             host: "140.123.175.95",
-                            port: 8080,
+                            port: 443,
                             path: "/peerjs",
                             config: configuration
                         }
@@ -309,6 +310,7 @@ class Meeting extends React.Component {
         this.Recognizer.stop();
 
         socket
+            .off('setRoomList')
             .off("gotSocketID")
             .off("joinRoom")
             .off("joinSuccess")

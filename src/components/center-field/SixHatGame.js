@@ -230,14 +230,15 @@ class SixHatGame extends React.Component {
 					<img
 						className="hat-img"
 						src={`./img/sixhat_${this.sixhat[
-							this.props.hatList[this.props.localUserID]
+							`${this.props.hatList[this.props.localUserID] || 0}`
 						][0]}.png`}
 					/>
-					<div className="hat-type" id={this.sixhat[this.props.hatList[this.props.localUserID]][0]}>
-						你是{this.sixhat[this.props.hatList[this.props.localUserID]][1].description}的代表
+
+					<div className="hat-type" id={this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][0]}>
+						你是{this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][1].description}的代表
 					</div>
-					<div className="hat-text" id={this.sixhat[this.props.hatList[this.props.localUserID]][0]}>
-						{this.sixhat[this.props.hatList[this.props.localUserID]][1].needtodo}
+					<div className="hat-text" id={this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][0]}>
+						{this.sixhat[`${this.props.hatList[this.props.localUserID] || 0}`][1].needtodo}
 					</div>
 				</div>
 

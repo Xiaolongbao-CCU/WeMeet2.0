@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import socket from "../socket";
-import { setUserName } from "../actions/Actions";
+import { setUserName, setRoomList } from "../actions/Actions";
 import Background from "./special-field/Background";
 
 // socket.emit("id");
@@ -16,23 +16,22 @@ class Index extends React.Component {
         this.onClick_handleCreateRoom = this.onClick_handleCreateRoom.bind(
             this
         );
-        this.onKeyDown = this.onKeyDown.bind(this)
+        this.onKeyDown = this.onKeyDown.bind(this);
     }
 
     componentWillMount() {
         document.addEventListener("keydown", this.onKeyDown);
-        this.props.dispatch({'type':'CLEAR'})
-        window.localStorage.clear()
-        console.log(window.localStorage)
-
+        this.props.dispatch({ type: "CLEAR" });
+        window.localStorage.clear();
+        console.log(window.localStorage);
     }
 
-    componentDidMount() { 
+    componentDidMount() {
 
     }
 
     componentWillUnmount() {
-        document.removeEventListener("keydown",this.onKeyDown);
+        document.removeEventListener("keydown", this.onKeyDown);
     }
 
     onKeyDown(e) {
@@ -77,7 +76,7 @@ class Index extends React.Component {
         document.removeEventListener("keydown", this.onKeyDown);
         //按下建立房間後的事件
         this.props.dispatch(setUserName(this.state.userName));
-        window.sessionStorage.setItem('userName', this.state.userName);
+        window.sessionStorage.setItem("userName", this.state.userName);
         //做好名字之後>進到房間裡
         this.props.history.push("/meeting#" + this.state.roomName);
     }
@@ -91,7 +90,10 @@ class Index extends React.Component {
                     <img className="logo-bottom" src="./img/logo_bottom.png" />
                     <div className="indexName">
                         <div className="icon-field">
-                            <img className="icon-image" src="./img/user-image.png" />
+                            <img
+                                className="icon-image"
+                                src="./img/user-image.png"
+                            />
                         </div>
                         <input
                             autoFocus={true}
@@ -106,8 +108,11 @@ class Index extends React.Component {
                     </div>
                     <br />
                     <div className="indexMeeting">
-                        <div className="icon-field" >
-                            <img className="icon-image" src="./img/meeting.png" />
+                        <div className="icon-field">
+                            <img
+                                className="icon-image"
+                                src="./img/meeting.png"
+                            />
                         </div>
                         <input
                             ref="roomName"

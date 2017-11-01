@@ -11,7 +11,7 @@ export default function participantList(state = initialState, action) {
             });
 
         case "addParticipantList":
-            return state.concat(action.data);
+            return state.concat([action.data]);
 
         default:
             return state;

@@ -34,10 +34,11 @@ import {
 } from "./actions/Actions";
 
 let io = socketIO();
-let socket = io.connect("https://140.123.175.95:8080");
+let socket = io.connect("https://140.123.175.95:443");
 
 socket
-    .on("setRoomList", list => {
+    .on('setRoomList', list=>{
+        console.log('收一波')
         if (list.length) {
             store.dispatch(setRoomList(list));
         }
@@ -126,6 +127,7 @@ socket
     });
 
 socket.on("setSixhatList", (obj) => {
+    console.log('QQQQ')
     store.dispatch(setSixhatList(obj));
 });
 

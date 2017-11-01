@@ -9,7 +9,12 @@ const initialState = {
 export default function sixhat(state = initialState, action) {
     switch (action.type) { 
         case "setSixhatList":
-            return Object.assign({}, state, { hatList: action.data });
+            return {
+                ...state,
+                isSixhatDetailOpen:false,
+                isSixhatOpen:true,
+                hatList: action.data
+            }
 
     	case "setSixhatDetailOpen":
             return Object.assign({}, state, { isSixhatDetailOpen: true });
