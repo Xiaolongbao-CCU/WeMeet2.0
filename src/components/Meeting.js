@@ -23,7 +23,7 @@ import {
     delRemoteStreamURL,
     addCandidateQueue,
     toggleUserMedia,
-    toggleAudio,
+    toggleAudio
 } from "../actions/Actions";
 
 import {
@@ -67,7 +67,7 @@ import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
 import GirdDetail from "./special-field/GirdDetail";
 import SixHatDetail from "./special-field/SixHatDetail";
-import ReservationResult from './center-field/ReservationResult'
+import ReservationResult from "./center-field/ReservationResult";
 
 let configuration = {
     iceServers: [
@@ -92,18 +92,20 @@ let configuration = {
         { urls: "stun:stun.xten.com" },
         {
             urls: "turn:140.123.175.95:8888?transport=udp",
-            'username': 'weichun0911',
-            'credential': 'willy84911'
+            username: "weichun0911",
+            credential: "willy84911"
         },
         {
             urls: "turn:140.123.175.95:8888?transport=tcp",
-            'username': 'weichun0911',
-            'credential': 'willy84911'
-        },
+            username: "weichun0911",
+            credential: "willy84911"
+        }
     ]
 };
 
-document.ondblclick = function () { return false; }
+document.ondblclick = function() {
+    return false;
+};
 class Meeting extends React.Component {
     constructor(props) {
         super(props);
@@ -116,9 +118,9 @@ class Meeting extends React.Component {
             isKJOpen: false,
             isSixHatOpen: false,
             isJiugonggePlaying: false,
-            isKJPlaying: false
+            isKJPlaying: false,
         };
-        this.closeAll = this.closeAll.bind(this)
+        this.closeAll = this.closeAll.bind(this);
     }
 
     componentWillMount() {
@@ -128,8 +130,11 @@ class Meeting extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.userName && window.sessionStorage.hasOwnProperty('userName')) {
-            this.props.dispatch(setUserName(window.sessionStorage.userName))
+        if (
+            !this.props.userName &&
+            window.sessionStorage.hasOwnProperty("userName")
+        ) {
+            this.props.dispatch(setUserName(window.sessionStorage.userName));
         }
         window.connections = {};
         window.localStream = {};
@@ -154,19 +159,16 @@ class Meeting extends React.Component {
                         console.log(error);
                     });
                 if (window.Peer && window.Peer.disconnected) {
-                    window.Peer.reconnect()
+                    window.Peer.reconnect();
                 } else {
-                    window.peerConstructor = Peer
-                    let peer = window.peerConstructor(
-                        id,
-                        {
-                            host: "140.123.175.95",
-                            port: 443,
-                            path: "/peerjs",
-                            config: configuration
-                        }
-                    );
-                    window.Peer = peer
+                    window.peerConstructor = Peer;
+                    let peer = window.peerConstructor(id, {
+                        host: "140.123.175.95",
+                        port: 443,
+                        path: "/peerjs",
+                        config: configuration
+                    });
+                    window.Peer = peer;
                     window.Peer.on("call", call => {
                         if (
                             window.localStream &&
@@ -178,9 +180,9 @@ class Meeting extends React.Component {
                                 let url = URL.createObjectURL(remoteStream);
                                 this.props.dispatch(
                                     addRemoteStreamURL({
-                                        'remotePeer': call.peer,
-                                        'url': url,
-                                        'stream': remoteStream
+                                        remotePeer: call.peer,
+                                        url: url,
+                                        stream: remoteStream
                                     })
                                 );
                             });
@@ -192,9 +194,9 @@ class Meeting extends React.Component {
                                     console.log("收到影像啦!" + stream);
                                     this.props.dispatch(
                                         addRemoteStreamURL({
-                                            'remotePeer': call.peer,
-                                            'url': url,
-                                            'stream': remoteStream
+                                            remotePeer: call.peer,
+                                            url: url,
+                                            stream: remoteStream
                                         })
                                     );
                                 });
@@ -217,7 +219,7 @@ class Meeting extends React.Component {
                 socket.emit("join", window.location.hash);
             })
             .on("joinSuccess", () => {
-                if(!this.props.userName){
+                if (!this.props.userName) {
                     this.props.dispatch(setUserName(this.props.animalName));
                 }
                 socket.emit(
@@ -233,30 +235,35 @@ class Meeting extends React.Component {
                     window.localStream &&
                     Object.keys(window.localStream).length > 0
                 ) {
-                    let call = window.Peer.call(participantID, window.localStream)
+                    let call = window.Peer.call(
+                        participantID,
+                        window.localStream
+                    );
                     call.on("stream", remoteStream => {
                         let url = URL.createObjectURL(remoteStream);
                         console.log("收到影像囉!(5)" + remoteStream);
                         this.props.dispatch(
                             addRemoteStreamURL({
-                                'remotePeer': participantID,
-                                'url': url,
-                                'stream': remoteStream
+                                remotePeer: participantID,
+                                url: url,
                             })
                         );
                     });
                 } else {
                     this.Chat.getUserMedia().then(stream => {
                         window.localStream = stream;
-                        let call = window.Peer.call(participantID, window.localStream)
+                        let call = window.Peer.call(
+                            participantID,
+                            window.localStream
+                        );
                         console.log("發出連線(4)");
                         call.on("stream", remoteStream => {
                             console.log("收到影像囉!(5)" + remoteStream);
                             let url = URL.createObjectURL(remoteStream);
                             this.props.dispatch(
                                 addRemoteStreamURL({
-                                    'remotePeer': participantID,
-                                    'url': url
+                                    remotePeer: participantID,
+                                    url: url
                                 })
                             );
                         });
@@ -272,7 +279,8 @@ class Meeting extends React.Component {
                     true,
                     this.props.localUserID
                 );
-                socket.emit('setRemoteUserName',
+                socket.emit(
+                    "setRemoteUserName",
                     this.props.localUserID,
                     this.props.userName,
                     participantID
@@ -283,35 +291,82 @@ class Meeting extends React.Component {
                 this.props.dispatch(delRemoteStreamURL(participantID));
                 this.props.dispatch(delRemoteUserName(participantID));
             })
-            .on('callShareScreenInvoker',(participantID,uuid)=>{
+            .on("callShareScreenInvoker", (participantID, uuid) => {
                 if (
                     window.localStream &&
                     Object.keys(window.localStream).length > 0
                 ) {
-                    let call = window.Peer.call(participantID+uuid, window.localStream)
+                    let call = window.Peer.call(
+                        participantID + uuid,
+                        window.localStream
+                    );
                     call.on("stream", remoteStream => {
                         let url = URL.createObjectURL(remoteStream);
                         console.log("收到影像囉!(5)" + remoteStream);
                         this.props.dispatch(
                             addRemoteStreamURL({
-                                'remotePeer': participantID,
-                                'url': url,
-                                'stream': remoteStream
+                                remotePeer: participantID,
+                                url: url,
+                                isShareScreen: true
                             })
                         );
                     });
                 } else {
                     this.Chat.getUserMedia().then(stream => {
                         window.localStream = stream;
-                        let call = window.Peer.call(participantID+uuid, window.localStream)
+                        let call = window.Peer.call(
+                            participantID + uuid,
+                            window.localStream
+                        );
                         console.log("發出連線(4)");
                         call.on("stream", remoteStream => {
                             console.log("收到影像囉!(5)" + remoteStream);
                             let url = URL.createObjectURL(remoteStream);
                             this.props.dispatch(
                                 addRemoteStreamURL({
-                                    'remotePeer': participantID,
-                                    'url': url
+                                    remotePeer: participantID,
+                                    url: url,
+                                    isShareScreen:true
+                                })
+                            );
+                        });
+                    });
+                }
+            })
+            .on("callCloseShareScreenInvoker", participantID => {
+                if (
+                    window.localStream &&
+                    Object.keys(window.localStream).length > 0
+                ) {
+                    let call = window.Peer.call(
+                        participantID,
+                        window.localStream
+                    );
+                    call.on("stream", remoteStream => {
+                        let url = URL.createObjectURL(remoteStream);
+                        console.log("收到影像囉!(5)" + remoteStream);
+                        this.props.dispatch(
+                            addRemoteStreamURL({
+                                remotePeer: participantID,
+                                url: url
+                            })
+                        );
+                    });
+                } else {
+                    this.Chat.getUserMedia().then(stream => {
+                        window.localStream = stream;
+                        let call = window.Peer.call(
+                            participantID,
+                            window.localStream
+                        );
+                        console.log("發出連線(4)");
+                        call.on("stream", remoteStream => {
+                            console.log("收到影像囉!(5)" + remoteStream);
+                            let url = URL.createObjectURL(remoteStream);
+                            this.props.dispatch(
+                                addRemoteStreamURL({
+                                    remotePeer: participantID,
+                                    url: url
                                 })
                             );
                         });
@@ -328,7 +383,7 @@ class Meeting extends React.Component {
             this.setState({
                 roomURL: window.location.href
             });
-            this.props.dispatch(setRoomName(window.location.href))
+            this.props.dispatch(setRoomName(window.location.href));
         } else if (window.location.hash) {
             this.setState({
                 roomURL: window.location.href
@@ -345,28 +400,26 @@ class Meeting extends React.Component {
         }
     }
 
-
-    closeAll(){
-        if(this.props.isGridDetailOpen){
-            this.props.dispatch(setGridDetailClose()); 
+    closeAll() {
+        if (this.props.isGridDetailOpen) {
+            this.props.dispatch(setGridDetailClose());
         }
-        if(this.props.isBrainstormingOpen){
-            this.props.dispatch(setBrainStormingState(false))
+        if (this.props.isBrainstormingOpen) {
+            this.props.dispatch(setBrainStormingState(false));
         }
-        if(this.props.isSixhatDetailOpen){
-            this.props.dispatch(setSixhatDetailClose()); 
+        if (this.props.isSixhatDetailOpen) {
+            this.props.dispatch(setSixhatDetailClose());
         }
-        if(this.props.isRerservationDetailOpen){
-            this.props.dispatch(setReservationDetailState(false))
+        if (this.props.isRerservationDetailOpen) {
+            this.props.dispatch(setReservationDetailState(false));
         }
-        if(this.props.isPaintOpen){
+        if (this.props.isPaintOpen) {
             this.props.dispatch(setPaintClose());
         }
-        if(this.props.isVotingDetailOpen){
-            this.props.dispatch(setVotingDetailState(false))
+        if (this.props.isVotingDetailOpen) {
+            this.props.dispatch(setVotingDetailState(false));
         }
     }
-
 
     componentWillUnmount() {
         socket.emit("leaveRoom");
@@ -378,7 +431,7 @@ class Meeting extends React.Component {
             this.Chat.stopAudio();
             this.props.dispatch(toggleAudio());
         }
-        
+
         this.Recognizer.stop();
 
         socket
@@ -392,11 +445,11 @@ class Meeting extends React.Component {
             .off("offer")
             .off("onIceCandidateB")
             .off("participantDisconnected");
-        window.Peer.disconnect()
+        window.Peer.disconnect();
     }
 
     render() {
-        let center = undefined
+        let center = undefined;
         switch (this.props.WhatPage) {
             case "one":
                 Content = <ul />;
@@ -429,35 +482,39 @@ class Meeting extends React.Component {
 
         return (
             <div className="container" id="in">
-                {this.props.isVotingFinish && this.props.isAnimateOpen ? <VoteResult /> : null}
-                {this.props.isGridDetailOpen ? <GirdDetail closeAll={this.closeAll}/> : null}
+                {this.props.isVotingFinish && this.props.isAnimateOpen ? (
+                    <VoteResult />
+                ) : null}
+                {this.props.isGridDetailOpen ? (
+                    <GirdDetail closeAll={this.closeAll} />
+                ) : null}
                 {this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? (
                         <Chatroom />
                     ) : (
-                            <VoiceRecognition Recognizer={this.Recognizer} />
-                        )}
+                        <VoiceRecognition Recognizer={this.Recognizer} />
+                    )}
                     {this.props.isInChatNow ? (
                         <ChatInput Chat={this.Chat} />
                     ) : (
-                            <VoiceResult Recognizer={this.Recognizer} />
-                        )}
+                        <VoiceResult Recognizer={this.Recognizer} />
+                    )}
                 </div>
                 <div className="center-field">
                     <Toolbar Recognizer={this.Recognizer} />
                     {this.props.isGridOpen ? <GridGame /> : null}
                     {this.props.isPaintOpen ? <Painting /> : null}
-                    {
-                        this.props.isGridOpen || this.props.isPaintOpen ?
-                            <div className="display-none">
-                                <MainScreen />
-                            </div>
-                            : <MainScreen />
-                    }
+                    {this.props.isGridOpen || this.props.isPaintOpen ? (
+                        <div className="display-none">
+                            <MainScreen />
+                        </div>
+                    ) : (
+                        <MainScreen />
+                    )}
 
-                    <AVcontrol Chat={this.Chat} Meeting={this}/>
+                    <AVcontrol Chat={this.Chat} Meeting={this} />
                 </div>
                 <div className="right-field">
                     <Agenda />
@@ -496,7 +553,6 @@ const mapStateToProps = state => {
         isVotingFinish: state.vote.isVotingFinish,
         isVotingDetailOpen: state.vote.isVotingDetailOpen,
         isAnimateOpen: state.vote.isAnimateOpen,
-
 
         isReceivedData: state.reservation.isReceivedData,
         isRerservationDetailOpen: state.reservation.isRerservationDetailOpen,

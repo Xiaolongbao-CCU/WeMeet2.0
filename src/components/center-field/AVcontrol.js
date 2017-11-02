@@ -7,7 +7,8 @@ import {
     toggleAudio,
     toggleUserMedia,
     delRemoteStreamURL,
-    gotLocalVideo
+    gotLocalVideo,
+    addRemoteStreamURL
 } from "../../actions/Actions";
 import socket from "../../socket";
 
@@ -66,116 +67,76 @@ class AVcontrol extends React.Component {
     }
 
     onClick_startShare() {
-        //window.Peer.destroy();
-        // if (this.props.isStreaming) {
-        //     this.props.Meeting.Chat.stopUserMedia();
-        //     this.props.dispatch(toggleUserMedia());
-        // }
-        // if (this.props.isSounding) {
-        //     this.props.Meeting.Chat.stopAudio();
-        //     this.props.dispatch(toggleAudio());
-        // }
-        let UUID = Date.now();
-        this.props.dispatch(delRemoteStreamURL(1));
-        let peer = new window.peerConstructor(this.props.localUserID + UUID, {
-            host: "140.123.175.95",
-            port: 443,
-            path: "/peerjs",
-            config: this.props.Meeting.configuration
-        });
-        window.Peer = peer;
-        window.Peer.on("call", call => {
-            if (
-                window.shareScreen &&
-                Object.keys(window.shareScreen).length > 0
-            ) {
-                call.answer(window.shareScreen);
-                call.on("stream", remoteStream => {
-                    console.log("收到影像啦!" + stream);
-                    let url = URL.createObjectURL(remoteStream);
-                    this.props.dispatch(
-                        addRemoteStreamURL({
-                            remotePeer: call.peer,
-                            url: url,
-                            stream: remoteStream
-                        })
-                    );
-                });
-            } else {
-                let screen_constraints = {
-                    mandatory: {
-                        chromeMediaSource: "screen",
-                        maxWidth: 1920,
-                        maxHeight: 1080,
-                        minAspectRatio: 1.77
-                    },
-                    optional: []
-                };
-                let thisComponent = this;
-                getScreenId(function(error, sourceId, screen_constraints) {
-                    // error    == null || 'permission-denied' || 'not-installed' || 'installed-disabled' || 'not-chrome'
-                    // sourceId == null || 'string' || 'firefox'
+        let thisComponent = this;
+        if (window.shareScreen && Object.keys(window.shareScreen).length > 0) {
+            //可以直接撥打
 
-                    if (sourceId && sourceId != "firefox") {
-                        screen_constraints = {
-                            video: {
-                                mandatory: {
-                                    chromeMediaSource: "screen",
-                                    maxWidth: 1920,
-                                    maxHeight: 1080,
-                                    minAspectRatio: 1.77
-                                }
+        } else {
+            //先取得UserMedia
+            let screen_constraints = {
+                mandatory: {
+                    chromeMediaSource: "screen",
+                    maxWidth: 1920,
+                    maxHeight: 1080,
+                    minAspectRatio: 1.77
+                },
+                optional: []
+            };
+
+            getScreenId(function(error, sourceId, screen_constraints) {
+                navigator.getUserMedia =
+                    navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+                navigator.getUserMedia(
+                    screen_constraints,
+                    function(stream) {
+                        window.shareScreenStream = stream
+                        window.shareScreenStream.oninactive = () => {
+                            socket.emit('closeShareScreen')
+                            gotLocalVideo(URL.createObjectURL(window.localStream),false)
+                        }
+                        console.log("收到stream了", stream);
+                        thisComponent.props.dispatch(
+                            gotLocalVideo(URL.createObjectURL(stream),true)
+                        );
+                        //開始撥打
+                        //window.Peer.destroy()
+                        let UUID = Date.now();
+                        let peer = new window.peerConstructor(
+                            thisComponent.props.localUserID + UUID,
+                            {
+                                host: "140.123.175.95",
+                                port: 443,
+                                path: "/peerjs",
+                                config: thisComponent.props.Meeting.configuration
                             }
-                        };
+                        );
+                        window.sharePeer = peer;
 
-                        if (error === "permission-denied")
-                            return alert("Permission is denied.");
-                        if (error === "not-chrome")
-                            return alert("Please use chrome.");
-
-                        if (!error && sourceId) {
-                            screen_constraints.video.mandatory.chromeMediaSource =
-                                "desktop";
-                            screen_constraints.video.mandatory.chromeMediaSourceId = sourceId;
-                        }
+                        window.sharePeer.on("call", call => {
+                            // window.Peer.destroy()
+                            call.answer(window.shareScreenStream);
+                            call.on("stream", remoteStream => {
+                                console.log("收到影像啦!" + stream);
+                                let url = URL.createObjectURL(remoteStream);
+                                thisComponent.props.dispatch(
+                                    addRemoteStreamURL({
+                                        remotePeer: call.peer,
+                                        url: url
+                                    })
+                                );
+                            });
+                        });
+                        socket.emit("shareScreenInvoke", UUID);
+                    },
+                    function(error) {
+                        console.error("getScreenId error", error);
+                        // alert(
+                        //     "Failed to capture your screen. Please check Chrome console logs for further information."
+                        // );
                     }
-
-                    navigator.getUserMedia =
-                        navigator.mozGetUserMedia ||
-                        navigator.webkitGetUserMedia;
-                    navigator.getUserMedia(
-                        screen_constraints,
-                        function(stream) {
-                            console.log('收到stream了?',stream)
-                            thisComponent.props.dispatch(gotLocalVideo(URL.createObjectURL(stream)))
-                            window.shareScreen = stream
-
-                            // share this "MediaStream" object using RTCPeerConnection API
-                        },
-                        function(error) {
-                            console.error("getScreenId error", error);
-
-                            alert(
-                                "Failed to capture your screen. Please check Chrome console logs for further information."
-                            );
-                        }
-                    );
-                });
-            }
-        });
-
-        socket.emit("shareScreenInvoke", UUID);
-
-        // // argument is optional
-        // //screen.firebase = 'chat';
-        // // on getting local or remote streams
-
-        // // check pre-shared screens
-        // // it is useful to auto-view
-        // // or search pre-shared screens
-        // window.screenSharingObject.check();
-        // window.screenSharingObject.share();
-
+                );
+            });
+        }
         // this.setState({
         //     isShareScreenStart: !this.state.isShareScreenStart
         // });

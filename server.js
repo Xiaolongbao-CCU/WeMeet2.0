@@ -57,7 +57,13 @@ let animalName = {
     7: "老虎",
     8: "狐狸"
 };
-console.log("已啟動伺服器!" + "userInRoom: " + JSON.stringify(userInRoom) + "roomList: " + roomList);
+console.log(
+    "已啟動伺服器!" +
+        "userInRoom: " +
+        JSON.stringify(userInRoom) +
+        "roomList: " +
+        roomList
+);
 io.on("connection", function(socket) {
     //console.log("有人連線囉~" + socket.id);
     socket.emit("setRoomList", roomList);
@@ -86,15 +92,15 @@ io.on("connection", function(socket) {
 
     socket
         .on("join", function(room) {
-            console.log(room)
+            console.log(room);
             //將使用者加入房間
             socket.join(room);
-            console.log(roomList.includes(room))
+            console.log(roomList.includes(room));
             //console.log("有人加入房間囉" + socket.id + "加入了" + room);
             if (!roomList.includes(room)) {
                 //將房間加入"房間"列表
                 roomList.push(room);
-                console.log('沒有這房間，加一波之後' + roomList)
+                console.log("沒有這房間，加一波之後" + roomList);
                 socket.broadcast.emit("setRoomList", roomList);
                 socket.emit("setRoomList", roomList);
             }
@@ -154,14 +160,17 @@ io.on("connection", function(socket) {
             let room = Object.keys(socket.rooms)[1];
             //如果有這房間
             if (userInRoom[room] && roomList.includes(room)) {
-                if (Object.keys(userInRoom[room]).length == 1 && userInRoom[room][0].id == socket.id) {
+                if (
+                    Object.keys(userInRoom[room]).length == 1 &&
+                    userInRoom[room][0].id == socket.id
+                ) {
                     //如果房間裏面只有他，就把房間刪掉
                     socket.emit("delRoom", room);
                     socket.broadcast.emit("delRoom", room);
                     roomList.splice(roomList.indexOf(room), 1);
                     delete userInRoom[room];
                     console.log("房間已刪除!" + room + JSON.stringify(userInRoom));
-                } else if(Object.keys(userInRoom[room]).length !== 1){
+                } else if (Object.keys(userInRoom[room]).length !== 1) {
                     //房間有超過一人
                     userInRoom[room].map((userObj, index) => {
                         if (userObj.id == socket.id) {
@@ -176,7 +185,7 @@ io.on("connection", function(socket) {
                 socket.to(room).emit("participantDisconnected", socket.id);
                 socket.leave(room);
             }
-            console.log('離開跑完了',userInRoom[room] , roomList)
+            console.log("離開跑完了", userInRoom[room], roomList);
         })
         .on("disconnecting", function() {
             console.log("有人斷線囉~" + socket.id);
@@ -204,7 +213,7 @@ io.on("connection", function(socket) {
                 socket.to(room).emit("participantDisconnected", socket.id);
             }
             socket.leave(room);
-            console.log('離開跑完了',userInRoom[room] , roomList)
+            console.log("離開跑完了", userInRoom[room], roomList);
         });
 
     socket
@@ -314,10 +323,16 @@ io.on("connection", function(socket) {
         });
         io.in(room).emit("setSixhatList", hatList);
     });
-    socket.on('shareScreenInvoke', uuid =>{
-        let room = Object.keys(socket.rooms)[1];
-        socket.to(room).emit('callShareScreenInvoker',socket.id,uuid)
-    })
+
+    socket
+        .on("shareScreenInvoke", uuid => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit("callShareScreenInvoker", socket.id, uuid);
+        })
+        .on("closeShareScreen", () => {
+            let room = Object.keys(socket.rooms)[1];
+            socket.to(room).emit('callCloseShareScreenInvoker',socket.id)
+        });
 });
 
 //沒有定義路徑，則接收到請求就執行這個函數
