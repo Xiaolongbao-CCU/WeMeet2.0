@@ -253,7 +253,7 @@ class Painting extends React.Component {
 
     onClick_size2() {
         this.setState({
-            size: 5,
+            size: 4,
             size_id: "size2",
             isSizeListOpen: false
         });
@@ -261,7 +261,7 @@ class Painting extends React.Component {
 
     onClick_size3() {
         this.setState({
-            size: 10,
+            size: 6,
             size_id: "size3",
             isSizeListOpen: false
         });
@@ -275,13 +275,13 @@ class Painting extends React.Component {
             >
                 {this.state.isEnlarge ? <div className="blackBG" /> : null}
                 <div
-                    className="paintingtoolbar"
+                    className="gametoolbar"
                     id={this.state.isEnlarge ? "bigger" : ""}
                 >
                     {this.state.isEnlarge ? (
                         <div
                             className="button2"
-                            id="backtosmall1"
+                            id="backtosmall"
                             onClick={this.onClick_ChangeSize}
                         >
                             縮小
@@ -289,14 +289,14 @@ class Painting extends React.Component {
                     ) : (
                             <div
                                 className="button2"
-                                id="fullscreen1"
+                                id="fullscreen"
                                 onClick={this.onClick_ChangeSize}
                             >
                                 放大
                         </div>
                         )}
                     <div
-                        className="button2 new"
+                        className="button2"
                         id={this.state.size_id}
                         onClick={this.showSizeList}
                     >
@@ -380,9 +380,6 @@ class Painting extends React.Component {
                         onClick={this.onClick_reset}
                     >
                         清空
-                    </div>
-                    <div className="button2" id="dowload-img">
-                        下載
                     </div>
                 </div>
                 <div

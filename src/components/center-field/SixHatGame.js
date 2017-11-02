@@ -172,7 +172,7 @@ class SixHatGame extends React.Component {
 		});
 		switch (this.state.WhatPage) {
 			case "one":
-				Content = <ul />;
+				Content = <ul><img className="sixhat-order" src="./img/sixhat_order.png" /></ul>;
 				break;
 			case "two":
 				Content = <ul>{this.sixhat[localHat][1].indrotuction}</ul>;

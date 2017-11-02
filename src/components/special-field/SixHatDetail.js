@@ -16,9 +16,7 @@ class SixHatDetail extends React.Component {
             Whichpage: ""
         };
         this.onClick_ToggleNextPage = this.onClick_ToggleNextPage.bind(this);
-        this.onClick_TogglePreviousPage = this.onClick_TogglePreviousPage.bind(
-            this
-        );
+        this.onClick_TogglePreviousPage = this.onClick_TogglePreviousPage.bind(this);
     }
 
     componentWillMount() {}
