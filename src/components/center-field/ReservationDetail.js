@@ -120,6 +120,7 @@ class ReservationDetail extends React.Component {
                         className="content"
                         id="datetime"
                         ref="datetime"
+                        placeholder="點選選擇開會日期"
                     />
                     <input type="hidden" id="date" ref="date" />
                 </div>
@@ -132,6 +133,7 @@ class ReservationDetail extends React.Component {
                         className="content"
                         ref="site"
                         onChange={(e) => { this.OnChange_site(e) }}
+                        placeholder="例如：線上開會、會議室等"
                     />
                 </div>
                 <div className="input-field">
@@ -143,6 +145,7 @@ class ReservationDetail extends React.Component {
                         className="content"
                         ref="title"
                         onChange={(e) => { this.OnChange_title(e) }}
+                        placeholder="例如：討論新企劃、例行會議等"
                     />
                 </div>
                 <div className="input-field">
@@ -154,6 +157,7 @@ class ReservationDetail extends React.Component {
                         className="content"
                         ref="note"
                         onChange={(e) => { this.OnChange_note(e) }}
+                        placeholder="請輸入議程或備忘錄"
                     />
                 </div>
                 <a href={this.props.url} target="_blank">
