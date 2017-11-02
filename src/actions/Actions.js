@@ -36,7 +36,8 @@ export {
 	selfSubmitVote,
 	waitingForAnimate,
 	setAnimateOpen,
-	setAnimateClose
+	setAnimateClose,
+	setVotingDetailState
 } from './voteAction'
 
 
@@ -82,12 +83,20 @@ export {
 export {
 	setMeetingData,
 	setURL,
-	setReceiveData
+	setReceiveData,
+	setReservationDetailState
 } from './reservationAction'
 
 export function addChatRecord(recordObj) {
 	return {
 		type: "addChatRecord",
 		data: recordObj
+	};
+}
+
+export function setBrainStormingState(boolean) {
+	return {
+		type: "setBrainStormingState",
+		data: boolean
 	};
 }

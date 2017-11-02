@@ -1,5 +1,4 @@
 const initialState = {
-    localHat:0,
     hatList:{
         'mock':0
     },
@@ -8,20 +7,20 @@ const initialState = {
 };
 
 export default function sixhat(state = initialState, action) {
-    switch (action.type) {
-        case "setSixhat":
-            return Object.assign({}, state, { 
-                localHat: action.local,
-                hatList:action.list 
-            });
-        case "setLocalHat":
-            return Object.assign({}, state, { localHat: action.data });
+    switch (action.type) { 
         case "setSixhatList":
-            return Object.assign({}, state, { hatList: action.data });
+            return {
+                ...state,
+                isSixhatDetailOpen:false,
+                isSixhatOpen:true,
+                hatList: action.data
+            }
+
     	case "setSixhatDetailOpen":
             return Object.assign({}, state, { isSixhatDetailOpen: true });
         case "setSixhatDetailClose":
             return Object.assign({}, state, { isSixhatDetailOpen: false });
+
         case "setSixhatOpen":
             return Object.assign({}, state, { isSixhatOpen: true });
         case "setSixhatClose":

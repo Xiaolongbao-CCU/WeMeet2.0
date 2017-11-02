@@ -2,6 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import socket from '../../socket'
 import { 
     setSixhatOpen, 
     setSixhatDetailClose 
@@ -23,8 +24,15 @@ class SixHatDetail extends React.Component {
     componentDidMount() {}
 
     onClick_start() {
-        this.props.dispatch(setSixhatDetailClose());
-        this.props.dispatch(setSixhatOpen());
+        let numberOfParticipant = this.props.participantList.length;
+        let arr = [0,1,2,3,4,5]
+        let final = []
+        for (let i = 0; i < numberOfParticipant; i++) {
+            let randomNumber = Math.floor((Math.random()*(6-i)));
+            final.push(arr[randomNumber]);
+            arr.splice(randomNumber,1)
+        }
+        socket.emit("setAllUserRandomHat", final);
     }
 
     onClick_ToggleNextPage() {
@@ -149,4 +157,10 @@ class SixHatDetail extends React.Component {
     }
 }
 
-export default connect()(SixHatDetail);
+const mapStateToProps = state => {
+    return {
+        participantList: state.participantList
+    };
+};
+
+export default connect(mapStateToProps)(SixHatDetail);

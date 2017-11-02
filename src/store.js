@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from "redux";
+import throttle from 'lodash/throttle'
 import {
 	roomList,
 	participantList,
@@ -11,10 +12,11 @@ import {
 	grid,
 	paint,
 	sixhat,
-	reservation
+	reservation,
+	brainStorming,
 } from "./reducers/index";
 
-let reducers = combineReducers({
+let appReducer = combineReducers({
 	roomList,
 	participantList,
 	connection,
@@ -26,12 +28,30 @@ let reducers = combineReducers({
 	grid,
 	paint,
 	sixhat,
-	reservation
+	reservation,
+	brainStorming
 });
 
+const rootReducer = (state, action) => {
+	if (action.type === "CLEAR") {
+		state = undefined;
+	}
+	return appReducer(state, action);
+};
+
+import { loadState, saveState } from "./lib/loadState";
+const persistStore = loadState();
+
 const store = createStore(
-	reducers,
+	rootReducer,
+	persistStore,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+store.subscribe(throttle(() => {
+	saveState(
+		store.getState()
+	);
+}),1000);
 
 export default store;

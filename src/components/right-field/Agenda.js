@@ -29,7 +29,7 @@ class Agenda extends React.Component {
         //this.handleAgendaInputPressEnter = this.handleAgendaInputPressEnter.bind(this);
     }
 
-    componentWillMount() { }
+    componentWillMount() {}
 
     componentDidMount() {
         this.scrollToBottom();
@@ -54,71 +54,46 @@ class Agenda extends React.Component {
 
     onClick_newAgenda(e) {
         let key = "agenda_input" + this.props.agendaList.length;
-        // this.setState(
-        //     {
-        //         agendaList: [
-        //             ...this.state.agendaList,
-        //             {
-        //                 content: "",
-        //                 isAgendaFinished: false
-        //             }
-        //         ]
-        //     },
-        //     () => {
-        //         this.refs[key].focus();
-        //     }
-        // );
+
         this.props.dispatch(newAgenda());
         socket.emit("newAgenda");
     }
 
     onChangeInput(e) {
         let key = parseInt(e.target.id, 10);
-        // this.setState({
-        //     ...this.state,
-        //     agendaList: [
-        //         ...this.state.agendaList.slice(0, key),
-        //         {
-        //             ...this.state.agendaList[key],
-        //             content: e.target.value
-        //         },
-        //         ...this.state.agendaList.slice(key + 1)
-        //     ]
-        // });
+        //取得現在時間
+        let date = new Date();
+        //自定義時間格式:Hour-Minute
+        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
+ 
         this.props.dispatch(
             updateAgenda({
                 key: key,
-                value: e.target.value
+                value: e.target.value,
+                time: formattedTime
             })
         );
         socket.emit("updateAgenda", {
             key: key,
-            value: e.target.value
+            value: e.target.value,
+            time: formattedTime
         });
     }
 
     onClick_Enter(e) {
         if (e.keyCode == 13) {
-            e.target.blur()
+            e.target.blur();
         }
     }
 
     onClick_toggleAgendaFinish(e) {
         let key = parseInt(e.target.id, 10);
-        // this.setState({
-        //     ...this.state,
-        //     agendaList: [
-        //         ...this.state.agendaList.slice(0, key),
-        //         {
-        //             ...this.state.agendaList[key],
-        //             isAgendaFinished: !this.state.agendaList[key]
-        //                 .isAgendaFinished
-        //         },
-        //         ...this.state.agendaList.slice(key + 1)
-        //     ]
-        // });
-        this.props.dispatch(doneAgenda(key));
-        socket.emit("doneAgenda", key);
+        //取得現在時間
+        let date = new Date();
+        //自定義時間格式:Hour-Minute
+        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
+        this.props.dispatch(doneAgenda(key, formattedTime));
+        socket.emit("doneAgenda", key, formattedTime);
     }
 
     scrollToBottom() {
@@ -159,9 +134,9 @@ class Agenda extends React.Component {
                             style={
                                 this.props.agendaList[key].isAgendaFinished
                                     ? {
-                                        textDecoration: "line-through",
-                                        background: "transparent"
-                                    }
+                                          textDecoration: "line-through",
+                                          background: "transparent"
+                                      }
                                     : {}
                             }
                             ref={"agenda_input" + key}
@@ -179,7 +154,7 @@ class Agenda extends React.Component {
                                     ? "readonly"
                                     : ""
                             }
-                            placeholder='點此輸入議程內容'
+                            placeholder="點此輸入議程內容"
                         />
                         <div
                             className="delete"

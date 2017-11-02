@@ -1,5 +1,3 @@
-
-
 import socketIO from "socket.io-client";
 import store from "./store";
 import {
@@ -32,14 +30,18 @@ import {
     setSixhat,
     setMeetingData,
     setURL,
-    setReceiveData
+    setReceiveData,
+    delParticipantConnection,
+    delRemoteStreamURL,
+    delRemoteUserName
 } from "./actions/Actions";
 
 let io = socketIO();
-let socket = io.connect("https://140.123.175.95:8080");
+let socket = io.connect("https://140.123.175.95:443");
 
 socket
-    .on("setRoomList", list => {
+    .on('setRoomList', list=>{
+        console.log('收一波')
         if (list.length) {
             store.dispatch(setRoomList(list));
         }
@@ -55,20 +57,23 @@ socket
     });
 
 socket
-    .on("setParticipantList", (participantList) => {
+    .on("setParticipantList", participantList => {
         store.dispatch(setParticipantList(participantList));
-        store.dispatch(setAnimalName(participantList[0].animal))
-        socket.emit("joinFinish")
+        store.dispatch(setAnimalName(participantList[0].animal));
+        socket.emit("joinFinish");
     })
     .on("addParticipantList", participantID => {
         store.dispatch(addParticipantList(participantID));
     })
     .on("delParticipantList", participantID => {
         store.dispatch(delParticipantList(participantID));
+        store.dispatch(delParticipantConnection(participantID));
+        store.dispatch(delRemoteStreamURL(participantID));
+        store.dispatch(delRemoteUserName(participantID));
     });
 
-socket.on("chatMessage",(record)=>{
-    store.dispatch(addChatRecord(record))
+socket.on("chatMessage", record => {
+    store.dispatch(addChatRecord(record));
 });
 
 socket
@@ -84,16 +89,19 @@ socket
     });
 
 socket
-    .on("gotCreateVote", votingDetail => {
+    .on("gotCreateVote", (votingDetail,time) => {
         store.dispatch(setVotingDetail(votingDetail));
-        store.dispatch(setVotingStart());
+        store.dispatch(setVotingStart(time));
     })
     .on("gotVoteFromServer", voteContent => {
         store.dispatch(gotVoteFromServer(voteContent));
     })
-    .on("votingIsFinish", ()=>{
-        store.dispatch(waitingForAnimate())
-    })
+    .on("votingIsFinish", () => {
+        let date = new Date();
+        //自定義時間格式:Hour-Minute
+        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
+        store.dispatch(waitingForAnimate(formattedTime));
+    });
 
 socket
     .on("setAgenda", function(list) {
@@ -112,27 +120,27 @@ socket
         store.dispatch(doneAgenda(key));
     });
 
-socket.on("remoteUserRecognitionRecord",history=>{
-    store.dispatch(addRecognitionRecord(history))
-})
+socket.on("remoteUserRecognitionRecord", history => {
+    store.dispatch(addRecognitionRecord(history));
+});
 
 socket
-    .on("setGrid",obj=>{
-        store.dispatch(setGrid(obj))
+    .on("setGrid", obj => {
+        store.dispatch(setGrid(obj));
     })
-    .on("setGridStart",()=>{
-        store.dispatch(setGridStart())
-    })
+    .on("setGridStart", () => {
+        store.dispatch(setGridStart());
+    });
 
-socket.on('setSixhatList',(localhat, obj)=>{
-    //store.dispatch(setLocalHat(localhat))
-    store.dispatch(setSixhat(localhat,obj))
-})
+socket.on("setSixhatList", (obj) => {
+    console.log('QQQQ')
+    store.dispatch(setSixhatList(obj));
+});
 
 socket.on("AddReservation", data => {
-    store.dispatch(setMeetingData(data))
-    store.dispatch(setURL(data.href))
-    store.dispatch(setReceiveData(true))
+    store.dispatch(setMeetingData(data));
+    store.dispatch(setURL(data.href));
+    store.dispatch(setReceiveData(true));
 });
 
 export default socket;

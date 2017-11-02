@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { toggleAudio, toggleUserMedia } from "../../actions/Actions";
 import socket from "../../socket"
-import ConfirmExit from "../special-field/ConfirmExit";
 
 class AVcontrol extends React.Component {
     constructor(props) {
@@ -47,7 +46,7 @@ class AVcontrol extends React.Component {
     }
 
     onClick_showRecord() {
-        this.props.history.push("/record" + this.props.roomName.substring(35))
+        this.props.history.push("/record" + this.props.roomName.substring(37))
     }
 
     onClick_startShare() {

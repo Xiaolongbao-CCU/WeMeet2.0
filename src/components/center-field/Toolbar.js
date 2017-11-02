@@ -18,7 +18,12 @@ import {
     setGridClose,
     setPaintOpen,
     setPaintClose,
-    setSixhatClose
+    setSixhatClose,
+    setReservationDetailState,
+    setVotingDetailState,
+    setBrainStormingState,
+    setGridDetailClose,
+    setSixhatDetailClose
 } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
@@ -28,23 +33,14 @@ class Toolbar extends React.Component {
             //Toggle Status
             isVoteToggle: false,
             isAddUserOpen: false,
-            isBrainstormingOpen: false,
-            isRerservationOpen: false,
             //Open Status
             isRecognitionOpen: false
             //Special Status
         };
-        this.onClick_ToggleVotePage = this.onClick_ToggleVotePage.bind(this);
         this.onClick_ToggleRecognitionControl = this.onClick_ToggleRecognitionControl.bind(
             this
         );
-        this.onClick_ToggleBrainstorming = this.onClick_ToggleBrainstorming.bind(
-            this
-        );
         this.onClick_TogglePainting = this.onClick_TogglePainting.bind(this);
-        this.onClick_ToggleReservation = this.onClick_ToggleReservation.bind(
-            this
-        );
         this.closeBrainStorming = this.closeBrainStorming.bind(this);
     }
 
@@ -54,17 +50,45 @@ class Toolbar extends React.Component {
         this.refs.VoteDetail.style.display = "none";
     }
 
+    closeAll(){
+        if(this.props.isGridDetailOpen){
+            this.props.dispatch(setGridDetailClose()); 
+        }
+        if(this.props.isBrainstormingOpen){
+            this.props.dispatch(setBrainStormingState(false))
+        }
+        if(this.props.isSixhatDetailOpen){
+            this.props.dispatch(setSixhatDetailClose()); 
+        }
+        if(this.props.isRerservationDetailOpen){
+            this.props.dispatch(setReservationDetailState(false))
+        }
+        if(this.props.isPaintOpen){
+            this.props.dispatch(setPaintClose());
+        }
+        if(this.props.isVotingDetailOpen){
+            this.props.dispatch(setVotingDetailState(false))
+        }
+    }
+
     //OnClick Events
 
     onClick_ToggleVotePage() {
-        this.refs.VoteDetail.style.display =
-            this.refs.VoteDetail.style.display == "block" ? "none" : "block";
+        if(this.props.isVotingDetailOpen){
+            this.props.dispatch(setVotingDetailState(false))
+        } else {
+            this.closeAll()
+            this.props.dispatch(setVotingDetailState(true))
+        }
     }
 
     onClick_ToggleBrainstorming() {
-        this.setState({
-            isBrainstormingOpen: !this.state.isBrainstormingOpen
-        });
+        if(this.props.isBrainstormingOpen){
+            this.props.dispatch(setBrainStormingState(false))
+        } else {
+            this.closeAll()
+            this.props.dispatch(setBrainStormingState(true))
+        }
     }
 
     onClick_ToggleRecognitionControl() {
@@ -99,28 +123,26 @@ class Toolbar extends React.Component {
         if (this.props.isPaintOpen) {
             this.props.dispatch(setPaintClose());
         } else {
-            this.props.dispatch(setGridClose());
-            this.props.dispatch(setSixhatClose());
+            this.closeAll()
             this.props.dispatch(setPaintOpen());
         }
     }
 
     onClick_ToggleReservation() {
-        this.setState({
-            isRerservationOpen: !this.state.isRerservationOpen
-        });
+        if(this.props.isRerservationDetailOpen){
+            this.props.dispatch(setReservationDetailState(false))
+        } else {
+            this.closeAll()
+            this.props.dispatch(setReservationDetailState(true))
+        }
     }
 
     closeBrainStorming() {
-        this.setState({
-            isBrainstormingOpen: false
-        });
+        this.props.dispatch(setBrainStormingState(false))
     }
 
     closeReservation() {
-        this.setState({
-            isRerservationOpen: false
-        });
+        this.props.dispatch(setReservationDetailState(false))
     }
 
     render() {
@@ -131,14 +153,14 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="reservation"
-                    onClick={this.onClick_ToggleReservation}
+                    onClick={()=>{this.onClick_ToggleReservation()}}
                 >
                     <div className="hovertext" id="reservation">
                         預約開會
                     </div>
                 </div>
 
-                {this.state.isRerservationOpen ? (
+                {this.props.isRerservationDetailOpen ? (
                     <ReservationDetail
                         closeReservation={() => {
                             this.closeReservation();
@@ -149,14 +171,14 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="brainstorming"
-                    onClick={this.onClick_ToggleBrainstorming}
+                    onClick={()=>{this.onClick_ToggleBrainstorming()}}
                 >
                     <div className="hovertext" id="brainstorming">
                         腦力激盪
                     </div>
                 </div>
 
-                {this.state.isBrainstormingOpen ? (
+                {this.props.isBrainstormingOpen ? (
                     <Brainstorming
                         closeBrainStorming={this.closeBrainStorming}
                     />
@@ -179,7 +201,7 @@ class Toolbar extends React.Component {
                 <div
                     className="toolbar-button"
                     id="vote"
-                    onClick={this.onClick_ToggleVotePage}
+                    onClick={()=>{this.onClick_ToggleVotePage()}}
                 >
                     <div className="hovertext" id="vote">
                         投票
@@ -189,9 +211,9 @@ class Toolbar extends React.Component {
                 <div
                     ref="VoteDetail"
                     style={{
-                        display: this.props.votingDetail.isVotingStart
-                            ? "none"
-                            : "display"
+                        display: this.props.votingDetail.isVotingDetailOpen
+                            ? "block"
+                            : "none"
                     }}
                 >
                     <VoteDetail />
@@ -220,7 +242,11 @@ const mapStateToProps = state => {
         votingDetail: state.vote,
         isPaintOpen: state.paint.isPaintOpen,
         isGridStart: state.grid.isGridStart,
-        isGridOpen: state.grid.isGridOpen
+        isGridOpen: state.grid.isGridOpen,
+        isSixhatOpen: state.sixhat.isSixhatOpen,
+        isRerservationDetailOpen: state.reservation.isRerservationDetailOpen,
+        isVotingDetailOpen: state.vote.isVotingDetailOpen,
+        isBrainstormingOpen: state.brainStorming
     };
 };
 

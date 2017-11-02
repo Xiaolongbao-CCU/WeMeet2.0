@@ -18,7 +18,7 @@ class MainScreen extends React.Component {
             focusingOnWhichUser: {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
-                animalNumber: this.props.participantList[0].num
+                animalNumber: this.props.participantList[0].num || '0'
             }
         };
         this.mirroredVideo = "rotateY(180deg)";
@@ -271,7 +271,7 @@ class MainScreen extends React.Component {
         }
         return (
             <div className="main-screen">
-                {this.props.isSixhatOpen ? <SixHatGame /> : null}
+                {this.props.isSixhatOpen ? <SixHatGame focusingOnWhichUser={this.state.focusingOnWhichUser}/> : null}
                 <div className="main-video">{bigScreen}</div>
                 <div className="other-video">{video}</div>
             </div>

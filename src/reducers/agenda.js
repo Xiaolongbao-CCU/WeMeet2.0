@@ -1,7 +1,9 @@
 const agendaList = [
 	{
 		content: "", //單個議程內容
-		isAgendaFinished: false //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+		isAgendaFinished: false, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+		createTime:undefined,
+		finishTime:undefined
 	}
 ];
 
@@ -28,7 +30,8 @@ export default function agenda(state = agendaList, action) {
 				...state.slice(0, action.data.key),
 				{
 					...state[action.data.key],
-					content: action.data.value
+					content: action.data.value,
+					createTime: action.data.time
 				},
 				...state.slice(action.data.key + 1)
 			];
@@ -37,7 +40,8 @@ export default function agenda(state = agendaList, action) {
 				...state.slice(0, action.data),
 				{
 					...state[action.data],
-					isAgendaFinished: !state[action.data].isAgendaFinished
+					isAgendaFinished: !state[action.data].isAgendaFinished,
+					finishTime:action.time
 				},
 				...state.slice(action.data + 1)
 			];

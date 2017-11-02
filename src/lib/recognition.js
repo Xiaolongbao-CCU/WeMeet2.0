@@ -1,5 +1,6 @@
 "use strict";
 import socket from "../socket";
+import Assistant from '../components/left-field/Assistant'
 import { setInterimResult, addRecognitionRecord } from "../actions/Actions";
 
 let Recognition = {
@@ -11,6 +12,8 @@ let Recognition = {
 
         let isRecognizing = false;
         let shouldStop = false;
+        let changeLanguage = false;
+        let targetLanguage = "cmn-Hant-TW";
         let start_timestamp;
         let time = new Date();
 
@@ -20,18 +23,19 @@ let Recognition = {
         //************預設中文
         recognition.lang = "cmn-Hant-TW";
         //************直接開始
-        recognition.start();
+        //recognition.start();
 
 
         recognizer.setLanguage = language => {
-            if (isRecognizing) {
-                recognition.stop();
-            }
-            recognition.lang = language;
-            //這邊有點問題
-            //stop之後不會立即收到onend訊息
-            //但是確定是停止了所以可以設定語言
-            //recognition.start()
+            console.log('有有被按到了')
+            let changeLanguage = true
+            let targetLanguage = language
+            recognizer.stop();
+        };
+
+        recognizer.stop = language => {
+            shouldStop = true
+            recognition.stop();   
         };
 
         recognition.onstart = () => {
@@ -44,6 +48,7 @@ let Recognition = {
             if (event.error == "no-speech") {
                 console.log("Recognition On Error，偵測不到麥克風訊號，請調整裝置的設定。");
                 isRecognizing = false;
+                shouldStop = false;
             }
             if (event.error == "audio-capture") {
                 console.log("Recognition On Error，偵測不到麥克風，請正確安裝。");
@@ -70,10 +75,17 @@ let Recognition = {
         recognition.onend = () => {
             console.log("recognition On end");
             isRecognizing = false;
+            console.log(changeLanguage)
+            console.log(shouldStop)
             if (!shouldStop) {
                 console.log("recognition Start again");
                 recognition.start();
-                isRecognizing = true;
+            }
+            if(changeLanguage){
+                recognition.lang = targetLanguage;
+                changeLanguage = false;
+                targetLanguage = "cmn-Hant-TW"
+                recognition.start();
             }
             shouldStop = false;
         };
@@ -103,15 +115,18 @@ let Recognition = {
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
+                    Assistant.useAssistant(event.results[i][0].transcript,Meeting,Meeting.closeAll);
                     Meeting.props.dispatch(
                         addRecognitionRecord({
                             sendTime: tempTime,
+                            name: Meeting.props.userName,
                             userID: Meeting.props.localUserID,
                             text: event.results[i][0].transcript
                         })
                     );
                     socket.emit("recognitionRecord", {
                         sendTime: tempTime,
+                        name: Meeting.props.userName,
                         userID: Meeting.props.localUserID,
                         text: event.results[i][0].transcript
                     });
