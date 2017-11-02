@@ -55,8 +55,6 @@ import Toolbar from "./center-field/Toolbar";
 import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
-import KJGame from "./center-field/KJGame";
-import KJGame_result from "./center-field/KJGame_result";
 import Painting from "./center-field/Painting";
 import ShareScreen from "./center-field/ShareScreen";
 
@@ -68,7 +66,6 @@ import Vote from "./right-field/Vote";
 import Background from "./special-field/Background";
 import VoteResult from "./special-field/VoteResult";
 import GirdDetail from "./special-field/GirdDetail";
-import KJDetail from "./special-field/KJDetail";
 import SixHatDetail from "./special-field/SixHatDetail";
 import ReservationResult from './center-field/ReservationResult'
 
@@ -363,6 +360,21 @@ class Meeting extends React.Component {
     }
 
     render() {
+        let center = undefined
+        switch (this.props.WhatPage) {
+            case "one":
+                Content = <ul />;
+                break;
+            case "two":
+                Content = <ul>{this.sixhat[localHat][1].indrotuction}</ul>;
+                break;
+            case "three":
+                let li = this.sixhat[localHat][1].example.map(string => {
+                    return <li>{string}</li>;
+                });
+                Content = <ul>{li}</ul>;
+                break;
+        }
         const { loading } = this.state;
 
         if (loading) {
@@ -382,7 +394,7 @@ class Meeting extends React.Component {
         return (
             <div className="container" id="in">
                 {this.props.isVotingFinish && this.props.isAnimateOpen ? <VoteResult /> : null}
-                {this.props.isGridDetailOpen ? <GirdDetail /> : null}
+                {this.props.isGridDetailOpen ? <GirdDetail closeAll={this.closeAll}/> : null}
                 {this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
                 <div className="left-field">
                     <CVcontrol />

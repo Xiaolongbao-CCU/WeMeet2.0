@@ -60,7 +60,6 @@ class Painting extends React.Component {
         canvas.height = parent.getBoundingClientRect().height;
     }
     PaintSystem() {
-
         console.log('執行function中');
         var canvas = this.refs.whiteboard;
         var context = canvas.getContext("2d");
