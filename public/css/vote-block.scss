@@ -181,6 +181,7 @@
 .votesubmit#open{
   background-color: $button-color;
   box-shadow: 1px 1px 0px $shadow-color;
+  color: white;
 }
 
 .multivote-number{
@@ -408,4 +409,9 @@ input[type='checkbox']{
     border-top-color: #cb253e;
     border-width: 4px;
   }
+}
+
+#restartVote{
+  background-color: #0d47a1;
+  color: white;
 }
