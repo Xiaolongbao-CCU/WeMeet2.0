@@ -130,7 +130,7 @@ $otherscreen-top: 78%;
   background-image: url('../img/grid.png');
   background-size: 60%;
   margin-bottom: 25%;
-  animation: GridAppear 0.8s linear ;
+  animation: GridAppear 0.6s linear;
   &:hover .hovertext#grid{
     display: block;
     z-index: 9;
@@ -147,7 +147,7 @@ $otherscreen-top: 78%;
   background-image: url('../img/sixhat.png');
   background-size: 60%;
   margin-bottom: 25%;
-  animation: OtherAppear 0.8s linear 0.3s;
+  animation: OtherAppear 0.6s linear 0.2s;
   animation-fill-mode: both;
   &:hover .hovertext#sixhat{
     display: block;
