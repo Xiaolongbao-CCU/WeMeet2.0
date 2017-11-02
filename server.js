@@ -314,6 +314,10 @@ io.on("connection", function(socket) {
         });
         io.in(room).emit("setSixhatList", hatList);
     });
+    socket.on('shareScreenInvoke', uuid =>{
+        let room = Object.keys(socket.rooms)[1];
+        socket.to(room).emit('callShareScreenInvoker',socket.id,uuid)
+    })
 });
 
 //沒有定義路徑，則接收到請求就執行這個函數

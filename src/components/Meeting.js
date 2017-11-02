@@ -156,7 +156,8 @@ class Meeting extends React.Component {
                 if (window.Peer && window.Peer.disconnected) {
                     window.Peer.reconnect()
                 } else {
-                    let peer = new Peer(
+                    window.peerConstructor = Peer
+                    let peer = window.peerConstructor(
                         id,
                         {
                             host: "140.123.175.95",
@@ -281,6 +282,41 @@ class Meeting extends React.Component {
                 this.props.dispatch(delParticipantConnection(participantID));
                 this.props.dispatch(delRemoteStreamURL(participantID));
                 this.props.dispatch(delRemoteUserName(participantID));
+            })
+            .on('callShareScreenInvoker',(participantID,uuid)=>{
+                if (
+                    window.localStream &&
+                    Object.keys(window.localStream).length > 0
+                ) {
+                    let call = window.Peer.call(participantID+uuid, window.localStream)
+                    call.on("stream", remoteStream => {
+                        let url = URL.createObjectURL(remoteStream);
+                        console.log("收到影像囉!(5)" + remoteStream);
+                        this.props.dispatch(
+                            addRemoteStreamURL({
+                                'remotePeer': participantID,
+                                'url': url,
+                                'stream': remoteStream
+                            })
+                        );
+                    });
+                } else {
+                    this.Chat.getUserMedia().then(stream => {
+                        window.localStream = stream;
+                        let call = window.Peer.call(participantID+uuid, window.localStream)
+                        console.log("發出連線(4)");
+                        call.on("stream", remoteStream => {
+                            console.log("收到影像囉!(5)" + remoteStream);
+                            let url = URL.createObjectURL(remoteStream);
+                            this.props.dispatch(
+                                addRemoteStreamURL({
+                                    'remotePeer': participantID,
+                                    'url': url
+                                })
+                            );
+                        });
+                    });
+                }
             });
     }
 
@@ -421,7 +457,7 @@ class Meeting extends React.Component {
                             : <MainScreen />
                     }
 
-                    <AVcontrol Chat={this.Chat} />
+                    <AVcontrol Chat={this.Chat} Meeting={this}/>
                 </div>
                 <div className="right-field">
                     <Agenda />

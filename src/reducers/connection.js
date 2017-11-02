@@ -136,16 +136,23 @@ export default function connection(state = initialState, action) {
             };
 
         case "delRemoteStreamURL":
-            return Object.assign({}, state, {
-                remoteStreamURL: Object.keys(
-                    state.remoteStreamURL
-                ).reduce((result, key) => {
-                    if (key !== action.data) {
-                        result[key] = state.remoteStreamURL[key];
-                    }
-                    return result;
-                }, {})
-            });
+            if(action.data == 1){
+                return {
+                    ...state,
+                    'remoteStreamURL' : {}
+                }
+            } else {
+                return Object.assign({}, state, {
+                    remoteStreamURL: Object.keys(
+                        state.remoteStreamURL
+                    ).reduce((result, key) => {
+                        if (key !== action.data) {
+                            result[key] = state.remoteStreamURL[key];
+                        }
+                        return result;
+                    }, {})
+                });
+            }  
         default:
             return state;
     }
