@@ -83,11 +83,11 @@ export function delRoom(room) {
 	};
 }
 
-export function gotLocalVideo(url,boolean) {
+export function gotLocalVideo(url,isShareScreen) {
 	return {
 		type: "gotLocalVideo",
 		data: url,
-		isShareScreen: boolean || false
+		isShareScreen: isShareScreen
 	};
 }
 export function turnOnUserAudio() {

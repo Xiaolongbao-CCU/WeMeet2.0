@@ -70,7 +70,6 @@ class AVcontrol extends React.Component {
         let thisComponent = this;
         if (window.shareScreen && Object.keys(window.shareScreen).length > 0) {
             //可以直接撥打
-
         } else {
             //先取得UserMedia
             let screen_constraints = {
@@ -89,15 +88,24 @@ class AVcontrol extends React.Component {
                 navigator.getUserMedia(
                     screen_constraints,
                     function(stream) {
-                        window.shareScreenStream = stream
+                        window.shareScreenStream = stream;
                         window.shareScreenStream.oninactive = () => {
-                            socket.emit('closeShareScreen')
-                            gotLocalVideo(URL.createObjectURL(window.localStream),false)
-                        }
+                            socket.emit("closeShareScreen");
+                            thisComponent.props.dispatch(
+                                gotLocalVideo(
+                                    URL.createObjectURL(window.localStream),
+                                    false
+                                )
+                            );
+                        };
                         console.log("收到stream了", stream);
                         thisComponent.props.dispatch(
-                            gotLocalVideo(URL.createObjectURL(stream),true)
+                            gotLocalVideo(
+                                URL.createObjectURL(window.shareScreenStream),
+                                true
+                            )
                         );
+
                         //開始撥打
                         //window.Peer.destroy()
                         let UUID = Date.now();
@@ -107,7 +115,8 @@ class AVcontrol extends React.Component {
                                 host: "140.123.175.95",
                                 port: 443,
                                 path: "/peerjs",
-                                config: thisComponent.props.Meeting.configuration
+                                config:
+                                    thisComponent.props.Meeting.configuration
                             }
                         );
                         window.sharePeer = peer;
@@ -127,6 +136,9 @@ class AVcontrol extends React.Component {
                             });
                         });
                         socket.emit("shareScreenInvoke", UUID);
+                        thisComponent.setState({
+                            isShareScreenStart: true
+                        });
                     },
                     function(error) {
                         console.error("getScreenId error", error);
@@ -137,9 +149,6 @@ class AVcontrol extends React.Component {
                 );
             });
         }
-        // this.setState({
-        //     isShareScreenStart: !this.state.isShareScreenStart
-        // });
     }
 
     render() {

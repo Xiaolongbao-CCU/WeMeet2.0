@@ -37,7 +37,7 @@ let Chat = {
                         ) {
                             let videoURL = window.URL.createObjectURL(stream);
                             window.localStream = stream;
-                            Meeting.props.dispatch(gotLocalVideo(videoURL));
+                            Meeting.props.dispatch(gotLocalVideo(videoURL),false);
                             if (stream.getVideoTracks().length > 0) {
                                 Chat.startUserMedia();
                                 Meeting.props.dispatch(turnOnUserMedia());

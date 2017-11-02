@@ -46,10 +46,12 @@ export default function connection(state = initialState, action) {
             });
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
+
         case "gotLocalVideo":
+        console.log(action)
             return Object.assign({}, state, { 
-                localVideoURL: action.data,
-                isLocalShareScreen: action.isShareScreen || false
+                'localVideoURL': action.data,
+                'isLocalShareScreen': action.isShareScreen
             });
         
         case "turnOnUserAudio":
