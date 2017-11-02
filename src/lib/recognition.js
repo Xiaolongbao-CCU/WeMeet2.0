@@ -30,11 +30,7 @@ let Recognition = {
             console.log('有有被按到了')
             let changeLanguage = true
             let targetLanguage = language
-            let shouldStop = true;
-            if (isRecognizing) {
-                recognition.stop();
-            }
-            console.log(shouldStop)
+            recognizer.stop();
         };
 
         recognizer.stop = language => {
@@ -79,18 +75,17 @@ let Recognition = {
         recognition.onend = () => {
             console.log("recognition On end");
             isRecognizing = false;
+            console.log(changeLanguage)
             console.log(shouldStop)
             if (!shouldStop) {
                 console.log("recognition Start again");
                 recognition.start();
-                isRecognizing = true;
             }
             if(changeLanguage){
                 recognition.lang = targetLanguage;
                 changeLanguage = false;
                 targetLanguage = "cmn-Hant-TW"
                 recognition.start();
-                isRecognizing = true;
             }
             shouldStop = false;
         };

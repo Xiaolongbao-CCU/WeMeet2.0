@@ -151,18 +151,15 @@ class Vote extends React.Component {
                                         : 0
                                     : ""}
                         </span>
-                        {!this.props.isVotingFinish ? null : this.props
-                            .isSelfSubmit ? (
+                        {!this.props.isVotingFinish ? null : 
+                            this.props.isSelfSubmit ? (
                                 <div className="people-detail">
-
                                     {this.props.votingDetail.voting.secretOrNot
                                         ? "匿名無法觀看投票者"
                                         : this.props.votingDetail.result[key]
                                             ? this.props.votingDetail.result[
                                                 key
-                                            ].voter.reduce((allName, userName) => {
-                                                return "投票者：" + allName + userName + "、";
-                                            }, "")
+                                            ].voter.join('、')
                                             : ""}
                                 </div>
                             ) : null}
