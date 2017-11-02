@@ -12,7 +12,8 @@ import {
 	grid,
 	paint,
 	sixhat,
-	reservation
+	reservation,
+	brainStorming,
 } from "./reducers/index";
 
 let appReducer = combineReducers({
@@ -27,7 +28,8 @@ let appReducer = combineReducers({
 	grid,
 	paint,
 	sixhat,
-	reservation
+	reservation,
+	brainStorming
 });
 
 const rootReducer = (state, action) => {

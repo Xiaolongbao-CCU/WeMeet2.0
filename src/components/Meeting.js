@@ -23,7 +23,22 @@ import {
     delRemoteStreamURL,
     addCandidateQueue,
     toggleUserMedia,
-    toggleAudio
+    toggleAudio,
+} from "../actions/Actions";
+
+import {
+    setGridDetailOpen,
+    setGridStart,
+    setGridOpen,
+    setGridClose,
+    setPaintOpen,
+    setPaintClose,
+    setSixhatClose,
+    setReservationDetailState,
+    setVotingDetailState,
+    setBrainStormingState,
+    setGridDetailClose,
+    setSixhatDetailClose
 } from "../actions/Actions";
 
 //component
@@ -106,6 +121,7 @@ class Meeting extends React.Component {
             isJiugonggePlaying: false,
             isKJPlaying: false
         };
+        this.closeAll = this.closeAll.bind(this)
     }
 
     componentWillMount() {
@@ -296,6 +312,29 @@ class Meeting extends React.Component {
         }
     }
 
+
+    closeAll(){
+        if(this.props.isGridDetailOpen){
+            this.props.dispatch(setGridDetailClose()); 
+        }
+        if(this.props.isBrainstormingOpen){
+            this.props.dispatch(setBrainStormingState(false))
+        }
+        if(this.props.isSixhatDetailOpen){
+            this.props.dispatch(setSixhatDetailClose()); 
+        }
+        if(this.props.isRerservationDetailOpen){
+            this.props.dispatch(setReservationDetailState(false))
+        }
+        if(this.props.isPaintOpen){
+            this.props.dispatch(setPaintClose());
+        }
+        if(this.props.isVotingDetailOpen){
+            this.props.dispatch(setVotingDetailState(false))
+        }
+    }
+
+
     componentWillUnmount() {
         socket.emit("leaveRoom");
         if (this.props.isStreaming) {
@@ -396,13 +435,25 @@ const mapStateToProps = state => {
         remoteStreamURL: state.connection.remoteStreamURL,
         candidateQueue: state.connection.candidateQueue,
         isInChatNow: state.chatAndRecognition.isInChatNow,
+
         isGridDetailOpen: state.grid.isGridDetailOpen,
         isGridOpen: state.grid.isGridOpen,
+        isGridStart: state.grid.isGridStart,
+
         isPaintOpen: state.paint.isPaintOpen,
+
         isSixhatDetailOpen: state.sixhat.isSixhatDetailOpen,
-        isReceivedData: state.reservation.isReceivedData,
+        isSixhatOpen: state.sixhat.isSixhatOpen,
+
         isVotingFinish: state.vote.isVotingFinish,
-        isAnimateOpen: state.vote.isAnimateOpen
+        isVotingDetailOpen: state.vote.isVotingDetailOpen,
+        isAnimateOpen: state.vote.isAnimateOpen,
+
+
+        isReceivedData: state.reservation.isReceivedData,
+        isRerservationDetailOpen: state.reservation.isRerservationDetailOpen,
+
+        isBrainstormingOpen: state.brainStorming
     };
 };
 

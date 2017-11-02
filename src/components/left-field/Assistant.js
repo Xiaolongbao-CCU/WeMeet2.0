@@ -14,7 +14,7 @@ import {
  * Type4. 偵測語音辨識，對其提供建議
  * *****************/
 let Assistant = {
-    useAssistant: (recognition_result,Meeting) => {
+    useAssistant: (recognition_result,Meeting,closeAll) => {
         //console.log("開始語音助理功能");
         let InputText = recognition_result; //語音辨識中間或結果的文字要傳進來這裡
         let text_flag = false; //當遇到動詞要true
@@ -91,6 +91,7 @@ let Assistant = {
             ) {
                 let word = InputText.slice(whichword, whichword + 2);
                 if (word == "投票") {
+                    closeAll()
                     Meeting.props.dispatch(setVotingDetailState(true))
                     //開啟Toolbar.js的 Meeting.props.votingDetail.isVotingStart
                     console.log("開啟投票畫面!");
@@ -100,6 +101,7 @@ let Assistant = {
                     console.log("新增議程!");
                     break;
                 } else if (word == "預約") {
+                    closeAll()
                     Meeting.props.dispatch(setReservationDetailState(true))
                     //開啟Toolbar.js的 this.state.isRerservationOpen
                     console.log("開啟預約會議畫面");
@@ -118,16 +120,19 @@ let Assistant = {
             ) {
                 let word = InputText.slice(whichword, whichword + 2);
                 if (word == "電子白板" || word == "白板" || word == "畫板") {
+                    closeAll()
                     Meeting.props.dispatch(setPaintOpen())
                     //開啟Meeting.js 的 Meeting.props.isPaintOpen
                     console.log("開啟電子白板!");
                     break;
                 } else if (word == "六頂") {
+                    closeAll()
                     Meeting.props.dispatch(setSixhatDetailOpen())
                     //開啟MainScreen.js 的 Meeting.props.isSixhatOpen
                     console.log("開啟六頂思考帽遊戲!");
                     break;
                 } else if (word == "九宮" || word == "發散") {
+                    closeAll()
                     Meeting.props.dispatch(setGridDetailOpen())
                     //開啟Meeting.js 的 Meeting.props.isGridOpen
                     console.log("開啟九宮格遊戲!");

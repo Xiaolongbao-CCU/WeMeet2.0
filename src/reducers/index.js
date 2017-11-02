@@ -10,6 +10,7 @@ import grid from "./grid";
 import paint from "./paint"
 import sixhat from './sixhat'
 import reservation from './reservation';
+import brainStorming from './brainStorming'
 
 export {
 	roomList,
@@ -23,6 +24,7 @@ export {
 	grid,
 	paint,
 	sixhat,
-	reservation
+	reservation,
+	brainStorming
 };
 

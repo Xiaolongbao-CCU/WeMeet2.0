@@ -23,7 +23,7 @@ let Recognition = {
         //************預設中文
         recognition.lang = "cmn-Hant-TW";
         //************直接開始
-        recognition.start();
+        //recognition.start();
 
 
         recognizer.setLanguage = language => {
@@ -120,7 +120,7 @@ let Recognition = {
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    Assistant.useAssistant(event.results[i][0].transcript,Meeting);
+                    Assistant.useAssistant(event.results[i][0].transcript,Meeting,Meeting.closeAll);
                     Meeting.props.dispatch(
                         addRecognitionRecord({
                             sendTime: tempTime,

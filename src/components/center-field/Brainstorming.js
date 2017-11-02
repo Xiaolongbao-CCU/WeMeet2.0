@@ -26,15 +26,11 @@ class Brainstorming extends React.Component {
 
     onClick_ToggleGridGame() {
         this.props.closeBrainStorming()
-        this.props.dispatch(setPaintClose())
-        this.props.dispatch(setSixhatClose())
         this.props.dispatch(setGridDetailOpen())
     }
 
     onClick_ToggleSixHatGame() {
         this.props.closeBrainStorming()
-        this.props.dispatch(setPaintClose())
-        this.props.dispatch(setGridClose())
         this.props.dispatch(setSixhatDetailOpen())
     }
 

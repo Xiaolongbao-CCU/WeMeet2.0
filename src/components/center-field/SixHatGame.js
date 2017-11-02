@@ -132,8 +132,9 @@ class SixHatGame extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.focusingOnWhichUser)
 		let Content;
-		let localHat = undefined;
+		let localHat = 1;
 		let others = [];
 
 		Object.keys(this.props.hatList).map(participantID => {
@@ -184,10 +185,18 @@ class SixHatGame extends React.Component {
 				break;
 		}
 
+		let bigStoryImg = '';
+		let bigHatImg = '';
+		let bigHatKey = '';
+		bigHatKey = this.props.hatList[this.props.focusingOnWhichUser.id] || 0
+		bigStoryImg = `./img/${this.sixhat[bigHatKey][0]}hat.png`
+		bigHatImg = `./img/sixhat_${this.sixhat[bigHatKey][0]}.png`
+
 		return (
 			<div className="sixhat-field">
 				<div className="bigscreen-sixhat">
 					<div className="teaching">
+						<img className="content-img" src={bigStoryImg} />
 						<div className="teachinglist">
 							<div
 								className="button3"
@@ -219,41 +228,27 @@ class SixHatGame extends React.Component {
 					</div>
 					<img
 						className="hat-img"
-						src={`./img/sixhat_${this.sixhat[
-							`${this.props.hatList[this.props.localUserID] || 0}`
-						][0]}.png`}
+						src={bigHatImg}
 					/>
 
 					<div
 						className="hat-type"
 						id={
-							this.sixhat[
-								`${this.props.hatList[this.props.localUserID] ||
-									0}`
-							][0]
+							this.sixhat[bigHatKey][0]
 						}
 					>
-						你是{
-							this.sixhat[
-								`${this.props.hatList[this.props.localUserID] ||
-									0}`
-							][1].description
+						{
+							this.sixhat[bigHatKey][1].description
 						}的代表
 					</div>
 					<div
 						className="hat-text"
 						id={
-							this.sixhat[
-								`${this.props.hatList[this.props.localUserID] ||
-									0}`
-							][0]
+							this.sixhat[bigHatKey][0]
 						}
 					>
 						{
-							this.sixhat[
-								`${this.props.hatList[this.props.localUserID] ||
-									0}`
-							][1].needtodo
+							this.sixhat[bigHatKey][1].needtodo
 						}
 					</div>
 				</div>
