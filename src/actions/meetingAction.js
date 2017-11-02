@@ -83,10 +83,11 @@ export function delRoom(room) {
 	};
 }
 
-export function gotLocalVideo(url) {
+export function gotLocalVideo(url,boolean) {
 	return {
 		type: "gotLocalVideo",
-		data: url
+		data: url,
+		isShareScreen: boolean || false
 	};
 }
 export function turnOnUserAudio() {
@@ -125,10 +126,10 @@ export function delParticipantConnection(participantObj) {
 	};
 }
 
-export function addRemoteStreamURL(stateObj) {
+export function addRemoteStreamURL(stateObj,isShareScreen) {
 	return {
 		type: "addRemoteStreamURL",
-		data: stateObj
+		data: stateObj,
 	};
 }
 
