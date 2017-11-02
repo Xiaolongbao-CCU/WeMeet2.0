@@ -299,15 +299,14 @@ class Meeting extends React.Component {
     componentWillUnmount() {
         socket.emit("leaveRoom");
         if (this.props.isStreaming) {
-            this.Chat.toggleUserMedia();
+            this.Chat.stopUserMedia();
             this.props.dispatch(toggleUserMedia());
         }
         if (this.props.isSounding) {
-            this.Chat.toggleAudio();
+            this.Chat.stopAudio();
             this.props.dispatch(toggleAudio());
         }
-        this.Chat.stopUserMedia();
-        this.Chat.stopAudio();
+        
         this.Recognizer.stop();
 
         socket

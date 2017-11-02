@@ -32,7 +32,8 @@ import {
     setURL,
     setReceiveData,
     delParticipantConnection,
-    delRemoteStreamURL
+    delRemoteStreamURL,
+    delRemoteUserName
 } from "./actions/Actions";
 
 let io = socketIO();

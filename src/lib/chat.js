@@ -75,7 +75,8 @@ let Chat = {
         };
 
         Chat.stopUserMedia = () => {
-            window.localStream.getVideoTracks()[0].stop();
+            let track = window.localStream.getVideoTracks()[0]
+            track.stop()
         };
 
         Chat.startAudio = () => {
@@ -88,7 +89,8 @@ let Chat = {
         };
 
         Chat.stopAudio = () => {
-            window.localStream.getAudioTracks()[0].stop();
+            let track = window.localStream.getAudioTracks()[0]
+            track.stop()
         };
 
         //建立點對點連線物件，以及為連線標的創建影像視窗

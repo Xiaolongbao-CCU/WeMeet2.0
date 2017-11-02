@@ -94,3 +94,9 @@ export function addChatRecord(recordObj) {
 	};
 }
 
+export function setBrainStormingState(boolean) {
+	return {
+		type: "setBrainStormingState",
+		data: boolean
+	};
+}

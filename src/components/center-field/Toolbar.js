@@ -20,7 +20,8 @@ import {
     setPaintClose,
     setSixhatClose,
     setReservationDetailState,
-    setVotingDetailState
+    setVotingDetailState,
+    setBrainStormingState
 } from "../../actions/Actions";
 
 class Toolbar extends React.Component {
@@ -57,6 +58,11 @@ class Toolbar extends React.Component {
         if(this.props.isVotingDetailOpen){
             this.props.dispatch(setVotingDetailState(false))
         } else {
+            this.props.dispatch(setGridClose());
+            this.props.dispatch(setSixhatClose());
+            this.props.dispatch(setReservationDetailState(false))
+            this.props.dispatch(setPaintClose());
+            this.props.dispatch(setBrainStormingState(false))
             this.props.dispatch(setVotingDetailState(true))
         }
     }
@@ -99,8 +105,11 @@ class Toolbar extends React.Component {
         if (this.props.isPaintOpen) {
             this.props.dispatch(setPaintClose());
         } else {
+            this.props.dispatch(setBrainStormingState(false))
             this.props.dispatch(setGridClose());
             this.props.dispatch(setSixhatClose());
+            this.props.dispatch(setVotingDetailState(false))
+            this.props.dispatch(setReservationDetailState(false))
             this.props.dispatch(setPaintOpen());
         }
     }
@@ -109,6 +118,12 @@ class Toolbar extends React.Component {
         if(this.props.isRerservationDetailOpen){
             this.props.dispatch(setReservationDetailState(false))
         } else {
+            this.props.dispatch(setBrainStormingState(false))
+            this.props.dispatch(setGridClose());
+            this.props.dispatch(setSixhatClose());
+            this.props.dispatch(setVotingDetailState(false))
+            this.props.dispatch(setReservationDetailState(false))
+            this.props.dispatch(setPaintClose());
             this.props.dispatch(setReservationDetailState(true))
         }
     }

@@ -3,6 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
+import { setSixhatClose } from "../../actions/Actions"
 
 class SixHatGame extends React.Component {
 	constructor(props) {
@@ -266,7 +267,7 @@ class SixHatGame extends React.Component {
 					}}
 				/>
 
-				<div className="button1" id="exit" />
+				<div className="button1" id="exit" onClick={()=>{this.props.dispatch(setSixhatClose())}}/>
 			</div>
 		);
 	}
