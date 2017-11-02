@@ -3,6 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SixHatGame from "./SixHatGame";
+import Fullscreen from 'react-full-screen';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -203,6 +204,9 @@ class MainScreen extends React.Component {
         if (this.state.focusingOnWhichUser.url == this.props.localVideoURL) {
             let id = this.props.isLocalShareScreen ? 'stream-shareScreen' : 'stream-video'
             bigScreen = this.props.isStreaming ? (
+                this.props.isSixhatOpen? 
+                <Fullscreen>
+                </Fullscreen>:
                 <video
                     className={this.props.isSixhatOpen ? "videoset" : ""}
                     src={this.props.localVideoURL}

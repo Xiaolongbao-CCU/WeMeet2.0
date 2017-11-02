@@ -322,3 +322,10 @@ html,body,.container,#app{
     opacity: 0; 
   }
 }
+
+#stream-shareScreen{
+}
+
+#stream-video{
+  rotateY(180deg);
+}

@@ -2538,6 +2538,10 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
+fscreen@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fscreen/-/fscreen-1.0.2.tgz#c4c51d96d819d75a19d728e0df445f9be9bb984f"
+
 fsevents@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.1.2.tgz#3282b713fb3ad80ede0e9fcf4611b5aa6fc033f4"
@@ -5113,6 +5117,14 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-full-screen@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-full-screen/-/react-full-screen-0.0.2.tgz#ae99eeefd4734b3c92fee2cd438c8293b0649284"
+  dependencies:
+    fscreen "^1.0.1"
+    prop-types "^15.5.10"
+    react "^15.6.1"
+
 react-hot-loader@next:
   version "3.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.7.tgz#d5847b8165d731c4d5b30d86d5d4716227a0fa83"
@@ -5162,7 +5174,7 @@ react-router@^4.1.1, react-router@^4.1.2:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react@^15.5.4:
+react@^15.5.4, react@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:

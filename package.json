@@ -47,6 +47,7 @@
     "peer": "^0.2.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-full-screen": "^0.0.2",
     "react-hot-loader": "next",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
