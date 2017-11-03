@@ -21,8 +21,9 @@ class MainScreen extends React.Component {
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num || '0'
             },
-            isFullscreenEnabled:false
+            isFullscreenEnabled:false,
         };
+        this.mirroredVideo = 'rotateY(180deg)';
     }
 
     componentWillMount() {
@@ -220,6 +221,7 @@ class MainScreen extends React.Component {
                     >
                         <video
                                 className={this.props.isSixhatOpen ? "videoset" : ""}
+                                onClick={() => this.setState({isFullscreenEnabled: true})}
                                 src={this.props.localVideoURL}
                                 autoPlay={true}
                                 muted={true}
@@ -272,6 +274,7 @@ class MainScreen extends React.Component {
                                 >
                                     <video
                                         className={this.props.isSixhatOpen ? "videoset" : ""}
+                                        onClick={() => this.setState({isFullscreenEnabled: true})}
                                         src={
                                             this.props.remoteStreamURL[
                                                 this.state.focusingOnWhichUser.id
@@ -313,9 +316,6 @@ class MainScreen extends React.Component {
                 {this.props.isSixhatOpen ? <SixHatGame focusingOnWhichUser={this.state.focusingOnWhichUser}/> : null}
                 <div className="main-video">{bigScreen}</div>
                 <div className="other-video">{video}</div>
-                <button onClick={() => this.setState({isFullscreenEnabled: true})}>
-                      Go Fullscreen
-                </button>
             </div>
         );
     }
