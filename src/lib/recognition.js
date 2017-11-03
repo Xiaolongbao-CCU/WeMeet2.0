@@ -107,6 +107,7 @@ let Recognition = {
 
             //自定義時間格式:Hour-Minute
             let tempTime =
+                (time.getHours() < 1 ? "0" : "") +
                 time.getHours() +
                 ":" +
                 (time.getMinutes() < 10 ? "0" : "") +
