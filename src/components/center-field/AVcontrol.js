@@ -30,7 +30,7 @@ class AVcontrol extends React.Component {
         // this.onClick_ShowConfirm = this.onClick_ShowConfirm.bind(this);
     }
 
-    componentWillMount() {}
+    componentWillMount() { }
 
     componentDidMount() {
         // window.screenSharingObject = new Screen(this.props.localUserID);; // argument is optional
@@ -67,6 +67,9 @@ class AVcontrol extends React.Component {
     }
 
     onClick_startShare() {
+        this.setState({
+            isShareScreenStart: !this.state.isShareScreenStart
+        });
         let thisComponent = this;
         if (window.shareScreen && Object.keys(window.shareScreen).length > 0) {
             //可以直接撥打
@@ -83,20 +86,20 @@ class AVcontrol extends React.Component {
                 optional: []
             };
 
-            getScreenId(function(error, sourceId, screen_constraints) {
+            getScreenId(function (error, sourceId, screen_constraints) {
                 navigator.getUserMedia =
                     navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
                 navigator.getUserMedia(
                     screen_constraints,
-                    function(stream) {
+                    function (stream) {
                         window.shareScreenStream = stream
                         window.shareScreenStream.oninactive = () => {
                             socket.emit('closeShareScreen')
-                            gotLocalVideo(URL.createObjectURL(window.localStream),false)
+                            gotLocalVideo(URL.createObjectURL(window.localStream), false)
                         }
                         console.log("收到stream了", stream);
                         thisComponent.props.dispatch(
-                            gotLocalVideo(URL.createObjectURL(stream),true)
+                            gotLocalVideo(URL.createObjectURL(stream), true)
                         );
                         //開始撥打
                         //window.Peer.destroy()
@@ -128,7 +131,7 @@ class AVcontrol extends React.Component {
                         });
                         socket.emit("shareScreenInvoke", UUID);
                     },
-                    function(error) {
+                    function (error) {
                         console.error("getScreenId error", error);
                         // alert(
                         //     "Failed to capture your screen. Please check Chrome console logs for further information."
@@ -137,9 +140,6 @@ class AVcontrol extends React.Component {
                 );
             });
         }
-        // this.setState({
-        //     isShareScreenStart: !this.state.isShareScreenStart
-        // });
     }
 
     render() {

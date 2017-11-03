@@ -56,7 +56,6 @@ import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
 import GridGame from "./center-field/GridGame";
 import Painting from "./center-field/Painting";
-import ShareScreen from "./center-field/ShareScreen";
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -103,7 +102,7 @@ let configuration = {
     ]
 };
 
-document.ondblclick = function() {
+document.ondblclick = function () {
     return false;
 };
 class Meeting extends React.Component {
@@ -326,7 +325,7 @@ class Meeting extends React.Component {
                                 addRemoteStreamURL({
                                     remotePeer: participantID,
                                     url: url,
-                                    isShareScreen:true
+                                    isShareScreen: true
                                 })
                             );
                         });
@@ -494,13 +493,13 @@ class Meeting extends React.Component {
                     {this.props.isInChatNow ? (
                         <Chatroom />
                     ) : (
-                        <VoiceRecognition Recognizer={this.Recognizer} />
-                    )}
+                            <VoiceRecognition Recognizer={this.Recognizer} />
+                        )}
                     {this.props.isInChatNow ? (
                         <ChatInput Chat={this.Chat} />
                     ) : (
-                        <VoiceResult Recognizer={this.Recognizer} />
-                    )}
+                            <VoiceResult Recognizer={this.Recognizer} />
+                        )}
                 </div>
                 <div className="center-field">
                     <Toolbar Recognizer={this.Recognizer} />
@@ -511,8 +510,8 @@ class Meeting extends React.Component {
                             <MainScreen />
                         </div>
                     ) : (
-                        <MainScreen />
-                    )}
+                            <MainScreen />
+                        )}
 
                     <AVcontrol Chat={this.Chat} Meeting={this} />
                 </div>
