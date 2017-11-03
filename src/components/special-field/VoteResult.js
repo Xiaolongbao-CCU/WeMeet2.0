@@ -58,11 +58,18 @@ class VoteResult extends React.Component {
     }
 
     render() {
-        let option = []
+        let option = [];
         this.state.winner.map((winnerKey) => {
             Object.keys(this.props.votingOption).map((optionKey) => {
                 if (optionKey == winnerKey) {
-                    option.push(`${this.props.votingOption[optionKey]} 票數：${this.props.result[optionKey].sum}`)
+                    option.push(
+                        <p className="result-ptag">
+                            {this.props.votingOption[optionKey]}
+                            <br />
+                            票數：{this.props.result[optionKey].sum}票
+                            <br />
+                        </p>
+                    )
                 }
             })
         })
@@ -82,7 +89,7 @@ class VoteResult extends React.Component {
                     </div>
                     <img className="animal" src="./img/voteimage.png" />
                     <div className="resulttext">
-                        {option.join('\n')}
+                        {option}
                         <br />
                     </div>
                     <div className="wintext">獲勝！</div>

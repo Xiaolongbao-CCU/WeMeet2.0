@@ -474,9 +474,6 @@
 }
 
 .resulttext{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   font-size: 2.5em;
   color: white;
@@ -487,6 +484,10 @@
   height: 25%;
   font-weight: bold;
   line-height: 110%;
+}
+
+.result-ptag{
+  width:100%;
 }
 
 .wintext{

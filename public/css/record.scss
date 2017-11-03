@@ -97,6 +97,10 @@
   animation: up 130s infinite;
 }
 
+.second-order{
+  font-size: 0.9em;
+}
+
 
 .ballon.type4{
   width:1.5%;
@@ -137,25 +141,119 @@
   line-height: 178%;
   border-radius: 40px;
   color: white;
+  margin-right: 7.8%;
 }
 
 .old-data{
   box-sizing: border-box;
-  padding: 1.5%;
+  padding: 1%;
   position: absolute;
+  top:0%;
   left: 0%;
-  top: 2.5%;
   width: 50%;
-  height: 95%;
-  overflow-y: scroll;
+  height: 100%;
+  font-size: 1.4em;
+  border-right: solid 1.5px rgba(0,0,0,.7);
 }
 
 .new-data{
   box-sizing: border-box;
-  padding: 0.5%;
+  padding: 1%;
+  top:0%;
   position: absolute;
   left: 50%;
-  top: 0%;
   width: 50%;
   height: 100%;
+  font-size: 1.4em;
+}
+
+.meetingrecord-table{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.meetingrecord-table li{
+  list-style: none;
+  margin-top: 2%;
+}
+
+.meetingrecord-table tr{
+  width: 100%;
+  height: 5%;
+}
+
+.meetingrecord-title{
+  width: 30%;
+  background-color: #f8d7cd;
+  vertical-align: middle;
+  text-align: center;
+  border: solid 2px #fcece8;
+  font-weight: bold;
+}
+
+#higher{
+  height: 20%;
+}
+
+.meetingrecord-tbody{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#record-detail{
+  height: 30%;
+}
+
+.meetingrecord-content{
+  width: 70%;
+  background-color: #fcece8;
+  vertical-align: middle;
+  box-sizing: border-box;
+  padding: 1% 4%;
+  border: solid 2px #fcece8;
+  font-size: 0.9em;
+  &:hover{
+    background-color: darken(#fcece8,5%);
+  }
+}
+.meetingrecord-textarea{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  overflow: scroll;
+  font-size: 1em;
+  &:focus,&:hover{
+    background-color: darken(#fcece8,7%);
+    transition: 0.5s;
+  }
+}
+#darken{
+  background-color: darken(#fcece8,3%);
+}
+#darken1{
+  background-color: darken(#f8d7cd,5%);
+}
+
+.edit{
+  float: left;
+  width: 15%;
+  height: 37%;
+  margin-top: 4%;
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: bold;
+  line-height: 155%;
+}
+
+.edit.left{
+  background: linear-gradient(to left, rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,1),rgba(255,238,69,0));
+  
+}
+
+.edit.right{
+  background: linear-gradient(to right, rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,1),rgba(135,211,202,0));  
 }

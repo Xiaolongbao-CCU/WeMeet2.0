@@ -9,7 +9,6 @@ let Recognition = {
         //模組物件
         let recognizer = {};
         //模組接口的需求:Select選單物件、中途判定之文字輸出口、最終結果文字輸出口
-
         let isRecognizing = false;
         let shouldStop = false;
         let changeLanguage = false;
@@ -23,7 +22,7 @@ let Recognition = {
         //************預設中文
         recognition.lang = "cmn-Hant-TW";
         //************直接開始
-        //recognition.start();
+        recognition.start();
 
 
         recognizer.setLanguage = language => {
@@ -35,7 +34,7 @@ let Recognition = {
 
         recognizer.stop = language => {
             shouldStop = true
-            recognition.stop();   
+            recognition.stop();
         };
 
         recognition.onstart = () => {
@@ -81,7 +80,7 @@ let Recognition = {
                 console.log("recognition Start again");
                 recognition.start();
             }
-            if(changeLanguage){
+            if (changeLanguage) {
                 recognition.lang = targetLanguage;
                 changeLanguage = false;
                 targetLanguage = "cmn-Hant-TW"
@@ -115,7 +114,7 @@ let Recognition = {
 
             for (let i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    Assistant.useAssistant(event.results[i][0].transcript,Meeting,Meeting.closeAll);
+                    Assistant.useAssistant(event.results[i][0].transcript, Meeting, Meeting.closeAll);
                     Meeting.props.dispatch(
                         addRecognitionRecord({
                             sendTime: tempTime,
