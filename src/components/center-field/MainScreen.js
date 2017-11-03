@@ -20,7 +20,8 @@ class MainScreen extends React.Component {
                 id: this.props.localUserID,
                 url: this.props.localVideoURL,
                 animalNumber: this.props.participantList[0].num || '0'
-            }
+            },
+            isFullscreenEnabled:false
         };
     }
 
@@ -205,15 +206,27 @@ class MainScreen extends React.Component {
             let id = this.props.isLocalShareScreen ? 'stream-shareScreen' : 'stream-video'
             bigScreen = this.props.isStreaming ? (
                 this.props.isSixhatOpen? 
-                <Fullscreen>
-                </Fullscreen>:
-                <video
+                (<video
                     className={this.props.isSixhatOpen ? "videoset" : ""}
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
                     id={id}
-                />
+                />)
+                :(
+                    <Fullscreen
+                        enabled={this.state.isFullscreenEnabled}
+                        onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}
+                    >
+                        <video
+                                className={this.props.isSixhatOpen ? "videoset" : ""}
+                                src={this.props.localVideoURL}
+                                autoPlay={true}
+                                muted={true}
+                                id={id}
+                        />
+                    </Fullscreen>
+                )
             ) : (
                 <img
                     className="videoset"
@@ -240,7 +253,8 @@ class MainScreen extends React.Component {
                                         this.state.focusingOnWhichUser.id
                                     ].isShareScreen? 'stream-shareScreen' : 'stream-video'
                         bigScreen = (
-                            <video
+                            this.props.isSixhatOpen?(
+                                <video
                                 className={this.props.isSixhatOpen ? "videoset" : ""}
                                 src={
                                     this.props.remoteStreamURL[
@@ -251,6 +265,24 @@ class MainScreen extends React.Component {
                                 muted={true}
                                 id={id}
                                 />
+                            ):(
+                                <Fullscreen
+                                    enabled={this.state.isFullscreenEnabled}
+                                    onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}
+                                >
+                                    <video
+                                        className={this.props.isSixhatOpen ? "videoset" : ""}
+                                        src={
+                                            this.props.remoteStreamURL[
+                                                this.state.focusingOnWhichUser.id
+                                            ].url
+                                        }
+                                        autoPlay={true}
+                                        muted={true}
+                                        id={id}
+                                        />
+                                </Fullscreen>
+                            )
                         );
                     } else {
                         bigScreen = (
@@ -281,6 +313,9 @@ class MainScreen extends React.Component {
                 {this.props.isSixhatOpen ? <SixHatGame focusingOnWhichUser={this.state.focusingOnWhichUser}/> : null}
                 <div className="main-video">{bigScreen}</div>
                 <div className="other-video">{video}</div>
+                <button onClick={() => this.setState({isFullscreenEnabled: true})}>
+                      Go Fullscreen
+                </button>
             </div>
         );
     }
