@@ -67,9 +67,7 @@ class AVcontrol extends React.Component {
     }
 
     onClick_startShare() {
-        this.setState({
-            isShareScreenStart: !this.state.isShareScreenStart
-        });
+
         let thisComponent = this;
         if (window.shareScreen && Object.keys(window.shareScreen).length > 0) {
             //可以直接撥打
@@ -84,13 +82,12 @@ class AVcontrol extends React.Component {
                 },
                 optional: []
             };
-
             getScreenId(function (error, sourceId, screen_constraints) {
                 navigator.getUserMedia =
                     navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
                 navigator.getUserMedia(
                     screen_constraints,
-                    function(stream) {
+                    function (stream) {
                         window.shareScreenStream = stream;
                         window.shareScreenStream.oninactive = () => {
                             socket.emit("closeShareScreen");
@@ -118,7 +115,7 @@ class AVcontrol extends React.Component {
                                 port: 443,
                                 path: "/peerjs",
                                 config:
-                                    thisComponent.props.Meeting.configuration
+                                thisComponent.props.Meeting.configuration
                             }
                         );
                         window.sharePeer = peer;

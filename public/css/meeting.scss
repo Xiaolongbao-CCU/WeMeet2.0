@@ -327,5 +327,5 @@ html,body,.container,#app{
 }
 
 #stream-video{
-  rotateY(180deg);
+  transform:rotateY(180deg);
 }
