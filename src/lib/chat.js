@@ -21,6 +21,7 @@ let Chat = {
         //取得使用者端的影像
         Chat.getUserMedia = () => {
             return new Promise((resolve, reject) => {
+                navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
                 navigator.mediaDevices
                     .getUserMedia({
                         video: {

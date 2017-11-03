@@ -33,7 +33,9 @@ import {
     setReceiveData,
     delParticipantConnection,
     delRemoteStreamURL,
-    delRemoteUserName
+    delRemoteUserName,
+    setGridStart,
+    setGridOpen
 } from "./actions/Actions";
 
 let io = socketIO();
@@ -129,11 +131,29 @@ socket
         store.dispatch(setGrid(obj));
     })
     .on("setGridStart", () => {
+        if(store.isGridDetailOpen){
+            store.dispatch(setGridDetailClose()); 
+        }
+        if(store.isBrainstormingOpen){
+            store.dispatch(setBrainStormingState(false))
+        }
+        if(store.isSixhatDetailOpen){
+            store.dispatch(setSixhatDetailClose()); 
+        }
+        if(store.isRerservationDetailOpen){
+            store.dispatch(setReservationDetailState(false))
+        }
+        if(store.isPaintOpen){
+            store.dispatch(setPaintClose());
+        }
+        if(store.isVotingDetailOpen){
+            store.dispatch(setVotingDetailState(false))
+        }
         store.dispatch(setGridStart());
+        store.dispatch(setGridOpen());
     });
 
 socket.on("setSixhatList", (obj) => {
-    console.log('QQQQ')
     store.dispatch(setSixhatList(obj));
 });
 

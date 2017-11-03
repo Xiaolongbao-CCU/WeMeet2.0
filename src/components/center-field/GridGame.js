@@ -2,7 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { setGrid,setGridClose } from "../../actions/Actions";
+import { setGrid, setGridClose } from "../../actions/Actions";
 import socket from "../../socket";
 import { downloadCSV } from "../../lib/downloadCSV";
 
@@ -133,26 +133,10 @@ class GridGame extends React.Component {
         if (a == 4 && b == 1 && c == 1) {
             todo([4, 1, 1], e.target.value);
         }
- 
-        if(a !== 4 && !(b == 1 && c== 1)){
+
+        if (a !== 4 && !(b == 1 && c == 1)) {
             todo([a, b, c], e.target.value);
         }
-        
-        // this.setState({
-        //     grid:[
-        //         ...this.state.grid.slice(0,a),
-        //         [
-        //             ...this.state.grid[a].slice(0,b),
-        //             [
-        //                 ...this.state.grid[a][b].slice(0,c),
-        //                 e.target.value,
-        //                 ...this.state.grid[a][b].slice(c+1)
-        //             ],
-        //             ...this.state.grid[a].slice(b+1)
-        //         ],
-        //         ...this.state.grid.slice(a+1)
-        //     ]
-        // })
     }
 
     onClick_ChangeSize() {
@@ -168,12 +152,14 @@ class GridGame extends React.Component {
                 value: ""
             })
         );
+        socket.emit("setGrid", {
+            position: "all",
+            value: ""
+        });
     }
 
-    onClick_closeGrid(){
-        this.props.dispatch(
-            setGridClose()
-        )
+    onClick_closeGrid() {
+        this.props.dispatch(setGridClose());
     }
 
     render() {
@@ -266,11 +252,11 @@ class GridGame extends React.Component {
                     >
                         下載
                     </div>
-                    <div 
-                        className="button2" 
+                    <div
+                        className="button2"
                         id="shutdown"
-                        onClick={()=>{
-                            this.onClick_closeGrid()
+                        onClick={() => {
+                            this.onClick_closeGrid();
                         }}
                     >
                         結束

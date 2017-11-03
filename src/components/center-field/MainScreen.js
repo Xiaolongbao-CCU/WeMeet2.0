@@ -21,7 +21,6 @@ class MainScreen extends React.Component {
                 animalNumber: this.props.participantList[0].num || '0'
             }
         };
-        this.mirroredVideo = "rotateY(180deg)";
     }
 
     componentWillMount() {
@@ -202,17 +201,18 @@ class MainScreen extends React.Component {
         }
         let bigScreen;
         if (this.state.focusingOnWhichUser.url == this.props.localVideoURL) {
+            let id = this.props.isLocalShareScreen ? 'stream-shareScreen' : 'stream-video'
             bigScreen = this.props.isStreaming ? (
                 <video
                     className={this.props.isSixhatOpen ? "videoset" : ""}
                     src={this.props.localVideoURL}
                     autoPlay={true}
                     muted={true}
-                    style={{ transform: this.mirroredVideo }}
+                    id={id}
                 />
             ) : (
                 <img
-                    className="user-image"
+                    className="videoset"
                     src={
                         "./img/animal" +
                         this.props.participantList[0].num +
@@ -232,6 +232,9 @@ class MainScreen extends React.Component {
                             this.state.focusingOnWhichUser.id
                         ].isStreaming
                     ) {
+                        let id = this.props.remoteStreamURL[
+                                        this.state.focusingOnWhichUser.id
+                                    ].isShareScreen? 'stream-shareScreen' : 'stream-video'
                         bigScreen = (
                             <video
                                 className={this.props.isSixhatOpen ? "videoset" : ""}
@@ -242,13 +245,13 @@ class MainScreen extends React.Component {
                                 }
                                 autoPlay={true}
                                 muted={true}
-                                style={{ transform: this.mirroredVideo }}
-                            />
+                                id={id}
+                                />
                         );
                     } else {
                         bigScreen = (
                             <img
-                                className="user-image"
+                                className="videoset"
                                 src={
                                     "./img/animal" +
                                     this.state.focusingOnWhichUser
@@ -290,7 +293,8 @@ const mapStateToProps = state => {
         localVideoURL: state.connection.localVideoURL,
         remoteStreamURL: state.connection.remoteStreamURL,
         remoteUserName: state.connection.remoteUserName,
-        isSixhatOpen: state.sixhat.isSixhatOpen
+        isSixhatOpen: state.sixhat.isSixhatOpen,
+        isLocalShareScreen: state.connection.isLocalShareScreen
     };
 };
 

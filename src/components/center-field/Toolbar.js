@@ -63,9 +63,6 @@ class Toolbar extends React.Component {
         if(this.props.isRerservationDetailOpen){
             this.props.dispatch(setReservationDetailState(false))
         }
-        if(this.props.isPaintOpen){
-            this.props.dispatch(setPaintClose());
-        }
         if(this.props.isVotingDetailOpen){
             this.props.dispatch(setVotingDetailState(false))
         }
@@ -123,7 +120,6 @@ class Toolbar extends React.Component {
         if (this.props.isPaintOpen) {
             this.props.dispatch(setPaintClose());
         } else {
-            this.closeAll()
             this.props.dispatch(setPaintOpen());
         }
     }

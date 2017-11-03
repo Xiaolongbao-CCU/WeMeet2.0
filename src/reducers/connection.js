@@ -11,7 +11,8 @@ const initialState = {
     connections: {}, //存放連線中的人的socket.id
     remoteStreamURL: {}, //存放連線中的人的stream
     remoteUserName: {},
-    candidateQueue: {}
+    candidateQueue: {},
+    isLocalShareScreen:false
 };
 
 export default function connection(state = initialState, action) {
@@ -46,7 +47,10 @@ export default function connection(state = initialState, action) {
         case "setLocalUserID":
             return Object.assign({}, state, { localUserID: action.data });
         case "gotLocalVideo":
-            return Object.assign({}, state, { localVideoURL: action.data });
+            return Object.assign({}, state, { 
+                localVideoURL: action.data,
+                isLocalShareScreen: action.isShareScreen || false
+            });
         
         case "turnOnUserAudio":
             return Object.assign({}, state, { isSounding: true });
@@ -106,7 +110,8 @@ export default function connection(state = initialState, action) {
                     ...state.remoteStreamURL,
                     [action.data.remotePeer]: {
                         ...state.remoteStreamURL[action.data.remotePeer],
-                        url: action.data.url
+                        url: action.data.url,
+                        isShareScreen: action.data.isShareScreen || false
                     }
                 }
             };
@@ -136,16 +141,23 @@ export default function connection(state = initialState, action) {
             };
 
         case "delRemoteStreamURL":
-            return Object.assign({}, state, {
-                remoteStreamURL: Object.keys(
-                    state.remoteStreamURL
-                ).reduce((result, key) => {
-                    if (key !== action.data) {
-                        result[key] = state.remoteStreamURL[key];
-                    }
-                    return result;
-                }, {})
-            });
+            if(action.data == 1){
+                return {
+                    ...state,
+                    'remoteStreamURL' : {}
+                }
+            } else {
+                return Object.assign({}, state, {
+                    remoteStreamURL: Object.keys(
+                        state.remoteStreamURL
+                    ).reduce((result, key) => {
+                        if (key !== action.data) {
+                            result[key] = state.remoteStreamURL[key];
+                        }
+                        return result;
+                    }, {})
+                });
+            }  
         default:
             return state;
     }
