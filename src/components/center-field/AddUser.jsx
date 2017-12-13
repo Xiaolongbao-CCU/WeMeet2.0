@@ -1,13 +1,11 @@
-"use strict";
-
-import React from "react";
+import React from 'react';
 
 class AddUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      URL: window.location.href
-    }
+      URL: window.location.href,
+    };
   }
 
   componentWillMount() {
@@ -29,7 +27,7 @@ class AddUser extends React.Component {
     return (
       <div className="adduser">
         會議網址<br />已複製到剪貼簿！
-        <input id="roomURL" value={this.state.URL}></input>
+        <input id="roomURL" value={this.state.URL} />
       </div>
     );
   }

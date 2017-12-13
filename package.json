@@ -1,18 +1,15 @@
 {
-  "name": "Wemeet",
+  "name": "wemeet2.0",
   "description": "Online Meeting System",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Xiaolongbao-CCU/WeMeet2.0/"
   },
-  "main": "server.js",
+  "main": "main.jsx",
   "scripts": {
-    "start": "yarn watch &&yarn server",
     "watch": "webpack -w --config webpack.prod.config.js",
-    "build": "webpack -p --config webpack.prod.config.js",
-    "server": "node server.js",
-    "dev": "webpack-dev-server --config webpack.dev.config.js"
+    "build": "webpack -p --config webpack.prod.config.js"
   },
   "dependencies": {
     "babel": "^5.6.23",
@@ -27,8 +24,10 @@
     "bower": "^1.4.1",
     "css-loader": "^0.28.1",
     "detectrtc": "^1.3.5",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb": "^16.1.0",
     "express": "^4.13.1",
-    "extract-text-webpack-plugin": "^2.1.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.11.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
@@ -44,6 +43,7 @@
     "lodash": "^4.17.4",
     "mongoose": "^4.9.7",
     "mongoose-unique-validator": "^1.0.5",
+    "node-sass": "^4.7.2",
     "peer": "^0.2.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -53,7 +53,9 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "redux": "^3.6.0",
+    "sass-loader": "^6.0.6",
     "socket.io": "^1.3.6",
+    "socket.io-client": "^2.0.4",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "vinyl-source-stream": "^1.1.0",
@@ -61,5 +63,12 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.4.5"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "webpack": "^3.8.1"
+  }
 }
