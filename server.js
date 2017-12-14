@@ -9,29 +9,29 @@ const fs = require('fs');
 
 // HTTPS參數;
 const option = {
-  key: fs.readFileSync('./public/certificate/privatekey.pem'),
-  cert: fs.readFileSync('./public/certificate/certificate.pem'),
+	key: fs.readFileSync('./public/certificate/privatekey.pem'),
+	cert: fs.readFileSync('./public/certificate/certificate.pem'),
 };
 
 // 對https Server內傳入express的處理
 const server = require('http').createServer(app);
 
 app.use(bodyParser.urlencoded({
-  type: 'image/*',
-  extended: false,
-  limit: '50mb',
+	type: 'image/*',
+	extended: false,
+	limit: '50mb',
 }));
 
 app.use(bodyParser.json({
-  type: 'application/*',
-  limit: '50mb',
+	type: 'application/*',
+	limit: '50mb',
 }));
 app.use(bodyParser.text({
-  type: 'text/plain',
+	type: 'text/plain',
 }));
 
 const peerServerOption = {
-  debug: false,
+	debug: false,
 };
 app.use('/peerjs', ExpressPeerServer(server, peerServerOption));
 
@@ -43,293 +43,293 @@ const roomList = [];
 const userInRoom = {};
 const votingCounter = {};
 const animalName = {
-  1: '貓貓',
-  2: '狗狗',
-  3: '猩猩',
-  4: '獅子',
-  5: '無尾熊',
-  6: '兔兔',
-  7: '老虎',
-  8: '狐狸',
+	1: '貓貓',
+	2: '狗狗',
+	3: '猩猩',
+	4: '獅子',
+	5: '無尾熊',
+	6: '兔兔',
+	7: '老虎',
+	8: '狐狸',
 };
 console.log(`${'已啟動伺服器!' +
   'userInRoom: '}${
-  JSON.stringify(userInRoom)
+	JSON.stringify(userInRoom)
 }roomList: ${
-  roomList}`);
+	roomList}`);
 io.on('connection', (socket) => {
-  // console.log("有人連線囉~" + socket.id);
-  socket.emit('setRoomList', roomList);
+	// console.log("有人連線囉~" + socket.id);
+	socket.emit('setRoomList', roomList);
 
-  socket.on('giveMeMySocketId', () => {
-    socket.emit('gotSocketID', socket.id);
-  });
+	socket.on('giveMeMySocketId', () => {
+		socket.emit('gotSocketID', socket.id);
+	});
 
-  // 連線到房間內部
-  // socket.on('IAmAt', (location, room) => {
-  // if (location == "/meeting") {
-  //     if (!userInRoom.hasOwnProperty(room)) {
-  //         socket.emit("joinRoom");
-  //         //console.log("欸沒房啦 先加一波");
-  //     } else if (!userInRoom[room]) {
-  //         socket.emit("joinRoom");
-  //         //console.log("欸有房啦 你進來");
-  //     }
-  // }
-  //   socket.emit('joinRoom');
-  // });
+	// 連線到房間內部
+	// socket.on('IAmAt', (location, room) => {
+	// if (location == "/meeting") {
+	//     if (!userInRoom.hasOwnProperty(room)) {
+	//         socket.emit("joinRoom");
+	//         //console.log("欸沒房啦 先加一波");
+	//     } else if (!userInRoom[room]) {
+	//         socket.emit("joinRoom");
+	//         //console.log("欸有房啦 你進來");
+	//     }
+	// }
+	//   socket.emit('joinRoom');
+	// });
 
-  // socket.on("OpenBrain", function(list) {
-  //     socket.broadcast.emit("OpenBrainForAll", list);
-  // });
+	// socket.on("OpenBrain", function(list) {
+	//     socket.broadcast.emit("OpenBrainForAll", list);
+	// });
 
-  socket
-    .on('join', (room) => {
-      console.log(room);
-      // 將使用者加入房間
-      socket.join(room);
-      console.log(roomList.includes(room));
-      // console.log("有人加入房間囉" + socket.id + "加入了" + room);
-      if (!roomList.includes(room)) {
-        // 將房間加入"房間"列表
-        roomList.push(room);
-        console.log(`沒有這房間，加一波之後${roomList}`);
-        socket.broadcast.emit('setRoomList', roomList);
-        socket.emit('setRoomList', roomList);
-      }
+	socket
+		.on('join', (room) => {
+			console.log(room);
+			// 將使用者加入房間
+			socket.join(room);
+			console.log(roomList.includes(room));
+			// console.log("有人加入房間囉" + socket.id + "加入了" + room);
+			if (!roomList.includes(room)) {
+				// 將房間加入"房間"列表
+				roomList.push(room);
+				console.log(`沒有這房間，加一波之後${roomList}`);
+				socket.broadcast.emit('setRoomList', roomList);
+				socket.emit('setRoomList', roomList);
+			}
 
-      if (!userInRoom[room]) {
-        // 房間不存在，沒有人要通知，就通知新人，然後給牠隨機一種動物
-        const randomNum = Math.floor(Math.random() * 8) + 1; // 1~8
-        const obj = {
-          id: socket.id,
-          animal: animalName[randomNum],
-          num: randomNum,
-        };
-        userInRoom[room] = [obj];
-        socket.emit('setParticipantList', userInRoom[room]);
-      } else if (
-        // 房間存在，有人在裡面，但新人不存在房間裡
-        userInRoom[room]
-      ) {
-        // 而且新人不在房間裡
-        let isInRoom = false;
-        userInRoom[room].forEach((participant) => {
-          if (participant.id === socket.id) {
-            isInRoom = true;
-          }
-        });
-        if (!isInRoom) {
-          // 就把新人加在名單最前面>把名單整份發過去
-          const tempAnimal = Object.assign({}, animalName);
-          // 準備分發動物，刪除房內現有動物
-          userInRoom[room].map((userObject) => {
-            delete tempAnimal[userObject.num];
-            return 0;
-          });
-          // 隨機抽一個
-          const randomNum = Math.floor(Math.random() * Object.keys(tempAnimal).length);
-          // 做成物件
-          const obj = {
-            id: socket.id,
-            animal: tempAnimal[Object.keys(tempAnimal)[randomNum]],
-            num: Object.keys(tempAnimal)[randomNum],
-          };
-          // 把使用者加到最前面，並送出去
-          userInRoom[room].unshift(obj);
-          socket.emit('setParticipantList', userInRoom[room]);
-          // 對房間內的人，發出新人加入的訊息
-          socket.to(room).emit('addParticipantList', obj);
-        }
-      }
-      console.log('跑完了', room, userInRoom[room], roomList);
-    })
-    .on('joinFinish', () => {
-      socket.emit('joinSuccess');
-    })
-    .on('leaveRoom', () => {
-      console.log(`有人離開房間囉~${socket.id}`);
-      const room = Object.keys(socket.rooms)[1];
-      // 如果有這房間
-      if (userInRoom[room] && roomList.includes(room)) {
-        if (
-          Object.keys(userInRoom[room]).length === 1 &&
+			if (!userInRoom[room]) {
+				// 房間不存在，沒有人要通知，就通知新人，然後給牠隨機一種動物
+				const randomNum = Math.floor(Math.random() * 8) + 1; // 1~8
+				const obj = {
+					id: socket.id,
+					animal: animalName[randomNum],
+					num: randomNum,
+				};
+				userInRoom[room] = [obj];
+				socket.emit('setParticipantList', userInRoom[room]);
+			} else if (
+			// 房間存在，有人在裡面，但新人不存在房間裡
+				userInRoom[room]
+			) {
+				// 而且新人不在房間裡
+				let isInRoom = false;
+				userInRoom[room].forEach((participant) => {
+					if (participant.id === socket.id) {
+						isInRoom = true;
+					}
+				});
+				if (!isInRoom) {
+					// 就把新人加在名單最前面>把名單整份發過去
+					const tempAnimal = Object.assign({}, animalName);
+					// 準備分發動物，刪除房內現有動物
+					userInRoom[room].map((userObject) => {
+						delete tempAnimal[userObject.num];
+						return 0;
+					});
+					// 隨機抽一個
+					const randomNum = Math.floor(Math.random() * Object.keys(tempAnimal).length);
+					// 做成物件
+					const obj = {
+						id: socket.id,
+						animal: tempAnimal[Object.keys(tempAnimal)[randomNum]],
+						num: Object.keys(tempAnimal)[randomNum],
+					};
+					// 把使用者加到最前面，並送出去
+					userInRoom[room].unshift(obj);
+					socket.emit('setParticipantList', userInRoom[room]);
+					// 對房間內的人，發出新人加入的訊息
+					socket.to(room).emit('addParticipantList', obj);
+				}
+			}
+			console.log('跑完了', room, userInRoom[room], roomList);
+		})
+		.on('joinFinish', () => {
+			socket.emit('joinSuccess');
+		})
+		.on('leaveRoom', () => {
+			console.log(`有人離開房間囉~${socket.id}`);
+			const room = Object.keys(socket.rooms)[1];
+			// 如果有這房間
+			if (userInRoom[room] && roomList.includes(room)) {
+				if (
+					Object.keys(userInRoom[room]).length === 1 &&
           userInRoom[room][0].id === socket.id
-        ) {
-          // 如果房間裏面只有他，就把房間刪掉
-          socket.emit('delRoom', room);
-          socket.broadcast.emit('delRoom', room);
-          roomList.splice(roomList.indexOf(room), 1);
-          delete userInRoom[room];
-          console.log(`房間已刪除!${room}${JSON.stringify(userInRoom)}`);
-        } else if (Object.keys(userInRoom[room]).length !== 1) {
-          // 房間有超過一人
-          userInRoom[room].forEach((userObj, index) => {
-            if (userObj.id === socket.id) {
-              userInRoom[room].splice(index, 1);
-            }
-          });
-          console.log(userInRoom[room]);
-        }
-        socket.emit('delParticipantList', socket.id);
-        socket.to(room).emit('delParticipantList', socket.id);
-        socket.emit('participantDisconnected', socket.id);
-        socket.to(room).emit('participantDisconnected', socket.id);
-        socket.leave(room);
-      }
-      console.log('離開跑完了', userInRoom[room], roomList);
-    })
-    .on('disconnecting', () => {
-      console.log(`有人斷線囉~${socket.id}`);
-      const room = Object.keys(socket.rooms)[1];
-      if (userInRoom[room]) {
-        if (userInRoom[room].length === 1) {
-          // 如果房間裏面只有他，就把房間刪掉
-          // socket.emit("delRoom", room);
-          socket.broadcast.emit('delRoom', room);
-          roomList.splice(roomList.indexOf(room), 1);
-          delete userInRoom[room];
-          console.log(`房間已刪除!${room}`);
-        } else {
-          // 房間有超過一人
-          userInRoom[room].forEach((userObj, index) => {
-            if (userObj.id === socket.id) {
-              userInRoom[room].splice(index, 1);
-            }
-          });
-          console.log(userInRoom[room]);
-        }
-        socket.emit('delParticipantList', socket.id);
-        socket.to(room).emit('delParticipantList', socket.id);
-        socket.emit('participantDisconnected', socket.id);
-        socket.to(room).emit('participantDisconnected', socket.id);
-      }
-      socket.leave(room);
-      console.log('離開跑完了', userInRoom[room], roomList);
-    });
+				) {
+					// 如果房間裏面只有他，就把房間刪掉
+					socket.emit('delRoom', room);
+					socket.broadcast.emit('delRoom', room);
+					roomList.splice(roomList.indexOf(room), 1);
+					delete userInRoom[room];
+					console.log(`房間已刪除!${room}${JSON.stringify(userInRoom)}`);
+				} else if (Object.keys(userInRoom[room]).length !== 1) {
+					// 房間有超過一人
+					userInRoom[room].forEach((userObj, index) => {
+						if (userObj.id === socket.id) {
+							userInRoom[room].splice(index, 1);
+						}
+					});
+					console.log(userInRoom[room]);
+				}
+				socket.emit('delParticipantList', socket.id);
+				socket.to(room).emit('delParticipantList', socket.id);
+				socket.emit('participantDisconnected', socket.id);
+				socket.to(room).emit('participantDisconnected', socket.id);
+				socket.leave(room);
+			}
+			console.log('離開跑完了', userInRoom[room], roomList);
+		})
+		.on('disconnecting', () => {
+			console.log(`有人斷線囉~${socket.id}`);
+			const room = Object.keys(socket.rooms)[1];
+			if (userInRoom[room]) {
+				if (userInRoom[room].length === 1) {
+					// 如果房間裏面只有他，就把房間刪掉
+					// socket.emit("delRoom", room);
+					socket.broadcast.emit('delRoom', room);
+					roomList.splice(roomList.indexOf(room), 1);
+					delete userInRoom[room];
+					console.log(`房間已刪除!${room}`);
+				} else {
+					// 房間有超過一人
+					userInRoom[room].forEach((userObj, index) => {
+						if (userObj.id === socket.id) {
+							userInRoom[room].splice(index, 1);
+						}
+					});
+					console.log(userInRoom[room]);
+				}
+				socket.emit('delParticipantList', socket.id);
+				socket.to(room).emit('delParticipantList', socket.id);
+				socket.emit('participantDisconnected', socket.id);
+				socket.to(room).emit('participantDisconnected', socket.id);
+			}
+			socket.leave(room);
+			console.log('離開跑完了', userInRoom[room], roomList);
+		});
 
-  socket
-    .on('newParticipantA', (msgSender, room, userName) => {
-      socket.to(room).emit('newParticipantB', msgSender);
-      socket.to(room).emit('setRemoteUserName', {
-        id: msgSender,
-        name: userName,
-      });
-    })
-    .on('chatMessage', (record) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('chatMessage', record);
-    })
-    .on('setRemoteVideoState', (state, remotePeer) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('setRemoteVideoState', state, remotePeer);
-    })
-    .on('setRemoteAudioState', (state, remotePeer) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('setRemoteAudioState', state, remotePeer);
-    })
-    .on('setRemoteUserName', (sender, userName, receiver) => {
-      socket
-        .to(receiver)
-        .emit('setRemoteUserName', { id: sender, name: userName });
-    });
-  socket
-    .on('setAgenda', (list) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('setAgenda', list);
-    })
-    .on('newAgenda', () => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('newAgenda');
-    })
-    .on('deleteAgenda', (key) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('deleteAgenda', key);
-    })
-    .on('updateAgenda', (obj) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('updateAgenda', obj);
-    })
-    .on('doneAgenda', (key) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('doneAgenda', key);
-    });
+	socket
+		.on('newParticipantA', (msgSender, room, userName) => {
+			socket.to(room).emit('newParticipantB', msgSender);
+			socket.to(room).emit('setRemoteUserName', {
+				id: msgSender,
+				name: userName,
+			});
+		})
+		.on('chatMessage', (record) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('chatMessage', record);
+		})
+		.on('setRemoteVideoState', (state, remotePeer) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('setRemoteVideoState', state, remotePeer);
+		})
+		.on('setRemoteAudioState', (state, remotePeer) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('setRemoteAudioState', state, remotePeer);
+		})
+		.on('setRemoteUserName', (sender, userName, receiver) => {
+			socket
+				.to(receiver)
+				.emit('setRemoteUserName', { id: sender, name: userName });
+		});
+	socket
+		.on('setAgenda', (list) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('setAgenda', list);
+		})
+		.on('newAgenda', () => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('newAgenda');
+		})
+		.on('deleteAgenda', (key) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('deleteAgenda', key);
+		})
+		.on('updateAgenda', (obj) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('updateAgenda', obj);
+		})
+		.on('doneAgenda', (key) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('doneAgenda', key);
+		});
 
-  socket
-    .on('createVote', (votingDetail, time) => {
-      const room = Object.keys(socket.rooms)[1];
-      votingCounter[room] = io.sockets.adapter.rooms[room].length;
-      // 發給房內所有人，包含發起投票的人
-      // console.log(votingDetail)
-      io.in(room).emit('gotCreateVote', votingDetail, time);
-    })
-    .on('gotVoteFromUser', (voteContent) => {
-      const room = Object.keys(socket.rooms)[1];
-      votingCounter[room] -= 1;
-      // console.log(room);
-      io.in(room).emit('gotVoteFromServer', voteContent); // 把投票內容告訴房內所有人
-      if (votingCounter[room] === 0) {
-        io.in(room).emit('votingIsFinish');
-      }
-    });
+	socket
+		.on('createVote', (votingDetail, time) => {
+			const room = Object.keys(socket.rooms)[1];
+			votingCounter[room] = io.sockets.adapter.rooms[room].length;
+			// 發給房內所有人，包含發起投票的人
+			// console.log(votingDetail)
+			io.in(room).emit('gotCreateVote', votingDetail, time);
+		})
+		.on('gotVoteFromUser', (voteContent) => {
+			const room = Object.keys(socket.rooms)[1];
+			votingCounter[room] -= 1;
+			// console.log(room);
+			io.in(room).emit('gotVoteFromServer', voteContent); // 把投票內容告訴房內所有人
+			if (votingCounter[room] === 0) {
+				io.in(room).emit('votingIsFinish');
+			}
+		});
 
-  socket.on('recognitionRecord', (_history) => {
-    const room = Object.keys(socket.rooms)[1];
-    // console.log("有結果!")
-    socket.to(room).emit('remoteUserRecognitionRecord', _history);
-  });
+	socket.on('recognitionRecord', (_history) => {
+		const room = Object.keys(socket.rooms)[1];
+		// console.log("有結果!")
+		socket.to(room).emit('remoteUserRecognitionRecord', _history);
+	});
 
-  socket
-    .on('setGrid', (obj) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('setGrid', obj);
-    })
-    .on('setGridStart', () => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('setGridStart');
-    });
-  // 1018 Andy Added 電子白板
-  socket
-    .on('drawing', (data) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('drawing', data);
-    })
-    .on('reset', (key) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('reset', key);
-    });
+	socket
+		.on('setGrid', (obj) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('setGrid', obj);
+		})
+		.on('setGridStart', () => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('setGridStart');
+		});
+	// 1018 Andy Added 電子白板
+	socket
+		.on('drawing', (data) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('drawing', data);
+		})
+		.on('reset', (key) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('reset', key);
+		});
 
-  // 1028 Andy Added 預約開會
-  socket.on('reserveMeeting', (data) => {
-    const room = Object.keys(socket.rooms)[1];
-    socket.to(room).emit('AddReservation', data);
-  });
+	// 1028 Andy Added 預約開會
+	socket.on('reserveMeeting', (data) => {
+		const room = Object.keys(socket.rooms)[1];
+		socket.to(room).emit('AddReservation', data);
+	});
 
-  socket.on('setAllUserRandomHat', (randomNumberArray) => {
-    const room = Object.keys(socket.rooms)[1];
-    const hatList = {};
-    const array = randomNumberArray;
-    userInRoom[room].forEach((participant) => {
-      const hat = array.shift();
-      hatList[participant.id] = hat;
-    });
-    io.in(room).emit('setSixhatList', hatList);
-  });
+	socket.on('setAllUserRandomHat', (randomNumberArray) => {
+		const room = Object.keys(socket.rooms)[1];
+		const hatList = {};
+		const array = randomNumberArray;
+		userInRoom[room].forEach((participant) => {
+			const hat = array.shift();
+			hatList[participant.id] = hat;
+		});
+		io.in(room).emit('setSixhatList', hatList);
+	});
 
-  socket
-    .on('shareScreenInvoke', (uuid) => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('callShareScreenInvoker', socket.id, uuid);
-    })
-    .on('closeShareScreen', () => {
-      const room = Object.keys(socket.rooms)[1];
-      socket.to(room).emit('callCloseShareScreenInvoker', socket.id);
-    });
+	socket
+		.on('shareScreenInvoke', (uuid) => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('callShareScreenInvoker', socket.id, uuid);
+		})
+		.on('closeShareScreen', () => {
+			const room = Object.keys(socket.rooms)[1];
+			socket.to(room).emit('callCloseShareScreenInvoker', socket.id);
+		});
 });
 
 // 沒有定義路徑，則接收到請求就執行這個函數
 app.use(express.static(`${__dirname}/public`));
 
-app.get('*', (req, res) => {
-  res.sendFile(`${__dirname}/public/index.html`);
+app.get('/', (req, res) => {
+	res.sendFile(`${__dirname}/public/index.html`);
 });

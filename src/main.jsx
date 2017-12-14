@@ -11,14 +11,14 @@ import store from './store';
 import MeetingRecord from './components/special-field/MeetingRecord';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Index} />
-        <Route path="/meeting" component={Meeting} />
-        <Route path="/record" component={MeetingRecord} />
-      </Switch>
-    </Router>
-  </Provider>,
-  document.getElementById('app'),
+	<Provider store={store}>
+		<Router>
+			<Switch>
+				<Route exact path="/" component={Index} />
+				<Route path="/meeting" component={Meeting} />
+				<Route path="/record" component={MeetingRecord} />
+			</Switch>
+		</Router>
+	</Provider>,
+	document.getElementById('app'),
 );

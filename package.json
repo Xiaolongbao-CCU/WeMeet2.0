@@ -9,6 +9,7 @@
   "main": "main.jsx",
   "scripts": {
     "watch": "webpack -w --config webpack.prod.config.js",
+    "start": "node server.js",
     "build": "webpack -p --config webpack.prod.config.js"
   },
   "dependencies": {

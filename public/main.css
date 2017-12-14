@@ -1,12 +1,10 @@
 .index {
   width: 100%;
   height: 100%;
-  text-align: center;
-}
+  text-align: center; }
 
 .indexlogo {
-  margin-top: 5%;
-}
+  margin-top: 5%; }
 
 .indexName {
   position: absolute;
@@ -18,8 +16,7 @@
   font-size: 1.5em;
   animation: fadeIn 1s linear;
   animation-delay: 2.2s;
-  animation-fill-mode: both;
-}
+  animation-fill-mode: both; }
 
 .indexMeeting {
   position: absolute;
@@ -31,8 +28,7 @@
   font-size: 1.5em;
   animation: fadeIn 1s linear;
   animation-delay: 2.2s;
-  animation-fill-mode: both;
-}
+  animation-fill-mode: both; }
 
 .indexinput {
   float: left;
@@ -43,13 +39,10 @@
   background-color: rgba(255, 255, 255, 0.15);
   padding-left: 3%;
   box-sizing: border-box;
-  font-family: Microsoft JhengHei;
-}
-
-.indexinput:focus {
-  background-color: rgba(150, 150, 150, 0.3);
-  transition: 0.5s;
-}
+  font-family: Microsoft JhengHei; }
+  .indexinput:focus {
+    background-color: rgba(150, 150, 150, 0.3);
+    transition: 0.5s; }
 
 .addRoom {
   position: absolute;
@@ -57,15 +50,12 @@
   left: 59.5%;
   width: 55px;
   height: 55px;
-  background: transparent url("./img/arrow.png") no-repeat 50% 50%;
+  background: transparent url(/img/arrow.png) no-repeat 50% 50%;
   animation: fadeIn 1s linear;
   animation-delay: 2.2s;
-  animation-fill-mode: both;
-}
-
-.addRoom:hover {
-  cursor: pointer;
-}
+  animation-fill-mode: both; }
+  .addRoom:hover {
+    cursor: pointer; }
 
 .logo-top {
   position: absolute;
@@ -74,8 +64,7 @@
   width: 30%;
   animation: logo_up 1s ease-out;
   animation-delay: 0.5s;
-  animation-fill-mode: both;
-}
+  animation-fill-mode: both; }
 
 .logo-bottom {
   position: absolute;
@@ -84,8 +73,7 @@
   width: 30%;
   animation: logo_down 1s ease-out;
   animation-delay: 0.5s;
-  animation-fill-mode: both;
-}
+  animation-fill-mode: both; }
 
 .logo-text {
   position: absolute;
@@ -94,8 +82,7 @@
   width: 35%;
   animation: fadeInandOut 2.5s linear;
   animation-delay: 1s;
-  animation-fill-mode: both;
-}
+  animation-fill-mode: both; }
 
 .icon-field {
   float: left;
@@ -103,13 +90,8 @@
   margin-top: 3%;
   height: 70%;
   font-size: 1.1em;
-  background-color: rgba(255, 255, 255, 0.6);
-}
+  background-color: rgba(255, 255, 255, 0.6); }
 
 .icon-image {
   width: 55%;
-  margin-top: 20%;
-}
- 
-
- /*# sourceMappingURL= index.css.map */
+  margin-top: 20%; }
