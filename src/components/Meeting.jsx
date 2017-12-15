@@ -50,39 +50,7 @@ import GirdDetail from './special-field/GirdDetail';
 import SixHatDetail from './special-field/SixHatDetail';
 import ReservationResult from './center-field/ReservationResult';
 
-const configuration = {
-	iceServers: [
-		{ urls: 'stun:stun01.sipphone.com' },
-		{ urls: 'stun:stun.ekiga.net' },
-		{ urls: 'stun:stun.fwdnet.net' },
-		{ urls: 'stun:stun.ideasip.com' },
-		{ urls: 'stun:stun.iptel.org' },
-		{ urls: 'stun:stun.rixtelecom.se' },
-		{ urls: 'stun:stun.schlund.de' },
-		{ urls: 'stun:stun.l.google.com:19302' },
-		{ urls: 'stun:stun1.l.google.com:19302' },
-		{ urls: 'stun:stun2.l.google.com:19302' },
-		{ urls: 'stun:stun3.l.google.com:19302' },
-		{ urls: 'stun:stun4.l.google.com:19302' },
-		{ urls: 'stun:stunserver.org' },
-		{ urls: 'stun:stun.softjoys.com' },
-		{ urls: 'stun:stun.voiparound.com' },
-		{ urls: 'stun:stun.voipbuster.com' },
-		{ urls: 'stun:stun.voipstunt.com' },
-		{ urls: 'stun:stun.voxgratia.org' },
-		{ urls: 'stun:stun.xten.com' },
-		{
-			urls: 'turn:140.123.175.95:8888?transport=udp',
-			username: 'weichun0911',
-			credential: 'willy84911',
-		},
-		{
-			urls: 'turn:140.123.175.95:8888?transport=tcp',
-			username: 'weichun0911',
-			credential: 'willy84911',
-		},
-	],
-};
+import { configuration } from './rtcConfig';
 
 document.ondblclick = function () {
 	return false;
@@ -431,27 +399,27 @@ class Meeting extends React.Component {
 		if (loading) {
 			return (
 				<div className="loader">
-		<div className="sk-folding-cube">
-		<div className="sk-cube1 sk-cube" />
+					<div className="sk-folding-cube">
+						<div className="sk-cube1 sk-cube" />
 						<div className="sk-cube2 sk-cube" />
-		<div className="sk-cube4 sk-cube" />
-		<div className="sk-cube3 sk-cube" />
- </div>
+						<div className="sk-cube4 sk-cube" />
+						<div className="sk-cube3 sk-cube" />
+					</div>
 					<Background />
- </div>
+				</div>
 			);
 		}
 
 		return (
 			<div className="container" id="mainPageContainer">
-		{this.props.isVotingFinish && this.props.isAnimateOpen ? (
+				{this.props.isVotingFinish && this.props.isAnimateOpen ? (
 					<VoteResult />
 				) : null}
 				{this.props.isGridDetailOpen ? (
-		<GirdDetail closeAll={this.closeAll} />
+					<GirdDetail closeAll={this.closeAll} />
 				) : null}
 				{this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
-		<div className="left-field">
+				<div className="left-field">
 					<CVcontrol />
 					{this.props.isInChatNow ? (
 						<Chatroom />
@@ -464,14 +432,14 @@ class Meeting extends React.Component {
 						<VoiceResult Recognizer={this.Recognizer} />
 					)}
 				</div>
-		<div className="center-field">
+				<div className="center-field">
 					<Toolbar Recognizer={this.Recognizer} />
 					{this.props.isGridOpen ? <GridGame /> : null}
 					{this.props.isPaintOpen ? <Painting /> : null}
 					{this.props.isGridOpen || this.props.isPaintOpen ? (
 						<div className="display-none">
-		<MainScreen />
- </div>
+							<MainScreen />
+						</div>
 					) : (
 						<MainScreen />
 					)}
@@ -479,13 +447,13 @@ class Meeting extends React.Component {
 					<AVcontrol Chat={this.Chat} Meeting={this} />
 				</div>
 				<div className="right-field">
-		<Agenda />
-		<Vote />
-	</div>
+					<Agenda />
+					<Vote />
+				</div>
 
-		<Background />
+				<Background />
 				{this.props.isReceivedData ? <ReservationResult /> : null}
-	</div>
+			</div>
 		);
 	}
 }

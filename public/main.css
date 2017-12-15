@@ -1,97 +1,86 @@
-.index {
-  width: 100%;
+html, body, .container {
   height: 100%;
-  text-align: center; }
+  background-color: #c1d9e8; }
 
-.indexlogo {
-  margin-top: 5%; }
+.container {
+  display: flex;
+  justify-content: center; }
+  .container .index {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .container .index .logo {
+      width: 300px;
+      position: absolute; }
+    .container .index .inputBox {
+      display: flex;
+      align-items: center; }
+      .container .index .inputBox .input {
+        flex: 1;
+        margin-right: 10px; }
+        .container .index .inputBox .input div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 6px 0 6px 0; }
+          .container .index .inputBox .input div img {
+            height: 28px;
+            margin: 0 6px 0 6px; }
+          .container .index .inputBox .input div input {
+            height: 30px;
+            flex: 1; }
+        .container .index .inputBox .input .indexName img {
+          height: 22px;
+          margin: 0 9px 0 9px; }
+      .container .index .inputBox .addRoom {
+        flex: 1;
+        width: 40px;
+        height: 40px; }
 
-.indexName {
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  60% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes goUp {
+  0% {
+    top: 25%; }
+  100% {
+    top: 10%; } }
+
+@keyframes goDown {
+  0% {
+    top: 50%; }
+  100% {
+    top: 60%; } }
+
+.inputBox {
   position: absolute;
-  top: 1%;
-  left: 39%;
-  width: 20%;
-  height: 9%;
-  margin-top: 16%;
-  font-size: 1.5em;
-  animation: fadeIn 1s linear;
-  animation-delay: 2.2s;
-  animation-fill-mode: both; }
+  top: 39.5%;
+  animation: fadeIn 3s; }
 
-.indexMeeting {
-  position: absolute;
-  top: 10%;
-  left: 39%;
-  width: 20%;
-  height: 9%;
-  margin-top: 16%;
-  font-size: 1.5em;
-  animation: fadeIn 1s linear;
-  animation-delay: 2.2s;
-  animation-fill-mode: both; }
+#logo_top {
+  animation: goUp 1.3s linear;
+  animation-fill-mode: forwards; }
 
-.indexinput {
-  float: left;
-  width: 80%;
-  margin-top: 3%;
-  height: 70%;
-  font-size: 1em;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding-left: 3%;
-  box-sizing: border-box;
-  font-family: Microsoft JhengHei; }
-  .indexinput:focus {
-    background-color: rgba(150, 150, 150, 0.3);
-    transition: 0.5s; }
+#logo_text {
+  top: 36.6%;
+  opacity: 0;
+  animation: fadeInAndOut 2.5s ease-in-out;
+  animation-fill-mode: forwards; }
 
-.addRoom {
-  position: absolute;
-  top: 40%;
-  left: 59.5%;
-  width: 55px;
-  height: 55px;
-  background: transparent url(/img/arrow.png) no-repeat 50% 50%;
-  animation: fadeIn 1s linear;
-  animation-delay: 2.2s;
-  animation-fill-mode: both; }
-  .addRoom:hover {
-    cursor: pointer; }
-
-.logo-top {
-  position: absolute;
-  top: 18%;
-  left: 36%;
-  width: 30%;
-  animation: logo_up 1s ease-out;
-  animation-delay: 0.5s;
-  animation-fill-mode: both; }
-
-.logo-bottom {
-  position: absolute;
-  top: 47%;
-  left: 36%;
-  width: 30%;
-  animation: logo_down 1s ease-out;
-  animation-delay: 0.5s;
-  animation-fill-mode: both; }
-
-.logo-text {
-  position: absolute;
-  top: 30.5%;
-  left: 34%;
-  width: 35%;
-  animation: fadeInandOut 2.5s linear;
-  animation-delay: 1s;
-  animation-fill-mode: both; }
-
-.icon-field {
-  float: left;
-  width: 15%;
-  margin-top: 3%;
-  height: 70%;
-  font-size: 1.1em;
-  background-color: rgba(255, 255, 255, 0.6); }
-
-.icon-image {
-  width: 55%;
-  margin-top: 20%; }
+#logo_bottom {
+  animation: goDown 1.3s linear;
+  animation-fill-mode: forwards; }
