@@ -1,62 +1,58 @@
-"use strict";
-
-import React from "react";
-import { connect } from "react-redux";
-import { changeToAnotherChannel } from "../../actions/Actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { changeToAnotherChannel } from '../../actions/Actions';
 
 class CVcontrol extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onClick_Chatroom = this.onClick_Chatroom.bind(this);
-        this.onClick_VoiceRecognition = this.onClick_VoiceRecognition.bind(this);
-    }
+	constructor(props) {
+		super(props);
+		this.onClick_Chatroom = this.onClick_Chatroom.bind(this);
+		this.onClick_VoiceRecognition = this.onClick_VoiceRecognition.bind(this);
+	}
 
-    componentWillMount() {}
+	componentWillMount() {}
 
-    componentDidMount() {}
+	componentDidMount() {}
 
-    onClick_Chatroom() {
-        if (this.props.isInChatNow) {
-            return;
-        } else {
-            this.props.dispatch(changeToAnotherChannel());
-        }
-    }
+	onClick_Chatroom() {
+		if (this.props.isInChatNow) {
 
-    onClick_VoiceRecognition() {
-        if (this.props.isInChatNow) {
-            this.props.dispatch(changeToAnotherChannel());
-        }
-    }
+		} else {
+			this.props.dispatch(changeToAnotherChannel());
+		}
+	}
 
-    render() {
-        return (
-            <div className="CVcontrol">
-                <div
-                    className="chatroom"
-                    id={this.props.isInChatNow ? "selected" : "no-selected"}
-                    onClick={this.onClick_Chatroom}
-                >
-                    {" "}
-                    聊天室
-                </div>
+	onClick_VoiceRecognition() {
+		if (this.props.isInChatNow) {
+			this.props.dispatch(changeToAnotherChannel());
+		}
+	}
 
-                <div
-                    className="voice-recognition"
-                    id={this.props.isInChatNow ? "no-selected" : "selected"}
-                    onClick={this.onClick_VoiceRecognition}
-                >
-                    {" "}
-                    語音辨識
-                </div>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div className="CVcontrol">
+				<div
+					className="chatroom"
+					id={this.props.isInChatNow ? 'selected' : 'no-selected'}
+					onClick={this.onClick_Chatroom}
+				>
+					{' '}
+					<span>聊天室</span>
+				</div>
+
+				<div
+					className="voice-recognition"
+					id={this.props.isInChatNow ? 'no-selected' : 'selected'}
+					onClick={this.onClick_VoiceRecognition}
+				>
+					{' '}
+					<span>語音辨識</span>
+				</div>
+			</div>
+		);
+	}
 }
 
-const mapStateToProps = state => {
-    return {
-        isInChatNow: state.chatAndRecognition.isInChatNow
-    };
-};
+const mapStateToProps = state => ({
+	isInChatNow: state.chatAndRecognition.isInChatNow,
+});
 export default connect(mapStateToProps)(CVcontrol);

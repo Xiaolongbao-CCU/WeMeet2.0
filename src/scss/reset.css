@@ -55,7 +55,6 @@ table {
 button, input{
 	outline:none;
 	border-style: none;
-	background-color: transparent;
 }
 video{
 	width: 100%;

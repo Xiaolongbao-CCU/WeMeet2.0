@@ -28,8 +28,14 @@ html, body, .container {
             height: 28px;
             margin: 0 6px 0 6px; }
           .container .index .inputBox .input div input {
+            flex: 1;
+            padding: 0 3px 0 3px;
             height: 30px;
-            flex: 1; }
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none; }
+          .container .index .inputBox .input div input:focus {
+            border-color: #2188ff; }
         .container .index .inputBox .input .indexName img {
           height: 22px;
           margin: 0 9px 0 9px; }
@@ -37,6 +43,25 @@ html, body, .container {
         flex: 1;
         width: 40px;
         height: 40px; }
+
+.inputBox {
+  position: absolute;
+  top: 40%;
+  animation: fadeIn 3s; }
+
+#logo_top {
+  animation: goUp 1.3s linear;
+  animation-fill-mode: forwards; }
+
+#logo_text {
+  top: 36.6%;
+  opacity: 0;
+  animation: fadeInAndOut 2.5s ease-in-out;
+  animation-fill-mode: forwards; }
+
+#logo_bottom {
+  animation: goDown 1.3s linear;
+  animation-fill-mode: forwards; }
 
 @keyframes fadeIn {
   0% {
@@ -65,22 +90,182 @@ html, body, .container {
     top: 50%; }
   100% {
     top: 60%; } }
+.laydate-theme-molv .layui-laydate-main {
+  width: 240px; }
 
-.inputBox {
-  position: absolute;
-  top: 39.5%;
-  animation: fadeIn 3s; }
+.layui-laydate-content td,
+.layui-laydate-content th {
+  height: 24px; }
 
-#logo_top {
-  animation: goUp 1.3s linear;
-  animation-fill-mode: forwards; }
+.layui-laydate-content {
+  padding: 7px; }
 
-#logo_text {
-  top: 36.6%;
-  opacity: 0;
-  animation: fadeInAndOut 2.5s ease-in-out;
-  animation-fill-mode: forwards; }
+.layui-laydate-header i {
+  font-size: 10px; }
 
-#logo_bottom {
-  animation: goDown 1.3s linear;
-  animation-fill-mode: forwards; }
+.layui-laydate-header i.laydate-prev-y {
+  left: 5px; }
+
+.layui-laydate-header i.laydate-prev-m {
+  left: 30px; }
+
+.laydate-time-list ol li {
+  line-height: 25px; }
+
+.laydate-time-list p {
+  line-height: 20px; }
+
+.laydate-time-list ol {
+  height: 145px; }
+.container {
+  display: flex;
+  max-width: 100vw;
+  max-height: 100vh; }
+  .container .left-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 20vw;
+    margin: 5px; }
+    .container .left-field .CVcontrol {
+      width: 100%;
+      height: 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background-color: pink;
+      border-radius: 5px; }
+      .container .left-field .CVcontrol div {
+        height: 100%;
+        width: 100%;
+        display: flex; }
+        .container .left-field .CVcontrol div span {
+          margin: auto; }
+    .container .left-field .leftChatBox {
+      height: 80%;
+      width: 100%;
+      overflow-y: scroll; }
+      .container .left-field .leftChatBox div {
+        width: 20px; }
+    .container .left-field .leftInput {
+      width: 100%;
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      position: relative; }
+      .container .left-field .leftInput .inputArea {
+        position: absolute; }
+      .container .left-field .leftInput #mailbox {
+        left: 0;
+        top: -7px;
+        max-width: 75px; }
+      .container .left-field .leftInput #input-text {
+        bottom: 5px;
+        left: 55px;
+        height: 30px;
+        padding: 0px 10px 5px 15px;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        box-shadow: 3px 3px 5px 1px grey; }
+      .container .left-field .leftInput #upload {
+        bottom: 16px;
+        left: 192px;
+        width: 15px; }
+  .container .center-field {
+    flex: 3;
+    margin: 5px;
+    height: 100vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .container .center-field .toolbar {
+      display: flex;
+      align-items: center;
+      margin: 5px;
+      width: 55vw; }
+      .container .center-field .toolbar .voice-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center; }
+        .container .center-field .toolbar .voice-content .recognizeControl {
+          display: flex; }
+          .container .center-field .toolbar .voice-content .recognizeControl .voice-ai {
+            display: flex; }
+          .container .center-field .toolbar .voice-content .recognizeControl .voice-text {
+            flex: 1; }
+      .container .center-field .toolbar .buttonWrapper {
+        flex: 2;
+        display: flex;
+        justify-content: space-around; }
+      .container .center-field .toolbar .left-meetingtime {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center; }
+        .container .center-field .toolbar .left-meetingtime span {
+          flex: 1; }
+        .container .center-field .toolbar .left-meetingtime #timeText {
+          flex: 1; }
+    .container .center-field .main-screen {
+      height: 80vh;
+      flex: 1; }
+      .container .center-field .main-screen .main-video {
+        height: 65vh; }
+      .container .center-field .main-screen .other-video .otherUser {
+        display: flex; }
+        .container .center-field .main-screen .other-video .otherUser video {
+          height: 15vh; }
+        .container .center-field .main-screen .other-video .otherUser .user-info {
+          height: 10vh; }
+          .container .center-field .main-screen .other-video .otherUser .user-info img {
+            display: none; }
+    .container .center-field .av-control {
+      height: 10vh;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30vw; }
+      .container .center-field .av-control .av-button {
+        margin: auto 10px auto 10px;
+        flex: 1;
+        text-align: center; }
+      .container .center-field .av-control .sharescreen {
+        margin: auto 10px auto 10px;
+        flex: 1;
+        text-align: center; }
+  .container .right-field {
+    flex: 1;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px; }
+    .container .right-field .agenda-block {
+      flex: 1;
+      height: 40vh;
+      width: 100%;
+      margin: 5px; }
+      .container .right-field .agenda-block .pictureWrapper {
+        display: flex;
+        position: relative;
+        height: 30vh; }
+        .container .right-field .agenda-block .pictureWrapper img {
+          height: 100px;
+          position: relative; }
+        .container .right-field .agenda-block .pictureWrapper .branch {
+          top: 50px;
+          right: -40px; }
+        .container .right-field .agenda-block .pictureWrapper .eagle {
+          top: 20px;
+          right: 140px; }
+      .container .right-field .agenda-block .flag {
+        display: flex;
+        flex-direction: column;
+        align-items: center; }
+    .container .right-field .vote-block {
+      flex: 1; }

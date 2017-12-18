@@ -30,8 +30,15 @@ html,body,.container{
             margin: 0 6px 0 6px;
           }
           input {
-            height: 30px;
             flex: 1;
+            padding:0 3px 0 3px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+          }
+          input:focus{
+            border-color: #2188ff;
           }
         }
         .indexName {
@@ -48,6 +55,29 @@ html,body,.container{
       }
     }
   }
+}
+
+.inputBox {
+  position: absolute;
+  top:40%;
+  animation: fadeIn 3s;
+}
+
+#logo_top {
+  animation: goUp 1.3s linear;
+  animation-fill-mode: forwards;
+}
+
+#logo_text {
+  top:36.6%;
+  opacity: 0;
+  animation: fadeInAndOut 2.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#logo_bottom {
+  animation: goDown 1.3s linear;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -90,27 +120,4 @@ html,body,.container{
   100% {
     top: 60%;
   }
-}
-
-.inputBox {
-  position: absolute;
-  top:39.5%;
-  animation: fadeIn 3s;
-}
-
-#logo_top {
-  animation: goUp 1.3s linear;
-  animation-fill-mode: forwards;
-}
-
-#logo_text {
-  top:36.6%;
-  opacity: 0;
-  animation: fadeInAndOut 2.5s ease-in-out;
-  animation-fill-mode: forwards;
-}
-
-#logo_bottom {
-  animation: goDown 1.3s linear;
-  animation-fill-mode: forwards;
 }

@@ -330,6 +330,6 @@ io.on('connection', (socket) => {
 // 沒有定義路徑，則接收到請求就執行這個函數
 app.use(express.static(`${__dirname}/public`));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
 	res.sendFile(`${__dirname}/public/index.html`);
 });

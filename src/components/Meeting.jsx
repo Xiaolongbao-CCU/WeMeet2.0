@@ -5,6 +5,9 @@ import chat from '../lib/chat';
 import recognition from '../lib/recognition';
 import socket from '../socket';
 import '../lib/peer';
+import '../scss/laydate.scss';
+import '../scss/meeting.scss';
+import '../scss/reset.css';
 
 // redux-action
 import {
@@ -380,22 +383,7 @@ class Meeting extends React.Component {
 	}
 
 	render() {
-		// switch (this.props.WhatPage) {
-		//   case 'one':
-		//     Content = <ul />;
-		//     break;
-		//   case 'two':
-		//     Content = <ul>{this.sixhat[localHat][1].introduction}</ul>;
-		//     break;
-		//   case 'three':
-		//     const li = this.sixhat[localHat][1].example.map(string => <li>{string}</li>);
-		//     Content = <ul>{li}</ul>;
-		//     break;
-		//   default:
-		//     return null;
-		// }
 		const { loading } = this.state;
-
 		if (loading) {
 			return (
 				<div className="loader">
