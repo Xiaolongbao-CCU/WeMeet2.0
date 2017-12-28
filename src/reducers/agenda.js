@@ -1,49 +1,49 @@
 const agendaList = [
 	{
-		content: "", //單個議程內容
-		isAgendaFinished: false, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
-		createTime:undefined,
-		finishTime:undefined
-	}
+		content: '', // 單個議程內容
+		isAgendaFinished: false, // 議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
+		createTime: undefined,
+		finishTime: undefined,
+	},
 ];
 
 export default function agenda(state = agendaList, action) {
 	switch (action.type) {
-		case "setAgenda":
+		case 'setAgenda':
 			return action.data;
-		case "newAgenda":
+		case 'newAgenda':
 			return [
 				...state,
 				{
-					content: "",
-					isAgendaFinished: false
-				}
+					content: '',
+					isAgendaFinished: false,
+				},
 			];
-		case "deleteAgenda":
+		case 'deleteAgenda':
 			return [
 				...state.slice(0, action.data),
-				...state.slice(action.data + 1)
+				...state.slice(action.data + 1),
 			];
 
-		case "updateAgenda":
+		case 'updateAgenda':
 			return [
 				...state.slice(0, action.data.key),
 				{
 					...state[action.data.key],
 					content: action.data.value,
-					createTime: action.data.time
+					createTime: action.data.time,
 				},
-				...state.slice(action.data.key + 1)
+				...state.slice(action.data.key + 1),
 			];
-		case "doneAgenda":
+		case 'doneAgenda':
 			return [
 				...state.slice(0, action.data),
 				{
 					...state[action.data],
 					isAgendaFinished: !state[action.data].isAgendaFinished,
-					finishTime:action.time
+					finishTime: action.time,
 				},
-				...state.slice(action.data + 1)
+				...state.slice(action.data + 1),
 			];
 		default:
 			return state;

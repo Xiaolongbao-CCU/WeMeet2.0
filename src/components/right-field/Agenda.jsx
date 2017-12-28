@@ -8,6 +8,8 @@ import {
 	updateAgenda,
 	doneAgenda,
 } from '../../actions/Actions';
+import AgendaCheckbox from './AgendaCheckbox';
+import AgendaInput from './AgendaInput';
 import Branch from '../../img/branch.gif';
 import Eagle from '../../img/eagle.png';
 
@@ -47,40 +49,6 @@ class Agenda extends React.Component {
 		socket.emit('newAgenda');
 	}
 
-	onChangeInput(e) {
-		const key = parseInt(e.target.id, 10);
-		// 取得現在時間
-		const date = new Date();
-		// 自定義時間格式:Hour-Minute
-		const formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}:${date.getSeconds()}`;
-
-		this.props.dispatch(updateAgenda({
-			key,
-			value: e.target.value,
-			time: formattedTime,
-		}));
-		socket.emit('updateAgenda', {
-			key,
-			value: e.target.value,
-			time: formattedTime,
-		});
-	}
-
-	onClick_Enter(e) {
-		if (e.keyCode == 13) {
-			e.target.blur();
-		}
-	}
-
-	onClick_toggleAgendaFinish(e) {
-		const key = parseInt(e.target.id, 10);
-		// 取得現在時間
-		const date = new Date();
-		// 自定義時間格式:Hour-Minute
-		const formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}:${date.getSeconds()}`;
-		this.props.dispatch(doneAgenda(key, formattedTime));
-		socket.emit('doneAgenda', key, formattedTime);
-	}
 
 	scrollToBottom() {
 		const node = this.messagesEnd;
@@ -94,61 +62,26 @@ class Agenda extends React.Component {
 				const key = this.props.agendaList.indexOf(item);
 				return (
 					<div className="detail">
-						<div className="checkbox">
-							<img
-								style={
-									this.props.agendaList[key].isAgendaFinished
-										? { animation: 'fadeIn 0.4s' }
-										: {}
-								}
-								className="checked"
-								id={key}
-								onClick={(e) => {
-									if (this.props.agendaList[key].content) {
-										this.onClick_toggleAgendaFinish(e);
-									}
-								}}
-								src={
-									this.props.agendaList[key].isAgendaFinished
-										? './img/tick.png'
-										: './img/null.png'
-								}
+						<div className="checkbox agendaItem">
+							<AgendaCheckbox
+								inputKey={key}
+								isFinished={this.props.agendaList[key].isAgendaFinished}
+								hasContent={this.props.agendaList[key].content}
 							/>
 						</div>
-						<input
-							className="text"
-							style={
-								this.props.agendaList[key].isAgendaFinished
-									? {
-										textDecoration: 'line-through',
-										background: 'transparent',
-									}
-									: {}
-							}
-							ref={`agenda_input${key}`}
-							id={key}
-							value={this.props.agendaList[key].content}
-							onChange={(e) => {
-								this.onChangeInput(e);
-							}}
-							onKeyUp={(e) => {
-								this.onClick_Enter(e);
-							}}
-							maxLength="10"
-							readOnly={
-								this.props.agendaList[key].isAgendaFinished
-									? 'readonly'
-									: ''
-							}
-							placeholder="點此輸入議程內容"
+						<AgendaInput
+							inputKey={key}
+							isFinished={this.props.agendaList[key].isAgendaFinished}
+							hasContent={this.props.agendaList[key].content}
 						/>
 						<div
-							className="delete"
+							className="delete agendaItem"
 							id={key}
 							onClick={(e) => {
 								this.onClick_ToggleDeleteAgenda(e);
 							}}
-						/>
+						>xxxx
+						</div>
 					</div>
 				);
 			});
@@ -164,11 +97,6 @@ class Agenda extends React.Component {
 					<div className="agenda-title">議程</div>
 					<div className="agenda-content">
 						{agendaDetail}
-						<div
-							ref={(el) => {
-								this.messagesEnd = el;
-							}}
-						/>
 					</div>
 					<div
 						className="agenda-add"
