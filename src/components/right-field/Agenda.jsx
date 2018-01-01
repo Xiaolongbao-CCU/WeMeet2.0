@@ -2,11 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import socket from '../../socket';
 import {
-	setAgenda,
 	newAgenda,
 	deleteAgenda,
-	updateAgenda,
-	doneAgenda,
 } from '../../actions/Actions';
 import AgendaCheckbox from './AgendaCheckbox';
 import AgendaInput from './AgendaInput';
@@ -16,12 +13,15 @@ import Eagle from '../../img/eagle.png';
 class Agenda extends React.Component {
 	constructor(props) {
 		super(props);
-		this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(this);
+		this.state = {};
+		this.agendaListCounter = 0;
+		this.onClickToggleDeleteAgenda = this.onClickToggleDeleteAgenda.bind(this);
 	}
 
 	componentWillMount() {}
 
 	componentDidMount() {
+		this.onClickNewAgenda();
 		// this.scrollToBottom();
 	}
 
@@ -29,8 +29,14 @@ class Agenda extends React.Component {
 		// this.scrollToBottom();
 	}
 
-	onClick_ToggleDeleteAgenda(e) {
-		const key = parseInt(e.target.id, 10);
+	onClickToggleDeleteAgenda(e) {
+		const key = Number(e.target.id);
+		this.props.agendaList.forEach((item, index) => {
+			if (item.id === key) {
+				this.props.dispatch(deleteAgenda(index));
+				socket.emit('deleteAgenda', index);
+			}
+		});
 		// this.setState({
 		//     ...this.state,
 		//     agendaList: [
@@ -38,17 +44,14 @@ class Agenda extends React.Component {
 		//         ...this.state.agendaList.slice(key + 1)
 		//     ]
 		// });
-		this.props.dispatch(deleteAgenda(key));
-		socket.emit('deleteAgenda', key);
 	}
 
-	onClick_newAgenda(e) {
-		const key = `agenda_input${this.props.agendaList.length}`;
-
-		this.props.dispatch(newAgenda());
+	onClickNewAgenda() {
+		this.agendaListCounter += 1;
+		const uniqueID = this.agendaListCounter;
+		this.props.dispatch(newAgenda(uniqueID));
 		socket.emit('newAgenda');
 	}
-
 
 	scrollToBottom() {
 		const node = this.messagesEnd;
@@ -58,33 +61,33 @@ class Agenda extends React.Component {
 	render() {
 		let agendaDetail;
 		if (this.props.agendaList.length > 0) {
-			agendaDetail = this.props.agendaList.map((item) => {
-				const key = this.props.agendaList.indexOf(item);
-				return (
-					<div className="detail">
-						<div className="checkbox agendaItem">
-							<AgendaCheckbox
-								inputKey={key}
-								isFinished={this.props.agendaList[key].isAgendaFinished}
-								hasContent={this.props.agendaList[key].content}
-							/>
-						</div>
-						<AgendaInput
-							inputKey={key}
-							isFinished={this.props.agendaList[key].isAgendaFinished}
-							hasContent={this.props.agendaList[key].content}
+			agendaDetail = this.props.agendaList.map(item => (
+				<div className="detail">
+					<div className="checkbox agendaItem">
+						<AgendaCheckbox
+							inputKey={item.id}
+							isFinished={item.isAgendaFinished}
+							hasContent={item.content}
+							agendaList={this.props.agendaList}
 						/>
-						<div
-							className="delete agendaItem"
-							id={key}
-							onClick={(e) => {
-								this.onClick_ToggleDeleteAgenda(e);
-							}}
-						>xxxx
-						</div>
 					</div>
-				);
-			});
+					<AgendaInput
+						inputKey={item.id}
+						isFinished={item.isAgendaFinished}
+						hasContent={item.content}
+						agendaList={this.props.agendaList}
+					/>
+					<div
+						role="button"
+						className="delete agendaItem"
+						id={item.id}
+						onClick={(e) => {
+							this.onClickToggleDeleteAgenda(e);
+						}}
+					>x
+					</div>
+				</div>
+			));
 		}
 
 		return (
@@ -100,12 +103,11 @@ class Agenda extends React.Component {
 					</div>
 					<div
 						className="agenda-add"
-						onClick={(e) => {
-							this.onClick_newAgenda(e);
+						onClick={() => {
+							this.onClickNewAgenda();
 						}}
 					>
-						<div className="cross" />
-						<div className="text" unselectable="on">
+						<div className="text">
                             增加議程
 						</div>
 					</div>

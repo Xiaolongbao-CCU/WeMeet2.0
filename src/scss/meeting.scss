@@ -185,17 +185,28 @@
 				align-items: center;
 				padding:5px;
 				background-color:yellow;
+				.agenda-title{
+					flex:1;
+				}
 				.agenda-content{
 					display: flex;
+					flex:1;
 					flex-direction: column;
 					align-items: center;
 					.agendaItem{
 						margin: 2px;
 					}
 				}
+				.agenda-add{
+					flex:1;
+				}
 				.agenda-content > .detail{
 					display: flex;
 					margin:5px;
+					flex:1;
+					input{
+						width:80%;
+					}
 				}
 				.agenda-content > .detail > .checkbox > input{
 					background-color: #fff;

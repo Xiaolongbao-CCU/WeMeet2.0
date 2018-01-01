@@ -7,13 +7,17 @@ import { doneAgenda } from '../../actions/Actions';
 
 class AgendaCheckbox extends React.Component {
 	onClickToggleAgendaFinish(e) {
-		const key = e.target.id;
+		const key = Number(e.target.id);
 		// 取得現在時間
 		const date = new Date();
 		// 自定義時間格式:Hour-Minute
 		const formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}:${date.getSeconds()}`;
-		this.props.dispatch(doneAgenda(key, formattedTime));
-		socket.emit('doneAgenda', key, formattedTime);
+		this.props.agendaList.forEach((item, index) => {
+			if (item.id === key) {
+				this.props.dispatch(doneAgenda(index, formattedTime));
+				socket.emit('doneAgenda', index, formattedTime);
+			}
+		});
 	}
 
 	render() {

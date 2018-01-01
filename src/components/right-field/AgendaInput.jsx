@@ -9,21 +9,24 @@ class AgendaInput extends React.Component {
 	}
 
 	onChangeInput(e) {
-		const key = e.target.id;
+		const key = Number(e.target.id);
 		// 取得現在時間
 		const date = new Date();
 		// 自定義時間格式:Hour-Minute
 		const formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}:${date.getSeconds()}`;
-
-		this.props.dispatch(updateAgenda({
-			key,
-			value: e.target.value,
-			time: formattedTime,
-		}));
-		socket.emit('updateAgenda', {
-			key,
-			value: e.target.value,
-			time: formattedTime,
+		this.props.agendaList.forEach((item, index) => {
+			if (item.id === key) {
+				this.props.dispatch(updateAgenda({
+					key: index,
+					value: e.target.value,
+					time: formattedTime,
+				}));
+				socket.emit('updateAgenda', {
+					key: index,
+					value: e.target.value,
+					time: formattedTime,
+				});
+			}
 		});
 	}
 
@@ -67,7 +70,6 @@ class AgendaInput extends React.Component {
 				onKeyUp={(e) => {
 					this.onClickEnter(e);
 				}}
-				maxLength="10"
 				readOnly=""
 				placeholder="點此輸入議程內容"
 			/>

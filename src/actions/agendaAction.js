@@ -5,9 +5,10 @@ export function setAgenda(agenda) {
 	};
 }
 
-export function newAgenda() {
+export function newAgenda(id) {
 	return {
 		type: 'newAgenda',
+		data: id,
 	};
 }
 

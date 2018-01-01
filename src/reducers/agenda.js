@@ -1,10 +1,5 @@
 const agendaList = [
-	{
-		content: '', // 單個議程內容
-		isAgendaFinished: false, // 議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
-		createTime: undefined,
-		finishTime: undefined,
-	},
+
 ];
 
 export default function agenda(state = agendaList, action) {
@@ -15,8 +10,11 @@ export default function agenda(state = agendaList, action) {
 			return [
 				...state,
 				{
+					id: action.data,
 					content: '',
 					isAgendaFinished: false,
+					createTime: undefined,
+					finishTime: undefined,
 				},
 			];
 		case 'deleteAgenda':

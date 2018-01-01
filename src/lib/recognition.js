@@ -21,7 +21,7 @@ const Recognition = {
 		//* ***********預設中文
 		recognition.lang = 'cmn-Hant-TW';
 		//* ***********直接開始
-		recognition.start();
+		// recognition.start();
 
 
 		recognizer.setLanguage = (language) => {

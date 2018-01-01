@@ -268,15 +268,23 @@ html, body, .container {
         align-items: center;
         padding: 5px;
         background-color: yellow; }
+        .container .right-field .agenda-block .flag .agenda-title {
+          flex: 1; }
         .container .right-field .agenda-block .flag .agenda-content {
           display: flex;
+          flex: 1;
           flex-direction: column;
           align-items: center; }
           .container .right-field .agenda-block .flag .agenda-content .agendaItem {
             margin: 2px; }
+        .container .right-field .agenda-block .flag .agenda-add {
+          flex: 1; }
         .container .right-field .agenda-block .flag .agenda-content > .detail {
           display: flex;
-          margin: 5px; }
+          margin: 5px;
+          flex: 1; }
+          .container .right-field .agenda-block .flag .agenda-content > .detail input {
+            width: 80%; }
         .container .right-field .agenda-block .flag .agenda-content > .detail > .checkbox > input {
           background-color: #fff;
           width: 20px; }
