@@ -5,16 +5,16 @@ class Chatroom extends React.Component {
 	componentWillMount() { }
 
 	componentDidMount() {
-		this.scrollToBottom();
+		// this.scrollToBottom();
 	}
 
 	componentDidUpdate() {
-		this.scrollToBottom();
+		// this.scrollToBottom();
 	}
 
 	scrollToBottom() {
-		const node = this.messagesEnd;
-		node.scrollIntoView({ behavior: 'smooth' });
+		// const node = this.messagesEnd;
+		// node.scrollIntoView({ behavior: 'smooth' });
 	}
 
 	render() {
@@ -39,7 +39,7 @@ class Chatroom extends React.Component {
 						</div>
 						<div className="dialogbox">{record.text}</div>
 						<div className="time">{record.sendTime}</div>
-                  </div>);
+					</div>);
 				} else if (
 					record.userID &&
                     record.userID !== this.props.localUserID
@@ -69,7 +69,7 @@ class Chatroom extends React.Component {
 						</div>
 						<div className="dialogbox">{record.text}</div>
 						<div className="time">{record.sendTime}</div>
-					</div>);
+                  </div>);
 				}
 			});
 		}
@@ -77,10 +77,6 @@ class Chatroom extends React.Component {
 		return (
 			<div className="leftChatBox">
 				{chatbox}
-				<div
-					style={{ float: 'left', clear: 'both' }}
-					ref={(el) => { this.messagesEnd = el; }}
-				/>
 			</div>
 		);
 	}

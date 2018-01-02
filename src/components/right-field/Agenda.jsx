@@ -107,9 +107,7 @@ class Agenda extends React.Component {
 							this.onClickNewAgenda();
 						}}
 					>
-						<div className="text">
-                            增加議程
-						</div>
+                        增加議程
 					</div>
 				</div>
 			</div>

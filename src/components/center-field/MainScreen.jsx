@@ -3,6 +3,8 @@ import Fullscreen from 'react-full-screen';
 
 import { connect } from 'react-redux';
 import SixHatGame from './SixHatGame';
+import OtherUser from './OtherUser';
+import UserInfo from './UserInfo';
 
 
 class MainScreen extends React.Component {
@@ -10,12 +12,12 @@ class MainScreen extends React.Component {
 		super(props);
 		this.state = {
 			// 使用者資訊，是一個巢狀物件，分別會有first-無限多個子物件
-			UserInfro: {
-				// 第一個使用者
-				first: {
-					userIdentity: 'king', // 使用者身分，要馬是king(會議建立者)，要馬是member(會議成員)
-				},
-			},
+			// UserInfo: {
+			// 	// 第一個使用者
+			// 	first: {
+			// 		userIdentity: 'king', // 使用者身分，要馬是king(會議建立者)，要馬是member(會議成員)
+			// 	},
+			// },
 			focusingOnWhichUser: {
 				id: this.props.localUserID,
 				url: this.props.localVideoURL,
@@ -68,62 +70,14 @@ class MainScreen extends React.Component {
 		const video = [];
 		if (this.props.localVideoURL) {
 			video.push(<div className="otherUser">
-				<div className="video">
-					{this.props.isStreaming ? (
-						<video
-							src={this.props.localVideoURL}
-							autoPlay
-							muted
-							onClick={() => {
-								this.onClickSelfStream();
-							}}
-							style={{ transform: this.mirroredVideo }}
-						/>
-					) : (
-						<img
-							alt="profile"
-							className="img"
-							src={
-								`./img/animal${
-									this.props.participantList[0].num
-								}.jpg`
-							}
-							onClick={() => {
-								this.onClickSelfStream();
-							}}
-						/>
-					)}
-				</div>
-				<div
-					className="user-info"
-					id={this.state.UserInfro.first.userIdentity}
-				>
-					<img
-						alt="userimage"
-						className="user-image"
-						src="./img/user-image.png"
-					/>
-					<label className="user-name">
-						{this.props.userName || this.props.animalName}
-					</label>
-				</div>
-				<img
-					className="user-audio"
-					alt=""
-					src={
-						this.props.isSounding
-							? './img/null.png'
-							: './img/other_audio-off.png'
-					}
+				<OtherUser
+					videoURL={this.props.localVideoURL}
+					isStreaming={this.props.isStreaming}
 				/>
-				<img
-					className="user-video"
-					alt=""
-					src={
-						this.props.isStreaming
-							? './img/null.png'
-							: './img/other_video-off.png'
-					}
+				<UserInfo
+					userName={this.props.userName || this.props.animalName}
+					isStreaming={this.props.isStreaming}
+					isSounding={this.props.isSounding}
 				/>
 			</div>);
 		}
@@ -142,67 +96,11 @@ class MainScreen extends React.Component {
 					}
 				});
 				video.push(<div className="otheruser">
-					<div className="video">
-						{this.props.remoteStreamURL[userID].isStreaming ? (
-							<video
-								src={this.props.remoteStreamURL[userID].url}
-								autoPlay
-								data={userID}
-								onClick={(e) => {
-									this.onClick_otherUserStream(e);
-								}}
-								style={{ transform: this.mirroredVideo }}
-							/>
-						) : (
-							<img
-								className="img"
-								alt=""
-								src={
-									`./img/animal${
-										remoteAnimalNumber
-									}.jpg`
-								}
-								data={userID}
-								onClick={(e) => {
-									this.onClick_otherUserStream(e);
-								}}
-							/>
-						)}
-					</div>
-					<div
-						className="user-infro"
-						id={this.state.UserInfro.first.userIdentity}
-					>
-						<img
-							className="user-image"
-							alt=""
-							src="./img/user-image.png"
-						/>
-						<label className="user-name">
-							{this.props.remoteUserName[userID] &&
-                                this.props.remoteUserName[userID] !== userID
-								? this.props.remoteUserName[userID]
-								: remoteAnimalName}
-						</label>
-					</div>
-					<img
-						className="user-audio"
-						alt=""
-						src={
-							this.props.remoteStreamURL[userID].isSounding
-								? './img/null.png'
-								: './img/other_audio-off.png'
-						}
+					<OtherUser
+						videoURL={this.props.localVideoURL}
+						isStreaming={this.props.isStreaming}
 					/>
-					<img
-						className="user-video"
-						alt=""
-						src={
-							this.props.remoteStreamURL[userID].isStreaming
-								? './img/null.png'
-								: './img/other_video-off.png'
-						}
-					/>
+					<UserInfo />
 				</div>);
 			});
 		}

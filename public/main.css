@@ -128,7 +128,8 @@ html, body, .container {
     align-items: center;
     width: 20vw;
     margin: 5px;
-    box-sizing: content-box; }
+    box-sizing: content-box;
+    justify-content: space-between; }
     .container .left-field .CVcontrol {
       width: 100%;
       height: 8%;
@@ -144,11 +145,12 @@ html, body, .container {
         .container .left-field .CVcontrol div span {
           margin: auto; }
     .container .left-field .leftChatBox {
-      height: 100%;
-      width: 100%;
-      overflow-y: scroll; }
+      height: 80%;
+      max-width: 100%;
+      overflow-y: auto;
+      overflow-wrap: break-word; }
       .container .left-field .leftChatBox div {
-        width: 20px; }
+        max-width: inherit; }
     .container .left-field .leftInput {
       width: 100%;
       height: 10%;
@@ -165,7 +167,8 @@ html, body, .container {
         bottom: 5px;
         left: 55px;
         height: 30px;
-        padding: 0px 10px 5px 15px;
+        width: 115px;
+        padding: 0px 35px 5px 15px;
         border-top-right-radius: 25px;
         border-bottom-right-radius: 25px;
         box-shadow: 3px 3px 5px 1px grey; }
@@ -210,18 +213,22 @@ html, body, .container {
         .container .center-field .toolbar .left-meetingtime #timeText {
           flex: 1; }
     .container .center-field .main-screen {
-      height: 80vh;
-      flex: 1; }
+      flex: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 5px; }
       .container .center-field .main-screen .main-video {
-        height: 65vh; }
-      .container .center-field .main-screen .other-video .otherUser {
-        display: flex; }
-        .container .center-field .main-screen .other-video .otherUser video {
-          height: 15vh; }
-        .container .center-field .main-screen .other-video .otherUser .user-info {
-          height: 10vh; }
-          .container .center-field .main-screen .other-video .otherUser .user-info img {
-            display: none; }
+        height: 60vh; }
+        .container .center-field .main-screen .main-video .FullScreen > video {
+          width: initial; }
+      .container .center-field .main-screen .other-video .otherUser video {
+        width: initial;
+        height: 15vh; }
+      .container .center-field .main-screen .other-video .otherUser .user-info {
+        height: 10vh; }
+        .container .center-field .main-screen .other-video .otherUser .user-info img {
+          display: none; }
     .container .center-field .av-control {
       height: 10vh;
       flex: 1;
@@ -239,54 +246,62 @@ html, body, .container {
         text-align: center; }
   .container .right-field {
     flex: 1;
-    width: 20vw;
+    max-width: 20vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 5px; }
     .container .right-field .agenda-block {
-      flex: 1;
-      height: 40vh;
-      width: 100%;
-      margin: 5px; }
+      max-width: inherit;
+      flex: 2;
+      margin: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
       .container .right-field .agenda-block .pictureWrapper {
+        max-width: inherit;
+        flex: 1;
         display: flex;
-        position: relative;
-        height: 30vh; }
+        position: relative; }
         .container .right-field .agenda-block .pictureWrapper img {
           height: 100px;
           position: relative; }
         .container .right-field .agenda-block .pictureWrapper .branch {
-          top: 50px;
+          top: 40px;
           right: -40px; }
         .container .right-field .agenda-block .pictureWrapper .eagle {
-          top: 20px;
+          top: 10px;
           right: 140px; }
       .container .right-field .agenda-block .flag {
+        flex: 2;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 5px;
-        background-color: yellow; }
+        margin: 5px;
+        background-color: yellow;
+        position: relative;
+        top: -5px;
+        width: 80%; }
         .container .right-field .agenda-block .flag .agenda-title {
-          flex: 1; }
+          padding: 5px; }
         .container .right-field .agenda-block .flag .agenda-content {
-          display: flex;
           flex: 1;
-          flex-direction: column;
-          align-items: center; }
+          max-height: 180px;
+          overflow-y: auto; }
           .container .right-field .agenda-block .flag .agenda-content .agendaItem {
             margin: 2px; }
         .container .right-field .agenda-block .flag .agenda-add {
-          flex: 1; }
+          padding: 5px; }
         .container .right-field .agenda-block .flag .agenda-content > .detail {
           display: flex;
           margin: 5px;
+          align-items: center;
           flex: 1; }
           .container .right-field .agenda-block .flag .agenda-content > .detail input {
             width: 80%; }
         .container .right-field .agenda-block .flag .agenda-content > .detail > .checkbox > input {
           background-color: #fff;
+          height: 18px;
           width: 20px; }
     .container .right-field .vote-block {
       flex: 1; }

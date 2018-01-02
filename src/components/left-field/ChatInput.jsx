@@ -32,7 +32,7 @@ class ChatInput extends React.Component {
 	componentDidMount() { }
 
 	handleInputPressEnter(e) {
-		if (e.which == 13) {
+		if (e.which === 13) {
 			// 按下enter後
 			e.preventDefault();
 			this.handleInputPressClick();
@@ -74,7 +74,6 @@ class ChatInput extends React.Component {
 				<input
 					className="inputArea"
 					id="input-text"
-					ref="input_text"
 					type="text"
 					onKeyPress={(e) => {
 						this.handleInputPressEnter(e);
@@ -84,8 +83,8 @@ class ChatInput extends React.Component {
 					}}
 					value={this.state.chatInputValue}
 				/>
-				<img className="inputArea" id="upload" src={Submit} onClick={this.handleInputPressClick} />
-				<img className="inputArea" id="mailbox" src={Mailbox} />
+				<img className="inputArea" alt="" id="upload" src={Submit} onClick={this.handleInputPressClick} />
+				<img className="inputArea" alt="" id="mailbox" src={Mailbox} />
 			</div>
 		);
 	}
