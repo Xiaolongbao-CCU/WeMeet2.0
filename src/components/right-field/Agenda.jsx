@@ -72,7 +72,7 @@ class Agenda extends React.Component {
 						/>
 					</div>
 					<AgendaInput
-						inputKey={item.id}
+						inputKey={item.i}
 						isFinished={item.isAgendaFinished}
 						hasContent={item.content}
 						agendaList={this.props.agendaList}

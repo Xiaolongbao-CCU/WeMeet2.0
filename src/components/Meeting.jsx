@@ -402,7 +402,9 @@ class Meeting extends React.Component {
 			<div className="container" id="mainPageContainer">
 				{this.props.isVotingFinish && this.props.isAnimateOpen ? (
 					<VoteResult />
+
 				) : null}
+
 				{this.props.isGridDetailOpen ? (
 					<GirdDetail closeAll={this.closeAll} />
 				) : null}

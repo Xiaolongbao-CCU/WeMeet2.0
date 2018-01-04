@@ -202,7 +202,7 @@ html, body, .container {
       .container .center-field .toolbar .buttonWrapper {
         flex: 2;
         display: flex;
-        justify-content: space-around; }
+        justify-content: space-between; }
       .container .center-field .toolbar .left-meetingtime {
         flex: 1;
         display: flex;
@@ -221,14 +221,17 @@ html, body, .container {
       .container .center-field .main-screen .main-video {
         height: 60vh; }
         .container .center-field .main-screen .main-video .FullScreen > video {
-          width: initial; }
+          width: auto;
+          height: 100%;
+          margin: auto; }
       .container .center-field .main-screen .other-video .otherUser video {
         width: initial;
         height: 15vh; }
       .container .center-field .main-screen .other-video .otherUser .user-info {
         height: 10vh; }
         .container .center-field .main-screen .other-video .otherUser .user-info img {
-          display: none; }
+          height: 10px;
+          width: 10px; }
     .container .center-field .av-control {
       height: 10vh;
       flex: 1;
