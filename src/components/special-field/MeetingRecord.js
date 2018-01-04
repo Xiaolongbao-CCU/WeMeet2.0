@@ -1,6 +1,7 @@
 import React from "react";
 import Background from "./Background";
 import { connect } from "react-redux";
+import '../../scss/record.scss';
 
 class MeetingRecord extends React.Component {
     constructor(props) {

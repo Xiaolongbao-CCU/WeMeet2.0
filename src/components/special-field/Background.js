@@ -1,6 +1,6 @@
-"use strict";
-
 import React from "react";
+import MainCloud from '../../img/main-cloud.png';
+import SubCloud from '../../img/main-cloud1.png';
 
 class Background extends React.Component {
     constructor(props) {
@@ -75,16 +75,16 @@ class Background extends React.Component {
                 cssstyle = (
                     <div>
                         <div className="sky" style={skycolor}>
-                        <img className="cloud site1" style={cloudstatus} src="./img/main-cloud.png" />
-                        <img className="cloud site2" style={cloudstatus} src="./img/main-cloud1.png" />
-                        <img className="cloud site3" style={cloudstatus} src="./img/main-cloud.png" />
-                        <img className="cloud site4" style={cloudstatus} src="./img/main-cloud.png" />
-                        <img className="cloud site5" style={cloudstatus} src="./img/main-cloud1.png" />
-                        <img className="cloud site6" style={cloudstatus} src="./img/main-cloud.png" />
-                        <img className="cloud site7" style={cloudstatus} src="./img/main-cloud1.png" />
-                        <img className="cloud site8" style={cloudstatus} src="./img/main-cloud.png" />
-                        <img className="cloud site9" style={cloudstatus} src="./img/main-cloud1.png" />
-                        <img className="cloud site10" style={cloudstatus} src="./img/main-cloud.png" />
+                        <img className="cloud site1" style={cloudstatus} src={MainCloud} />
+                        <img className="cloud site2" style={cloudstatus} src={SubCloud} />
+                        <img className="cloud site3" style={cloudstatus} src={MainCloud} />
+                        <img className="cloud site4" style={cloudstatus} src={MainCloud} />
+                        <img className="cloud site5" style={cloudstatus} src={SubCloud} />
+                        <img className="cloud site6" style={cloudstatus} src={MainCloud} />
+                        <img className="cloud site7" style={cloudstatus} src={SubCloud} />
+                        <img className="cloud site8" style={cloudstatus} src={MainCloud} />
+                        <img className="cloud site9" style={cloudstatus} src={SubCloud} />
+                        <img className="cloud site10" style={cloudstatus} src={MainCloud} />
                     </div>
                     <div className="forest">
                         <div className="tree type1 site1" />
