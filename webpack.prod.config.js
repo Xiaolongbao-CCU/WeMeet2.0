@@ -40,13 +40,15 @@ module.exports = {
 				})
 			},
 			{
-				test: /\.(png|jpg|jpeg|ico)$/,
-				use: [
-					{
-						loader: "file-loader"
-					}
-				]
-			}
+				test: /\.(png|jpg|jpeg|gif|ico)$/,
+				use: [{
+					loader: 'file-loader',
+					options: {
+						outputPath: 'img/',
+						name: '[name].[ext]',
+					},
+				}],
+			},
 		]
 	},
 	resolve: {
