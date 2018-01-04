@@ -111,7 +111,7 @@ class AVcontrol extends React.Component {
                         let peer = new window.peerConstructor(
                             thisComponent.props.localUserID + UUID,
                             {
-                                host: "140.123.175.95",
+                                host: "140.123.174.34",
                                 port: 443,
                                 path: "/peerjs",
                                 config:

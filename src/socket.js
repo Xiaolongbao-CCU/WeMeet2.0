@@ -39,7 +39,7 @@ import {
 } from "./actions/Actions";
 
 let io = socketIO();
-let socket = io.connect("https://140.123.175.95:443");
+let socket = io.connect("https://140.123.174.34:443");
 
 socket
     .on('setRoomList', list=>{

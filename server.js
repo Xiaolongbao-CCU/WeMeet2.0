@@ -10,8 +10,9 @@ const fs = require("fs");
 
 //HTTPS參數;
 const option = {
-    key: fs.readFileSync("./public/certificate/privatekey.pem"),
-    cert: fs.readFileSync("./public/certificate/certificate.pem")
+    ca:fs.readFileSync("./src/certificate/ca_bundle.crt"),
+    key: fs.readFileSync("./src/certificate/private.key"),
+    cert: fs.readFileSync("./src/certificate/certificate.crt")
 };
 
 //對https Server內傳入express的處理

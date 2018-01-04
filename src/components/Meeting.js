@@ -90,16 +90,6 @@ let configuration = {
         { urls: "stun:stun.voipstunt.com" },
         { urls: "stun:stun.voxgratia.org" },
         { urls: "stun:stun.xten.com" },
-        {
-            urls: "turn:140.123.175.95:8888?transport=udp",
-            username: "weichun0911",
-            credential: "willy84911"
-        },
-        {
-            urls: "turn:140.123.175.95:8888?transport=tcp",
-            username: "weichun0911",
-            credential: "willy84911"
-        }
     ]
 };
 
@@ -163,7 +153,7 @@ class Meeting extends React.Component {
                 } else {
                     window.peerConstructor = Peer;
                     let peer = window.peerConstructor(id, {
-                        host: "140.123.175.95",
+                        host: "140.123.174.34",
                         port: 443,
                         path: "/peerjs",
                         config: configuration

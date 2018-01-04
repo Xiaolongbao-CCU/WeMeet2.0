@@ -77,7 +77,7 @@ class ReservationDetail extends React.Component {
         // let Hash = Math.floor((1 + Math.random()) * 1e16)
         //     .toString(16)
         //     .substring(8);
-        let URL = "https://140.123.175.95:8080/meeting?hash=" + hash;
+        let URL = "https://140.123.174.34/meeting?hash=" + hash;
         let new_href =
             "https://www.google.com/calendar/render?action=TEMPLATE&trp=true&sf=true&output=xml" +
             "&dates=" +
