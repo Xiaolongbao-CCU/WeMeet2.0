@@ -32,32 +32,6 @@ class MainScreen extends React.Component {
 
     componentDidMount() {}
 
-    onClickSelfStream() {
-        this.setState({
-            focusingOnWhichUser: {
-                id: this.props.localUserID,
-                url: this.props.localVideoURL,
-                animalNumber: this.props.participantList[0].num
-            }
-        });
-    }
-
-    onClick_otherUserStream(e) {
-        let key = e.target.getAttribute("data");
-        let num = this.props.participantList.reduce((sum, value) => {
-            if (value.id == key) {
-                return (sum = value.num);
-            }
-        }, 0);
-        this.setState({
-            focusingOnWhichUser: {
-                id: key,
-                url: this.props.remoteStreamURL[key].url,
-                animalNumber: num
-            }
-        });
-    }
-
     render() {
         let video = [];
         if (this.props.localVideoURL) {
@@ -65,9 +39,12 @@ class MainScreen extends React.Component {
                 <div className="otheruser">
                     <div className="video">
                         <UserVideo 
-                        videoURL={this.props.localVideoURL}
-					    isStreaming={this.props.isStreaming}
-                        animal={this.props.participantList[0].num}
+                            videoURL={this.props.localVideoURL}
+                            isStreaming={this.props.isStreaming}
+                            animal={this.props.participantList[0].num}
+                            callback={this.onClickSelfStream}
+                            userID={this.props.localUserID}
+                            MainScreen={this}
                         />
                     </div>
                     <UserInfo
@@ -98,6 +75,8 @@ class MainScreen extends React.Component {
                                 videoURL={this.props.remoteStreamURL[userID].url}
 					            isStreaming={this.props.remoteStreamURL[userID].isStreaming}
                                 animal={remoteAnimalNumber}
+                                callback={this.onClick_otherUserStream}
+                                userID={userID}
                             />
                         </div>
                         <UserInfo   

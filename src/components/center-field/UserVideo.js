@@ -11,16 +11,16 @@ import Animal8 from '../../img/animal8.jpg';
 
 
 class UserVideo extends React.Component {
-
-	onClickSelfStream() {
-		this.setState({
+	
+    onClickSmallScreen(e) {
+		this.props.MainScreen.setState({
 			focusingOnWhichUser: {
-				id: this.props.localUserID,
-				url: this.props.localVideoURL,
-				animalNumber: this.props.participantList[0].num
-			}
-		});
-	}
+                id: this.props.userID,
+                url: this.props.videoURL,
+                animalNumber: this.props.animal
+            }
+		})
+    }
 
 	render(){
 		if (this.props.isStreaming) {
@@ -42,7 +42,7 @@ class UserVideo extends React.Component {
 				className="img"
 				src={`/img/animal${this.props.animal}.jpg`}
 				onClick={() => {
-					this.onClickSelfStream();
+					this.onClickSmallScreen()
 				}}
 			/>
 		);
