@@ -10,10 +10,15 @@ import {
     updateAgenda,
     doneAgenda
 } from "../../actions/Actions";
+import AgendaCheckbox from './AgendaCheckbox';
+import AgendaInput from './AgendaInput';
+import Branch from '../../img/branch.gif';
+import Eagle from '../../img/eagle.png';
 
 class Agenda extends React.Component {
     constructor(props) {
         super(props);
+        
         // this.state = {
         //     agendaList: [
         //         {
@@ -22,7 +27,8 @@ class Agenda extends React.Component {
         //         }
         //     ]
         // };
-        this.onClick_ToggleDeleteAgenda = this.onClick_ToggleDeleteAgenda.bind(
+        this.agendaListCounter = 0;
+        this.onClickToggleDeleteAgenda = this.onClickToggleDeleteAgenda.bind(
             this
         );
         //this.onClick_ToggleAddAgenda = this.onClick_ToggleAddAgenda.bind(this);
@@ -32,6 +38,7 @@ class Agenda extends React.Component {
     componentWillMount() {}
 
     componentDidMount() {
+        this.onClickNewAgenda();
         this.scrollToBottom();
     }
 
@@ -39,8 +46,14 @@ class Agenda extends React.Component {
         this.scrollToBottom();
     }
 
-    onClick_ToggleDeleteAgenda(e) {
-        let key = parseInt(e.target.id, 10);
+    onClickToggleDeleteAgenda(e) {
+        const key = Number(e.target.id);
+		this.props.agendaList.forEach((item, index) => {
+			if (item.id === key) {
+				this.props.dispatch(deleteAgenda(index));
+				socket.emit('deleteAgenda', index);
+			}
+		});
         // this.setState({
         //     ...this.state,
         //     agendaList: [
@@ -48,52 +61,13 @@ class Agenda extends React.Component {
         //         ...this.state.agendaList.slice(key + 1)
         //     ]
         // });
-        this.props.dispatch(deleteAgenda(key));
-        socket.emit("deleteAgenda", key);
     }
 
-    onClick_newAgenda(e) {
-        let key = "agenda_input" + this.props.agendaList.length;
-
-        this.props.dispatch(newAgenda());
-        socket.emit("newAgenda");
-    }
-
-    onChangeInput(e) {
-        let key = parseInt(e.target.id, 10);
-        //取得現在時間
-        let date = new Date();
-        //自定義時間格式:Hour-Minute
-        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
- 
-        this.props.dispatch(
-            updateAgenda({
-                key: key,
-                value: e.target.value,
-                time: formattedTime
-            })
-        );
-        socket.emit("updateAgenda", {
-            key: key,
-            value: e.target.value,
-            time: formattedTime
-        });
-    }
-
-    onClick_Enter(e) {
-        if (e.keyCode == 13) {
-            e.target.blur();
-        }
-    }
-
-    onClick_toggleAgendaFinish(e) {
-        let key = parseInt(e.target.id, 10);
-        //取得現在時間
-        let date = new Date();
-        //自定義時間格式:Hour-Minute
-        let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}:${date.getSeconds()}`
-        this.props.dispatch(doneAgenda(key, formattedTime));
-        socket.emit("doneAgenda", key, formattedTime);
+    onClickNewAgenda(e) {
+        this.agendaListCounter += 1;
+		const uniqueID = this.agendaListCounter;
+		this.props.dispatch(newAgenda(uniqueID));
+		socket.emit('newAgenda');
     }
 
     scrollToBottom() {
@@ -105,62 +79,27 @@ class Agenda extends React.Component {
         let agendaDetail;
         if (this.props.agendaList.length > 0) {
             agendaDetail = this.props.agendaList.map(item => {
-                let key = this.props.agendaList.indexOf(item);
                 return (
                     <div className="detail">
                         <div className="checkbox">
-                            <img
-                                style={
-                                    this.props.agendaList[key].isAgendaFinished
-                                        ? { animation: "fadeIn 0.4s" }
-                                        : {}
-                                }
-                                className="checked"
-                                id={key}
-                                onClick={e => {
-                                    if (this.props.agendaList[key].content) {
-                                        this.onClick_toggleAgendaFinish(e);
-                                    }
-                                }}
-                                src={
-                                    this.props.agendaList[key].isAgendaFinished
-                                        ? "./img/tick.png"
-                                        : "./img/null.png"
-                                }
+                            <AgendaCheckbox
+                                inputKey={item.id}
+                                isFinished={item.isAgendaFinished}
+                                hasContent={item.content}
+                                agendaList={this.props.agendaList}
                             />
                         </div>
-                        <input
-                            className="text"
-                            style={
-                                this.props.agendaList[key].isAgendaFinished
-                                    ? {
-                                          textDecoration: "line-through",
-                                          background: "transparent"
-                                      }
-                                    : {}
-                            }
-                            ref={"agenda_input" + key}
-                            id={key}
-                            value={this.props.agendaList[key].content}
-                            onChange={e => {
-                                this.onChangeInput(e);
-                            }}
-                            onKeyUp={e => {
-                                this.onClick_Enter(e);
-                            }}
-                            maxLength="10"
-                            readOnly={
-                                this.props.agendaList[key].isAgendaFinished
-                                    ? "readonly"
-                                    : ""
-                            }
-                            placeholder="點此輸入議程內容"
+                        <AgendaInput
+                            inputKey={item.id}
+                            isFinished={item.isAgendaFinished}
+                            content={item.content}
+                            agendaList={this.props.agendaList}
                         />
                         <div
                             className="delete"
-                            id={key}
+                            id={item.id}
                             onClick={e => {
-                                this.onClick_ToggleDeleteAgenda(e);
+                                this.onClickToggleDeleteAgenda(e);
                             }}
                         />
                     </div>
@@ -170,8 +109,8 @@ class Agenda extends React.Component {
 
         return (
             <div className="agenda-block">
-                <img className="branch" src="img/branch.gif" />
-                <img className="eagle" src="img/eagle.png" />
+                <img className="branch" src={Branch} />
+                <img className="eagle" src={Eagle} />
                 <div className="flag">
                     <div className="bar" />
                     <div className="left" />
@@ -189,7 +128,7 @@ class Agenda extends React.Component {
                     <div
                         className="agenda-add"
                         onClick={e => {
-                            this.onClick_newAgenda(e);
+                            this.onClickNewAgenda(e);
                         }}
                     >
                         <div className="cross" />

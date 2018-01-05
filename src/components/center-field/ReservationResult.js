@@ -2,6 +2,11 @@
 import React from "react";
 import { connect } from 'react-redux'
 import socket from "../../socket";
+import Mail from '../../img/mail.png';
+import Calendar from "../../img/calendar.png";
+import Location from '../../img/location.png';
+import Aim from '../../img/aim.png';
+import Note from '../../img/note.png';
 
 class ReservationResult extends React.Component {
     constructor(props) {
@@ -29,14 +34,14 @@ class ReservationResult extends React.Component {
                     className="ReceviedMeeting"
                     onClick={this.onClick_ToggleDetail}
                 >
-                    <img className="mail" src="./img/mail.png" />
+                    <img className="mail" src={Mail} />
                     <div className="content">一則預約開會通知！</div>
                 </div>
                 {this.state.isResultDetailOpen ? (
                     <div className="Recevied-Detail">
                         <div className="recevied-filed">
                             <span>
-                                <img className="img" src="./img/calendar.png" />
+                                <img className="img" src={Calendar} />
                             </span>
                             <span className="title">
                                 {this.props.meetingData.datetime}
@@ -44,7 +49,7 @@ class ReservationResult extends React.Component {
                         </div>
                         <div className="recevied-filed">
                             <span>
-                                <img className="img" src="./img/location.png" />
+                                <img className="img" src={Location} />
                             </span>
                             <span className="title">
                                 {this.props.meetingData.location}
@@ -52,7 +57,7 @@ class ReservationResult extends React.Component {
                         </div>
                         <div className="recevied-filed">
                             <span>
-                                <img className="img" src="./img/aim.png" />
+                                <img className="img" src={Aim} />
                             </span>
                             <span className="title">
                                 {this.props.meetingData.title}

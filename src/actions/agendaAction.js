@@ -6,9 +6,10 @@ export function setAgenda(agenda) {
 	};
 }
 
-export function newAgenda() {
+export function newAgenda(id) {
 	return {
-		type: "newAgenda"
+		type: 'newAgenda',
+		data: id,
 	};
 }
 
@@ -29,7 +30,7 @@ export function doneAgenda(key, time) {
 
 export function updateAgenda(obj) {
 	return {
-		type: "updateAgenda",
-		data: obj
+		type: 'updateAgenda',
+		data: obj,
 	};
 }

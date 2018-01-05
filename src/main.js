@@ -8,8 +8,6 @@ import Index from "./components/Index"
 import Meeting from "./components/Meeting"
 import store from "./store"
 import MeetingRecord from "./components/special-field/MeetingRecord"
-import "./styles.scss"
-import './scss/meeting.scss'
 
 ReactDOM.render(
 	<Provider store={store}>

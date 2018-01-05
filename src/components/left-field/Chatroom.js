@@ -39,7 +39,7 @@ class Chatroom extends React.Component {
                     chatbox.push(
                         <div className="myself-message">
                             <div className="myself-infro">
-                                <img className="image" src={"./img/animal" + record.animal + ".jpg"} />
+                                <img className="image" src={"/img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
                                     {record.name}
                                 </div>
@@ -63,7 +63,7 @@ class Chatroom extends React.Component {
                     chatbox.push(
                         <div className="others-message">
                             <div className="others-infro">
-                                <img className="image" src={"./img/animal" + record.animal + ".jpg"} />
+                                <img className="image" src={"/img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
                                     {   this.props.participantList.includes(record.userID) ? 
                                         (this.props.remoteUserName[record.userID] &&

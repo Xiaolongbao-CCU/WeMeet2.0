@@ -7,6 +7,7 @@ import {
     addChatRecord,
     addRecognitionRecord
 } from "../../actions/Actions"
+import Mailbox from '../../img/mailbox.png'
 
 class ChatInput extends React.Component {
     constructor(props) {
@@ -87,7 +88,7 @@ class ChatInput extends React.Component {
                     />
                     <button className="upload" onClick={this.handleInputPressClick} />
                 </div>
-                <img className="mailbox" src="./img/mailbox.png" />
+                <img className="mailbox" src={Mailbox} />
             </div>
         );
     }

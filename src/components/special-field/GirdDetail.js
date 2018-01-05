@@ -9,6 +9,8 @@ import {
     setGridStart,
     setSixhatClose
 } from "../../actions/Actions";
+import GridTeach_1 from '../../img/grid_teachingpag1.png';
+import GridImg from '../../img/grid_img.png';
 
 class GirdDetail extends React.Component {
     constructor(props) {
@@ -76,7 +78,7 @@ class GirdDetail extends React.Component {
                             <img
                                 className="teachingImg1"
                                 id="fadeIn2"
-                                src="./img/grid_teachingpag1.png"
+                                src={GridTeach_1}
                             />
                         </div>
                         <div className="bottom-field">
@@ -114,7 +116,7 @@ class GirdDetail extends React.Component {
                             }}
                         />
                         <div className="left-field">
-                            <img className="img" src="./img/grid_img.png" />
+                            <img className="img" src={GridImg} />
                             <div className="text">
                                 遊戲簡介：將想發想的主題寫在中央，然後向八個方向去思考，加深加廣思考範圍，讓思考更有條理和效率。
                             </div>

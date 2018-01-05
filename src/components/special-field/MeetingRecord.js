@@ -2,6 +2,7 @@ import React from "react";
 import Background from "./Background";
 import { connect } from "react-redux";
 import '../../scss/record.scss';
+import IndexLogo_2 from '../../img/index_logo2.png';
 
 class MeetingRecord extends React.Component {
     constructor(props) {
@@ -159,7 +160,7 @@ class MeetingRecord extends React.Component {
                 <div className="meetingrecord">
                     <div className="banner">
                         <a href="/">
-                            <img className="logo" src="./img/index_logo2.png" />
+                            <img className="logo" src={IndexLogo_2} />
                             <div className="backtoindex">回首頁</div>
                         </a>
                         <div className="edit left">修改前</div>

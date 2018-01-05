@@ -8,6 +8,10 @@ import {
     setReceiveData,
     setURL
 } from "../../actions/Actions";
+import Calendar from "../../img/calendar.png";
+import Location from '../../img/location.png';
+import Aim from '../../img/aim.png';
+import Note from '../../img/note.png';
 
 class ReservationDetail extends React.Component {
     constructor(props) {
@@ -113,7 +117,7 @@ class ReservationDetail extends React.Component {
                 <div className="input-field bigtitle">預約開會</div>
                 <div className="input-field">
                     <span>
-                        <img className="img" src="./img/calendar.png" />
+                        <img className="img" src={Calendar} />
                     </span>
                     <span className="title">開會日期</span>
                     <input
@@ -126,7 +130,7 @@ class ReservationDetail extends React.Component {
                 </div>
                 <div className="input-field">
                     <span>
-                        <img className="img" src="./img/location.png" />
+                        <img className="img" src={Location} />
                     </span>
                     <span className="title">開會地點</span>
                     <input
@@ -138,7 +142,7 @@ class ReservationDetail extends React.Component {
                 </div>
                 <div className="input-field">
                     <span>
-                        <img className="img" src="./img/aim.png" />
+                        <img className="img" src={Aim} />
                     </span>
                     <span className="title">開會主題</span>
                     <input
@@ -150,7 +154,7 @@ class ReservationDetail extends React.Component {
                 </div>
                 <div className="input-field">
                     <span>
-                        <img className="img" src="./img/note.png" />
+                        <img className="img" src={Note} />
                     </span>
                     <span className="title">備註</span>
                     <input
