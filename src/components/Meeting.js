@@ -46,7 +46,7 @@ import {
 import CVcontrol from "./left-field/CVcontrol";
 import Chatroom from "./left-field/Chatroom";
 import VoiceRecognition from "./left-field/VoiceRecognition";
-import ChatInput from "./left-field/Chatinput";
+import ChatInput from "./left-field/ChatInput";
 import VoiceResult from "./left-field/VoiceResult";
 
 //center-field, total 4 components
