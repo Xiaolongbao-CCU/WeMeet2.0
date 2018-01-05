@@ -4,6 +4,14 @@ import { withRouter } from "react-router";
 import socket from "../socket";
 import { setUserName} from "../actions/Actions";
 import Background from "./special-field/Background";
+import '../scss/index.scss';
+import '../scss/reset.css';
+import LogoTop from '../img/logo_top.png';
+import LogoButtom from '../img/logo_bottom.png';
+import LogoText from '../img/logo_text.png';
+import UserImage from '../img/user-image.png';
+import MeetingImg from '../img/meeting.png'
+import Arrow from '../img/arrow.png';
 
 // socket.emit("id");
 class Index extends React.Component {
@@ -85,14 +93,14 @@ class Index extends React.Component {
         return (
             <div className="container">
                 <div className="index">
-                    <img className="logo-top" src="./img/logo_top.png" />
-                    <img className="logo-text" src="./img/logo_text.png" />
-                    <img className="logo-bottom" src="./img/logo_bottom.png" />
+                    <img className="logo-top" src={LogoTop} />
+                    <img className="logo-text" src={LogoText} />
+                    <img className="logo-bottom" src={LogoButtom} />
                     <div className="indexName">
                         <div className="icon-field">
                             <img
                                 className="icon-image"
-                                src="./img/user-image.png"
+                                src={UserImage}
                             />
                         </div>
                         <input
@@ -111,7 +119,7 @@ class Index extends React.Component {
                         <div className="icon-field">
                             <img
                                 className="icon-image"
-                                src="./img/meeting.png"
+                                src={MeetingImg}
                             />
                         </div>
                         <input
@@ -130,7 +138,7 @@ class Index extends React.Component {
                             this.onClick_handleCreateRoom();
                         }}
                     >
-                        <img className="icon-image" src="./img/arrow.png" />
+                        <img className="icon-image" src={Arrow} />
                     </div>
                 </div>
                 <Background />

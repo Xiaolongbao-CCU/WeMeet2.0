@@ -4,6 +4,25 @@ import React from "react";
 import { connect } from "react-redux";
 import socket from "../../socket";
 import { setSixhatClose } from "../../actions/Actions"
+import SixhatOrder from '../../img/sixhat_order.png';
+import HatImage1 from '../../img/other_black.png';
+import HatImage2 from '../../img/other_blue.png';
+import HatImage3 from '../../img/other_green.png';
+import HatImage4 from '../../img/other_red.png';
+import HatImage5 from '../../img/other_white.png';
+import HatImage6 from '../../img/other_yellow.png';
+import Sixhat1 from '../../img/sixhat_black.png';
+import Sixhat2 from '../../img/sixhat_red.png';
+import Sixhat3 from '../../img/sixhat_green.png';
+import Sixhat4 from '../../img/sixhat_blue.png';
+import Sixhat5 from '../../img/sixhat_white.png';
+import Sixhat6 from '../../img/sixhat_yellow.png';
+import Teach1 from '../../img/blackhat.png';
+import Teach2 from '../../img/bluehat.png';
+import Teach3 from '../../img/redhat.png';
+import Teach4 from '../../img/greenhat.png';
+import Teach5 from '../../img/yellowhat.png';
+import Teach6 from '../../img/whitehat.png';
 
 class SixHatGame extends React.Component {
 	constructor(props) {
@@ -141,7 +160,7 @@ class SixHatGame extends React.Component {
 			let hatKey = this.props.hatList[participantID];
 			if (participantID == this.props.localUserID) {
 				localHat = hatKey;
-				let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
+				let img = `/img/other_${this.sixhat[hatKey][0]}.png`;
 				others.unshift(
 					<div className="other-hat">
 						<div className="hat-text">
@@ -155,7 +174,7 @@ class SixHatGame extends React.Component {
 					</div>
 				);
 			} else {
-				let img = `./img/other_${this.sixhat[hatKey][0]}.png`;
+				let img = `/img/other_${this.sixhat[hatKey][0]}.png`;
 				others.push(
 					<div className="other-hat">
 						<div className="hat-text">
@@ -172,7 +191,7 @@ class SixHatGame extends React.Component {
 		});
 		switch (this.state.WhatPage) {
 			case "one":
-				Content = <ul><img className="sixhat-order" src="./img/sixhat_order.png" /></ul>;
+				Content = <ul><img className="sixhat-order" src={SixhatOrder} /></ul>;
 				break;
 			case "two":
 				Content = <ul>{this.sixhat[localHat][1].indrotuction}</ul>;
@@ -189,8 +208,8 @@ class SixHatGame extends React.Component {
 		let bigHatImg = '';
 		let bigHatKey = '';
 		bigHatKey = this.props.hatList[this.props.focusingOnWhichUser.id] || 0
-		bigStoryImg = `./img/${this.sixhat[bigHatKey][0]}hat.png`
-		bigHatImg = `./img/sixhat_${this.sixhat[bigHatKey][0]}.png`
+		bigStoryImg = `/img/${this.sixhat[bigHatKey][0]}hat.png`
+		bigHatImg = `/img/sixhat_${this.sixhat[bigHatKey][0]}.png`
 
 		return (
 			<div className="sixhat-field">

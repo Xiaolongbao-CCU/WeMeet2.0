@@ -32,7 +32,7 @@ class VoiceRecognition extends React.Component {
                     RecognitionRecord.push(
                         <div className="myself-message">
                             <div className="myself-infro">
-                                <img className="image" src="./img/animal1.jpg" />
+                                <img className="image" src="/img/animal1.jpg" />
                                 <div className="name">
                                     {
                                         this.props.localUserName || 
@@ -51,7 +51,7 @@ class VoiceRecognition extends React.Component {
                     RecognitionRecord.push(
                         <div className="others-message">
                             <div className="others-infro">
-                                <img className="image" src="./img/animal2.jpg" />
+                                <img className="image" src="/img/animal2.jpg" />
                                 <div className="name">
                                     {
                                         this.props.remoteUserName[record.userID]

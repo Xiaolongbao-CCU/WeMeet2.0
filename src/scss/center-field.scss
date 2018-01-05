@@ -55,6 +55,14 @@
   // background-image: url('../img/666.jpg'); //for test
   // background-repeat: no-repeat; //for test
   // background-size: 100%; //for test
+  .FullScreen{
+    #stream-video{
+      transform:rotateY(180deg);
+    }
+  }
+  img{
+    height: 90%;
+  }
 }
 
 .other-video{
@@ -79,6 +87,12 @@
   &:hover{
     cursor: pointer;
   }
+  .video{
+    video{
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
+  }
 }
 
 .otheruser .img{
@@ -92,7 +106,7 @@
   height:110px;
 }
 
-.user-infro{
+.user-info{
   float: left;
   margin-top:-1%;
   top: 76%;
@@ -114,7 +128,7 @@
 
 .user-audio,.user-video{
   float: right;
-  width:10%;
+  width:20%;
   margin-right: 1.5%;
 }
 

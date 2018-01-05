@@ -7,6 +7,9 @@ import {
     setVotingFinish,
     setAnimateOpen
 } from "../../actions/Actions";
+import VoteEnd from '../../img/vote-ended.png';
+import WaitGIF from '../../img/wait.gif';
+
 class Vote extends React.Component {
     constructor(props) {
         super(props);
@@ -226,7 +229,7 @@ class Vote extends React.Component {
                             }
                             {this.props.isVotingFinish ? null : this.props
                                 .isSelfSubmit ? (
-                                    <img src="./img/wait.gif" />
+                                    <img src={WaitGIF} />
                                 ) : null}
                         </div>
                     </div>
@@ -249,7 +252,7 @@ class Vote extends React.Component {
                     }}
                 >
                     {this.props.isVotingFinish ? (
-                        <img className="voteEnd" src="../img/vote-ended.png" />
+                        <img className="voteEnd" src={VoteEnd} />
                     ) : null}
                     {this.props.isVotingFinish ? (
                         <div className="voteEndtext">投票出爐囉！</div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import Robot from '../../img/robot.png';
 
 class VoiceResult extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class VoiceResult extends React.Component {
                         {this.props.interimResult}
                     </div>
                 </div>
-                <img className="mailbox" src="./img/robot.png" />
+                <img className="mailbox" src={Robot} />
             </div>
         );
     }

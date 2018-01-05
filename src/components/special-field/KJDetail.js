@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import KJImgae from '../../img/kj_img.png';
 
 class KJDetail extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class KJDetail extends React.Component {
         </div>
         <div className="exit" />
         <div className="left-field">
-          <img className="img" src="./img/kj_img.png" />
+          <img className="img" src={KJImgae} />
           <div className="text">遊戲簡介：運用歸納的原理，將具相同屬性、關聯性的想法放在一起，並思索出索引標題，找出想法的脈絡，最後依據歸納的結果，找出相對應的結論。</div>
         </div>
         <div className="right-field">

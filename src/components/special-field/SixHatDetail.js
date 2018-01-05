@@ -7,6 +7,8 @@ import {
     setSixhatOpen, 
     setSixhatDetailClose 
 } from "../../actions/Actions";
+import SixhatTeach_1 from '../../img/teaching_sixhat.png';
+import SixhatImage from '../../img/sixhat_img.png';
 
 class SixHatDetail extends React.Component {
     constructor(props) {
@@ -73,7 +75,7 @@ class SixHatDetail extends React.Component {
                             <img
                                 className="teachingImg"
                                 id="fadeIn2"
-                                src="./img/teaching_sixhat.png"
+                                src={SixhatTeach_1}
                             />
                         </div>
                         <div className="bottom-field">
@@ -109,7 +111,7 @@ class SixHatDetail extends React.Component {
                             <label className="text">六頂思考帽法</label>
                         </div>
                         <div className="left-field">
-                            <img className="img" src="./img/sixhat_img.png" />
+                            <img className="img" src={SixhatImage} />
                             <div className="text">
                                 遊戲簡介：以六種顏色的帽子代表六種不同思考模式的創造思考技法，幫助團隊進行全方位的思考以及評估。
                             </div>

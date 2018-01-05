@@ -1,5 +1,3 @@
-"use strict";
-
 // lib
 import React from "react";
 import { connect } from "react-redux";
@@ -7,7 +5,7 @@ import chat from "../lib/chat";
 import recognition from "../lib/recognition";
 import socket from "../socket";
 import "../lib/peer";
-
+import "../scss/meeting.scss";
 
 // redux-action
 import {

@@ -1,24 +1,20 @@
-const agendaList = [
-	{
-		content: "", //單個議程內容
-		isAgendaFinished: false, //議程是否完成，會觸發checkbox是否被選取&是否有刪除縣
-		createTime:undefined,
-		finishTime:undefined
-	}
-];
+const agendaList = [];
 
 export default function agenda(state = agendaList, action) {
 	switch (action.type) {
 		case "setAgenda":
 			return action.data;
 		case "newAgenda":
-			return [
-				...state,
-				{
-					content: "",
-					isAgendaFinished: false
-				}
-			];
+		return [
+			...state,
+			{
+				id: action.data,
+				content: '',
+				isAgendaFinished: false,
+				createTime: undefined,
+				finishTime: undefined,
+			},
+		];
 		case "deleteAgenda":
 			return [
 				...state.slice(0, action.data),

@@ -3,6 +3,7 @@
 import React from "react";
 import { connect } from "react-redux"
 import { setAnimateClose } from '../../actions/Actions'
+import VoteImage from '../../img/voteimage.png';
 
 class VoteResult extends React.Component {
     constructor(props) {
@@ -87,7 +88,7 @@ class VoteResult extends React.Component {
                         <div className="before" />
                         <div className="after" />
                     </div>
-                    <img className="animal" src="./img/voteimage.png" />
+                    <img className="animal" src={VoteImage} />
                     <div className="resulttext">
                         {option}
                         <br />
@@ -96,9 +97,6 @@ class VoteResult extends React.Component {
                     <div className="triagle" />
 
                 </div>
-
-                {this.props.isFirstPageFinished ? <embed className='hidden' src="../img/congration.mp3" /> : null}
-
             </div>
         )
     }

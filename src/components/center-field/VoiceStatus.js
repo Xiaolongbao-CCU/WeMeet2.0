@@ -3,6 +3,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setLanguage } from "../../actions/Actions";
+import Arrow_white from '../../img/arrow_white.png';
 
 class VoiceStatus extends React.Component {
     constructor(props) {
@@ -68,7 +69,7 @@ class VoiceStatus extends React.Component {
                         <div className="Voice-img">
                             <img
                                 className="voice-arrow"
-                                src="./img/arrow_white.png"
+                                src={Arrow_white}
                                 onClick={() => { this.onClick_setLanguage() }}
                             />
                         </div>
