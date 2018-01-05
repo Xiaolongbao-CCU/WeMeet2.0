@@ -14,3 +14,4 @@ public/certificate/certrequest.csr
 *.scssc
 *.crt
 *.key
+public/
