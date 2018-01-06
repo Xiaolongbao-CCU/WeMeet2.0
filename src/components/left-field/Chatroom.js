@@ -26,7 +26,7 @@ class Chatroom extends React.Component {
     render() {
         let chatbox = [];
         if (this.props.chatRecord) {
-            this.props.chatRecord.map(record => {
+            this.props.chatRecord.forEach((record,index) => {
                 if (record.userID == this.props.localUserID) {
                     let localAnimalNum = 0;
                     let localAnimal = "";
@@ -37,7 +37,7 @@ class Chatroom extends React.Component {
                         }
                     })
                     chatbox.push(
-                        <div className="myself-message">
+                        <div className="myself-message" key={index}>
                             <div className="myself-infro">
                                 <img className="image" src={"/img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
@@ -61,7 +61,7 @@ class Chatroom extends React.Component {
                         }
                     })
                     chatbox.push(
-                        <div className="others-message">
+                        <div className="others-message" key={index}>
                             <div className="others-infro">
                                 <img className="image" src={"/img/animal" + record.animal + ".jpg"} />
                                 <div className="name">
@@ -85,42 +85,9 @@ class Chatroom extends React.Component {
 
         }
 
-        /*** FOR TEST ***/
-        let test = [];
-        let text = "測測試測試測試";
-        // for (let i = 0; i <= 3; i++) {
-        //     const type = false;
-        //     text += text;
-        //     if (type) {
-        //         test.push(
-        //             <div className="myself-message">
-        //                 <div className="myself-infro">
-        //                     <img className="image" src="./img/animal1.jpg" />
-        //                     <div className="name">李佳怡</div>
-        //                 </div>
-        //                 <div className="dialogbox">{text}</div>
-        //                 <div className="time">11:59</div>
-        //             </div>
-        //         );
-        //     } else {
-        //         test.push(
-        //             <div className="others-message">
-        //                 <div className="others-infro">
-        //                     <img className="image" src="./img/animal2.jpg" />
-        //                     <div className="name">李佳怡</div>
-        //                 </div>
-
-        //                 <div className="dialogbox">{text}</div>
-        //                 <div className="time">11:59</div>
-        //             </div>
-        //         );
-        //     }
-        // }
-
         return (
             <div className="leftchatbox">
                 {chatbox}
-                {test}
                 <div
                     style={{ float: "left", clear: "both" }}
                     ref={(el) => { this.messagesEnd = el; }}

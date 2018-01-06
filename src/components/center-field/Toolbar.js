@@ -51,6 +51,9 @@ class Toolbar extends React.Component {
     }
 
     closeAll(){
+        if(this.props.isGridOpen){
+            this.props.dispatch(setGridClose());
+        }
         if(this.props.isGridDetailOpen){
             this.props.dispatch(setGridDetailClose()); 
         }
@@ -65,6 +68,9 @@ class Toolbar extends React.Component {
         }
         if(this.props.isVotingDetailOpen){
             this.props.dispatch(setVotingDetailState(false))
+        }
+        if(this.props.isPaintOpen){
+            this.props.dispatch(setPaintClose())
         }
     }
 
@@ -121,6 +127,7 @@ class Toolbar extends React.Component {
             this.props.dispatch(setPaintClose());
         } else {
             this.props.dispatch(setPaintOpen());
+            this.closeAll()
         }
     }
 

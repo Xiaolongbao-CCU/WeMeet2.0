@@ -1,13 +1,12 @@
-"use strict";
-
 import React from "react";
 import socket from "../../socket";
+import Size from '../../img/size.ico';
+import Reset from '../../img/reset.png';
 
 class Painting extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnlarge: false,
             isColorListOpen: false,
             isSizeListOpen: false,
             color: "black",
@@ -15,36 +14,35 @@ class Painting extends React.Component {
             size_id: "size",
             imghref: "#"
         };
-        this.onClick_ChangeSize = this.onClick_ChangeSize.bind(this);
-        this.showColrList = this.showColrList.bind(this);
-        this.showSizeList = this.showSizeList.bind(this);
-        this.onClick_black = this.onClick_black.bind(this);
-        this.onClick_green = this.onClick_green.bind(this);
-        this.onClick_red = this.onClick_red.bind(this);
-        this.onClick_blue = this.onClick_blue.bind(this);
-        this.onClick_white = this.onClick_white.bind(this);
-        this.onClick_yellow = this.onClick_yellow.bind(this);
-        this.onClick_size1 = this.onClick_size1.bind(this);
-        this.onClick_size2 = this.onClick_size2.bind(this);
-        this.onClick_size3 = this.onClick_size3.bind(this);
-        this.onClick_reset = this.onClick_reset.bind(this);
+        this.isDrawing = false;
+        this.prevX = 0;
+        this.currX = 0;
+        this.prevY = 0;
+        this.currY = 0;
+        this.ctx;
+        this.w;
+        this.h;
+
     }
 
     componentWillMount() { }
 
     componentDidMount() {
+        console.log(Size);
+        console.log(Reset);
+        let canvas = this.refs.whiteboard;
+        this.ctx = canvas.getContext("2d");
+        this.w = canvas.width;
+        this.h = canvas.height;
         this.onResize();
-        this.PaintSystem();
         socket.on("reset", () => {
-            var canvas = this.refs.whiteboard;
-            var context = canvas.getContext("2d");
-            context.clearRect(0, 0, canvas.width, canvas.height);
+            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        socket.on("drawing", data => {
+            onDrawingEvent(data)
         });
         window.addEventListener('resize', this.onResize, false);
-    }
-
-    componentDidUpdate() {
-        this.PaintSystem();
+        this.findxy = this.findxy.bind(this)
     }
 
     componentWillUnmount() {
@@ -53,133 +51,80 @@ class Painting extends React.Component {
     }
 
     onResize() {
-        var parent = this.refs.paintingfield;
-        var canvas = this.refs.whiteboard;
-        var context = canvas.getContext("2d");
-        canvas.width = parent.getBoundingClientRect().width;
-        canvas.height = parent.getBoundingClientRect().height;
+        let parent = this.refs.paintingfield;
+        this.refs.whiteboard.width = parent.getBoundingClientRect().width;
+        this.refs.whiteboard.height = parent.getBoundingClientRect().height;
     }
-    PaintSystem() {
-        console.log('執行function中');
-        var canvas = this.refs.whiteboard;
-        var context = canvas.getContext("2d");
-        var drawing = false;
-        var current = {
-            color: this.state.color,
-            size: this.state.size
+
+    drawLine(x0, y0, x1, y1, color, size) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x0, y0);
+        this.ctx.lineTo(x1, y1);
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = size;
+        this.ctx.stroke();
+        this.ctx.closePath();
+    }
+
+    // limit the number of events per second
+    throttle(callback, delay) {
+        var previousCall = new Date().getTime();
+        return function () {
+            var time = new Date().getTime();
+
+            if (time - previousCall >= delay) {
+                previousCall = time;
+                callback.apply(null, arguments);
+            }
         };
-        canvas.removeEventListener("mousedown", onMouseDown, false);
-        canvas.removeEventListener("mouseup", onMouseUp, false);
-        canvas.removeEventListener("mouseout", onMouseUp, false);
-        canvas.removeEventListener("mousemove", throttle(onMouseMove, 10), false);
-        canvas.addEventListener("mousedown", onMouseDown, false);
-        canvas.addEventListener("mouseup", onMouseUp, false);
-        canvas.addEventListener("mouseout", onMouseUp, false);
-        canvas.addEventListener("mousemove", throttle(onMouseMove, 10), false);
+    }
 
-        socket.on("drawing", onDrawingEvent);
-
-        function drawLine(x0, y0, x1, y1, color, size, emit) {
-            context.beginPath();
-            context.moveTo(x0, y0);
-            context.lineTo(x1, y1);
-            context.strokeStyle = color;
-            context.lineWidth = size;
-            context.stroke();
-            context.closePath();
-
-            if (!emit) {
-                return;
+    findxy(e,res) {
+        if (res == 'down') {
+            let rect = this.refs.whiteboard.getBoundingClientRect()
+            this.prevX = this.currX;
+            this.prevY = this.currY;
+            this.currX = e.clientX - rect.left
+            this.currY = e.clientY - rect.top
+            this.isDrawing = true;
+        }
+        if (res == 'up' || res == "out") {
+            this.isDrawing = false;
+        }
+        if (res == 'move') {
+            if (this.isDrawing) {
+                let rect = this.refs.whiteboard.getBoundingClientRect()
+                this.prevX = this.currX;
+                this.prevY = this.currY;
+                this.currX = e.clientX - rect.left
+                this.currY = e.clientY - rect.top
+                this.drawLine(this.prevX,this.prevY,this.currX,this.currY,this.state.color,this.state.size);
+                socket.emit("drawing", {
+                    x0: this.prevX / this.w,
+                    y0: this.prevY / this.h,
+                    x1: this.currX / this.w,
+                    y1: this.currY / this.h,
+                    color: this.state.color,
+                    size: this.state.size
+                });
             }
-            var w = canvas.width;
-            var h = canvas.height;
-
-            socket.emit("drawing", {
-                x0: x0 / w,
-                y0: y0 / h,
-                x1: x1 / w,
-                y1: y1 / h,
-                color: color,
-                size: size
-            });
         }
+    }
 
-        function onMouseDown(e) {
-            console.log('安安');
-            drawing = true;
-            current.x = e.clientX - 280;
-            current.y = e.clientY - 70;
-        }
-
-        function onMouseUp(e) {
-            if (!drawing) {
-                return;
-            }
-            drawing = false;
-            drawLine(
-                current.x,
-                current.y,
-                e.clientX - 280,
-                e.clientY - 70,
-                current.color,
-                current.size,
-                true
-            );
-        }
-
-        function onMouseMove(e) {
-            if (!drawing) {
-                return;
-            }
-            drawLine(
-                current.x,
-                current.y,
-                e.clientX - 280,
-                e.clientY - 70,
-                current.color,
-                current.size,
-                true
-            );
-            current.x = e.clientX - 280;
-            current.y = e.clientY - 70;
-        }
-
-        function onColorUpdate(e) {
-            current.color = e.target.id.Name;
-        }
-
-        // limit the number of events per second
-        function throttle(callback, delay) {
-            var previousCall = new Date().getTime();
-            return function () {
-                var time = new Date().getTime();
-
-                if (time - previousCall >= delay) {
-                    previousCall = time;
-                    callback.apply(null, arguments);
-                }
-            };
-        }
-
-        function onDrawingEvent(data) {
-            var w = canvas.width;
-            var h = canvas.height;
-            drawLine(
-                data.x0 * w,
-                data.y0 * h,
-                data.x1 * w,
-                data.y1 * h,
-                data.color,
-                data.size
-            );
-        }
+    onDrawingEvent(data) {
+        this.drawLine(
+            data.x0 * this.w,
+            data.y0 * this.h,
+            data.x1 * this.w,
+            data.y1 * this.h,
+            data.color,
+            data.size
+        );
     }
 
     onClick_reset() {
-        var canvas = this.refs.whiteboard;
-        var context = canvas.getContext("2d");
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        socket.emit("reset", null);
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        socket.emit("reset");
     }
 
     onClick_black() {
@@ -224,7 +169,7 @@ class Painting extends React.Component {
         });
     }
 
-    showColrList() {
+    showColorList() {
         this.setState({
             isColorListOpen: !this.state.isColorListOpen
         });
@@ -233,12 +178,6 @@ class Painting extends React.Component {
     showSizeList() {
         this.setState({
             isSizeListOpen: !this.state.isSizeListOpen
-        });
-    }
-
-    onClick_ChangeSize() {
-        this.setState({
-            isEnlarge: !this.state.isEnlarge
         });
     }
 
@@ -270,36 +209,17 @@ class Painting extends React.Component {
         return (
             <div
                 className="main-screen"
-                id={this.state.isEnlarge ? "bigger" : ""}
             >
-                {this.state.isEnlarge ? <div className="blackBG" /> : null}
                 <div
                     className="gametoolbar"
-                    id={this.state.isEnlarge ? "bigger" : ""}
                 >
-                    {this.state.isEnlarge ? (
-                        <div
-                            className="button2"
-                            id="backtosmall"
-                            onClick={this.onClick_ChangeSize}
-                        >
-                            縮小
-                        </div>
-                    ) : (
-                            <div
-                                className="button2"
-                                id="fullscreen"
-                                onClick={this.onClick_ChangeSize}
-                            >
-                                放大
-                        </div>
-                        )}
                     <div
                         className="button2"
                         id={this.state.size_id}
-                        onClick={this.showSizeList}
+                        onClick={()=>this.showSizeList()}
                     >
-                        粗細
+                        <img src={Size}/>
+                        <span>粗細</span>
                     </div>
 
                     <div
@@ -309,21 +229,21 @@ class Painting extends React.Component {
                         <div
                             className="choice1"
                             id="size1"
-                            onClick={this.onClick_size1}
+                            onClick={()=>this.onClick_size1()}
                         >
                             細
                         </div>
                         <div
                             className="choice1"
                             id="size2"
-                            onClick={this.onClick_size2}
+                            onClick={()=>this.onClick_size2()}
                         >
                             中
                         </div>
                         <div
                             className="choice1"
                             id="size3"
-                            onClick={this.onClick_size3}
+                            onClick={()=>this.onClick_size3()}
                         >
                             粗
                         </div>
@@ -333,9 +253,9 @@ class Painting extends React.Component {
                         <div
                             className="color"
                             id={this.state.color}
-                            onClick={this.showColrList}
+                            onClick={()=>this.showColorList()}
                         />
-                        顏色
+                        <span>顏色</span>
                     </div>
 
                     <div
@@ -345,48 +265,55 @@ class Painting extends React.Component {
                         <div
                             className="choice"
                             id="black"
-                            onClick={this.onClick_black}
+                            onClick={()=>this.onClick_black()}
                         />
                         <div
                             className="choice"
                             id="red"
-                            onClick={this.onClick_red}
+                            onClick={()=>this.onClick_red()}
                         />
                         <div
                             className="choice"
                             id="white"
-                            onClick={this.onClick_white}
+                            onClick={()=>this.onClick_white()}
                         />
                         <div
                             className="choice"
                             id="yellow"
-                            onClick={this.onClick_yellow}
+                            onClick={()=>this.onClick_yellow()}
                         />
                         <div
                             className="choice"
                             id="green"
-                            onClick={this.onClick_green}
+                            onClick={()=>this.onClick_green()}
                         />
                         <div
                             className="choice"
                             id="blue"
-                            onClick={this.onClick_blue}
+                            onClick={()=>this.onClick_blue()}
                         />
                     </div>
                     <div
                         className="button2"
                         id="reset1"
-                        onClick={this.onClick_reset}
+                        onClick={()=>this.onClick_reset()}
                     >
-                        清空
+                        <img src={Reset}/>
+                        <span>清空</span>
                     </div>
                 </div>
                 <div
                     className="paintingfield"
-                    id={this.state.isEnlarge ? "bigger" : ""}
                     ref="paintingfield"
                 >
-                    <canvas className="whiteboard" ref="whiteboard" />
+                    <canvas 
+                        className="whiteboard" 
+                        ref="whiteboard" 
+                        onMouseDown={(e)=>this.findxy(e,'down')}
+                        onMouseMove={(e)=>this.findxy(e,'move')}
+                        onMouseUp={(e)=>this.findxy(e,'up')}
+                        onMouseOut={(e)=>this.findxy(e,'up')}
+                    />
                 </div>
             </div>
         );

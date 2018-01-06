@@ -303,9 +303,9 @@ io.on("connection", function(socket) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("drawing", data);
         })
-        .on("reset", key => {
+        .on("reset", () => {
             let room = Object.keys(socket.rooms)[1];
-            socket.to(room).emit("reset", key);
+            socket.to(room).emit("reset");
         });
 
     //1028 Andy Added 預約開會

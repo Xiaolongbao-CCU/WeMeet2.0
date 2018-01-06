@@ -27,10 +27,10 @@ class VoiceRecognition extends React.Component {
     render() {
         let RecognitionRecord = [];
         if (this.props.recognitionRecord) {
-            this.props.recognitionRecord.map(record => {
+            this.props.recognitionRecord.forEach((record,index) => {
                 if (record.userID == this.props.localUserID) {
                     RecognitionRecord.push(
-                        <div className="myself-message">
+                        <div className="myself-message" key={index}>
                             <div className="myself-infro">
                                 <img className="image" src="/img/animal1.jpg" />
                                 <div className="name">
@@ -49,7 +49,7 @@ class VoiceRecognition extends React.Component {
                     record.userID !== this.props.localUserID
                 ) {
                     RecognitionRecord.push(
-                        <div className="others-message">
+                        <div className="others-message" key={index}>
                             <div className="others-infro">
                                 <img className="image" src="/img/animal2.jpg" />
                                 <div className="name">

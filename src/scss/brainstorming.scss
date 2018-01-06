@@ -315,47 +315,51 @@
 }
 
 .gametoolbar{
-  box-sizing: border-box;
-  padding: 0.5%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 10%;
   right: 3%;
   width: 6%;
-  height: 38%;
   background-color: #fdfbec;
   border-radius: 6px;
-}
-
-.gametoolbar#bigger{
-  top: 16%;
-  height: 60%;
-  line-height: 687%;
-  font-size: 1.5em;
-}
-
-.button2{
-  float: left;
-  margin-bottom: 10%;
-  width: 95%;
-  height: 23%;
-  text-align: center;
-  line-height: 650%;
-  &:hover{
-    cursor: pointer;
-    opacity: 0.85;
+  .button2{
+    flex:1;
+    width: 95%;
+    display: flex;
+    height:60px;
+    padding:5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+      cursor: pointer;
+      opacity: 0.85;
+    }
+    span{
+      padding:5px 0 5px 0;
+    }
+  }
+  #reset1 img{
+    width:35px;
+  }
+  #size img{
+    width:35px;
+  }
+  #color{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    #black{ 
+      flex:1;
+      width:35px;
+    }
   }
 }
 
-
-.button2#fullscreen{
-  background:transparent url('../img/fullscreen.png') no-repeat top 20% center ;
-  background-size: 75%;
-}
-
-.button2#reset{
-  background:transparent url('../img/reset.png') no-repeat top 20% center ;
-  background-size: 75%;
-}
 
 .button2#dowload{
   background:transparent url("../img/download_excel.png") no-repeat top 20% center ;
