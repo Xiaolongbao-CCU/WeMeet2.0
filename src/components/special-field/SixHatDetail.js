@@ -138,6 +138,7 @@ class SixHatDetail extends React.Component {
                             <div
                                 className="button"
                                 onClick={() => {
+                                    this.props.closeAll();
                                     this.onClick_start();
                                 }}
                             >

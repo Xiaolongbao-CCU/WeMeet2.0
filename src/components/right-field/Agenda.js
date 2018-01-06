@@ -38,7 +38,6 @@ class Agenda extends React.Component {
     componentWillMount() {}
 
     componentDidMount() {
-        this.onClickNewAgenda();
         this.scrollToBottom();
     }
 
@@ -80,7 +79,7 @@ class Agenda extends React.Component {
         if (this.props.agendaList.length > 0) {
             agendaDetail = this.props.agendaList.map(item => {
                 return (
-                    <div className="detail">
+                    <div className="detail" key={item.id}>
                         <div className="checkbox">
                             <AgendaCheckbox
                                 inputKey={item.id}

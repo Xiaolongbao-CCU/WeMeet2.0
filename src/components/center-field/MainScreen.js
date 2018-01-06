@@ -36,7 +36,7 @@ class MainScreen extends React.Component {
         let video = [];
         if (this.props.localVideoURL) {
             video.push(
-                <div className="otheruser">
+                <div className="otheruser" key={this.props.localUserID}>
                     <div className="video">
                         <UserVideo 
                             videoURL={this.props.localVideoURL}
@@ -69,7 +69,7 @@ class MainScreen extends React.Component {
                     }
                 });
                 video.push(
-                    <div className="otheruser">
+                    <div className="otheruser" key={userID}>
                         <div className="video">
                             <UserVideo
                                 videoURL={this.props.remoteStreamURL[userID].url}

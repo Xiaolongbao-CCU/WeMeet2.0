@@ -51,10 +51,8 @@ import VoiceResult from "./left-field/VoiceResult";
 
 //center-field, total 4 components
 import Toolbar from "./center-field/Toolbar";
-import MainScreen from "./center-field/MainScreen";
 import AVcontrol from "./center-field/AVcontrol";
-import GridGame from "./center-field/GridGame";
-import Painting from "./center-field/Painting";
+import CenterField from './center-field/CenterField';
 
 //right-field, total 2 components
 import Agenda from "./right-field/Agenda";
@@ -476,7 +474,7 @@ class Meeting extends React.Component {
                 {this.props.isGridDetailOpen ? (
                     <GirdDetail closeAll={this.closeAll} />
                 ) : null}
-                {this.props.isSixhatDetailOpen ? <SixHatDetail /> : null}
+                {this.props.isSixhatDetailOpen ? <SixHatDetail closeAll={this.closeAll}/> : null}
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? (
@@ -492,16 +490,7 @@ class Meeting extends React.Component {
                 </div>
                 <div className="center-field">
                     <Toolbar Recognizer={this.Recognizer} />
-                    {this.props.isGridOpen ? <GridGame /> : null}
-                    {this.props.isPaintOpen ? <Painting /> : null}
-                    {this.props.isGridOpen || this.props.isPaintOpen ? (
-                        <div className="display-none">
-                            <MainScreen />
-                        </div>
-                    ) : (
-                            <MainScreen />
-                        )}
-
+                    <CenterField isGridOpen={this.props.isGridOpen} isPaintOpen={this.props.isPaintOpen}/>
                     <AVcontrol Chat={this.Chat} Meeting={this} />
                 </div>
                 <div className="right-field">

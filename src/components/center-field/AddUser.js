@@ -29,7 +29,7 @@ class AddUser extends React.Component {
     return (
       <div className="adduser">
         會議網址<br />已複製到剪貼簿！
-        <input id="roomURL" value={this.state.URL}></input>
+        <input id="roomURL" value={this.state.URL} readOnly></input>
       </div>
     );
   }

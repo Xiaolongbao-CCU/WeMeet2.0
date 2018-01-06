@@ -1,4 +1,12 @@
-const agendaList = [];
+const agendaList = [
+	{
+		id: 0,
+		content: '',
+		isAgendaFinished: false,
+		createTime: undefined,
+		finishTime: undefined,
+	},
+];
 
 export default function agenda(state = agendaList, action) {
 	switch (action.type) {
