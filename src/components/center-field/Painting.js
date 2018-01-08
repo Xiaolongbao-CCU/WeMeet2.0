@@ -1,6 +1,5 @@
 import React from "react";
 import socket from "../../socket";
-import Size from '../../img/size.ico';
 import Reset from '../../img/reset.png';
 
 class Painting extends React.Component {
@@ -20,23 +19,17 @@ class Painting extends React.Component {
         this.prevY = 0;
         this.currY = 0;
         this.ctx;
-        this.w;
-        this.h;
-
+        this.onResize = this.onResize.bind(this)
     }
 
     componentWillMount() { }
 
     componentDidMount() {
-        console.log(Size);
-        console.log(Reset);
         let canvas = this.refs.whiteboard;
         this.ctx = canvas.getContext("2d");
-        this.w = canvas.width;
-        this.h = canvas.height;
         this.onResize();
         socket.on("reset", () => {
-            this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.ctx.clearRect(0, 0, this.refs.whiteboard.width, this.refs.whiteboard.height);
         });
         socket.on("drawing", data => {
             onDrawingEvent(data)
@@ -46,6 +39,7 @@ class Painting extends React.Component {
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', this.onResize, false);
         socket.off("drawing");
         socket.off("reset");
     }
@@ -100,10 +94,10 @@ class Painting extends React.Component {
                 this.currY = e.clientY - rect.top
                 this.drawLine(this.prevX,this.prevY,this.currX,this.currY,this.state.color,this.state.size);
                 socket.emit("drawing", {
-                    x0: this.prevX / this.w,
-                    y0: this.prevY / this.h,
-                    x1: this.currX / this.w,
-                    y1: this.currY / this.h,
+                    x0: this.prevX / this.refs.whiteboard.width,
+                    y0: this.prevY / this.refs.whiteboard.height,
+                    x1: this.currX / this.refs.whiteboard.width,
+                    y1: this.currY / this.refs.whiteboard.height,
                     color: this.state.color,
                     size: this.state.size
                 });
@@ -113,17 +107,17 @@ class Painting extends React.Component {
 
     onDrawingEvent(data) {
         this.drawLine(
-            data.x0 * this.w,
-            data.y0 * this.h,
-            data.x1 * this.w,
-            data.y1 * this.h,
+            data.x0 * this.refs.whiteboard.width,
+            data.y0 * this.refs.whiteboard.height,
+            data.x1 * this.refs.whiteboard.width,
+            data.y1 * this.refs.whiteboard.height,
             data.color,
             data.size
         );
     }
 
     onClick_reset() {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.ctx.clearRect(0, 0, this.refs.whiteboard.width, this.refs.whiteboard.height);
         socket.emit("reset");
     }
 
@@ -218,7 +212,6 @@ class Painting extends React.Component {
                         id={this.state.size_id}
                         onClick={()=>this.showSizeList()}
                     >
-                        <img src={Size}/>
                         <span>粗細</span>
                     </div>
 
@@ -265,38 +258,38 @@ class Painting extends React.Component {
                         <div
                             className="choice"
                             id="black"
-                            onClick={()=>this.onClick_black()}
+                            onClick={()=>{this.onClick_black()}}
                         />
                         <div
                             className="choice"
                             id="red"
-                            onClick={()=>this.onClick_red()}
+                            onClick={()=>{this.onClick_red()}}
                         />
                         <div
                             className="choice"
                             id="white"
-                            onClick={()=>this.onClick_white()}
+                            onClick={()=>{this.onClick_white()}}
                         />
                         <div
                             className="choice"
                             id="yellow"
-                            onClick={()=>this.onClick_yellow()}
+                            onClick={()=>{this.onClick_yellow()}}
                         />
                         <div
                             className="choice"
                             id="green"
-                            onClick={()=>this.onClick_green()}
+                            onClick={()=>{this.onClick_green()}}
                         />
                         <div
                             className="choice"
                             id="blue"
-                            onClick={()=>this.onClick_blue()}
+                            onClick={()=>{this.onClick_blue()}}
                         />
                     </div>
                     <div
                         className="button2"
                         id="reset1"
-                        onClick={()=>this.onClick_reset()}
+                        onClick={()=>{this.onClick_reset()}}
                     >
                         <img src={Reset}/>
                         <span>清空</span>

@@ -25,6 +25,6 @@ export {
 	paint,
 	sixhat,
 	reservation,
-	brainStorming
+	brainStorming,
 };
 

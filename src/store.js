@@ -29,7 +29,7 @@ let appReducer = combineReducers({
 	paint,
 	sixhat,
 	reservation,
-	brainStorming
+	brainStorming,
 });
 
 const rootReducer = (state, action) => {

@@ -11,6 +11,7 @@ import {
     addRemoteStreamURL
 } from "../../actions/Actions";
 import socket from "../../socket";
+import DetectRTC from '../../lib/detect';
 
 class AVcontrol extends React.Component {
     constructor(props) {
@@ -67,7 +68,15 @@ class AVcontrol extends React.Component {
     }
 
     onClick_startShare() {
-
+        DetectRTC.screen.getChromeExtensionStatus((status)=>{
+            if(status !== 'installed-enabled') {
+                let r = confirm('請安裝插件，以進行螢幕分享')
+                if (r) window.open('https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk/support')
+                return;               
+            } else {
+                
+            }
+        });
         let thisComponent = this;
         if (window.shareScreen && Object.keys(window.shareScreen).length > 0) {
             //可以直接撥打

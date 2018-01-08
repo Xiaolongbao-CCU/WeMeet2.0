@@ -45,7 +45,7 @@ class ReservationDetail extends React.Component {
                     date.hours.toString().padLeft(2, "0") +
                     date.minutes.toString().padLeft(2, "0") +
                     date.seconds.toString().padLeft(2, "0");
-                element.value = inputdate
+                element.value = inputdate;
             }
         });
     }
@@ -113,12 +113,10 @@ class ReservationDetail extends React.Component {
 
     render() {
         return (
-            <div className="reservation-detail" id="Fadein">
+            <div className="reservation-detail" id="Fadein" onClick={e=>{e.stopPropagation()}}>
                 <div className="input-field bigtitle">預約開會</div>
                 <div className="input-field">
-                    <span>
-                        <img className="img" src={Calendar} />
-                    </span>
+                    <img className="img" src={Calendar} />
                     <span className="title">開會日期</span>
                     <input
                         className="content"
@@ -129,9 +127,7 @@ class ReservationDetail extends React.Component {
                     <input type="hidden" id="date" ref="date" />
                 </div>
                 <div className="input-field">
-                    <span>
-                        <img className="img" src={Location} />
-                    </span>
+                    <img className="img" src={Location} />
                     <span className="title">開會地點</span>
                     <input
                         className="content"
@@ -141,9 +137,7 @@ class ReservationDetail extends React.Component {
                     />
                 </div>
                 <div className="input-field">
-                    <span>
-                        <img className="img" src={Aim} />
-                    </span>
+                    <img className="img" src={Aim} />
                     <span className="title">開會主題</span>
                     <input
                         className="content"
@@ -153,9 +147,7 @@ class ReservationDetail extends React.Component {
                     />
                 </div>
                 <div className="input-field">
-                    <span>
                         <img className="img" src={Note} />
-                    </span>
                     <span className="title">備註</span>
                     <input
                         className="content"

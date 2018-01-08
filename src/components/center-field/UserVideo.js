@@ -13,8 +13,9 @@ import Animal8 from '../../img/animal8.jpg';
 class UserVideo extends React.Component {
 	
     onClickSmallScreen(e) {
-		this.props.MainScreen.setState({
-			focusingOnWhichUser: {
+		this.props.dispatch({
+			type:'focusUser', 
+			data:{
                 id: this.props.userID,
                 url: this.props.videoURL,
                 animalNumber: this.props.animal
@@ -29,7 +30,7 @@ class UserVideo extends React.Component {
 					autoPlay
 					muted
 					onClick={() => {
-						this.onClickSelfStream();
+						this.onClickSmallScreen();
 					}}
 				>
 					<source src={this.props.videoURL} />

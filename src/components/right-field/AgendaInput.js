@@ -41,7 +41,7 @@ class AgendaInput extends React.Component {
 			return (
 				<input
 					className="text"
-					style={{textDecoration: 'line-through', background: 'transparent'}}
+					style={{textDecoration: 'line-through'}}
                     id={this.props.inputKey}
 					value={this.props.content}
 					onChange={(e) => {
@@ -51,7 +51,6 @@ class AgendaInput extends React.Component {
 						this.onClickEnter(e);
 					}}
 					maxLength="10"
-					readOnly="readonly"
 					placeholder="點此輸入議程內容"
 				/>
 			);
@@ -66,7 +65,6 @@ class AgendaInput extends React.Component {
 				onKeyUp={(e) => {
 					this.onClickEnter(e);
 				}}
-				readOnly=""
 				placeholder="點此輸入議程內容"
 			/>
 		);

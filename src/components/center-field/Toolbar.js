@@ -11,6 +11,8 @@ import ReservationDetail from "./ReservationDetail";
 // Other
 import MeetingTime from "./MeetingTime";
 import VoiceStatus from "./VoiceStatus";
+import Reservation from '../../img/reservation.png';
+
 import {
     setGridDetailOpen,
     setGridStart,
@@ -46,9 +48,7 @@ class Toolbar extends React.Component {
 
     componentWillMount() {}
 
-    componentDidMount() {
-        this.refs.VoteDetail.style.display = "none";
-    }
+    componentDidMount() {} 
 
     closeAll(){
         if(this.props.isGridOpen){
@@ -158,18 +158,17 @@ class Toolbar extends React.Component {
                     id="reservation"
                     onClick={()=>{this.onClick_ToggleReservation()}}
                 >
-                    <div className="hovertext" id="reservation">
+                    <div className="hovertext" id="reservationHover">
                         預約開會
                     </div>
+                    {this.props.isRerservationDetailOpen ? (
+                        <ReservationDetail
+                            closeReservation={() => {
+                                this.closeReservation();
+                            }}
+                        />
+                    ) : null}
                 </div>
-
-                {this.props.isRerservationDetailOpen ? (
-                    <ReservationDetail
-                        closeReservation={() => {
-                            this.closeReservation();
-                        }}
-                    />
-                ) : null}
 
                 <div
                     className="toolbar-button"
@@ -179,13 +178,12 @@ class Toolbar extends React.Component {
                     <div className="hovertext" id="brainstorming">
                         腦力激盪
                     </div>
-                </div>
-
-                {this.props.isBrainstormingOpen ? (
+                    {this.props.isBrainstormingOpen ? (
                     <Brainstorming
                         closeBrainStorming={this.closeBrainStorming}
                     />
                 ) : null}
+                </div>
 
                 <div
                     className="toolbar-button"
@@ -197,30 +195,18 @@ class Toolbar extends React.Component {
                     <div className="hovertext" id="adduser">
                         邀請
                     </div>
+                    {this.state.isAddUserOpen? <AddUser />: null}
                 </div>
-
-                {this.state.isAddUserOpen ? <AddUser /> : null}
 
                 <div
                     className="toolbar-button"
                     id="vote"
                     onClick={()=>{this.onClick_ToggleVotePage()}}
                 >
-                    <div className="hovertext" id="vote">
-                        投票
-                    </div>
+                    <div className="hovertext" id="vote">投票</div>
+                    {this.props.isVotingDetailOpen? <VoteDetail />:null}
                 </div>
 
-                <div
-                    ref="VoteDetail"
-                    style={{
-                        display: this.props.votingDetail.isVotingDetailOpen
-                            ? "block"
-                            : "none"
-                    }}
-                >
-                    <VoteDetail />
-                </div>
 
                 <div
                     className="toolbar-button"

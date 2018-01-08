@@ -1,5 +1,3 @@
-"use strict";
-
 import React from "react";
 import { connect } from "react-redux";
 import SixHatGame from "./SixHatGame";
@@ -12,25 +10,16 @@ class MainScreen extends React.Component {
         super(props);
         this.state = {
             //使用者資訊，是一個巢狀物件，分別會有first-無限多個子物件
-            focusingOnWhichUser: {
-                id: this.props.localUserID,
-                url: this.props.localVideoURL,
-                animalNumber: this.props.participantList[0].num || '0'
-            },
+            focusingOnWhichUser: this.props.localUserID
         };
     }
 
     componentWillMount() {
-        this.setState({
-            focusingOnWhichUser: {
-                id: this.props.localUserID,
-                url: this.props.localVideoURL,
-                animalNumber: this.props.participantList[0].num
-            }
-        });
+        
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     render() {
         let video = [];
@@ -55,7 +44,7 @@ class MainScreen extends React.Component {
             );
         }
         if (this.props.remoteStreamURL) {
-            Object.keys(this.props.remoteStreamURL).map(userID => {
+            Object.keys(this.props.remoteStreamURL).forEach(userID => {
                 let remoteAnimalName;
                 this.props.participantList.forEach(userObj => {
                     if (userObj.id == userID) {
@@ -77,6 +66,7 @@ class MainScreen extends React.Component {
                                 animal={remoteAnimalNumber}
                                 callback={this.onClick_otherUserStream}
                                 userID={userID}
+                                MainScreen={this}
                             />
                         </div>
                         <UserInfo   
@@ -91,20 +81,20 @@ class MainScreen extends React.Component {
             });
         }
         let bigScreen;
-        if (this.state.focusingOnWhichUser.url === this.props.localVideoURL) {
-            let isShareScreen = this.props.isLocalShareScreen ? 'stream-shareScreen' : 'stream-video'
+        if (this.state.focusingOnWhichUser === this.props.localUserID) {
+            //let isShareScreen = this.props.isLocalShareScreen ? 'stream-shareScreen' : 'stream-video'
             bigScreen = 
             <BigScreen 
                 isStreaming={this.props.isStreaming}
                 isSixhatOpen={this.props.isSixhatOpen}
                 videoURL={this.props.localVideoURL}
-                isShareScreen={isShareScreen}
+                isShareScreen='stream-video'
                 animal={this.props.participantList[0].num}
             />
         } else {
-            let focusUserID = this.state.focusingOnWhichUser.id;
-            let isShareScreen = this.props.remoteStreamURL[focusUserID].isShareScreen ? 'stream-shareScreen' : 'stream-video'
-            if(this.props.remoteStreamURL[focusUserID].url && this.props.remoteStreamURL[focusUserID].isStreaming){
+            let focusUserID = this.state.focusingOnWhichUser;
+            //let isShareScreen = this.props.remoteStreamURL[focusUserID].isShareScreen ? 'stream-shareScreen' : 'stream-video'
+            if(this.props.remoteStreamURL[focusUserID]){
                 let animal;
                 this.props.participantList.forEach(obj=>{
                     if(obj.id === focusUserID){
@@ -116,17 +106,17 @@ class MainScreen extends React.Component {
                     isStreaming={this.props.remoteStreamURL[focusUserID].isStreaming}
                     isSixhatOpen={this.props.isSixhatOpen}
                     videoURL={this.props.remoteStreamURL[focusUserID].url}
-                    isShareScreen={isShareScreen}
+                    isShareScreen='stream-video'
                     animal={animal}
                 />
             } else {
-                this.setState({
-                    focusingOnWhichUser: {
-                        id: this.props.localUserID,
-                        url: this.props.localVideoURL,
-                        animalNumber: this.props.participantList[0].num
-                    }
-                });
+                // this.setState({
+                //     focusingOnWhichUser: {
+                //         id: this.props.localUserID,
+                //         url: this.props.localVideoURL,
+                //         animalNumber: this.props.participantList[0].num
+                //     }
+                // });
             }
         }
         return (

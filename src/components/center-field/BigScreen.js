@@ -21,22 +21,22 @@ class BigScreen extends React.Component {
                         id={this.props.isShareScreen}
                     />
                 )
+            } else {
+                return (
+                    <Fullscreen
+                        enabled={this.state.isFullscreenEnabled}
+                        onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}
+                    >
+                        <video
+                                onClick={() => this.setState({isFullscreenEnabled: true})}
+                                src={this.props.videoURL}
+                                autoPlay={true}
+                                muted={true}
+                                id={this.props.isShareScreen}
+                        />
+                    </Fullscreen>
+                )
             }
-            return (
-                <Fullscreen
-                    enabled={this.state.isFullscreenEnabled}
-                    onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}
-                >
-                    <video
-                            onClick={() => this.setState({isFullscreenEnabled: true})}
-                            src={this.props.videoURL}
-                            autoPlay={true}
-                            muted={true}
-                            id={this.props.isShareScreen}
-                    />
-                </Fullscreen>
-            )
-            
         } else {
             if(this.props.isSixhatOpen){
                 return(
@@ -45,12 +45,13 @@ class BigScreen extends React.Component {
                         src={`/img/animal${this.props.animal}.jpg`}
                     />
                 )
+            } else {
+                return(
+                    <img
+                        src={`/img/animal${this.props.animal}.jpg`}
+                    />
+                )
             }
-            return(
-                <img
-                    src={`/img/animal${this.props.animal}.jpg`}
-                />
-            )
         }
     }
 }
