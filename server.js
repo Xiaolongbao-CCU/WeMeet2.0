@@ -1,6 +1,5 @@
 //回傳一個具有express的library的物件，當作處理request的Callback
 const express = require("express");
-const ExpressPeerServer = require("peer").ExpressPeerServer;
 const bodyParser = require("body-parser");
 const app = express();
 const fs = require("fs");
@@ -33,17 +32,18 @@ app.use(
         type: "text/plain"
     })
 );
-
-let peerServerOption = {
-    debug: false
-};
-let peerServer =  ExpressPeerServer(server, peerServerOption)
-app.use("/api", peerServer);
-
-
 const io = require("socket.io")(server);
+server.listen(443);
 
-server.listen(8888);
+// peer_server
+var ExpressPeerServer = require('peer').ExpressPeerServer;
+var peerExpress = require('express');
+var peerApp = peerExpress();
+var peerServer = require('https').createServer(option,peerApp);
+var options = { debug: false }
+var peerPort = 8888;
+peerApp.use('/api', ExpressPeerServer(peerServer, options));
+peerServer.listen(peerPort);
 
 let roomList = [];
 let userInRoom = {};
