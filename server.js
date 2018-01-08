@@ -37,7 +37,9 @@ app.use(
 let peerServerOption = {
     debug: false
 };
-app.use("/peerjs", ExpressPeerServer(server, peerServerOption));
+let peerServer =  ExpressPeerServer(server, peerServerOption)
+app.use("/api", peerServer);
+
 
 const io = require("socket.io")(server);
 

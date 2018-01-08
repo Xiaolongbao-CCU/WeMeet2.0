@@ -121,8 +121,8 @@ class AVcontrol extends React.Component {
                             thisComponent.props.localUserID + UUID,
                             {
                                 host: "140.123.174.34",
-                                port: 443,
-                                path: "/peerjs",
+                                port: 8888,
+                                path: "/api",
                                 config:
                                 thisComponent.props.Meeting.configuration
                             }
