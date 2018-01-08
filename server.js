@@ -1,5 +1,3 @@
-"use strict";
-
 //回傳一個具有express的library的物件，當作處理request的Callback
 const express = require("express");
 const ExpressPeerServer = require("peer").ExpressPeerServer;
@@ -43,7 +41,7 @@ app.use("/peerjs", ExpressPeerServer(server, peerServerOption));
 
 const io = require("socket.io")(server);
 
-server.listen(443);
+server.listen(8888);
 
 let roomList = [];
 let userInRoom = {};

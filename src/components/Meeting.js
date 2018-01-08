@@ -150,7 +150,7 @@ class Meeting extends React.Component {
                     window.peerConstructor = Peer;
                     let peer = window.peerConstructor(id, {
                         host: "140.123.174.34",
-                        port: 443,
+                        port: 8888,
                         path: "/peerjs",
                         config: configuration
                     });
