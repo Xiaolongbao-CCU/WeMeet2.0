@@ -149,7 +149,7 @@ class Meeting extends React.Component {
                 } else {
                     window.peerConstructor = Peer;
                     let peer = window.peerConstructor(id, {
-                        host: "140.123.174.34",
+                        host: "wemeet.tw",
                         port: 8888,
                         path: "/api",
                         config: configuration
