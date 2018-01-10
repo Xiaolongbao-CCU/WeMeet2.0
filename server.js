@@ -3,11 +3,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const fs = require("fs");
+const dbschema = require('./src/DBschema');
+const mongoose = require('mongoose');
 //const db = require('./app/lib/db.js');
 
 //HTTPS參數;
 const option = {
-    ca:fs.readFileSync("./src/certificate/ca_bundle.crt"),
+    ca: fs.readFileSync("./src/certificate/ca_bundle.crt"),
     key: fs.readFileSync("./src/certificate/private.key"),
     cert: fs.readFileSync("./src/certificate/certificate.crt")
 };
@@ -39,7 +41,7 @@ server.listen(443);
 var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerExpress = require('express');
 var peerApp = peerExpress();
-var peerServer = require('https').createServer(option,peerApp);
+var peerServer = require('https').createServer(option, peerApp);
 var options = { debug: false }
 var peerPort = 8888;
 peerApp.use('/api', ExpressPeerServer(peerServer, options));
@@ -60,12 +62,12 @@ let animalName = {
 };
 console.log(
     "已啟動伺服器!" +
-        "userInRoom: " +
-        JSON.stringify(userInRoom) +
-        "roomList: " +
-        roomList
+    "userInRoom: " +
+    JSON.stringify(userInRoom) +
+    "roomList: " +
+    roomList
 );
-io.on("connection", function(socket) {
+io.on("connection", function (socket) {
     //console.log("有人連線囉~" + socket.id);
     socket.emit("setRoomList", roomList);
 
@@ -74,7 +76,7 @@ io.on("connection", function(socket) {
     });
 
     //連線到房間內部
-    socket.on("IAmAt", function(location, room) {
+    socket.on("IAmAt", function (location, room) {
         // if (location == "/meeting") {
         //     if (!userInRoom.hasOwnProperty(room)) {
         //         socket.emit("joinRoom");
@@ -92,7 +94,7 @@ io.on("connection", function(socket) {
     // });
 
     socket
-        .on("join", function(room) {
+        .on("join", function (room) {
             console.log(room);
             //將使用者加入房間
             socket.join(room);
@@ -156,7 +158,7 @@ io.on("connection", function(socket) {
         .on("joinFinish", () => {
             socket.emit("joinSuccess");
         })
-        .on("leaveRoom", function() {
+        .on("leaveRoom", function () {
             console.log("有人離開房間囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
             //如果有這房間
@@ -188,7 +190,7 @@ io.on("connection", function(socket) {
             }
             console.log("離開跑完了", userInRoom[room], roomList);
         })
-        .on("disconnecting", function() {
+        .on("disconnecting", function () {
             console.log("有人斷線囉~" + socket.id);
             let room = Object.keys(socket.rooms)[1];
             if (userInRoom[room]) {
@@ -218,7 +220,7 @@ io.on("connection", function(socket) {
         });
 
     socket
-        .on("newParticipantA", function(msgSender, room, userName) {
+        .on("newParticipantA", function (msgSender, room, userName) {
             socket.to(room).emit("newParticipantB", msgSender);
             socket.to(room).emit("setRemoteUserName", {
                 id: msgSender,
@@ -243,7 +245,7 @@ io.on("connection", function(socket) {
                 .emit("setRemoteUserName", { id: sender, name: userName });
         });
     socket
-        .on("setAgenda", function(list) {
+        .on("setAgenda", function (list) {
             let room = Object.keys(socket.rooms)[1];
             socket.to(room).emit("setAgenda", list);
         })
@@ -282,7 +284,7 @@ io.on("connection", function(socket) {
             }
         });
 
-    socket.on("recognitionRecord", function(_history) {
+    socket.on("recognitionRecord", function (_history) {
         let room = Object.keys(socket.rooms)[1];
         //console.log("有結果!")
         socket.to(room).emit("remoteUserRecognitionRecord", _history);
@@ -314,6 +316,23 @@ io.on("connection", function(socket) {
         socket.to(room).emit("AddReservation", data);
     });
 
+    //0110 Andy Added 回饋系統
+    socket.on("sendFeedback", data => {
+        // console.log('收到回饋訊息!要存進資料庫囉');
+        let room = Object.keys(socket.rooms)[1];
+        let Feedback = mongoose.model('Feedback');
+        let feedback = new Feedback({
+            msg: data.msg,
+            create_at: data.create_at
+        });
+        feedback.save(function (err) {
+            var DBstatus = (err ? "存進資料庫失敗" : "存進資料庫成功");
+            console.log(DBstatus);
+            socket.to(room).emit("receiveDBStatus", { DBstatus: DBstatus });
+        })
+    });
+
+
     socket.on("setAllUserRandomHat", randomNumberArray => {
         let room = Object.keys(socket.rooms)[1];
         let hatList = {};
@@ -332,7 +351,7 @@ io.on("connection", function(socket) {
         })
         .on("closeShareScreen", () => {
             let room = Object.keys(socket.rooms)[1];
-            socket.to(room).emit('callCloseShareScreenInvoker',socket.id)
+            socket.to(room).emit('callCloseShareScreenInvoker', socket.id)
         });
 });
 

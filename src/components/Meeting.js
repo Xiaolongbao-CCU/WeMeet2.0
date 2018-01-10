@@ -130,6 +130,7 @@ class Meeting extends React.Component {
             拿socketid
             連線
         */
+
         socket
             .on("gotSocketID", id => {
                 this.localUserID = id;
@@ -474,7 +475,7 @@ class Meeting extends React.Component {
                 {this.props.isGridDetailOpen ? (
                     <GirdDetail closeAll={this.closeAll} />
                 ) : null}
-                {this.props.isSixhatDetailOpen ? <SixHatDetail closeAll={this.closeAll}/> : null}
+                {this.props.isSixhatDetailOpen ? <SixHatDetail closeAll={this.closeAll} /> : null}
                 <div className="left-field">
                     <CVcontrol />
                     {this.props.isInChatNow ? (
@@ -490,7 +491,7 @@ class Meeting extends React.Component {
                 </div>
                 <div className="center-field">
                     <Toolbar Recognizer={this.Recognizer} />
-                    <CenterField isGridOpen={this.props.isGridOpen} isPaintOpen={this.props.isPaintOpen}/>
+                    <CenterField isGridOpen={this.props.isGridOpen} isPaintOpen={this.props.isPaintOpen} />
                     <AVcontrol Chat={this.Chat} Meeting={this} />
                 </div>
                 <div className="right-field">

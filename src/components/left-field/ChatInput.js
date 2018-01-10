@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import socket from "../../socket"
 import {
     addChatRecord,
@@ -25,12 +25,13 @@ class ChatInput extends React.Component {
             7: "老虎",
             8: "狐狸"
         };
-        this.handleInputPressClick = this.handleInputPressClick.bind(this); 
+        this.handleInputPressClick = this.handleInputPressClick.bind(this);
     }
 
     componentWillMount() { }
 
-    componentDidMount() { }
+    componentDidMount() {
+    }
 
     handleInputPressEnter(e) {
         if (e.which == 13) {
@@ -41,12 +42,12 @@ class ChatInput extends React.Component {
     }
 
     handleInputPressClick() {
-        if(this.state.chatInputValue){
+        if (this.state.chatInputValue) {
             //取得現在時間
             let date = new Date();
             //自定義時間格式:Hour-Minute
             let formattedTime = `${date.getHours()}:${(date.getMinutes() < 10 ? "0" : "")}${date.getMinutes()}`
-            let animal = Number(Object.values(this.animalName).indexOf(this.props.animalName))+1
+            let animal = Number(Object.values(this.animalName).indexOf(this.props.animalName)) + 1
             let record = {
                 name: this.props.userName, //0903 Andy Add a Temp
                 userID: this.props.localUserID,
@@ -54,14 +55,14 @@ class ChatInput extends React.Component {
                 sendTime: formattedTime,
                 text: this.state.chatInputValue
             };
-            socket.emit("chatMessage",record)
+            socket.emit("chatMessage", record)
             //加到自己畫面上的
             this.props.dispatch(addChatRecord(record));
             this.setState({
                 chatInputValue: ""
             })
         }
-        
+
     }
 
     handleInputOnChange(e) {
