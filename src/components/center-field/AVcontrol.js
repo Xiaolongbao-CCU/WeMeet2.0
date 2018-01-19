@@ -120,11 +120,13 @@ class AVcontrol extends React.Component {
                         let peer = new window.peerConstructor(
                             thisComponent.props.localUserID + UUID,
                             {
-                                host: "140.123.174.34",
+                                host: "wemeet.tw",
                                 port: 8888,
                                 path: "/api",
+                                secure: true,
                                 config:
-                                thisComponent.props.Meeting.configuration
+                                thisComponent.props.Meeting.configuration,
+                                debug: 3
                             }
                         );
                         window.sharePeer = peer;

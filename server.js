@@ -42,7 +42,7 @@ var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerExpress = require('express');
 var peerApp = peerExpress();
 var peerServer = require('https').createServer(option, peerApp);
-var options = { debug: false }
+var options = { debug: true }
 var peerPort = 8888;
 peerApp.use('/api', ExpressPeerServer(peerServer, options));
 peerServer.listen(peerPort);

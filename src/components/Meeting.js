@@ -153,7 +153,9 @@ class Meeting extends React.Component {
                         host: "wemeet.tw",
                         port: 8888,
                         path: "/api",
-                        config: configuration
+                        secure: true,
+                        config: configuration,
+                        debug: 3
                     });
                     window.Peer = peer;
                     window.Peer.on("call", call => {
