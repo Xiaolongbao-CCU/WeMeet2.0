@@ -3,7 +3,9 @@ bower_componens/
 .sass-cache/
 public/certificate/
 public/bundle.js
+public/img/
 .vscode/launch.json
+src/certificate/
 
 *.scssc
 *.map
