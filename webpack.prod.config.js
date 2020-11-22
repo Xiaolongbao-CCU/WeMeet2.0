@@ -1,11 +1,7 @@
 const path = require("path")
 const webpack = require("webpack")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const extractPlugin = new ExtractTextPlugin({
-	filename: "[name].css",
-	disable: process.env.NODE_ENV === "development"
-})
 
 module.exports = {
 	context: path.resolve(__dirname, "./src"),
@@ -19,6 +15,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js?$/,
+				exclude: /node_modules/,
 				use: [
 					{
 						loader: "babel-loader",
@@ -27,17 +24,21 @@ module.exports = {
 						}
 					}
 				],
-				exclude: /node_modules/
 			},
 			{
-				test: /\.css$/,
-				use: ["style-loader", "css-loader"]
+				test: /\.css$/i,
+				use: [
+					{loader: MiniCssExtractPlugin.loader},
+					{loader: "css-loader"},
+				],
 			},
 			{
-				test: /\.scss$/,
-				use: extractPlugin.extract({
-					use: ["css-loader", "sass-loader"]
-				})
+				test: /\.s[ac]ss$/i,
+				use: [
+					{loader: MiniCssExtractPlugin.loader},
+					{loader: "css-loader"},
+					{loader: "sass-loader"}
+				],
 			},
 			{
 				test: /\.(png|jpg|jpeg|gif|ico)$/,
@@ -48,16 +49,13 @@ module.exports = {
 						name: '[name].[ext]',
 					},
 				}],
-			},
+			}
 		]
 	},
+	plugins: [
+		new MiniCssExtractPlugin()
+	],
 	resolve: {
 		extensions: [".js", ".jsx"]
-	},
-	plugins: [
-		new webpack.DefinePlugin({
-			"process.env.NODE_ENV": '"development"'
-		}),
-		extractPlugin
-	]
+	}
 }
